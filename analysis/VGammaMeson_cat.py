@@ -8,8 +8,8 @@ from utilsHrare import getMClist, getDATAlist, getSkims
 from utilsHrare import computeWeigths, getMesonFromJson, pickTRG, getMVAFromJson
 from utilsHrare import loadCorrectionSet
 
-doSyst = True
-doMVA = True
+doSyst = False #I have change it to false to not run the systematics
+doMVA = False # Now im not doing MVA
 if sys.argv[1]=='isZtag': doMVA = False
 if sys.argv[1]=='isWtag': doMVA = False
 doPlot = True
@@ -86,11 +86,11 @@ CLEAN_JetMes = "{}".format("Sum(goodMeson)>0 ? std::min(deltaR(Jet_eta[goodJets]
 
 CLEAN_JetPH = "{}".format("Sum(goodPhotons)>0 ? std::min(deltaR(Jet_eta[goodJets][0], Jet_phi[goodJets][0], goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]]),deltaR(Jet_eta[goodJets][1], Jet_phi[goodJets][1], goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]])):-999")
 
-with open("/home/submit/mariadlf/Hrare/CMSSW_10_6_27/src/Hrare/analysis/config/selection.json") as jsonFile:
+with open("/work/submit/pdmonte/Hrare2023/analysis/config/selection.json") as jsonFile:
     jsonObject = json.load(jsonFile)
     jsonFile.close()
 
-with open("/home/submit/mariadlf/Hrare/CMSSW_10_6_27/src/Hrare/analysis/config/trigger.json") as trgJsonFile:
+with open("/work/submit/pdmonte/Hrare2023/analysis/config/trigger.json") as trgJsonFile:
     trgObject = json.load(trgJsonFile)
     trgJsonFile.close()
 
@@ -328,6 +328,8 @@ def dfHiggsCand(df):
     if(isVBFlow): GOODOMEGA = "{}".format(getMesonFromJson(mesons, "isVBFlow" , "isOmegaCat"))
     if(isZinv or isGF): GOODOMEGA = "{}".format(getMesonFromJson(mesons, "isZinv", "isOmegaCat"))
     if(isW or isZ): GOODOMEGA = "{}".format(getMesonFromJson(mesons, "VH", "isOmegaCat"))
+	
+    print("----------------------\nGood Omega: ", GOODOMEGA)
 
     if(isPhiCat=="true"):
 
@@ -383,7 +385,7 @@ def dfHiggsCand(df):
 
     if(isOmegaCat=="true"):
 
-        dfbase = (df.Filter("nomega>0").Define("goodMeson","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
+        dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
                   .Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
                   .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
@@ -402,6 +404,8 @@ def dfHiggsCand(df):
                   .Define("goodMeson_trk2_pt", "omega_trk2_pt[goodMeson]")
                   .Define("goodMeson_trk1_eta", "omega_trk1_eta[goodMeson]")
                   .Define("goodMeson_trk2_eta", "omega_trk2_eta[goodMeson]")
+                  .Define("goodMeson_threemass", "omega_threemass[goodMeson]")
+                  .Define("goodMeson_Nphotons", "omega_Nphotons[goodMeson]")
                   .Define("goodMeson_DR","DeltaR(omega_trk1_eta[goodMeson],omega_trk2_eta[goodMeson],omega_trk1_phi[goodMeson],omega_trk2_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
@@ -752,6 +756,8 @@ def DefineContent(branchList,isData):
             "goodMeson_trk2_pt",
             "goodMeson_trk1_eta",
             "goodMeson_trk2_eta",
+            "goodMeson_threemass",
+            "goodMeson_Nphotons",
             "goodMeson_vtx_chi2dof",
             "goodMeson_vtx_prob",
             "goodMeson_sipPV",
@@ -899,7 +905,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "MAR18/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "MAY08/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         print(outputFile)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
@@ -907,7 +913,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
         print("snapshot_tdf DONE")
         print(outputFile)
 
-    if False:
+    if True:
         print("---------------- SUMMARY -------------")
         ## this doens't work with the negative weights
         report = dfFINAL.Report()

@@ -35,7 +35,7 @@
 	{
 	    "name": "isGF",
 	    "type": "isRhoCat",
-	    "file": "weights_mva_feb13/ggH_rho/TMVAClassification_BDTG.weights.xml",
+	    "file": "/home/submit/mariadlf/Hrare/CMSSW_10_6_27/src/Hrare/analysis/weights_mva_feb13/ggH_rho/TMVAClassification_BDTG.weights.xml",
 	    "org": "/work/submit/kyoon/RareHiggs/test/MVAoutput/2023/FEB23/GF_rho_mvas/weights/TMVAClassification_BDTG.weights.xml"
 	},
 	{
@@ -154,7 +154,8 @@
 	{
             "name": "isZinv",
             "type": "isOmegaCat",
-            "definition": "(abs(omega_threemass-0.782)<3*0.008 && omega_kin_mass<(0.77-0.07) && omega_kin_pt>38 && omega_trk1_pt>5 && omega_trk2_pt>5 && omega_kin_valid && omega_iso > 0.9 && omega_Nphotons>0)",
+            "definition_old": "(abs(omega_threemass-0.782)<3*0.008 && omega_kin_mass<(0.77-0.07) && omega_kin_pt>38 && omega_trk1_pt>5 && omega_trk2_pt>5 && omega_kin_valid && omega_iso > 0.9 && omega_Nphotons>0)",
+            "definition": "(omega_iso > 0.9 && omega_kin_pt > 20)",
             "notes":" used for isGF"
         },
 	{
