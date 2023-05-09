@@ -167,7 +167,8 @@
 	{
             "name": "isZinv",
             "type": "isD0StarCat",
-            "definition": "abs(d0_d0Star_3body_mass-2.007)<30*0.02 && d0_d0Star_3body_pt>38 && abs(d0_kin_mass-1.864)<5*0.05 && d0_pion_pt>5 && d0_kaon_pt>5 && d0_kin_valid && d0_iso > 0.9",
+            "definition_old": "abs(d0_d0Star_3body_mass-2.007)<30*0.02 && d0_d0Star_3body_pt>38 && abs(d0_kin_mass-1.864)<5*0.05 && d0_pion_pt>5 && d0_kaon_pt>5 && d0_kin_valid && d0_iso > 0.9",
+            "definition": "(d0_iso > 0.9 && d0_kin_pt > 25)",
             "notes":" used for isGF"
 	}
     ],
