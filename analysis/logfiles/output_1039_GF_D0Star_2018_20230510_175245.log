@@ -1,0 +1,31 @@
+python3 VGammaMeson_cat.py isGFtag isD0StarCat 1039 2018
+
+pass JSON : pass=480000     all=480000     -- eff=100.00 % cumulative eff=100.00 %
+one good PV: pass=480000     all=480000     -- eff=100.00 % cumulative eff=100.00 %
+photon from nano >0 and PV_npvsGood > 0: pass=430395     all=480000     -- eff=89.67 % cumulative eff=89.67 %
+pass triggers: pass=80370      all=430395     -- eff=18.67 % cumulative eff=16.74 %
+At least one good Photon: pass=71804      all=80370      -- eff=89.34 % cumulative eff=14.96 %
+nd0>0     : pass=66897      all=71804      -- eff=93.17 % cumulative eff=13.94 %
+one good D0Star (ptPhi, validfit, ptTracks): pass=53187      all=66897      -- eff=79.51 % cumulative eff=11.08 %
+at least a good meson candidate: pass=53167      all=53187      -- eff=99.96 % cumulative eff=11.08 %
+no leptons: pass=52839      all=53167      -- eff=99.38 % cumulative eff=11.01 %
+0 or 1 jets (pt20, |eta|<4.7) or >=2 with dEta<3: pass=49596      all=52839      -- eff=93.86 % cumulative eff=10.33 %
+1039
+/work/submit/mariadlf/Hrare/D02/2018/ggh-hD0Stargamma-powheg/NANOAOD_02
+961
+961
+480000 entries in the dataset
+lumi equivalent fb 263.2671563801424
+isData =  false
+lumiIntegrated= 39.54  year= 2018
+--------------
+TRIGGER: HLT_Photon35_TwoProngs35
+PHOTONS =  ((Photon_pt>30 and Photon_isScEtaEB and Photon_mvaID_WP90) or (Photon_pt>30 and Photon_isScEtaEE and Photon_mvaID_WP80)) and Photon_pt>38 and Photon_electronVeto and abs(Photon_eta)<2.1
+----------------------
+Good Omega:  (omega_iso > 0.9 && omega_kin_pt > 20)
+----------------------
+Good D0Star:  (d0_iso > 0.9 && d0_kin_pt > 40 && d0_pion_pt > 5 && d0_kaon_pt > 5)
+MAY10/2018/outname_mc1039_GFcat_D0StarCat_2018.root
+snapshot_tdf DONE
+MAY10/2018/outname_mc1039_GFcat_D0StarCat_2018.root
+---------------- SUMMARY -------------
