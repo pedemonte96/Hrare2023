@@ -810,8 +810,8 @@ def DefineContent(branchList,isData):
 
     for branchName in [
             "goodMeson",
-            "goodMeson_DR_D0",
-            "goodMeson_DR_D0Star",
+            #"goodMeson_DR_D0",
+            #"goodMeson_DR_D0Star",
             "goodMeson_mass",
             "goodMeson_massErr",
             "goodMeson_pt",
@@ -821,9 +821,9 @@ def DefineContent(branchList,isData):
             "goodMeson_trk1_eta",
             "goodMeson_trk2_eta",
             "goodMeson_threemass",
-            "goodMeson_three_pt",
+            #"goodMeson_three_pt",
             "goodMeson_Nphotons",
-            "goodMeson_D0Star_photon_pt",
+            #"goodMeson_D0Star_photon_pt",
             "goodMeson_vtx_chi2dof",
             "goodMeson_vtx_prob",
             "goodMeson_sipPV",
@@ -972,7 +972,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "MAY10/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "MAY11/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         print(outputFile)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4

@@ -33,5 +33,5 @@ canvas.cd(5)
 h5.Draw("hist")
 canvas.cd(6)
 h6.Draw("hist")
-canvas.SaveAs("~/public_html/OmegaKinMass_2.png")
+canvas.SaveAs("~/public_html/OmegaSGN.png")
 

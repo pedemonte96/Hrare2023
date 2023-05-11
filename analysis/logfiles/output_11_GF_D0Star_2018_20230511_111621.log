@@ -1,0 +1,31 @@
+python3 VGammaMeson_cat.py isGFtag isD0StarCat 11 2018
+
+pass JSON : pass=24642422   all=24642422   -- eff=100.00 % cumulative eff=100.00 %
+one good PV: pass=24642422   all=24642422   -- eff=100.00 % cumulative eff=100.00 %
+photon from nano >0 and PV_npvsGood > 0: pass=23676989   all=24642422   -- eff=96.08 % cumulative eff=96.08 %
+pass triggers: pass=276027     all=23676989   -- eff=1.17 % cumulative eff=1.12 %
+At least one good Photon: pass=221263     all=276027     -- eff=80.16 % cumulative eff=0.90 %
+nd0>0     : pass=170568     all=221263     -- eff=77.09 % cumulative eff=0.69 %
+one good D0Star (ptPhi, validfit, ptTracks): pass=1037       all=170568     -- eff=0.61 % cumulative eff=0.00 %
+at least a good meson candidate: pass=1036       all=1037       -- eff=99.90 % cumulative eff=0.00 %
+no leptons: pass=1019       all=1036       -- eff=98.36 % cumulative eff=0.00 %
+0 or 1 jets (pt20, |eta|<4.7) or >=2 with dEta<3: pass=953        all=1019       -- eff=93.52 % cumulative eff=0.00 %
+11
+/data/submit/pdmonte/D02/GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8+RunIISummer20UL18MiniAODv2-4cores5k_106X_upgrade2018_realistic_v16_L1v1*
+651
+651
+24642422 entries in the dataset
+lumi equivalent fb 2.2625494884055737
+isData =  false
+lumiIntegrated= 39.54  year= 2018
+--------------
+TRIGGER: HLT_Photon35_TwoProngs35
+PHOTONS =  ((Photon_pt>30 and Photon_isScEtaEB and Photon_mvaID_WP90) or (Photon_pt>30 and Photon_isScEtaEE and Photon_mvaID_WP80)) and Photon_pt>38 and Photon_electronVeto and abs(Photon_eta)<2.1
+----------------------
+Good Omega:  (omega_iso > 0.9 && omega_kin_pt > 20)
+----------------------
+Good D0Star:  (d0_iso > 0.95 && d0_kin_pt > 40 && d0_pion_pt > 15 && d0_kaon_pt > 5 && abs(d0_kin_mass - 1.865) < 2*0.03)
+MAY11/2018/outname_mc11_GFcat_D0StarCat_2018.root
+snapshot_tdf DONE
+MAY11/2018/outname_mc11_GFcat_D0StarCat_2018.root
+---------------- SUMMARY -------------

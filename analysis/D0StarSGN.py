@@ -50,5 +50,5 @@ pad=canvas.cd(10)
 h10.Draw("hist")
 pad=canvas.cd(11)
 h11.Draw("hist")
-canvas.SaveAs("~/public_html/D0StarKinMass.png")
+canvas.SaveAs("~/public_html/D0StarSGN.png")
 

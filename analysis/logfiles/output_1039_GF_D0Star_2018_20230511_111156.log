@@ -1,0 +1,18 @@
+python3 VGammaMeson_cat.py isGFtag isD0StarCat 1039 2018
+
+1039
+/work/submit/mariadlf/Hrare/D02/2018/ggh-hD0Stargamma-powheg/NANOAOD_02
+961
+961
+480000 entries in the dataset
+lumi equivalent fb 263.2671563801424
+isData =  false
+lumiIntegrated= 39.54  year= 2018
+--------------
+TRIGGER: HLT_Photon35_TwoProngs35
+PHOTONS =  ((Photon_pt>30 and Photon_isScEtaEB and Photon_mvaID_WP90) or (Photon_pt>30 and Photon_isScEtaEE and Photon_mvaID_WP80)) and Photon_pt>38 and Photon_electronVeto and abs(Photon_eta)<2.1
+----------------------
+Good Omega:  (omega_iso > 0.9 && omega_kin_pt > 20)
+----------------------
+Good D0Star:  (d0_iso > 0.95 && d0_kin_pt > 40 && d0_pion_pt > 15 && d0_kaon_pt > 5 && abs(d0_kin_mass - 1.865) < 2*0.03)
+MAY11/2018/outname_mc1039_GFcat_D0StarCat_2018.root

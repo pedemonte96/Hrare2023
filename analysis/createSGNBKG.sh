@@ -4,10 +4,12 @@ CYAN='\033[0;32m'
 NC='\033[0m' # No Color
 
 year="2018"
-part="isD0StarCat"
+#part="isD0StarCat"
+part="isOmegaCat"
 cat="isGFtag"
 
-for num in "1039" "10" "11" "12" "13" "14"
+#for num in "1039" "10" "11" "12" "13" "14"
+for num in "1037" "1040"
 do
 	LOGFILE="logfiles/output_${num}_${cat:2:-3}_${part:2:-3}_${year}_$(date '+%Y%m%d_%H%M%S').log"
 	if [ -f "$LOGFILE" ]; then
@@ -15,10 +17,10 @@ do
 	fi
 
 	now1=$(date +'%H:%M:%S')
-	if [ $num == "1039" ]; then
-		echo -e "$CYAN[$now1]$NC Creating ${part:2: -3} signal ${num}..."
+	if [ $num -ge "1037" ]; then
+		echo -e "$CYAN[$now1]$NC Creating ${part:2:-3} ${cat:2:-3} signal ${num}..."
 	else
-		echo -e "$CYAN[$now1]$NC Creating ${part:2: -3} background ${num}..."
+		echo -e "$CYAN[$now1]$NC Creating ${part:2:-3} ${cat:2:-3} background ${num}..."
 	fi
 
 	#sleep 1
