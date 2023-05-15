@@ -377,7 +377,8 @@ def SwitchSample(argument,year):
         1037: (dirLocalNEW2+"ggh-homegagamma-powheg"+"/NANOAOD_02",48580*0.892), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HomegaGamma)=1 BR(omega->pipipi0)=89.2
         1038: (dirLocalNEW2+"ggh-hK0Stargamma-powheg_2"+"/NANOAOD_02",48580), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HkstaraGamma)=1
         1039: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_02",48580*0.0389), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HDstaraGamma)=1
-        1040: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg"+"/NANOAOD_02",48580*0.153), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
+        #1040: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg"+"/NANOAOD_02",48580*0.153), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
+        1040: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg_03_test"+"/NANOAOD_03_test",48580*0.153), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
         #
         1019: (dirLocalNEW+"vbf-hphiKLKSgamma-powheg"+"/NANOAOD_01",3781.7*0.24), # xsec = 4pb * BR(Hphigamma)=1 BR(phi->kLkS)=0.24
         #

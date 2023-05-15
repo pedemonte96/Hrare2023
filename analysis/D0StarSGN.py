@@ -2,8 +2,10 @@ import ROOT
 
 ROOT.ROOT.EnableImplicitMT()
 
+date = "MAY09"
+
 chain = ROOT.TChain("events");
-chain.Add("/work/submit/pdmonte/Hrare2023/analysis/MAY09/2018/outname_mc1039_GFcat_D0StarCat_2018.root")
+chain.Add("/work/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 

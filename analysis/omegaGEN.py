@@ -5,8 +5,10 @@ ROOT.ROOT.EnableImplicitMT()
 if "/work/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
 	ROOT.gSystem.CompileMacro("/work/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
 
+date = "MAY11"
+
 chain = ROOT.TChain("events");
-chain.Add("/work/submit/pdmonte/Hrare2023/analysis/MAY11/2018/outname_mc1037_GFcat_OmegaCat_2018.root")
+chain.Add("/work/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1037_GFcat_OmegaCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 

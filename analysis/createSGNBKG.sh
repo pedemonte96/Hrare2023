@@ -9,7 +9,7 @@ part="isOmegaCat"
 cat="isGFtag"
 
 #for num in "1039" "10" "11" "12" "13" "14"
-for num in "1037" "1040"
+for num in "1040"
 do
 	LOGFILE="logfiles/output_${num}_${cat:2:-3}_${part:2:-3}_${year}_$(date '+%Y%m%d_%H%M%S').log"
 	if [ -f "$LOGFILE" ]; then
