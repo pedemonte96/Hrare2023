@@ -390,18 +390,44 @@ Vec_f getTwoBody4MomentumGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPar
 
 Vec_f getMinimum(Vec_f v1, Vec_f v2){
 	Vec_f output = {};
-	if (!v1.empty() && !v2.empty()){
-		output.push_back(min(v1[0], v2[0]));
+	if (!v1.empty() && !v2.empty() && v1.size() == v2.size()){
+		for (unsigned int i = 0; i < v1.size(); i++){
+			output.push_back(min(v1[i], v2[i]));
+		}
 	}
 	return output;
 }
 
 Vec_f getMaximum(Vec_f v1, Vec_f v2){
 	Vec_f output = {};
-	if (!v1.empty() && !v2.empty()){
-		output.push_back(max(v1[0], v2[0]));
+	if (!v1.empty() && !v2.empty() && v1.size() == v2.size()){
+		for (unsigned int i = 0; i < v1.size(); i++){
+			output.push_back(max(v1[i], v2[i]));
+		}
 	}
 	return output;
+}
+
+bool ifAllLessThan(Vec_f v1, float bound){
+	if (v1.size() == 0)
+		return false;
+	for (unsigned int i = 0; i < v1.size(); i++){
+		if(v1[i] >= bound){
+			return false;
+		}
+	}
+	return true;
+}
+
+bool ifAllGreaterThan(Vec_f v1, float bound){
+	if (v1.size() == 0)
+		return false;
+	for (unsigned int i = 0; i < v1.size(); i++){
+		if(v1[i] <= bound){
+			return false;
+		}
+	}
+	return true;
 }
 
 #endif

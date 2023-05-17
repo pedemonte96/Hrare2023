@@ -2,7 +2,8 @@ import ROOT
 
 ROOT.ROOT.EnableImplicitMT()
 
-date = "MAY11"
+#date = "MAY15"
+date = "MAY16"
 
 chainSGN = ROOT.TChain("events");
 chainSGN.Add("/work/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
@@ -22,14 +23,14 @@ canvas.Divide(3, 8)
 ROOT.gStyle.SetOptFit(1)
 
 #Kinematic Mass
-h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 100, 1.6, 2.2),"goodMeson_mass", "scale")
-h1BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 100, 1.6, 2.2),"goodMeson_mass", "scale")
+h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 50, 1.6, 2.1),"goodMeson_mass", "scale")
+h1BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 50, 1.6, 2.1),"goodMeson_mass", "scale")
 h1SGN.SetFillColor(ROOT.kGreen-9)
 h1BKG.SetFillColor(ROOT.kRed-9)
 
 p=canvas.cd(1)
 h1SGN.Draw("hist")
-h1SGN.Fit("gaus", "E", "", 1.75, 2.00)
+h1SGN.Fit("gaus", "E", "", 1.805, 1.925)
 h1SGN.Draw("func same")
 
 p=canvas.cd(2)
@@ -105,8 +106,8 @@ legend8.AddEntry(h8BKG.GetValue(), "Background", "f")
 legend8.Draw()
 
 #Pion PT
-h5SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Pion PT", 100, 0, 200),"goodMeson_trk1_pt", "scale")
-h5BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Pion PT", 100, 0, 200),"goodMeson_trk1_pt", "scale")
+h5SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Pion PT", 100, 0, 100),"goodMeson_trk1_pt", "scale")
+h5BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Pion PT", 100, 0, 100),"goodMeson_trk1_pt", "scale")
 h5SGN.SetFillColor(ROOT.kGreen-9)
 h5BKG.SetFillColor(ROOT.kRed-9)
 
@@ -125,8 +126,8 @@ legend5.AddEntry(h5BKG.GetValue(), "Background", "f")
 legend5.Draw()
 
 #Kaon PT
-h6SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Kaon PT", 100, 0, 200),"goodMeson_trk2_pt", "scale")
-h6BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Kaon PT", 100, 0, 200),"goodMeson_trk2_pt", "scale")
+h6SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Kaon PT", 100, 0, 100),"goodMeson_trk2_pt", "scale")
+h6BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Kaon PT", 100, 0, 100),"goodMeson_trk2_pt", "scale")
 h6SGN.SetFillColor(ROOT.kGreen-9)
 h6BKG.SetFillColor(ROOT.kRed-9)
 
@@ -145,8 +146,8 @@ legend6.AddEntry(h6BKG.GetValue(), "Background", "f")
 legend6.Draw()
 
 #DR Kaon-Pion
-h3SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 DR Kaon-Pion", 100, 0, 0.2),"goodMeson_DR_D0", "scale")
-h3BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 DR Kaon-Pion", 100, 0, 0.2),"goodMeson_DR_D0", "scale")
+h3SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 DR Kaon-Pion", 100, 0, 0.2),"goodMeson_DR", "scale")
+h3BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 DR Kaon-Pion", 100, 0, 0.2),"goodMeson_DR", "scale")
 h3SGN.SetFillColor(ROOT.kGreen-9)
 h3BKG.SetFillColor(ROOT.kRed-9)
 

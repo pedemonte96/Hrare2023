@@ -29,7 +29,10 @@ h5=df.Define("KaonD0GenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPa
 h6pt=df.Define("TwoBodyPTGen", "getTwoBody4MomentumGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, -321, 211, 421, 423, 1)").Histo1D(("hist", "Two Body D^{0} PT GEN", 200, 0, 200),"TwoBodyPTGen")
 h6m=df.Define("TwoBodyMassGen", "getTwoBody4MomentumGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, -321, 211, 421, 423, 0)").Histo1D(("hist", "Two Body D^{0} Mass GEN", 200, 0, 3.0),"TwoBodyMassGen")
 
-#h8=df.Define("KaonPionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 211, 421, -321, 421)").Histo1D(("hist", "Kaon-Pion DR Gen", 100, 0, 0.2),"KaonPionGenDR")
+h8=df.Define("KaonPionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 211, 421, -321, 421)").Histo1D(("hist", "Kaon-Pion DR Gen", 100, 0, 0.2),"KaonPionGenDR")
+
+h8p=df.Define("Pi0D0GenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 423, 421, 423)").Histo1D(("hist", "Pion0-D0 DR Gen", 100, 0, 0.2),"Pi0D0GenDR")
+h8g=df.Define("PhotonD0GenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 22, 423, 421, 423)").Histo1D(("hist", "Photon-D0 DR Gen", 100, 0, 0.2),"PhotonD0GenDR")
 
 #h9=df.Define("HCandMassGen", "getHCandMass(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 421, 423, 22, 25)").Histo1D(("hist", "H Cand Mass Gen", 100, 0, 200),"HCandMassGen")
 
@@ -82,6 +85,12 @@ canvas.cd(7)
 h6pt.Draw("hist")
 canvas.cd(8)
 h6m.Draw("hist")
+canvas.cd(9)
+h8.Draw("hist")
+canvas.cd(11)
+h8g.Draw("hist")
+canvas.cd(12)
+h8p.Draw("hist")
 
 canvas.SaveAs("~/public_html/D0StarGEN.png")
 

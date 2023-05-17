@@ -18,7 +18,9 @@ h1=df.Define("PhiGenPT", "getPTParticleMother(GenPart_pdgId, GenPart_genPartIdxM
 
 h2=df.Define("HiggsPhotonGenPT", "getPTParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 22, 25)").Histo1D(("hist", "#gamma from Higgs PT GEN", 200, 0, 200),"HiggsPhotonGenPT")
 
-h3=df.Define("Pi0PhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 111, 333, 25)").Define("Pi0PhiGenPTGood", "Pi0PhiGenPT[Pi0PhiGenPT>0]").Histo1D(("hist", "#pi^{0} from #phi PT GEN", 70, 0, 70),"Pi0PhiGenPTGood")
+h3=df.Define("Pi0PhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 111, 333, 25)").Define("Pi0PhiGenPTGood", "Pi0PhiGenPT[Pi0PhiGenPT>0]").Histo1D(("#pi^{0} p_{T}", "p_{T} of #pi^{0} from #phi, generation", 35, 0, 70),"Pi0PhiGenPTGood")
+h3.GetXaxis().SetTitle("p_{T} [GeV]")
+h3.GetYaxis().SetTitle("Events")
 
 
 
@@ -33,8 +35,10 @@ h5sublead=df.Define("PiplusPhiGenPT", "getMinimum(getPTParticleMotherGrandMother
 h6pt=df.Define("ThreeBodyPTGen", "getThreeBody4Momentum(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 111, 211, -211, 333, 1)").Histo1D(("hist", "Three Body #phi PT GEN", 200, 0, 200),"ThreeBodyPTGen")
 h6m=df.Define("ThreeBodyMassGen", "getThreeBody4Momentum(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 111, 211, -211, 333, 0)").Histo1D(("hist", "Three Body #phi Mass GEN", 200, 0, 1.5),"ThreeBodyMassGen")
 
-#h8=df.Define("PionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 333, 333, 25)").Histo1D(("hist", "Pion0-Phi DR Gen", 200, 0, 0.5),"PionGenDR")
+h8=df.Define("PionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 333, 333, 25)").Histo1D(("DR #phi-#pi^{0}", "DR #phi-#pi^{0}, generation", 50, 0, 0.2),"PionGenDR")
 
+h8.GetXaxis().SetTitle("DR [rad]")
+h8.GetYaxis().SetTitle("Events")
 #h8=df.Define("KaonPionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 211, 421, -321, 421)").Histo1D(("hist", "Kaon-Pion DR Gen", 100, 0, 0.2),"KaonPionGenDR")
 
 #h9=df.Define("HCandMassGen", "getHCandMass(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 421, 423, 22, 25)").Histo1D(("hist", "H Cand Mass Gen", 100, 0, 200),"HCandMassGen")
@@ -52,7 +56,8 @@ h2.Draw("hist")
 
 
 canvas.cd(3)
-h3.SetFillColor(ROOT.kRed-9)
+h3.SetFillColor(ROOT.kBlue-6)
+h3.SetLineColor(ROOT.kBlack)
 h3.Draw("hist")
 
 
@@ -94,6 +99,10 @@ canvas.cd(7)
 h6pt.Draw("hist")
 canvas.cd(8)
 h6m.Draw("hist")
+canvas.cd(9)
+h8.SetFillColor(ROOT.kBlue-6)
+h8.SetLineColor(ROOT.kBlack)
+h8.Draw("hist")
 
 canvas.SaveAs("~/public_html/PhiGEN.png")
 

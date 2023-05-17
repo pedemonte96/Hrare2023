@@ -247,7 +247,6 @@ stdVec_i HiggsCandFromRECO(const Vec_f& meson_pt, const Vec_f& meson_eta, const 
     if(wrong_meson_pt[j] <  ptWrongMax) continue;
     ptWrongMax = wrong_meson_pt[j];
   }
-
   // loop over all the phi/rho Cand
   for (unsigned int i=0; i<meson_pt.size(); i++) {
 
@@ -449,7 +448,6 @@ float compute_HiggsVars_var(const float mes_pt, const float mes_eta, const float
   // passing only the one that make the Higgs candidate
   PtEtaPhiMVector p_ph(ph_pt, ph_eta, ph_phi, 0);
   PtEtaPhiMVector p_mes(mes_pt, mes_eta, mes_phi, mes_mass);
-
   PtEtaPhiMVector p_Hig = (p_ph + p_mes);
   float theVar = 0;
   if     (var == 0) theVar = p_Hig.M();
