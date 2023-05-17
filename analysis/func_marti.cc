@@ -166,53 +166,13 @@ Vec_f getDRParticleMotherOneGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_gen
 
 Vec_f getDRParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle1, int idMother1, int idGrandMother1, int idParticle2, int idMother2, int idGrandMother2){
     Vec_f selection = {};
-    Vec_i indexMother1 = {};
-	Vec_i indexGrandMother1 = {};
-	Vec_i indexMother2 = {};
-	Vec_i indexGrandMother2 = {};
-	float phi1 = 0;
-	float phi2 = 0;
-	float eta1 = 0;
-	float eta2 = 0;
-	bool particle1 = false;
-	bool particle2 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-    	
-    	if(genPart_pdgId[i] == idGrandMother1){
-            indexGrandMother1.push_back(i);
-        }
-		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){
-            	indexMother1.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-			if(genPart_pdgId[i] == idParticle1 && !particle1){
-            	phi1 = genPart_phi[i];
-            	eta1 = genPart_eta[i];
-				particle1 = true;
-        	}
-		}
+	Vec_f phiEta1 = getPhiEtaParticleMotherGrandMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle1, idMother1, idGrandMother1);
+	Vec_f phiEta2 = getPhiEtaParticleMotherGrandMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2, idGrandMother2);
 
-    	if(genPart_pdgId[i] == idGrandMother2){
-            indexGrandMother2.push_back(i);
-        }
-		else if(std::find(indexGrandMother2.begin(), indexGrandMother2.end(), genPart_genPartIdxMother[i]) != indexGrandMother2.end()){
-        	if(genPart_pdgId[i] == idMother2){
-            	indexMother2.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-			if(genPart_pdgId[i] == idParticle2 && !particle2){
-            	phi2 = genPart_phi[i];
-            	eta2 = genPart_eta[i];
-				particle2 = true;
-        	}
-		}
-    }
-	if(particle1 && particle2){
-		selection.push_back(deltaR(eta1, phi1, eta2, phi2));
+	if(phiEta1.size() == 2 && phiEta2.size() == 2){
+		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
 	}
+
     return selection;
 }
 
@@ -462,5 +422,24 @@ bool ifAllGreaterThan(Vec_f v1, float bound){
 	return true;
 }
 
-#endif
+Vec_f getValuesIdParticle(Vec_f values, Vec_i& genPart_pdgId, int idParticle, int equal){
+	Vec_f output = {};
+    if(equal == 0){
+        for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+            if(genPart_pdgId[i] == idParticle){
+                return output;
+            }
+        }
+        return values;
+    }
+    else{
+        for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+            if(genPart_pdgId[i] == idParticle){
+                return values;
+            }
+        }
+        return output;
+    }
+}
 
+#endif

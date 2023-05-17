@@ -14,10 +14,10 @@ df = ROOT.RDataFrame(chain)
 
 canvas = ROOT.TCanvas("canvas", "canvas", 1200, 800)
 
-hg = df.Define("PhotonD0StarGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 22, 423, 421, 423)")\
+hg = df.Define("PhotonD0StarGenDR", "getDRParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 22, 423, 25, 421, 423, 25)")\
 	.Histo1D(("hist", "#gamma from D^{0}* DR GEN", 50, 0, 0.1),"PhotonD0StarGenDR")
 
-hp = df.Define("Pi0D0StarGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 423, 421, 423)")\
+hp = df.Define("Pi0D0StarGenDR", "getDRParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 423, 25, 421, 423, 25)")\
 	.Histo1D(("hist", "#pi^{0} from D^{0}* DR GEN", 50, 0, 0.1),"Pi0D0StarGenDR")
 
 
