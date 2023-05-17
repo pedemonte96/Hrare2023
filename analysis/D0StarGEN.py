@@ -2,13 +2,13 @@ import ROOT
 
 ROOT.ROOT.EnableImplicitMT()
 
-if "/work/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
-	ROOT.gSystem.CompileMacro("/work/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
+if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
+	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
 
 date = "MAY09"
 
 chain = ROOT.TChain("events");
-chain.Add("/work/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
+chain.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 

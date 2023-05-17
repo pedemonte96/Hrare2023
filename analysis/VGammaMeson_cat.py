@@ -88,11 +88,11 @@ CLEAN_JetMes = "{}".format("Sum(goodMeson)>0 ? std::min(deltaR(Jet_eta[goodJets]
 
 CLEAN_JetPH = "{}".format("Sum(goodPhotons)>0 ? std::min(deltaR(Jet_eta[goodJets][0], Jet_phi[goodJets][0], goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]]),deltaR(Jet_eta[goodJets][1], Jet_phi[goodJets][1], goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]])):-999")
 
-with open("/work/submit/pdmonte/Hrare2023/analysis/config/selection.json") as jsonFile:
+with open("/home/submit/pdmonte/Hrare2023/analysis/config/selection.json") as jsonFile:
     jsonObject = json.load(jsonFile)
     jsonFile.close()
 
-with open("/work/submit/pdmonte/Hrare2023/analysis/config/trigger.json") as trgJsonFile:
+with open("/home/submit/pdmonte/Hrare2023/analysis/config/trigger.json") as trgJsonFile:
     trgObject = json.load(trgJsonFile)
     trgJsonFile.close()
 

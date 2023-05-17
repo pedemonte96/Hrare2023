@@ -5,8 +5,8 @@ import fnmatch
 import glob
 from XRootD import client
 
-if "/work/submit/pdmonte/Hrare2023/analysis/functions.so" not in ROOT.gSystem.GetLibraries():
-    ROOT.gSystem.CompileMacro("/work/submit/pdmonte/Hrare2023/analysis/functions.cc","k")
+if "/home/submit/pdmonte/Hrare2023/analysis/functions.so" not in ROOT.gSystem.GetLibraries():
+    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/functions.cc","k")
 
 import correctionlib
 correctionlib.register_pyroot_binding()
