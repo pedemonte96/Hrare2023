@@ -81,6 +81,48 @@ Vec_f getPTParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPar
     return selection;
 }
 
+Vec_f getPhiEtaParticleMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle, int idMother){
+    Vec_f selection = {};
+	Vec_i indexMother = {};
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+        if(genPart_pdgId[i] == idMother){
+            indexMother.push_back(i);
+        }
+		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
+        	if(genPart_pdgId[i] == idParticle){
+            	selection.push_back(genPart_phi[i]);
+            	selection.push_back(genPart_eta[i]);
+				return selection;
+        	}
+		}
+    }
+    return selection;
+}
+
+Vec_f getPhiEtaParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle, int idMother, int idGrandMother){
+    Vec_f selection = {};
+	Vec_i indexMother = {};
+	Vec_i indexGrandMother = {};
+	for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+        if(genPart_pdgId[i] == idGrandMother){
+            indexGrandMother.push_back(i);
+        }
+		else if(std::find(indexGrandMother.begin(), indexGrandMother.end(), genPart_genPartIdxMother[i]) != indexGrandMother.end()){
+        	if(genPart_pdgId[i] == idMother){
+            	indexMother.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
+        	if(genPart_pdgId[i] == idParticle){
+            	selection.push_back(genPart_phi[i]);
+            	selection.push_back(genPart_eta[i]);
+				return selection;
+        	}
+		}
+    }
+    return selection;
+}
+
 float deltaPhi(float phi1, float phi2) {
   float result = phi1 - phi2;
   while (result > float(M_PI)) result -= float(2*M_PI);
@@ -100,35 +142,25 @@ float deltaR(float eta1, float phi1, float eta2, float phi2) {
 
 Vec_f getDRParticleMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle1, int idMother1, int idParticle2, int idMother2){
     Vec_f selection = {};
-    int indexMother1 = 9999;
-    int indexMother2 = 9999;
-	float phi1 = 0;
-	float phi2 = 0;
-	float eta1 = 0;
-	float eta2 = 0;
-	bool particle1 = false;
-	bool particle2 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-        if(genPart_pdgId[i] == idMother1){
-            indexMother1 = i;
-        }
-        if(genPart_pdgId[i] == idMother2){
-            indexMother2 = i;
-        }
-        if(genPart_pdgId[i] == idParticle1 && genPart_genPartIdxMother[i] == indexMother1){//get particle 1
-            phi1 = genPart_phi[i];
-            eta1 = genPart_eta[i];
-			particle1 = true;
-        }
-        if(genPart_pdgId[i] == idParticle2 && genPart_genPartIdxMother[i] == indexMother2){//get particle 2
-            phi2 = genPart_phi[i];
-            eta2 = genPart_eta[i];
-			particle2 = true;
-        }
-    }
-	if(particle1 && particle2){
-		selection.push_back(deltaR(eta1, phi1, eta2, phi2));
+	Vec_f phiEta1 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle1, idMother1);
+	Vec_f phiEta2 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2);
+
+	if(phiEta1.size() == 2 && phiEta2.size() == 2){
+		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
 	}
+
+    return selection;
+}
+
+Vec_f getDRParticleMotherOneGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle1, int idMother1, int idGrandMother1, int idParticle2, int idMother2){
+    Vec_f selection = {};
+	Vec_f phiEta1 = getPhiEtaParticleMotherGrandMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle1, idMother1, idGrandMother1);
+	Vec_f phiEta2 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2);
+
+	if(phiEta1.size() == 2 && phiEta2.size() == 2){
+		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
+	}
+
     return selection;
 }
 
