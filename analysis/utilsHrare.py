@@ -8,6 +8,11 @@ from XRootD import client
 if "/home/submit/pdmonte/Hrare2023/analysis/functions.so" not in ROOT.gSystem.GetLibraries():
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/functions.cc","k")
 
+if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
+    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
+    
+ROOT.gSystem.Load("/home/submit/pdmonte/Hrare2023/analysis/MissingDics/MissingDics.so")
+
 import correctionlib
 correctionlib.register_pyroot_binding()
 

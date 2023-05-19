@@ -8,14 +8,14 @@ if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.G
 date = "MAY16"
 
 chainSGN = ROOT.TChain("events");
-chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
+chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 chainBKG = ROOT.TChain("events");
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc10_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc11_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc12_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc13_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc14_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
@@ -51,7 +51,7 @@ legend.SetMargin(0.27)
 legend.SetBorderSize(0)
 legend.AddEntry(hSGN.GetValue(), "Signal", "f")
 legend.AddEntry(hBKGD0.GetValue(), "Background with D^{0}", "f")
-legend.AddEntry(hBKG.GetValue(), "Background", "f")
+legend.AddEntry(hBKG.GetValue(), "#splitline{Background wrong}{combination}", "f")
 legend.Draw()
 
 canvas.SaveAs("~/public_html/plotsMAY24/D0StarBKG_kin_mass.png")

@@ -8,7 +8,7 @@ if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.G
 date = "MAY11"
 
 chain = ROOT.TChain("events")
-chain.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
+chain.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 

@@ -1,0 +1,48 @@
+import ROOT
+
+ROOT.ROOT.EnableImplicitMT()
+
+if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
+    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
+
+date = "MAY19"
+
+chainSGN = ROOT.TChain("events")
+chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
+
+chainBKG = ROOT.TChain("events")
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_OmegaCat_2018.root".format(date))
+
+df = ROOT.RDataFrame(chainSGN)
+dg = ROOT.RDataFrame(chainBKG)
+
+canvas = ROOT.TCanvas("canvas", "canvas", 1200, 800)
+
+hSGN = df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi charged PT, reconstruction", 100, 0, 200),"goodMeson_charged_pt", "scale")
+hBKG = dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi charged PT, reconstruction", 100, 0, 200),"goodMeson_charged_pt", "scale")
+
+
+hSGN.SetFillColor(ROOT.kGreen-6)
+hSGN.SetLineColor(ROOT.kBlack)
+hBKG.SetFillColor(ROOT.kRed-6)
+hBKG.SetLineColor(ROOT.kBlack)
+
+stack = ROOT.THStack("stack", "#phi charged PT, reconstruction")
+stack.Add(hBKG.GetValue())
+stack.Add(hSGN.GetValue())
+stack.Draw("hist")
+stack.GetXaxis().SetTitle("p_{T}_{2trk}^{#phi#rightarrow #pi#pi} [GeV]")
+stack.GetYaxis().SetTitle("Events")
+
+legend = ROOT.TLegend(0.7, 0.65, 0.8999, 0.89)
+legend.SetMargin(0.27)
+legend.SetBorderSize(0)
+legend.AddEntry(hSGN.GetValue(), "Signal", "f")
+legend.AddEntry(hBKG.GetValue(), "Background", "f")
+legend.Draw()
+
+canvas.SaveAs("~/public_html/plotsMAY24/PhiBKG_kin_pt.png")

@@ -1,17 +1,15 @@
 #!/bin/bash
 
-CYAN='\033[0;32m'
-NC='\033[0m' # No Color
-
 year="2018"
 cat="isGFtag"
 
+
 #Background
-for part in "isD0StarCat"
+for part in "isOmegaCat"
 do
 for num in "10" "11" "12" "13" "14"
 do
-	sleep 1	
+	sleep 0.01
 	#bash createonefile.sh $cat $part $num $year
 
 done

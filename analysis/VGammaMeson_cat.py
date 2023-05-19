@@ -302,6 +302,9 @@ def dfGammaMeson(df,PDType):
     return dfOBJ
 
 def dfHiggsCand(df):
+    
+    #get mc
+    mc = df.AsNumpy(columns=["mc"])["mc"][0]
 
     GOODPHI = ""
     if doMesonMassSB:
@@ -399,10 +402,7 @@ def dfHiggsCand(df):
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
 					#new redefinition
-                  .Define("goodMeson_pt", "omega_Nbody_momentum[goodMeson]")
-                  .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
-                  .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
-                  .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
+                  
 					#new definition of good meson for the phi and omega
                   .Define("goodMeson_charged_pt", "omega_kin_pt[goodMeson]")
                   .Define("goodMeson_charged_eta", "omega_kin_eta[goodMeson]")
@@ -419,11 +419,13 @@ def dfHiggsCand(df):
 #                  .Define("goodMeson_bestVtx_Z", "omega_bestVtx_Z[goodMeson]")
                   .Define("goodMeson_massErr", "omega_kin_massErr[goodMeson]")
                   .Define("goodMeson_trk1_pt", "omega_trk1_pt[goodMeson]")
+                  .Define("goodMeson_leadtrk_pt", "getMaximum(omega_trk1_pt[goodMeson], omega_trk2_pt[goodMeson])")
+                  .Define("goodMeson_subleadtrk_pt", "getMinimum(omega_trk1_pt[goodMeson], omega_trk2_pt[goodMeson])")
                   .Define("goodMeson_trk2_pt", "omega_trk2_pt[goodMeson]")
                   .Define("goodMeson_trk1_eta", "omega_trk1_eta[goodMeson]")
                   .Define("goodMeson_trk2_eta", "omega_trk2_eta[goodMeson]")
                   #.Define("goodMeson_threemass", "omega_threemass[goodMeson]")
-                  .Define("goodMeson_threemass", "omega_Nbody_mass[goodMeson]")
+                  #.Define("goodMeson_threemass", "mc>1000 ? omega_Nbody_mass[goodMeson] : omega_threemass[goodMeson]")
                   .Define("goodMeson_Nphotons", "omega_Nphotons[goodMeson]")
                   .Define("goodMeson_photons_pt", "omega_photon_pt[goodMeson]")
                   .Define("goodMeson_photons_DR","DeltaR(omega_photon_eta[goodMeson],omega_kin_eta[goodMeson],omega_photon_phi[goodMeson],omega_kin_phi[goodMeson])")
@@ -431,6 +433,19 @@ def dfHiggsCand(df):
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
+        if(mc>1000):
+            dfbase = (dfbase.Define("goodMeson_pt", "omega_Nbody_momentum[goodMeson]")
+                .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
+                .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
+                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
+                .Define("goodMeson_threemass", "omega_Nbody_mass[goodMeson]"))
+        else:
+            dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
+                .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
+                .Define("goodMeson_phi", "omega_kin_phi[goodMeson]")
+                .Define("goodMeson_mass", "omega_kin_mass[goodMeson]")
+                .Define("goodMeson_threemass", "omega_threemass[goodMeson]"))
+            
 
     if(isD0StarCat=="true"):
 
@@ -999,7 +1014,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "MAY16/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "outputs/MAY19/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         print(outputFile)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4

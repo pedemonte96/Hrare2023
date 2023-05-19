@@ -37,8 +37,17 @@
 #include <ROOT/RDataFrame.hxx>
 
 
-using Vec_i = ROOT::VecOps::RVec<int>;
+using Vec_b = ROOT::VecOps::RVec<bool>;
+using Vec_d = ROOT::VecOps::RVec<double>;
 using Vec_f = ROOT::VecOps::RVec<float>;
+using Vec_i = ROOT::VecOps::RVec<int>;
+using Vec_ui = ROOT::VecOps::RVec<unsigned int>;
+
+
+using stdVec_i = std::vector<int>;
+using stdVec_b = std::vector<bool>;
+using stdVec_f = std::vector<float>;
+
 typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<float> > PtEtaPhiMVector;
 
 Vec_f getPTParticleMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_pt, int idParticle, int idMother){
@@ -122,7 +131,7 @@ Vec_f getPhiEtaParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_ge
     }
     return selection;
 }
-
+/*
 float deltaPhi(float phi1, float phi2) {
   float result = phi1 - phi2;
   while (result > float(M_PI)) result -= float(2*M_PI);
@@ -139,14 +148,15 @@ float deltaR2(float eta1, float phi1, float eta2, float phi2) {
 float deltaR(float eta1, float phi1, float eta2, float phi2) {
   return std::sqrt(deltaR2(eta1,phi1,eta2,phi2));
 }
-
+*/
 Vec_f getDRParticleMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, Vec_f& genPart_phi, Vec_f& genPart_eta, int idParticle1, int idMother1, int idParticle2, int idMother2){
     Vec_f selection = {};
 	Vec_f phiEta1 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle1, idMother1);
 	Vec_f phiEta2 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2);
 
 	if(phiEta1.size() == 2 && phiEta2.size() == 2){
-		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
+        selection.push_back(ROOT::VecOps::DeltaR(phiEta1[1], phiEta2[1], phiEta1[0], phiEta2[0]));
+		//selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
 	}
 
     return selection;
@@ -158,7 +168,8 @@ Vec_f getDRParticleMotherOneGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_gen
 	Vec_f phiEta2 = getPhiEtaParticleMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2);
 
 	if(phiEta1.size() == 2 && phiEta2.size() == 2){
-		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
+        selection.push_back(ROOT::VecOps::DeltaR(phiEta1[1], phiEta2[1], phiEta1[0], phiEta2[0]));
+		//selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
 	}
 
     return selection;
@@ -170,7 +181,8 @@ Vec_f getDRParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPar
 	Vec_f phiEta2 = getPhiEtaParticleMotherGrandMother(genPart_pdgId, genPart_genPartIdxMother, genPart_phi, genPart_eta, idParticle2, idMother2, idGrandMother2);
 
 	if(phiEta1.size() == 2 && phiEta2.size() == 2){
-		selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
+        selection.push_back(ROOT::VecOps::DeltaR(phiEta1[1], phiEta2[1], phiEta1[0], phiEta2[0]));
+		//selection.push_back(deltaR(phiEta1[1], phiEta1[0], phiEta2[1], phiEta2[0]));
 	}
 
     return selection;

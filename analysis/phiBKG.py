@@ -6,20 +6,23 @@ if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.G
 	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
 
 #date = "MAY15"
-date = "MAY16"
+date = "MAY19"
 
 chainSGN = ROOT.TChain("events")
-chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
+chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
 
+date = "MAY19"
 chainBKG = ROOT.TChain("events")
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc12_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc13_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/{0}/2018/outname_mc14_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_OmegaCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
+
+#df = df.Define("fil", "abs(goodMeson_threemass - 1.002) < 0.2")
 
 canvas = ROOT.TCanvas("canvas", "canvas", 1800, 5000)
 canvas.Divide(3, 13)
@@ -33,7 +36,7 @@ h1BKG.SetFillColor(ROOT.kRed-9)
 
 p=canvas.cd(1)
 h1SGN.Draw("hist")
-h1SGN.Fit("gaus", "E", "", 0.4, 0.8)
+h1SGN.Fit("gaus", "EQ", "", 0.4, 0.8)
 h1SGN.Draw("func same")
 
 p=canvas.cd(2)
