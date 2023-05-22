@@ -466,6 +466,8 @@ def dfHiggsCand(df):
                   .Define("goodMeson_massErr", "d0_kin_massErr[goodMeson]")
                   .Define("goodMeson_trk1_pt", "d0_pion_pt[goodMeson]")
                   .Define("goodMeson_trk2_pt", "d0_kaon_pt[goodMeson]")
+                  .Define("goodMeson_leadtrk_pt", "getMaximum(d0_pion_pt[goodMeson], d0_kaon_pt[goodMeson])")
+                  .Define("goodMeson_subleadtrk_pt", "getMinimum(d0_pion_pt[goodMeson], d0_kaon_pt[goodMeson])")
                   .Define("goodMeson_trk1_eta", "d0_pion_eta[goodMeson]")
                   .Define("goodMeson_trk2_eta", "d0_kaon_eta[goodMeson]")
                   .Define("goodMeson_threemass", "d0_d0Star_3body_mass[goodMeson]")
@@ -849,6 +851,8 @@ def DefineContent(branchList,isData):
             "goodMeson_vtx_chi2dof",
             "goodMeson_vtx_prob",
             "goodMeson_sipPV",
+            "goodMeson_leadtrk_pt",
+            "goodMeson_subleadtrk_pt",
     ]:
         branchList.push_back(branchName)
 
@@ -1014,7 +1018,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "outputs/MAY19/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "outputs/MAY22/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         print(outputFile)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4

@@ -2,8 +2,10 @@ import ROOT
 
 ROOT.ROOT.EnableImplicitMT()
 
-#date = "MAY15"
-date = "MAY16"
+if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
+    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
+
+date = "MAY22"
 
 chainSGN = ROOT.TChain("events");
 chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
@@ -19,7 +21,7 @@ df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
 
 canvas = ROOT.TCanvas("canvas", "canvas", 3000, 5100)
-canvas.Divide(3, 8)
+canvas.Divide(3, 12)
 ROOT.gStyle.SetOptFit(1)
 
 #Kinematic Mass
@@ -184,6 +186,86 @@ legend7 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
 legend7.AddEntry(h7SGN.GetValue(), "Signal", "f")
 legend7.AddEntry(h7BKG.GetValue(), "Background", "f")
 legend7.Draw()
+
+#Track1 PT
+h9SGN=df.Define("scale", "w*lumiIntegrated").Define("leading", "getMaximum(goodMeson_trk1_pt, goodMeson_trk2_pt)").Histo1D(("hist", "Leading track from D0 PT", 100, 0, 100),"leading", "scale")
+h9BKG=dg.Define("scale", "w*lumiIntegrated").Define("leading", "getMaximum(goodMeson_trk1_pt, goodMeson_trk2_pt)").Histo1D(("hist", "Leading track from D0 PT", 100, 0, 100),"leading", "scale")
+h9SGN.SetFillColor(ROOT.kGreen-9)
+h9BKG.SetFillColor(ROOT.kRed-9)
+
+p=canvas.cd(25)
+h9SGN.Draw("hist")
+p=canvas.cd(26)
+h9BKG.Draw("hist")
+p=canvas.cd(27)
+stack9 = ROOT.THStack("stack", "Leading track from D0 PT")
+stack9.Add(h9BKG.GetValue())
+stack9.Add(h9SGN.GetValue())
+stack9.Draw("hist")
+legend9 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+legend9.AddEntry(h9SGN.GetValue(), "Signal", "f")
+legend9.AddEntry(h9BKG.GetValue(), "Background", "f")
+legend9.Draw()
+
+#Track2 PT
+h10SGN=df.Define("scale", "w*lumiIntegrated").Define("sub", "getMinimum(goodMeson_trk1_pt, goodMeson_trk2_pt)").Histo1D(("hist", "Subleading track from D0 PT", 100, 0, 100),"sub", "scale")
+h10BKG=dg.Define("scale", "w*lumiIntegrated").Define("sub", "getMinimum(goodMeson_trk1_pt, goodMeson_trk2_pt)").Histo1D(("hist", "Subleading track from D0 PT", 100, 0, 100),"sub", "scale")
+h10SGN.SetFillColor(ROOT.kGreen-9)
+h10BKG.SetFillColor(ROOT.kRed-9)
+
+p=canvas.cd(28)
+h10SGN.Draw("hist")
+p=canvas.cd(29)
+h10BKG.Draw("hist")
+p=canvas.cd(30)
+stack10 = ROOT.THStack("stack", "Subleading track from D0 PT")
+stack10.Add(h10BKG.GetValue())
+stack10.Add(h10SGN.GetValue())
+stack10.Draw("hist")
+legend10 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+legend10.AddEntry(h10SGN.GetValue(), "Signal", "f")
+legend10.AddEntry(h10BKG.GetValue(), "Background", "f")
+legend10.Draw()
+
+#3mass
+h11SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0* three mass", 100, 1.6, 2.6),"goodMeson_threemass", "scale")
+h11BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0* three mass", 100, 1.6, 2.6),"goodMeson_threemass", "scale")
+h11SGN.SetFillColor(ROOT.kGreen-9)
+h11BKG.SetFillColor(ROOT.kRed-9)
+
+p=canvas.cd(31)
+h11SGN.Draw("hist")
+p=canvas.cd(32)
+h11BKG.Draw("hist")
+p=canvas.cd(33)
+stack11 = ROOT.THStack("stack", "D0* three mass")
+stack11.Add(h11BKG.GetValue())
+stack11.Add(h11SGN.GetValue())
+stack11.Draw("hist")
+legend11 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+legend11.AddEntry(h11SGN.GetValue(), "Signal", "f")
+legend11.AddEntry(h11BKG.GetValue(), "Background", "f")
+legend11.Draw()
+
+#3pt
+h12SGN=df.Define("scale", "w*lumiIntegrated").Define("good", "goodMeson_three_pt[goodMeson_Nphotons>0]").Histo1D(("hist", "D0* three PT", 100, 0, 200),"good", "scale")
+h12BKG=dg.Define("scale", "w*lumiIntegrated").Define("good", "goodMeson_three_pt[goodMeson_Nphotons>0]").Histo1D(("hist", "D0* three PT", 100, 0, 200),"good", "scale")
+h12SGN.SetFillColor(ROOT.kGreen-9)
+h12BKG.SetFillColor(ROOT.kRed-9)
+
+p=canvas.cd(34)
+h12SGN.Draw("hist")
+p=canvas.cd(35)
+h12BKG.Draw("hist")
+p=canvas.cd(36)
+stack12 = ROOT.THStack("stack", "D0* three PT")
+stack12.Add(h12BKG.GetValue())
+stack12.Add(h12SGN.GetValue())
+stack12.Draw("hist")
+legend12 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+legend12.AddEntry(h12SGN.GetValue(), "Signal", "f")
+legend12.AddEntry(h12BKG.GetValue(), "Background", "f")
+legend12.Draw()
 
 canvas.SaveAs("~/public_html/D0StarBKG.png")
 

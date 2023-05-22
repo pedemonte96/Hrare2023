@@ -40,8 +40,8 @@ h8g=df.Define("PhotonD0GenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPa
 
 canvas = ROOT.TCanvas("canvas", "canvas", 1800, 3800)
 canvas.Divide(2, 6)
-#canvas.cd(1)
-#h0.Draw("hist")
+canvas.cd(10)
+h0.Draw("hist")
 canvas.cd(1)
 h1.Draw("hist")
 canvas.cd(2)
