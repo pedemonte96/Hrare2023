@@ -14,11 +14,14 @@ df = ROOT.RDataFrame(chainSGN)
 
 canvas = ROOT.TCanvas("canvas", "canvas", 1200, 800)
 
-h=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Higgs candidate invariant mass, reconstruction", 80, 0, 200),"HCandMass", "scale")
+h=df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", "Higgs candidate invariant mass, reconstruction", 80, 0, 200),"HCandMass", "scale")
 
 
 h.GetXaxis().SetTitle("m_{#gamma D*^{0}}^{H} [GeV]")
 h.GetYaxis().SetTitle("Events")
+
+#ROOT.gStyle.SetTitleH(0.10)
+#ROOT.gStyle.SetTitleW(0.70)
 
 h.SetFillColor(ROOT.kGreen-6)
 h.SetLineColor(ROOT.kBlack)

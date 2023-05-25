@@ -155,7 +155,7 @@
             "name": "isZinv",
             "type": "isOmegaCat",
             "definition_old": "(abs(omega_threemass-0.782)<3*0.008 && omega_kin_mass<(0.77-0.07) && omega_kin_pt>38 && omega_trk1_pt>5 && omega_trk2_pt>5 && omega_kin_valid && omega_iso > 0.9 && omega_Nphotons>0)",
-            "definition_marti": "(omega_iso > 0.95 && omega_kin_pt > 30 && omega_Nbody_momentum > 45 && abs(omega_kin_mass - 0.628) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2 && omega_Nphotons > 0)",
+            "definition_min": "(omega_iso > 0.90 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 10)",
             "definition": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
             "notes":" used for isGF"
         },
