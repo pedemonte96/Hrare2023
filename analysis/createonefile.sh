@@ -41,7 +41,7 @@ echo -e "python3 VGammaMeson_cat.py $cat $part $num $year\n" >> $LOGFILE
 text="${BLU}│${NC}  python3 VGammaMeson_cat.py $cat $part $num $year                 "
 echo -e "${text:0:81}${BLU}│${NC}"
 
-#python3 VGammaMeson_cat.py $cat $part $num $year >> $LOGFILE
+python3 VGammaMeson_cat.py $cat $part $num $year >> $LOGFILE
 
 location="$(grep -m 1 --color=auto 'outputFile' VGammaMeson_cat.py)"
 echo -e "${BLU}│${NC}  Saved at \"${location:22:13}/2018/\"                               ${BLU}│"

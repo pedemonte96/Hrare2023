@@ -8,6 +8,10 @@ from utilsHrare import getMClist, getDATAlist, getSkims
 from utilsHrare import computeWeigths, getMesonFromJson, pickTRG, getMVAFromJson
 from utilsHrare import loadCorrectionSet
 
+from utilsMarti import printTime, printWithTimestamp
+
+verbose = True
+
 doSyst = False #I have change it to false to not run the systematics
 doMVA = False # Now im not doing MVA
 if sys.argv[1]=='isZtag': doMVA = False
@@ -113,12 +117,13 @@ MVA = jsonObject['MVAweights']
 TRIGGERS = trgObject['triggers']
 mesons = jsonObject['mesons']
 
-#$$$$
-#$$$$
-#$$$$
+
+
 
 def selectionTAG(df):
-
+    
+    t1 = printTime(verbose)
+    
     if isZ:
         dftag = (df.Define("goodMuons","{}".format(GOODMUON)+" and Muon_mediumId and Muon_pfRelIso04_all < 0.25") # iso same as the loose
                  .Define("ele_mask", "cleaningMask(Photon_electronIdx[goodPhotons],nElectron)")
@@ -145,9 +150,8 @@ def selectionTAG(df):
                  .Define("LeadingLeptonEta", "isMuorEle==1 ? Muon_eta[looseMu][0]: isMuorEle==2 ? Electron_eta[looseEle][0] :0")
                  .Define("SubLeadingLeptonEta", "isMuorEle==1 ? Muon_eta[looseMu][1]: isMuorEle==2 ? Electron_eta[looseEle][1] :0")
                  )
-        return dftag
 
-    if isW:
+    elif isW:
 
         dftag = (df.Define("goodMuons","{}".format(GOODMUON)+" and Muon_tightId and Muon_pfRelIso04_all < 0.15") ## tight
                  .Define("ele_mask", "cleaningMask(Photon_electronIdx[goodPhotons],nElectron)")
@@ -172,9 +176,8 @@ def selectionTAG(df):
                  .Define("LeadingLeptonPt", "isMuorEle==1 ? Muon_pt[goodMuons][0]: isMuorEle==2 ? Electron_pt[goodElectrons][0] :0")
                  .Define("LeadingLeptonEta", "isMuorEle==1 ? Muon_eta[goodMuons][0]: isMuorEle==2 ? Electron_eta[goodElectrons][0] :0")
                  )
-        return dftag
 
-    if isVBF or isVBFlow:
+    elif isVBF or isVBFlow:
 
         VBFcut = "mJJ>300 and dEtaJJ>3 and Y1Y2<0"
         if isVBFlow: VBFcut = "mJJ>250 and dEtaJJ>3. and Y1Y2<0"
@@ -220,9 +223,8 @@ def selectionTAG(df):
                  .Define("detaHigJet2","compute_jet_HiggsVars_var(Jet_pt[goodJets],Jet_eta[goodJets],Jet_phi[goodJets],Jet_mass[goodJets], photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]], goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]], goodMeson_phi[index_pair[0]], goodMeson_mass[index_pair[0]], 2)")
 #                 .Filter("DeepMETResolutionTune_pt<75","DeepMETResolutionTune_pt<75") # not doing Zinv as nominal
                  )
-        return dftag
 
-    if isZinv:
+    elif isZinv:
         dftag = (df.Define("ele_mask", "cleaningMask(Photon_electronIdx[goodPhotons],nElectron)")
                  .Define("vetoEle","{}".format(LOOSEelectrons))
                  .Define("vetoMu","{}".format(LOOSEmuons))
@@ -246,9 +248,8 @@ def selectionTAG(df):
                  .Define("PV_npvsGoodF","PV_npvsGood*1.0f")
                  .Define("SoftActivityJetNjets5F","SoftActivityJetNjets5*1.0f")
                  )
-        return dftag
 
-    if isGF:
+    elif isGF:
         dftag = (df.Define("ele_mask", "cleaningMask(Photon_electronIdx[goodPhotons],nElectron)")
                  .Define("vetoEle","{}".format(LOOSEelectrons))
                  .Define("vetoMu","{}".format(LOOSEmuons))
@@ -261,13 +262,18 @@ def selectionTAG(df):
                  .Define("SoftActivityJetNjets5F","SoftActivityJetNjets5*1.0f")
                  .Filter("Sum(goodJets)<2 or (Sum(goodJets)>=2 and Jet_pt[goodJets][0]<30) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]>0) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]<0 and abs(Jet_eta[goodJets][0] - Jet_eta[goodJets][1])<3 )","0 or 1 jets (pt20, |eta|<4.7) or >=2 with dEta<3")
                  )
-        return dftag
+    printTime(verbose, t1)
+    
+    return dftag
+
 
 def dfGammaMeson(df,PDType):
+    
+    t1 = printTime(verbose)
 
     TRIGGER=pickTRG(TRIGGERS,year,PDType,isVBF,isW,isZ,(isZinv or isVBFlow or isGF))
 
-    print("--------------\nTRIGGER:", TRIGGER)
+    printWithTimestamp("--------------\nTRIGGER:\n{}".format(TRIGGER), verbose)
 
     GOODphotons = ""
     if(isGF): GOODphotons = "({0} or {1}) and Photon_pt>38 and Photon_electronVeto and abs(Photon_eta)<2.1".format(BARRELphotons,ENDCAPphotons) #90-80
@@ -275,7 +281,8 @@ def dfGammaMeson(df,PDType):
     if(isVBFlow): GOODphotons = "({0} or {1}) and Photon_pt>38 and Photon_pt<75 and Photon_electronVeto and abs(Photon_eta)<2.1".format(BARRELphotons,ENDCAPphotons) #90-80
     if(isZinv): GOODphotons = "({0} or {1}) and Photon_pt>38 and abs(Photon_eta)<2.1 and Photon_electronVeto".format(BARRELphotons,ENDCAPphotons) #90-80
     if(isW or isZ): GOODphotons = "({0} or {1}) and (Photon_pixelSeed == false)".format(BARRELphotons,ENDCAPphotonsLoose) #90-90
-    print("PHOTONS = ", GOODphotons)
+    
+    printWithTimestamp("--------------\nPHOTONS:\n{}".format(GOODphotons), verbose)
 
     dfOBJ = (df.Filter("nPhoton>0 and PV_npvsGood>0","photon from nano >0 and PV_npvsGood > 0")
              .Define("triggerAna","{}".format(TRIGGER))
@@ -299,10 +306,16 @@ def dfGammaMeson(df,PDType):
              .Define("jet_mask", "cleaningMask(Photon_jetIdx[goodPhotons],nJet)")
 #             .Define("jet_mask", "cleaningMask(Photon_jetIdx[loosePhotons],nJet)")
              )
+    
+    printTime(verbose, t1)
+    
     return dfOBJ
 
+
 def dfHiggsCand(df):
-    
+
+    t1 = printTime(verbose)
+
     #get mc
     mc = df.AsNumpy(columns=["mc"])["mc"][0]
 
@@ -341,9 +354,9 @@ def dfHiggsCand(df):
     if(isVBFlow): GOODD0STAR = "{}".format(getMesonFromJson(mesons, "isVBFlow" , "isD0StarCat"))
     if(isZinv or isGF): GOODD0STAR = "{}".format(getMesonFromJson(mesons, "isZinv", "isD0StarCat"))
     if(isW or isZ): GOODD0STAR = "{}".format(getMesonFromJson(mesons, "VH", "isD0StarCat"))
-	
-    print("----------------------\nGood Omega: ", GOODOMEGA)
-    print("----------------------\nGood D0Star: ", GOODD0STAR)
+
+    printWithTimestamp("----------------------\nGood Omega\n:{}".format(GOODOMEGA), verbose)
+    printWithTimestamp("----------------------\nGood D0Star\n:{}".format(GOODD0STAR), verbose)
 
     if(isPhiCat=="true"):
 
@@ -497,11 +510,15 @@ def dfHiggsCand(df):
                .Define("sigmaHCandMass_Rel2","(goodPhotons_energyErr[index_pair[1]]*goodPhotons_energyErr[index_pair[1]])/(goodPhotons_pt[index_pair[1]]*goodPhotons_pt[index_pair[1]]) + (goodMeson_massErr[index_pair[0]]*goodMeson_massErr[index_pair[0]])/(goodMeson_mass[index_pair[0]]*goodMeson_mass[index_pair[0]])")
                .Define("classify","topology(goodPhotons_eta[index_pair[1]], goodMeson_eta[index_pair[0]])")
                )
+    
+    printTime(verbose, t1)
 
     return dfFinal
 
+
 def dfwithSYST(df,year):
 
+    t1 = printTime(verbose)
 
     if df.HasColumn("Photon_dEsigmaUp") and df.HasColumn("Photon_dEsigmaDown"):
 
@@ -650,16 +667,21 @@ def dfwithSYST(df,year):
                      .Define("mesonRECO_weights", "NomUpDownVar(SFmeson_reco_Nom, SFmeson_reco_Up, SFmeson_reco_Dn, w_allSF)")
                      )
 
+    printTime(verbose, t1)
+    
     return dfFinal
+
 
 def dfCommon(df,year,isData,mc,sumw,isVBF,isVBFlow,isGF,isZinv):
 
+    t1 = printTime(verbose)
+    
     lumi = 1.
     weight = "{0}".format(1.)
     if mc>=0: weight = "{0}*genWeight*{1}".format(lumi,sumw)
 
     lumiIntegrated = 1.
-    print('isData = ',isData)
+    printWithTimestamp("isData = {}".format(isData), verbose)
     if (isData == "false"):
         if((isVBF or isW or isZ) and year == 2018): lumiIntegrated = lumis['2018']
         if((isW or isZ) and year == 2017): lumiIntegrated = lumis['2017']
@@ -667,7 +689,7 @@ def dfCommon(df,year,isData,mc,sumw,isVBF,isVBFlow,isGF,isZinv):
         if((isVBF or isW or isZ) and year == 12016): lumiIntegrated = lumis['12016']
         if((isW or isZ) and year == 22016): lumiIntegrated = lumis['22016']
         if((isVBFlow or isGF or isZinv) and year == 2018): lumiIntegrated = lumis['12018']
-        print('lumiIntegrated=',lumiIntegrated, ' year=',year)
+        printWithTimestamp("lumiIntegrated = {} | year = {}".format(lumiIntegrated, year), verbose)
 
     dfComm = (df
               .Define("mc","{}".format(mc))
@@ -679,34 +701,39 @@ def dfCommon(df,year,isData,mc,sumw,isVBF,isVBFlow,isGF,isZinv):
               .Filter("PV_npvsGood>0","one good PV")
               )
 
+    printTime(verbose, t1)
+    
     return dfComm
 
+
 def callMVA(df,isVBF,isVBFlow,isGF,isZinv):
+    
+    t1 = printTime(verbose)
 
     MVAweights = ""
     if(isGF): MVAweights = "{}".format(getMVAFromJson(MVA, "isGF" , sys.argv[2] ))
     if(isVBF): MVAweights = "{}".format(getMVAFromJson(MVA, "isVBF" , sys.argv[2] ))
     if(isVBFlow): MVAweights = "{}".format(getMVAFromJson(MVA, "isVBFlow" , sys.argv[2] ))
     if(isZinv): MVAweights = "{}".format(getMVAFromJson(MVA, "isZinv" , sys.argv[2] ))
-    print(MVAweights)
+    printWithTimestamp(MVAweights, verbose)
 
     NVar = "0"
     if(isGF): NVar = "12"
     if(isVBF): NVar = "13"
     if(isVBFlow): NVar = "13"
     if(isZinv): NVar = "10"
-    print('NVAR=',NVar)
+    printWithTimestamp('NVAR = {}'.format(NVar), verbose)
 
     s ='''
     TMVA::Experimental::RReader model("{0}");
     computeModel = TMVA::Experimental::Compute<{1}, float>(model);
     '''
 
-    print(s.format(MVAweights,NVar))
+    printWithTimestamp(s.format(MVAweights,NVar), verbose)
     ROOT.gInterpreter.ProcessLine(s.format(MVAweights,NVar))
 
     variables = ROOT.model.GetVariableNames()
-    print(variables)
+    printWithTimestamp(variables, verbose)
 
     dfWithMVA = (df.Define("HCandPT__div_sqrtHCandMass", "(HCandMass>0) ? HCandPT/sqrt(HCandMass): 0.f")
                .Define("HCandPT__div_HCandMass", "(HCandMass>0) ? HCandPT/HCandMass: 0.f")
@@ -749,9 +776,14 @@ def callMVA(df,isVBF,isVBFlow,isGF,isZinv):
                .Define("MVAdisc", ROOT.computeModel, list(variables))
                )
 
+    printTime(verbose, t1)
+    
     return dfWithMVA
 
+
 def DefineContent(branchList,isData):
+    
+    t1 = printTime(verbose)
 
     for branchName in [
             "HCandMass",
@@ -947,10 +979,14 @@ def DefineContent(branchList,isData):
         ]:
             branchList.push_back(branchName)
 
+    printTime(verbose, t1)
+    
     return branchList
 
 
 def analysis(df,year,mc,sumw,isData,PDType):
+    
+    t1 = printTime(verbose)
 
     if doTrigger:
         dfCom = dfCommon(df,year,isData,mc,sumw,isVBF,isVBFlow,isGF,isZinv)
@@ -1018,22 +1054,24 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "outputs/MAY23/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
-        print(outputFile)
+        outputFile = "outputs/MAY25/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
         snapshot_tdf = dfFINAL.Snapshot("events", outputFile, branchList, snapshotOptions)
-        print("snapshot_tdf DONE")
-        print(outputFile)
+        printWithTimestamp("snapshot_tdf DONE", verbose)
 
     if True:
-        print("---------------- SUMMARY -------------")
+        printWithTimestamp("---------------- SUMMARY -------------", verbose)
+        print("")
         ## this doens't work with the negative weights
         report = dfFINAL.Report()
+        sys.stdout.flush()
         report.Print()
+        print("")
 
     if doPlot and doSyst and isData == "false" and mc>1000:
-        print("---------------- PLOTTING with SYST -------------")
+        printWithTimestamp("---------------- PLOTTING with SYST -------------", verbose)
         hists = {
             #        "Z_mass":     {"name":"Z_mass","title":"Di Muon mass; m_{#mu^{+}#mu^{-}} (GeV);N_{Events}","bin":500,"xmin":70,"xmax":120},
 #            "V_mass":     {"name":"V_mass","title":"transverse mass; m_{T}(#mu^{+} MET} (GeV);N_{Events}","bin":80,"xmin":40,"xmax":120},
@@ -1098,45 +1136,61 @@ def analysis(df,year,mc,sumw,isData,PDType):
 #        ROOT.ROOT.RDF.RunGraphs(evtcounts)
 
         outputFileHisto = "TEST/{0}/histoname_mc{1}_{2}_{3}_{0}_wSF.root".format(year,mc,catTag,catM,year)
-        print(outputFileHisto)
+        printWithTimestamp(outputFileHisto, verbose)
         myfile = ROOT.TFile(outputFileHisto,"RECREATE")
 
         for h in histos:
             h.Write()
         myfile.Close()
         myfile.Write()
+        
+    printTime(verbose, t1)
 
+        
 def readMCSample(year,sampleNOW):
+    
+    t1 = printTime(verbose)
 
     files = getMClist(year,sampleNOW)
-    print(len(files))
+    printWithTimestamp("Number of files: {}".format(len(files)), verbose)
     #local
     df = ROOT.RDataFrame("Events", files)
 
     sumW = computeWeigths(df, files, sampleNOW, year, True)
     loadCorrectionSet(year)
     analysis(df,year,sampleNOW,sumW,"false","NULL")
+    
+    printTime(verbose, t1)
+    
 
 def readDataSample(year,datasetNumber):
+    
+    t1 = printTime(verbose)
 
     pair = getDATAlist(datasetNumber,year)
     files = pair[0]
     PDType = pair[1]
-    print(len(files))
-    print(PDType)
+    printWithTimestamp("Number of files: {}".format(len(files)), verbose)
+    printWithTimestamp("PDType: {}".format(PDType), verbose)
 
     #local
     df = ROOT.RDataFrame("Events", files)
     nevents = df.Count().GetValue()
-    print("%s entries in the dataset" %nevents)
+    printWithTimestamp("Nr entries in the dataset: {}".format(nevents), verbose)
 
     analysis(df,year,datasetNumber, 1. ,"true",PDType)
+    
+    printTime(verbose, t1)
+    
 
 def readDataSkims(datasetNumber,year,category):
+    
+    t1 = printTime(verbose)
 
-    print("enum",datasetNumber)
-    print("year",year)
-    print("cat",category)
+    printWithTimestamp("enum: {}".format(datasetNumber), verbose)
+    printWithTimestamp("year: {}".format(year), verbose)
+    printWithTimestamp("cat: {}".format(category), verbose)
+
     if (category=="isZtag" or category=="isWtag"):
         pair = getSkims(datasetNumber,year,"VH")
     elif category=="isVBFtag":
@@ -1146,34 +1200,42 @@ def readDataSkims(datasetNumber,year,category):
 
     files = pair[0]
     PDType = pair[1]
-    print(len(files))
-    print(PDType)
+    printWithTimestamp("Number of files: {}".format(len(files)), verbose)
+    printWithTimestamp("PDType: {}".format(PDType), verbose)
 
     #local
     df = ROOT.RDataFrame("Events", files)
     nevents = df.Count().GetValue()
-    print("%s entries in the dataset" %nevents)
+    printWithTimestamp("Nr entries in the dataset: {}".format(nevents), verbose)
 
     analysis(df,year,datasetNumber,1.,"true",PDType)
-    print("***ANALYSIS DONE ***")
+    printWithTimestamp("***ANALYSIS DONE ***", verbose)
+    
+    printTime(verbose, t1)
+    
 
 def runTest():
+    
+    t1 = printTime(verbose)
 
     df = ROOT.RDataFrame("Events", "root://eoscms.cern.ch//eos/cms//store/group/phys_higgs/HiggsExo/dalfonso/Hrare/D01/vbf-hphigamma-powheg/NANOAOD_01/step7_VBS_Phigamma_8.root")
 
     w=1.
     nevents = df.Count().GetValue()
-    print("%s entries in the dataset" %nevents)
+    printWithTimestamp("Nr entries in the dataset: {}".format(nevents), verbose)
 
     sampleNOW=-1
     analysis(df,-1,w,"false")
+    
+    printTime(verbose, t1)
 
-   
+
+    
 if __name__ == "__main__":
-
+    t1 = printTime(verbose)
 #    runTest()
 #    to run: python3 -i VGammaMeson_cat.py isVBFtag isPhiCat 12 2018
-    print(int(sys.argv[3]))
+    printWithTimestamp("int(sys.argv[3]): {}".format(int(sys.argv[3])), verbose)
 
     if ( sys.argv[1]=="isVBFtag" and int(sys.argv[3]) in [ -31, -32, -33, -34, -76, -81, -82, -83, -84, -85, -86, -62, -63, -64, -65, -66]):
         readDataSkims(int(sys.argv[3]),int(sys.argv[4]),sys.argv[1]) # skims VBF
@@ -1196,3 +1258,4 @@ if __name__ == "__main__":
     elif(int(sys.argv[3]) < 0):
         readDataSample(int(sys.argv[4]),int(sys.argv[3]) )  # DATA
     else: readMCSample(int(sys.argv[4]),int(sys.argv[3])) # to switch sample
+    printTime(verbose, t1)

@@ -10,7 +10,7 @@ for part in "isD0StarCat"
 do
 for num in "10" "11" "12" "13" "14"
 do
-	sleep 0.01
+	sleep 0.00001
 	#bash createonefile.sh $cat $part $num $year
 
 done
