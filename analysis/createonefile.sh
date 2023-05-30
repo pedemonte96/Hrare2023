@@ -29,9 +29,9 @@ echo -ne "${ORG}┌────────────────────�
 echo -ne "${BLU}│${ORG}│${NC}"
 now1=$(date +'%H:%M:%S')
 if [ $num -ge "1037" ]; then
-    text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} signal ${num}...${NC}                  "
+    text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} signal ${num}...${NC}                       "
 else
-    text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} background ${num}...${NC}                "
+    text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} background ${num}...${NC}                     "
 fi
 echo -ne "${text:0:88}${ORG}│${BLU}│"
 echo -e "\n${BLU}│${ORG}└─────────────────────────────────────────────────────────────┘${BLU}│${NC}"
@@ -41,7 +41,7 @@ echo -e "python3 VGammaMeson_cat.py $cat $part $num $year\n" >> $LOGFILE
 text="${BLU}│${NC}  python3 VGammaMeson_cat.py $cat $part $num $year                 "
 echo -e "${text:0:81}${BLU}│${NC}"
 
-python3 VGammaMeson_cat.py $cat $part $num $year >> $LOGFILE
+#python3 VGammaMeson_cat.py $cat $part $num $year >> $LOGFILE
 
 location="$(grep -m 1 --color=auto 'outputFile' VGammaMeson_cat.py)"
 echo -e "${BLU}│${NC}  Saved at \"${location:22:13}/2018/\"                               ${BLU}│"

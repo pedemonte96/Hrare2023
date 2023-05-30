@@ -6,10 +6,10 @@ if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.G
 	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
 
 #date = "MAY15"
-date = "MAY19"
+date = "MAY30"
 
 chainSGN = ROOT.TChain("events")
-chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
+chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_Phi3Cat_2018.root".format(date))
 
 date = "MAY19"
 chainBKG = ROOT.TChain("events")

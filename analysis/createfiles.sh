@@ -16,9 +16,14 @@ do
 done
 done
 
+#Signal Omega
+bash createonefile.sh $cat isOmegaCat 1037 $year
+
 #Signal D0Star
 bash createonefile.sh $cat isD0StarCat 1039 $year
 
-#Signal Omega
-#bash createonefile.sh $cat isOmegaCat 1040 $year
+#Signal Phi3
+bash createonefile.sh $cat isPhi3Cat 1040 $year
+
+
 
