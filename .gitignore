@@ -1,4 +1,12 @@
 *.root
 *.log
 *.ipynb_checkpoints
-
+# LaTeX output files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
