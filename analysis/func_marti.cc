@@ -454,4 +454,12 @@ Vec_f getValuesIdParticle(Vec_f values, Vec_i& genPart_pdgId, int idParticle, in
     }
 }
 
+Vec_f sqrt(Vec_f v1){
+	Vec_f output = {};
+    for (unsigned int i = 0; i < v1.size(); i++){
+			output.push_back(std::sqrt(v1[i]));
+	}
+    return output;
+}
+
 #endif

@@ -363,9 +363,6 @@ def dfHiggsCand(df):
     if(isZinv or isGF): GOODPHI3 = "{}".format(getMesonFromJson(mesons, "isZinv", "isPhi3Cat"))
     if(isW or isZ): GOODPHI3 = "{}".format(getMesonFromJson(mesons, "VH", "isPhi3Cat"))
 
-    printWithTimestamp("----------------------\nGood Omega:\n{}".format(GOODOMEGA), verbose)
-    printWithTimestamp("----------------------\nGood D0Star:\n{}".format(GOODD0STAR), verbose)
-    printWithTimestamp("----------------------\nGood Phi3:\n{}".format(GOODPHI3), verbose)
 
     if(isPhiCat=="true"):
 
@@ -421,6 +418,8 @@ def dfHiggsCand(df):
 
     elif(isOmegaCat=="true"):
 
+        printWithTimestamp("----------------------\nGood Omega:\n{}".format(GOODOMEGA), verbose)
+
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
 					#new redefinition
@@ -435,10 +434,11 @@ def dfHiggsCand(df):
                   .Define("goodMeson_vtx_chi2dof", "omega_kin_vtx_chi2dof[goodMeson]")
                   .Define("goodMeson_vtx_prob", "omega_kin_vtx_prob[goodMeson]")
                   .Define("goodMeson_sipPV", "omega_kin_sipPV[goodMeson]")
-#                  .Define("goodMeson_bestVtx_idx", "omega_bestVtx_idx[goodMeson]")
-#                  .Define("goodMeson_bestVtx_X", "omega_bestVtx_X[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Y", "omega_bestVtx_Y[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Z", "omega_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_idx", "omega_bestVtx_idx[goodMeson]")
+                  .Define("goodMeson_bestVtx_X", "omega_bestVtx_X[goodMeson]")
+                  .Define("goodMeson_bestVtx_Y", "omega_bestVtx_Y[goodMeson]")
+                  .Define("goodMeson_bestVtx_Z", "omega_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_R", "sqrt(omega_bestVtx_X[goodMeson]*omega_bestVtx_X[goodMeson]+omega_bestVtx_Y[goodMeson]*omega_bestVtx_Y[goodMeson])")
                   .Define("goodMeson_massErr", "omega_kin_massErr[goodMeson]")
                   .Define("goodMeson_trk1_pt", "omega_trk1_pt[goodMeson]")
                   .Define("goodMeson_leadtrk_pt", "getMaximum(omega_trk1_pt[goodMeson], omega_trk2_pt[goodMeson])")
@@ -471,6 +471,8 @@ def dfHiggsCand(df):
 
     elif(isD0StarCat=="true"):
 
+        printWithTimestamp("----------------------\nGood D0Star:\n{}".format(GOODD0STAR), verbose)
+
         dfbase = (df.Filter("nd0>0", "nd0>0").Define("goodMeson","({}".format(GOODD0STAR)+" && {}".format(isD0StarCat)+")")
                   .Filter("Sum(goodMeson)>0", "one good D0Star (ptPhi, validfit, ptTracks)")
                   .Define("goodMeson_pt", "d0_kin_pt[goodMeson]")
@@ -481,10 +483,11 @@ def dfHiggsCand(df):
                   .Define("goodMeson_vtx_chi2dof", "d0_kin_vtx_chi2dof[goodMeson]")
                   .Define("goodMeson_vtx_prob", "d0_kin_vtx_prob[goodMeson]")
                   .Define("goodMeson_sipPV", "d0_kin_sipPV[goodMeson]")
-#                  .Define("goodMeson_bestVtx_idx", "d0_bestVtx_idx[goodMeson]")
-#                  .Define("goodMeson_bestVtx_X", "d0_bestVtx_X[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Y", "d0_bestVtx_Y[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Z", "d0_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_idx", "d0_bestVtx_idx[goodMeson]")
+                  .Define("goodMeson_bestVtx_X", "d0_bestVtx_X[goodMeson]")
+                  .Define("goodMeson_bestVtx_Y", "d0_bestVtx_Y[goodMeson]")
+                  .Define("goodMeson_bestVtx_Z", "d0_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_R", "sqrt(d0_bestVtx_X[goodMeson]*d0_bestVtx_X[goodMeson]+d0_bestVtx_Y[goodMeson]*d0_bestVtx_Y[goodMeson])")
                   .Define("goodMeson_massErr", "d0_kin_massErr[goodMeson]")
                   .Define("goodMeson_trk1_pt", "d0_pion_pt[goodMeson]")
                   .Define("goodMeson_trk2_pt", "d0_kaon_pt[goodMeson]")
@@ -509,6 +512,8 @@ def dfHiggsCand(df):
 
     elif(isPhi3Cat=="true"):
 
+        printWithTimestamp("----------------------\nGood Phi3:\n{}".format(GOODPHI3), verbose)
+
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODPHI3)+" && {}".format(isPhi3Cat)+")")
                   .Filter("Sum(goodMeson)>0", "one good Phi3 (ptPhi, validfit, ptTracks)")
 					#new redefinition
@@ -523,10 +528,11 @@ def dfHiggsCand(df):
                   .Define("goodMeson_vtx_chi2dof", "omega_kin_vtx_chi2dof[goodMeson]")
                   .Define("goodMeson_vtx_prob", "omega_kin_vtx_prob[goodMeson]")
                   .Define("goodMeson_sipPV", "omega_kin_sipPV[goodMeson]")
-#                  .Define("goodMeson_bestVtx_idx", "omega_bestVtx_idx[goodMeson]")
-#                  .Define("goodMeson_bestVtx_X", "omega_bestVtx_X[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Y", "omega_bestVtx_Y[goodMeson]")
-#                  .Define("goodMeson_bestVtx_Z", "omega_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_idx", "omega_bestVtx_idx[goodMeson]")
+                  .Define("goodMeson_bestVtx_X", "omega_bestVtx_X[goodMeson]")
+                  .Define("goodMeson_bestVtx_Y", "omega_bestVtx_Y[goodMeson]")
+                  .Define("goodMeson_bestVtx_Z", "omega_bestVtx_Z[goodMeson]")
+                  .Define("goodMeson_bestVtx_R", "sqrt(omega_bestVtx_X[goodMeson]*omega_bestVtx_X[goodMeson]+omega_bestVtx_Y[goodMeson]*omega_bestVtx_Y[goodMeson])")
                   .Define("goodMeson_massErr", "omega_kin_massErr[goodMeson]")
                   .Define("goodMeson_trk1_pt", "omega_trk1_pt[goodMeson]")
                   .Define("goodMeson_leadtrk_pt", "getMaximum(omega_trk1_pt[goodMeson], omega_trk2_pt[goodMeson])")
@@ -944,6 +950,11 @@ def DefineContent(branchList,isData):
             "goodMeson_sipPV",
             "goodMeson_leadtrk_pt",
             "goodMeson_subleadtrk_pt",
+            "goodMeson_bestVtx_idx",
+            "goodMeson_bestVtx_X",
+            "goodMeson_bestVtx_Y",
+            "goodMeson_bestVtx_Z",
+            "goodMeson_bestVtx_R",
     ]:
         branchList.push_back(branchName)
 
@@ -1114,7 +1125,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "outputs/MAY30/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "outputs/MAY31/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4

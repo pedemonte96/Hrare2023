@@ -161,7 +161,9 @@
             "name": "isZinv",
             "type": "isPhi3Cat",
             "definition_min": "(omega_iso > 0.90 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 10)",
-            "definition": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt >     20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
+            "definition_signal": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
+            "definition_background": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_threemass - 1.023) < 0.2)",
+            "definition": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
             "notes":" used for isGF"
         },
 	{
