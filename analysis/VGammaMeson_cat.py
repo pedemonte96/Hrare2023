@@ -938,6 +938,8 @@ def DefineContent(branchList,isData):
             "goodMeson_mass",
             "goodMeson_massErr",
             "goodMeson_pt",
+            "goodMeson_phi",
+            "goodMeson_eta",
             "goodMeson_iso",
             "goodMeson_trk1_pt",
             "goodMeson_trk2_pt",

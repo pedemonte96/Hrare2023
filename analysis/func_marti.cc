@@ -81,6 +81,9 @@ Vec_f getPTParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_genPar
         	}
 		}
 		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
+        	if(genPart_pdgId[i] == idMother){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother.push_back(i);
+        	}
         	if(genPart_pdgId[i] == idParticle){//get D0 son of D0Star
             	selection.push_back(genPart_pt[i]);
 				return selection;
@@ -122,6 +125,9 @@ Vec_f getPhiEtaParticleMotherGrandMother(Vec_i& genPart_pdgId, Vec_i& genPart_ge
         	}
 		}
 		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
+        	if(genPart_pdgId[i] == idMother){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother.push_back(i);
+        	}
         	if(genPart_pdgId[i] == idParticle){
             	selection.push_back(genPart_phi[i]);
             	selection.push_back(genPart_eta[i]);
@@ -435,6 +441,8 @@ bool ifAllGreaterThan(Vec_f v1, float bound){
 }
 
 Vec_f getValuesIdParticle(Vec_f values, Vec_i& genPart_pdgId, int idParticle, int equal){
+    //Returns the vector values if the particle idParticle exists in genPart_pdgId and equal=1
+    //Returns the vector {} if the particle idParticle exists in genPart_pdgId and equal=1
 	Vec_f output = {};
     if(equal == 0){
         for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
