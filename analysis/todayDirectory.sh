@@ -3,7 +3,7 @@ LANG=en_us_8859_1
 ORG='\033[1;33m'
 RED='\033[1;31m'
 NC='\033[0m' # No Color
-dirname=$(date +%B%d)
+dirname=$(date +%b%d)
 dirname=${dirname^^}
 #dirname="MAY23"
 

@@ -5,7 +5,7 @@ ROOT.ROOT.EnableImplicitMT()
 date = "MAY09"
 
 chain = ROOT.TChain("events");
-chain.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
+chain.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 

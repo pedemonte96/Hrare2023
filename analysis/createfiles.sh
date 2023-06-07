@@ -12,7 +12,7 @@ cat="isGFtag"
 bash createonefile.sh $cat isD0StarCat 1039 $year
 
 #Signal Phi3
-bash createonefile.sh $cat isPhi3Cat 1040 $year
+#bash createonefile.sh $cat isPhi3Cat 1040 $year
 
 
 #Background

@@ -2,20 +2,20 @@ import ROOT
 
 ROOT.ROOT.EnableImplicitMT()
 
-if "/home/submit/pdmonte/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
-    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/Hrare2023/analysis/func_marti.cc","k")
+if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
+    ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.cc","k")
 
 date = "MAY22"
 
 chainSGN = ROOT.TChain("events");
-chainSGN.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
+chainSGN.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 chainBKG = ROOT.TChain("events");
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_D0StarCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_D0StarCat_2018.root".format(date))
+chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
