@@ -1,25 +1,32 @@
 import ROOT
 from prepareFits import *
 
-gROOT.SetBatch()
-gSystem.Load("libHiggsAnalysisCombinedLimit.so")
+ROOT.gROOT.SetBatch()
+ROOT.gSystem.Load("libHiggsAnalysisCombinedLimit.so")
 
 xlowRange = 100.
 xhighRange = 170.
 
-x = ROOT.RooRealVar('mh', 'm_{#gamma,meson}', xlowRange, xhighRange)
+numDictSignal = {"OmegaCat": 1037, "D0StarCat": 1039, "Phi3Cat": 1040}
 
-x.setRange("full", xlowRange, xhighRange)
-x.setRange("left", xlowRange, 115)
-x.setRange("right", 135, xhighRange)
+#x = ROOT.RooRealVar('mh', 'm_{#gamma,meson}', xlowRange, xhighRange)
+
+#x.setRange("full", xlowRange, xhighRange)
+#x.setRange("left", xlowRange, 115)
+#x.setRange("right", 135, xhighRange)
 
 
 def fitSig(tag, mesonCat, year):
-    
-    sig =  "ggH"
 
-    #data_full = getHisto(foo, 200*10, 0., 200., True, tag, mesonCat, True, sig)
-    data_full = "getHistogram"
+    canvas = ROOT.TCanvas("canvas", "canvas", 1200, 800)
+
+    data_full = getHisto(200., 0., 200., numDictSignal[mesonCat], tag, mesonCat, year)
+
+    data_full.Draw("hist")
+
+    canvas.SaveAs("~/public_html/fits/D0Star.png")
+
+    return 0
 
     x = ROOT.RooRealVar('mh', 'm_{#gamma,meson}', xlowRange, xhighRange)
 
@@ -58,4 +65,4 @@ def fitSig(tag, mesonCat, year):
 
 if __name__ == "__main__":
 
-    fitSig('_GFcat', '_D0StarCat', 2018)
+    fitSig('GFcat', 'D0StarCat', 2018)
