@@ -441,12 +441,32 @@ float dR_Constituents(const Vec_f& pt, const Vec_f& eta, const Vec_f& phi, const
 }
 
 float compute_HiggsVars_var(const float mes_pt, const float mes_eta, const float mes_phi, const float mes_mass,
-			    const float ph_pt, const float ph_eta, const float ph_phi,
-			    unsigned int var)
+			    const float ph_pt, const float ph_eta, const float ph_phi, unsigned int var)
 {
 
   // passing only the one that make the Higgs candidate
   PtEtaPhiMVector p_ph(ph_pt, ph_eta, ph_phi, 0);
+  PtEtaPhiMVector p_mes(mes_pt, mes_eta, mes_phi, mes_mass);
+  PtEtaPhiMVector p_Hig = (p_ph + p_mes);
+  float theVar = 0;
+  if     (var == 0) theVar = p_Hig.M();
+  else if(var == 1) theVar = p_Hig.Pt();
+  else if(var == 2) theVar = p_Hig.Phi();
+
+  return theVar;
+
+}
+
+float compute_HiggsVars_var_VtxCorr(const float mes_pt, const float mes_eta, const float mes_phi, const float mes_mass,
+          const float mes_vtx_X, const float mes_vtx_Y, const float mes_vtx_Z,
+          const float ph_calo_X, const float ph_calo_Y, const float ph_calo_Z,
+			    const float ph_pt, const float ph_eta, const float ph_phi, unsigned int var)
+{
+
+  // passing only the one that make the Higgs candidate
+  // Here I have to do the correction to the photon 4 momentum
+  PtEtaPhiMVector p_ph(ph_pt, ph_eta, ph_phi, 0);
+  cout << p_ph.X() << " " << p_ph.x() << " " << p_ph.Px() << " " << p_ph.px() << " " << ph_calo_X << endl;
   PtEtaPhiMVector p_mes(mes_pt, mes_eta, mes_phi, mes_mass);
   PtEtaPhiMVector p_Hig = (p_ph + p_mes);
   float theVar = 0;
