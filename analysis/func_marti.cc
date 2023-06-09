@@ -470,4 +470,45 @@ Vec_f sqrt(Vec_f v1){
     return output;
 }
 
+Vec_i getFilteredGoodMeson(Vec_i goodMeson, Vec_f goodMeson_pt, Vec_f goodMeson_vtx_prob){
+	/**
+	 * Filters a vector of good mesons indexes removing duplicates.
+	 *
+	 * @param goodMeson - A vector of integers representing good mesons indexes.
+	 * @param goodMeson_pt - A vector of floats representing the transverse momenta of good mesons.
+	 * @param goodMeson_vtx_prob - A vector of floats representing the vertex probabilities of good mesons.
+	 *
+	 * @return A vector of integers representing the filtered indexes of good mesons.
+	 *
+	 * This function filters the good mesons based on vertex probability and transverse momentum.
+	 * The function checks if each good meson is similar to previously encountered good mesons, and if not, it adds the meson
+	 * to the filtered list. The filtered indexes vector indicates which good mesons passed the filtering criteria (1 for
+	 * filtered, 0 for not filtered).
+	 */
+	Vec_i filteredIndexes = {};
+	Vec_f probs = {};
+	Vec_f momentums = {};
+	for(unsigned int i = 0; i < goodMeson.size(); i++){
+		bool same = false;
+		if (goodMeson[i] == 1){
+			for(unsigned int j = 0; j < probs.size(); j++){
+				if ((abs(probs[j] - goodMeson_vtx_prob[i]) < 0.0001) && (abs(momentums[j] - goodMeson_pt[i]) < 0.001)){//same meson
+					same = true;
+					break;
+				}
+			}
+			if (same){
+				filteredIndexes.push_back(0);
+			}else{
+				probs.push_back(goodMeson_vtx_prob[i]);
+				momentums.push_back(goodMeson_pt[i]);
+				filteredIndexes.push_back(1);
+			}
+		}else{
+			filteredIndexes.push_back(0);
+		}
+	}
+    return filteredIndexes;
+}
+
 #endif

@@ -423,7 +423,8 @@ def dfHiggsCand(df):
 
         printWithTimestamp("----------------------\nGood Omega:\n{}".format(GOODOMEGA), verbose)
 
-        dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
+        dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
+                    .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, omega_kin_pt, omega_kin_vtx_prob)")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
 					#new redefinition
                   
@@ -476,7 +477,8 @@ def dfHiggsCand(df):
 
         printWithTimestamp("----------------------\nGood D0Star:\n{}".format(GOODD0STAR), verbose)
 
-        dfbase = (df.Filter("nd0>0", "nd0>0").Define("goodMeson","({}".format(GOODD0STAR)+" && {}".format(isD0StarCat)+")")
+        dfbase = (df.Filter("nd0>0", "nd0>0").Define("goodMesonOld","({}".format(GOODD0STAR)+" && {}".format(isD0StarCat)+")")
+                  .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, d0_kin_pt, d0_kin_vtx_prob)")
                   .Filter("Sum(goodMeson)>0", "one good D0Star (ptPhi, validfit, ptTracks)")
                   .Define("goodMeson_pt", "d0_kin_pt[goodMeson]")
                   .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
@@ -517,7 +519,8 @@ def dfHiggsCand(df):
 
         printWithTimestamp("----------------------\nGood Phi3:\n{}".format(GOODPHI3), verbose)
 
-        dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMeson","({}".format(GOODPHI3)+" && {}".format(isPhi3Cat)+")")
+        dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld","({}".format(GOODPHI3)+" && {}".format(isPhi3Cat)+")")
+                  .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, omega_kin_pt, omega_kin_vtx_prob)")
                   .Filter("Sum(goodMeson)>0", "one good Phi3 (ptPhi, validfit, ptTracks)")
 					#new redefinition
                   
@@ -942,6 +945,7 @@ def DefineContent(branchList,isData):
 
     for branchName in [
             "goodMeson",
+            "goodMesonOld",
             "goodMeson_DR",
             "goodMeson_mass",
             "goodMeson_massErr",
