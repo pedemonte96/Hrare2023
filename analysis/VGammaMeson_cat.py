@@ -868,6 +868,7 @@ def DefineContent(branchList,isData):
             #
             "goodPhotons_pt",
             "goodPhotons_eta",
+            "goodPhotons_phi",
             "goodPhotons_pfRelIso03_all",
             "goodPhotons_hoe",
             "goodPhotons_r9",

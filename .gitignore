@@ -10,3 +10,5 @@
 *.out
 *.synctex.gz
 *.toc
+# Vscode
+analysis/.vscode/settings.json

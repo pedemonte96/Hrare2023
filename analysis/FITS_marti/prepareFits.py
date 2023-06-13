@@ -1,16 +1,31 @@
 import ROOT
 ROOT.ROOT.EnableImplicitMT()
 
+numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1037], "D0StarCat": [1039], "Phi3Cat": [1040]}
 
-def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year):
+mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
+
+
+def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None):
+    """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
+
+    print("[getHisto] Creating Histogram {} {} {}...".format(mesonCat, cat, extraTitle))
 
     chain = ROOT.TChain("events")
     for num in nums:
         chain.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
 
     df = ROOT.RDataFrame(chain)
+    
+    for i in range(len(filters)):
+        filterName = "filter_" + str(i)
+        df = df.Define(filterName, filters[i]).Filter("Sum({})>0".format(filterName))
 
-    h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", "Higgs candidate invariant mass, reconstruction", nbin, xlow, xhigh), "HCandMass", "scale")
+    title = "Higgs candidate mass for {}, reconstruction".format(mesonLatex)
+    if extraTitle is not None:
+        title += " ({})".format(extraTitle)
+
+    h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
     h.GetYaxis().SetTitle("Events")
@@ -18,4 +33,39 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year):
     h.SetFillColor(ROOT.kGreen-6)
     h.SetLineColor(ROOT.kBlack)
 
+    print("[getHisto] -------------------------------------Histogram created!----------------------")
+
     return ROOT.TH1D(h.GetValue())
+
+
+def getHistoFromFile(fileName):
+    """Reads a histogram object from a ROOT file specified by `fileName`."""
+    # Read using python 2.7.14 and ROOT 6.14
+    infile = ROOT.TFile.Open(fileName, "read")
+    h = infile.Get("myhisto")
+    #Hist is associated with file and becomes None when file is destroyed. This line is to disassociate them
+    h.SetDirectory(0)
+    return h
+    """
+    # This is for python 3.11 and ROOT 6.28
+    with ROOT.TFile(fileName, "read") as infile:
+        h = infile.Get("myhisto")
+        #Hist is associated with file and becomes None when file is destroyed. This line is to disassociate them
+        h.SetDirectory(0)
+        return h
+    """
+
+
+def saveHistoToFile(h, fileName):
+    """Saves a histogram object `h` to a ROOT file specified by `fileName`."""
+    # Save using python 3.11 and ROOT 6.28
+    with ROOT.TFile(fileName, "RECREATE") as outfile:
+        outfile.WriteObject(h, "myhisto")
+
+
+def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None):
+    """Generates the full file name for a histogram file based on the provided parameters."""
+    fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date + ".root"
+    if extraTitle is not None:
+        fileName = fileName[:-5] + "__" + extraTitle.replace(" ", "_").replace(",", "") + fileName[-5:]
+    return "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/FITS_marti/outHists/" + fileName
