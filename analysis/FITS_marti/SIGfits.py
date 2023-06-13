@@ -87,14 +87,19 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None):
 
 
 if __name__ == "__main__":
-    print("Main SGNfits")
 
     cat = "GFcat"
     year = 2018
     date = "JUN07"
 
+
+    #D0Star----------------------------------------------------------------------------------------
     mesonCat = "D0StarCat"
     fitSig(cat, mesonCat, year, date)
+    extraTitle = "barrel meson"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    extraTitle = "barrel photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "barrel meson, barrel photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "endcap meson, barrel photon"
@@ -103,11 +108,21 @@ if __name__ == "__main__":
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "endcap meson, endcap photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+
+
+    #Phi3------------------------------------------------------------------------------------------
+    mesonCat = "Phi3Cat"
+    fitSig(cat, mesonCat, year, date)
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "barrel photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-
-
-    mesonCat = "Phi3Cat"
-    fitSig(cat, mesonCat, year, date)
+    extraTitle = "barrel meson, barrel photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    extraTitle = "endcap meson, barrel photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    extraTitle = "barrel meson, endcap photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    extraTitle = "endcap meson, endcap photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    
