@@ -5,11 +5,11 @@ ROOT.ROOT.EnableImplicitMT()
 if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
 	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.cc","k")
 
-#date = "MAY15"
-date = "MAY30"
+#date = "MAY30"
+date = "JUN13"
 
 chainSGN = ROOT.TChain("events")
-chainSGN.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc1040_GFcat_Phi3Cat_2018.root".format(date))
+chainSGN.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_Phi3Cat_2018.root".format(date))
 
 date = "MAY19"
 chainBKG = ROOT.TChain("events")
@@ -297,5 +297,5 @@ legend15.AddEntry(h15SGN.GetValue(), "Signal", "f")
 legend15.AddEntry(h15BKG.GetValue(), "Background", "f")
 legend15.Draw()
 
-canvas.SaveAs("~/public_html/PhiBKG.png")
+canvas.SaveAs("~/public_html/PhiBKG_new.png")
 
