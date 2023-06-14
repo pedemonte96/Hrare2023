@@ -9,15 +9,15 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 date = "JUN13"
 
 chainSGN = ROOT.TChain("events")
-chainSGN.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc1039_GFcat_Phi3Cat_2018.root".format(date))
+chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_Phi3Cat_2018.root".format(date))
 
 date = "MAY19"
 chainBKG = ROOT.TChain("events")
-chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc12_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc13_GFcat_OmegaCat_2018.root".format(date))
-chainBKG.Add("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/outputs/{0}/2018/outname_mc14_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc12_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc13_GFcat_OmegaCat_2018.root".format(date))
+chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc14_GFcat_OmegaCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
@@ -297,5 +297,5 @@ legend15.AddEntry(h15SGN.GetValue(), "Signal", "f")
 legend15.AddEntry(h15BKG.GetValue(), "Background", "f")
 legend15.Draw()
 
-canvas.SaveAs("~/public_html/PhiBKG_new.png")
+canvas.SaveAs("~/public_html/PhiBKG.png")
 

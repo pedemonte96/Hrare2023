@@ -291,7 +291,8 @@ def dfGammaMeson(df,PDType):
              .Filter("triggerAna>0", "pass triggers")  ## comment while doing trigger studies
              .Define("loosePhotons", "{}".format(photonsLoose))
              .Define("nPhotonsVeto","Sum(loosePhotons)")
-             .Define("goodPhotons", "{}".format(GOODphotons))
+             .Define("goodPhotonsOld", "{}".format(GOODphotons))
+             .Define("goodPhotons", "getFilteredGoodParticleMaxPt(goodPhotonsOld, Photon_pt)")
              .Define("nGoodPhotons","Sum(goodPhotons)*1.0f")
              .Filter("Sum(goodPhotons)>0", "At least one good Photon")
              .Define("goodPhotons_pt", "Photon_pt[goodPhotons]")
@@ -424,7 +425,7 @@ def dfHiggsCand(df):
         printWithTimestamp("----------------------\nGood Omega:\n{}".format(GOODOMEGA), verbose)
 
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld","({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
-                    .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, omega_kin_pt, omega_kin_vtx_prob)")
+                    .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
 					#new redefinition
                   
@@ -478,7 +479,7 @@ def dfHiggsCand(df):
         printWithTimestamp("----------------------\nGood D0Star:\n{}".format(GOODD0STAR), verbose)
 
         dfbase = (df.Filter("nd0>0", "nd0>0").Define("goodMesonOld","({}".format(GOODD0STAR)+" && {}".format(isD0StarCat)+")")
-                  .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, d0_kin_pt, d0_kin_vtx_prob)")
+                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good D0Star (ptPhi, validfit, ptTracks)")
                   .Define("goodMeson_pt", "d0_kin_pt[goodMeson]")
                   .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
@@ -500,8 +501,6 @@ def dfHiggsCand(df):
                   .Define("goodMeson_subleadtrk_pt", "getMinimum(d0_pion_pt[goodMeson], d0_kaon_pt[goodMeson])")
                   .Define("goodMeson_trk1_eta", "d0_pion_eta[goodMeson]")
                   .Define("goodMeson_trk2_eta", "d0_kaon_eta[goodMeson]")
-                  .Define("goodMeson_threemass", "d0_d0Star_Nbody_mass[goodMeson]")
-                  .Define("goodMeson_three_pt", "d0_d0Star_Nbody_pt[goodMeson]")
                   .Define("goodMeson_Nphotons", "d0_d0Star_Nphotons[goodMeson]")
                   .Define("goodMeson_D0Star_photon_pt", "d0_d0Star_photon_pt[goodMeson]")
                   .Define("goodMeson_DR","DeltaR(d0_pion_eta[goodMeson],d0_kaon_eta[goodMeson],d0_pion_phi[goodMeson],d0_kaon_phi[goodMeson])")
@@ -514,13 +513,19 @@ def dfHiggsCand(df):
                   #.Define("GenPhoton_phi","(GenPart_pdgId[goodMeson] == 111 || GenPart_pdgId[goodMeson] == 22) ? GenPart_phi[goodMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   #.Define("GenPart_DR","DeltaR(GenD0_eta,GenPhoton_eta,GenD0_phi,GenPhoton_phi)")
                   )
+        if(mc>1000):
+            dfbase = (dfbase.Define("goodMeson_three_pt", "d0_d0Star_Nbody_pt[goodMeson]")
+                .Define("goodMeson_threemass", "d0_d0Star_Nbody_mass[goodMeson]"))
+        else:
+            dfbase = (dfbase.Define("goodMeson_three_pt", "d0_d0Star_3body_pt[goodMeson]")
+                .Define("goodMeson_threemass", "d0_d0Star_3body_mass[goodMeson]"))
 
     elif(isPhi3Cat=="true"):
 
         printWithTimestamp("----------------------\nGood Phi3:\n{}".format(GOODPHI3), verbose)
 
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld","({}".format(GOODPHI3)+" && {}".format(isPhi3Cat)+")")
-                  .Define("goodMeson", "getFilteredGoodMeson(goodMesonOld, omega_kin_pt, omega_kin_vtx_prob)")
+                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good Phi3 (ptPhi, validfit, ptTracks)")
 					#new redefinition
                   
@@ -1140,7 +1145,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "outputs/JUN13/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "/data/submit/pdmonte/outputs/JUN14/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
@@ -1182,10 +1187,10 @@ def analysis(df,year,mc,sumw,isData,PDType):
 #            histos.append(h1d_noSF)
 
             ## to use the SYST that change the variable
-            hx = ROOT.RDF.Experimental.VariationsFor(h1d);
-            hx["PhotonSYST:dn"].SetName(hists[h]["name"]+":PhotonSYST:dn");
+            hx = ROOT.RDF.Experimental.VariationsFor(h1d)
+            hx["PhotonSYST:dn"].SetName(hists[h]["name"]+":PhotonSYST:dn")
             histos.append(hx["PhotonSYST:dn"])
-            hx["PhotonSYST:up"].SetName(hists[h]["name"]+":PhotonSYST:up");
+            hx["PhotonSYST:up"].SetName(hists[h]["name"]+":PhotonSYST:up")
             histos.append(hx["PhotonSYST:up"])
 
             ## those that change the weights only

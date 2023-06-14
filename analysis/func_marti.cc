@@ -511,4 +511,25 @@ Vec_i getFilteredGoodMeson(Vec_i goodMeson, Vec_f goodMeson_pt, Vec_f goodMeson_
     return filteredIndexes;
 }
 
+Vec_i getFilteredGoodParticleMaxPt(Vec_i goodParticle, Vec_f goodParticle_pt){
+	Vec_i filteredIndexes = {};
+	float maxPt = 0;
+	int maxPt_idx = 0;
+	for(unsigned int i = 0; i < goodParticle.size(); i++){		
+		if (goodParticle[i] == 1){
+			if (goodParticle_pt[i] > maxPt){
+				maxPt = goodParticle_pt[i];
+				filteredIndexes[maxPt_idx] = 0;
+				maxPt_idx = i;
+				filteredIndexes.push_back(1);
+			}else{
+				filteredIndexes.push_back(0);
+			}
+		}else{
+			filteredIndexes.push_back(0);
+		}
+	}
+    return filteredIndexes;
+}
+
 #endif

@@ -7,18 +7,18 @@ dirname=$(date +%b%d)
 dirname=${dirname^^}
 #dirname="MAY23"
 
-if [[ ! -d "outputs/${dirname}" ]]; then
-    mkdir outputs/${dirname}
+if [[ ! -d "/data/submit/pdmonte/outputs/${dirname}" ]]; then
+    mkdir /data/submit/pdmonte/outputs/${dirname}
 else
 	echo -e "${RED}  !!!  Directory ${dirname} already exists  !!!  ${NC}"
 fi
-if [[ ! -d "outputs/${dirname}/2018" ]]; then
-    mkdir outputs/${dirname}/2018
+if [[ ! -d "/data/submit/pdmonte/outputs/${dirname}/2018" ]]; then
+    mkdir /data/submit/pdmonte/outputs/${dirname}/2018
 fi
 
 echo -e "${ORG}┌───────────────────────────────────────────┐\n│                 Directory                 │\n└───────────────────────────────────────────┘${NC}"
 
-ls -lhR --color=auto "outputs/${dirname}"
+ls -lhR --color=auto "/data/submit/pdmonte/outputs/${dirname}"
 
 #changes directory in VGammaMeson_cat.py
 bash changeDate.sh $dirname
