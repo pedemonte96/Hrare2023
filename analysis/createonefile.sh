@@ -38,13 +38,16 @@ echo -e "\n${BLU}│${ORG}└─────────────────
 
 # Call python3
 echo -e "python3 VGammaMeson_cat.py $cat $part $num $year\n" >> $LOGFILE
-text="${BLU}│${NC}  python3 VGammaMeson_cat.py $cat $part $num $year                 "
+text="${BLU}│${NC} python3 VGammaMeson_cat.py $cat $part $num $year                 "
 echo -e "${text:0:81}${BLU}│${NC}"
 
 python3 VGammaMeson_cat.py $cat $part $num $year >> $LOGFILE
 
 location="$(grep -m 1 --color=auto 'outputFile' VGammaMeson_cat.py)"
-text="${BLU}│${NC}  Saved at \"${location:22:34}/2018/\"                               "
+text="${BLU}│${NC} Saved at \"${location:22:34}/2018/\"                               "
+echo -e "${text:0:81}${BLU}│${NC}"
+
+text="${BLU}│${NC} Logfile: \"${LOGFILE:15}\"                                            "
 echo -e "${text:0:81}${BLU}│${NC}"
 
 now2=$(date +'%H:%M:%S')

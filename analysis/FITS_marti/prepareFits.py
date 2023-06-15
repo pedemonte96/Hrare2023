@@ -1,7 +1,7 @@
 import ROOT
 ROOT.ROOT.EnableImplicitMT()
 
-numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1037], "D0StarCat": [1039], "Phi3Cat": [1040]}
+numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarCat": [1041]}
 
 mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 
@@ -68,4 +68,4 @@ def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None):
     fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date + ".root"
     if extraTitle is not None:
         fileName = fileName[:-5] + "__" + extraTitle.replace(" ", "_").replace(",", "") + fileName[-5:]
-    return "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/FITS_marti/outHists/" + fileName
+    return "/data/submit/pdmonte/outHistsFits/" + fileName

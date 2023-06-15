@@ -53,6 +53,7 @@ using stdVec_b = std::vector<bool>;
 using stdVec_f = std::vector<float>;
 
 typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<float> > PtEtaPhiMVector;
+typedef ROOT::Math::DisplacementVector3D<ROOT::Math::Cartesian3D<float> > XYZVectorF;
 std::unordered_map< UInt_t, std::vector< std::pair<UInt_t,UInt_t> > > jsonMap;
 
 Vec_i indices(const int& size, const int& start = 0) {
@@ -465,10 +466,50 @@ float compute_HiggsVars_var_VtxCorr(const float mes_pt, const float mes_eta, con
 
   // passing only the one that make the Higgs candidate
   // Here I have to do the correction to the photon 4 momentum
-  PtEtaPhiMVector p_ph(ph_pt, ph_eta, ph_phi, 0);
-  cout << p_ph.X() << " " << p_ph.x() << " " << p_ph.Px() << " " << p_ph.px() << " " << ph_calo_X << endl;
+  PtEtaPhiMVector p4_ph(ph_pt, ph_eta, ph_phi, 0);
+  // p4_ph.X() = p4_ph.x() = p4_ph.Px() = p4_ph.px()
+
+  XYZVectorF calorimiterPos(ph_calo_X, ph_calo_Y, ph_calo_Z);
+  XYZVectorF mesonVertex(mes_vtx_X, mes_vtx_Y, mes_vtx_Z);
+
+  XYZVectorF p_ph_origin = calorimiterPos.unit() * p4_ph.E();
+  XYZVectorF p_ph_vtx = (calorimiterPos - mesonVertex).unit() * p4_ph.E();
+
+  PtEtaPhiMVector p4_ph_origin;
+  p4_ph_origin.SetPxPyPzE(p_ph_origin.X(), p_ph_origin.Y(), p_ph_origin.Z(), p4_ph.E());
+
+  PtEtaPhiMVector p4_ph_vtx;
+  p4_ph_vtx.SetPxPyPzE(p_ph_vtx.X(), p_ph_vtx.Y(), p_ph_vtx.Z(), p4_ph.E());
+
+  //Correct them so they have  m=0
+  PtEtaPhiMVector p4_ph_origin_M(p4_ph_origin.Pt(), p4_ph_origin.Eta(), p4_ph_origin.Phi(), 0);
+  PtEtaPhiMVector p4_ph_vtx_M(p4_ph_vtx.Pt(), p4_ph_vtx.Eta(), p4_ph_vtx.Phi(), 0);
+
+  //XYZVectorF ph_direction(p4_ph.X(), p4_ph.Y(), p4_ph.Z());
+
+  //ph_direction = ph_direction.unit();
+
+  //XYZVectorF offset(0, ph_calo_Y - ph_direction.Y()/ph_direction.X()*ph_calo_X, ph_calo_Z - ph_direction.Z()/ph_direction.X()*ph_calo_X);
+  //XYZVectorF coordsOfPhoton = (calorimiterPos - offset).unit() * p4_ph.E();
+  /*
+  cout << "--------------------------------------------------------------------------------------------" << endl;
+  cout << "(XYZ) Calo coords [mm]:                     " << calorimiterPos.X()  << " " << calorimiterPos.Y()    << " " << calorimiterPos.Z()    << endl;
+  cout << "(XYZ) Meson vtx coords [mm]:                " << mesonVertex.X()     << " " << mesonVertex.Y()       << " " << mesonVertex.Z()       << endl;
+  cout << "--------------------------------------------" << endl;
+  cout << "(PxPyPzE|p|) (0-calo) photon [GeV]:         " << p4_ph_origin.X()    << " " << p4_ph_origin.Y()      << " " << p4_ph_origin.Z()      << " " << p4_ph_origin.E()    << " " << p4_ph_origin.P()    << endl;
+  cout << "(PxPyPzE|p|) (meson_vtx-calo) photon [GeV]: " << p4_ph_vtx.X()       << " " << p4_ph_vtx.Y()         << " " << p4_ph_vtx.Z()         << " " << p4_ph_vtx.E()       << " " << p4_ph_vtx.P()       << endl;
+  cout << "(PxPyPzE|p|) Original photon [GeV]:         " << p4_ph.X()           << " " << p4_ph.Y()             << " " << p4_ph.Z()             << " " << p4_ph.E()           << " " << p4_ph.P()           << endl;
+  cout << "--------------------------------------------" << endl;
+  //cout << "(PtEtaPhi) (0-calo) photon manually comp:   " << std::sqrt(p_ph_origin.X()*p_ph_origin.X()+p_ph_origin.Y()*p_ph_origin.Y())     << " " << std::atanh(p_ph_origin.Z()/p_ph_origin.P())    << " " << std::atan2(p_ph_origin.Y(), p_ph_origin.X()) << endl;
+  cout << "(PtEtaPhiME) (0-calo) photon:               " << p4_ph_origin.Pt()   << " " << p4_ph_origin.Eta()    << " " << p4_ph_origin.Phi()    << " " << p4_ph_origin.M()    << " " << p4_ph_origin.E()    << endl;
+  cout << "(PtEtaPhiME) (0-calo) photon M=0:           " << p4_ph_origin_M.Pt() << " " << p4_ph_origin_M.Eta()  << " " << p4_ph_origin_M.Phi()  << " " << p4_ph_origin_M.M()  << " " << p4_ph_origin_M.E()  << endl;
+  cout << "(PtEtaPhiME) (meson_vtx-calo) photon:       " << p4_ph_vtx.Pt()      << " " << p4_ph_vtx.Eta()       << " " << p4_ph_vtx.Phi()       << " " << p4_ph_vtx.M()       << " " << p4_ph_vtx.E()       << endl;
+  cout << "(PtEtaPhiME) (meson_vtx-calo) photon M=0:   " << p4_ph_vtx_M.Pt()    << " " << p4_ph_vtx_M.Eta()     << " " << p4_ph_vtx_M.Phi()     << " " << p4_ph_vtx_M.M()     << " " << p4_ph_vtx_M.E()     << endl;
+  cout << "(PtEtaPhiME) Original photon:               " << p4_ph.Pt()          << " " << p4_ph.Eta()           << " " << p4_ph.Phi()           << " " << p4_ph.M()           << " " << p4_ph.E()           << endl;
+  cout << "--------------------------------------------------------------------------------------------" << endl;
+  */
   PtEtaPhiMVector p_mes(mes_pt, mes_eta, mes_phi, mes_mass);
-  PtEtaPhiMVector p_Hig = (p_ph + p_mes);
+  PtEtaPhiMVector p_Hig = (p4_ph_vtx_M + p_mes);
   float theVar = 0;
   if     (var == 0) theVar = p_Hig.M();
   else if(var == 1) theVar = p_Hig.Pt();

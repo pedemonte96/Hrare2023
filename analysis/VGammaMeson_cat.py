@@ -579,7 +579,7 @@ def dfHiggsCand(df):
                .Define("meson_pt", "(index_pair[0]!= -1) ? goodMeson_pt[index_pair[0]]: 0.f")
                .Define("photon_pt", "(index_pair[1]!= -1) ? goodPhotons_pt[index_pair[1]]: 0.f")
                .Define("HCandMass", "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)")
-               #.Define("HCandMassVtxCorr", "compute_HiggsVars_var_VtxCorr(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],goodMeson_bestVtx_X[index_pair[0]],goodMeson_bestVtx_Y[index_pair[0]],goodMeson_bestVtx_Z[index_pair[0]],goodPhotons_calo_x[index_pair[1]], goodPhotons_calo_y[index_pair[1]], goodPhotons_calo_z[index_pair[1]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)")
+               .Define("HCandMassVtxCorr", "compute_HiggsVars_var_VtxCorr(goodMeson_pt[index_pair[0]], goodMeson_eta[index_pair[0]], goodMeson_phi[index_pair[0]], goodMeson_mass[index_pair[0]], goodMeson_bestVtx_X[index_pair[0]], goodMeson_bestVtx_Y[index_pair[0]], goodMeson_bestVtx_Z[index_pair[0]], goodPhotons_calo_x[index_pair[1]], goodPhotons_calo_y[index_pair[1]], goodPhotons_calo_z[index_pair[1]], photon_pt, goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]], 0)")
                .Define("HCandPT",   "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],1)")
                .Define("HCandPHI",   "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],2)")
                .Define("dPhiGammaMesonCand","abs(deltaPhi(goodPhotons_phi[index_pair[1]], goodMeson_phi[index_pair[0]]))")
@@ -864,7 +864,7 @@ def DefineContent(branchList,isData):
 
     for branchName in [
             "HCandMass",
-            #"HCandMassVtxCorr",
+            "HCandMassVtxCorr",
             "HCandPT",
             "index_pair",
             "meson_pt",
@@ -1145,7 +1145,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "/data/submit/pdmonte/outputs/JUN14/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "/data/submit/pdmonte/outputs/JUN15/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
