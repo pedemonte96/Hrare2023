@@ -15,8 +15,8 @@ df = ROOT.RDataFrame(chain)
 canvas = ROOT.TCanvas("canvas", "canvas", 1200, 1000)
 #canvas = ROOT.TCanvas()
 
-h = df.Define("Pi0PhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 111, 333, 25)")\
-    .Define("PionGenDR", "getDRParticleMotherOneGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 333, 25, 333, 25)")\
+h = df.Define("Pi0PhiGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 333, 25)")\
+    .Define("PionGenDR", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 111, 333, 25, 333, 25)")\
     .Histo2D(("#pi^{0} p_{T}", "DR vs p_{T} of #pi^{0} from #phi, generation", 70, 0, 70, 50, 0, 0.1),"Pi0PhiGenPT", "PionGenDR")
 
 h.GetXaxis().SetTitle("p_{T} [GeV]")

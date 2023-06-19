@@ -7,12 +7,12 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 
 date = "MAY11"
 
-chain = ROOT.TChain("events");
+chain = ROOT.TChain("events")
 chain.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1040_GFcat_OmegaCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 
-h = df.Define("PionGenDR", "getDRParticleMotherOneGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 333, 25, 333, 25)")\
+h = df.Define("PionGenDR", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 111, 333, 25, 333, 25)")\
 	.Histo1D(("DR #phi-#pi^{0}", "DR of #phi-#pi^{0}, generation", 50, 0, 0.1),"PionGenDR")
 
 h.GetXaxis().SetTitle("DR [rad]")

@@ -7,17 +7,17 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 
 date = "MAY09"
 
-chain = ROOT.TChain("events");
+chain = ROOT.TChain("events")
 chain.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 
 canvas = ROOT.TCanvas("canvas", "canvas", 1200, 800)
 
-hg = df.Define("PhotonD0StarGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 22, 423, 25)")\
+hg = df.Define("PhotonD0StarGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 423, 25)")\
 	.Histo1D(("hist", "#gamma from D^{0}* PT GEN", 80, 0, 20),"PhotonD0StarGenPT")
 
-hp = df.Define("Pi0D0StarGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 111, 423, 25)")\
+hp = df.Define("Pi0D0StarGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 423, 25)")\
 	.Histo1D(("hist", "#pi^{0} from D^{0}* PT GEN", 80, 0, 20),"Pi0D0StarGenPT")
 
 

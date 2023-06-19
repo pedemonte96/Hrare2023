@@ -14,32 +14,32 @@ df = ROOT.RDataFrame(chain)
 
 
 
-h1=df.Define("PhiGenPT", "getPTParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 333, 25)").Histo1D(("hist", "#phi PT GEN", 200, 0, 200),"PhiGenPT")
+h1=df.Define("PhiGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 333, 25)").Histo1D(("hist", "#phi PT GEN", 200, 0, 200),"PhiGenPT")
 
-h2=df.Define("HiggsPhotonGenPT", "getPTParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 22, 25)").Histo1D(("hist", "#gamma from Higgs PT GEN", 200, 0, 200),"HiggsPhotonGenPT")
+h2=df.Define("HiggsPhotonGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 25)").Histo1D(("hist", "#gamma from Higgs PT GEN", 200, 0, 200),"HiggsPhotonGenPT")
 
-h3=df.Define("Pi0PhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 111, 333, 25)").Define("Pi0PhiGenPTGood", "Pi0PhiGenPT[Pi0PhiGenPT>0]").Histo1D(("#pi^{0} p_{T}", "p_{T} of #pi^{0} from #phi, generation", 35, 0, 70),"Pi0PhiGenPTGood")
+h3=df.Define("Pi0PhiGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 333, 25)").Define("Pi0PhiGenPTGood", "Pi0PhiGenPT[Pi0PhiGenPT>0]").Histo1D(("#pi^{0} p_{T}", "p_{T} of #pi^{0} from #phi, generation", 35, 0, 70),"Pi0PhiGenPTGood")
 h3.GetXaxis().SetTitle("p_{T} [GeV]")
 h3.GetYaxis().SetTitle("Events")
 
 
 
-h4=df.Define("PiplusPhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 211, 333, 25)").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "#pi^{+} from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
+h4=df.Define("PiplusPhiGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 333, 25)").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "#pi^{+} from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
 
-h5=df.Define("PiminusPhiGenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, -211, 333, 25)").Define("PiminusPhiGenPTGood", "PiminusPhiGenPT[PiminusPhiGenPT>0]").Histo1D(("hist", "#pi^{-} from #phi PT GEN", 70, 0, 70),"PiminusPhiGenPTGood")
+h5=df.Define("PiminusPhiGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -211, 333, 25)").Define("PiminusPhiGenPTGood", "PiminusPhiGenPT[PiminusPhiGenPT>0]").Histo1D(("hist", "#pi^{-} from #phi PT GEN", 70, 0, 70),"PiminusPhiGenPTGood")
 
-h4lead=df.Define("PiplusPhiGenPT", "getMaximum(getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 211, 333, 25), getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, -211, 333, 25))").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "Leading track from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
+h4lead=df.Define("PiplusPhiGenPT", "getMaximum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 333, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -211, 333, 25))").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "Leading track from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
 
-h5sublead=df.Define("PiplusPhiGenPT", "getMinimum(getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 211, 333, 25), getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, -211, 333, 25))").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "Subleading track from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
+h5sublead=df.Define("PiplusPhiGenPT", "getMinimum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 333, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -211, 333, 25))").Define("PiplusPhiGenPTGood", "PiplusPhiGenPT[PiplusPhiGenPT>0]").Histo1D(("hist", "Subleading track from #phi PT GEN", 70, 0, 70),"PiplusPhiGenPTGood")
 
-h6pt=df.Define("ThreeBodyPTGen", "getThreeBody4Momentum(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 111, 211, -211, 333, 1)").Histo1D(("hist", "Three Body #phi PT GEN", 200, 0, 200),"ThreeBodyPTGen")
-h6m=df.Define("ThreeBodyMassGen", "getThreeBody4Momentum(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 111, 211, -211, 333, 0)").Histo1D(("hist", "Three Body #phi Mass GEN", 200, 0, 1.5),"ThreeBodyMassGen")
+h6pt=df.Define("ThreeBodyPTGen", "get3BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 111, 211, -211, 333)[0]").Histo1D(("hist", "Three Body #phi PT GEN", 200, 0, 200),"ThreeBodyPTGen")
+h6m=df.Define("ThreeBodyMassGen", "get3BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 111, 211, -211, 333)[3]").Histo1D(("hist", "Three Body #phi Mass GEN", 200, 0, 1.5),"ThreeBodyMassGen")
 
-h8=df.Define("PionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 111, 333, 333, 25)").Histo1D(("DR #phi-#pi^{0}", "DR #phi-#pi^{0}, generation", 50, 0, 0.2),"PionGenDR")
+h8=df.Define("PionGenDR", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 111, 333, 333, 25)").Histo1D(("DR #phi-#pi^{0}", "DR #phi-#pi^{0}, generation", 50, 0, 0.2),"PionGenDR")
 
 h8.GetXaxis().SetTitle("DR [rad]")
 h8.GetYaxis().SetTitle("Events")
-#h8=df.Define("KaonPionGenDR", "getDRParticleMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 211, 421, -321, 421)").Histo1D(("hist", "Kaon-Pion DR Gen", 100, 0, 0.2),"KaonPionGenDR")
+#h8=df.Define("KaonPionGenDR", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 211, 421, -321, 421)").Histo1D(("hist", "Kaon-Pion DR Gen", 100, 0, 0.2),"KaonPionGenDR")
 
 #h9=df.Define("HCandMassGen", "getHCandMass(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 421, 423, 22, 25)").Histo1D(("hist", "H Cand Mass Gen", 100, 0, 200),"HCandMassGen")
 

@@ -4,7 +4,7 @@ from prepareFits import *
 def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None):
     """Creates a histogram and saves it to a file."""
     #Create Histogram
-    histogram = getHisto(200*2, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle)
+    histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle)
     #Save histogram
     saveHistoToFile(histogram, getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle))
     print("[createAndSaveHistogram] ------------------------Histogram saved!-----------------------")
@@ -13,7 +13,7 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
 def createAndSaveHistogramBackground(tag, mesonCat, year, date):
     """Creates a histogram and saves it to a file."""
     #Create Histogram
-    histogram = getHisto(250, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year)
+    histogram = getHisto(200, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year)
     #Save histogram
     saveHistoToFile(histogram, getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG"))
     print("[createAndSaveHistogram] ------------------------Histogram saved!-----------------------")

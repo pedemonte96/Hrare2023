@@ -7,10 +7,10 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 
 date = "MAY22"
 
-chainSGN = ROOT.TChain("events");
+chainSGN = ROOT.TChain("events")
 chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
 
-chainBKG = ROOT.TChain("events");
+chainBKG = ROOT.TChain("events")
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc10_GFcat_D0StarCat_2018.root".format(date))
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc11_GFcat_D0StarCat_2018.root".format(date))
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc12_GFcat_D0StarCat_2018.root".format(date))

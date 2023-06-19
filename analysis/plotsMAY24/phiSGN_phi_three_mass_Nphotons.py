@@ -32,7 +32,7 @@ h2=df.Define("scale", "w*lumiIntegrated")\
     .Histo1D(("hist", "#phi three mass", bins, 0.4, 1.6),"good", "scale")
 
 hgen=df.Define("scale", "w*lumiIntegrated")\
-    .Define("ThreeBodyMassGen", "getThreeBody4Momentum(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, GenPart_pt, GenPart_mass, 111, 211, -211, 333, 0)")\
+    .Define("ThreeBodyMassGen", "get3BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 111, 211, -211, 333)[3]")\
     .Histo1D(("hist", "Three Body #phi Mass GEN", bins, 0.4, 1.6),"ThreeBodyMassGen", "scale")
 
 h0.SetFillColor(ROOT.kRed)

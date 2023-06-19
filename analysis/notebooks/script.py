@@ -17,9 +17,9 @@ chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_D0StarC
 
 df = ROOT.RDataFrame(chainSGN)
 
-df = df.Define("D0GenPT", "getPTParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_pt, 421, 423, 25)[0]")\
-    .Define("D0GenPhi", "getPhiEtaParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 421, 423, 25)[0]")\
-    .Define("D0GenEta", "getPhiEtaParticleMotherGrandMother(GenPart_pdgId, GenPart_genPartIdxMother, GenPart_phi, GenPart_eta, 421, 423, 25)[1]")\
+df = df.Define("D0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 421, 423, 25)[0]")\
+    .Define("D0GenPhi", "getEtaPhi(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 421, 423, 25)[1]")\
+    .Define("D0GenEta", "getEtaPhi(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, 421, 423, 25)[0]")\
     .Define("size", "goodMeson_pt.size()")
 
 
