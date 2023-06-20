@@ -6,7 +6,7 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.cc","k")
 
 #date = "MAY30"
-date = "JUN13"
+date = "JUN20"
 
 chainSGN = ROOT.TChain("events")
 chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1041_GFcat_D0StarCat_2018.root".format(date))
@@ -28,14 +28,14 @@ canvas.Divide(3, 12)
 ROOT.gStyle.SetOptFit(1)
 
 #Kinematic Mass
-h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 50, 1.6, 2.1),"goodMeson_mass", "scale")
+h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 50, 1.6, 2.1),"goodMeson_ditrk_mass", "scale")
 h1BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 kinematic mass", 50, 1.6, 2.1),"goodMeson_mass", "scale")
 h1SGN.SetFillColor(ROOT.kGreen-9)
 h1BKG.SetFillColor(ROOT.kRed-9)
 
 p=canvas.cd(1)
 h1SGN.Draw("hist")
-h1SGN.Fit("gaus", "E", "", 1.805, 1.925)
+h1SGN.Fit("gaus", "EQ", "", 1.805, 1.925)
 h1SGN.Draw("func same")
 
 p=canvas.cd(2)
@@ -71,7 +71,7 @@ legend2.AddEntry(h2BKG.GetValue(), "Background", "f")
 legend2.Draw()
 
 #D0 PT
-h4SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 PT", 100, 0, 200),"goodMeson_pt", "scale")
+h4SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 PT", 100, 0, 200),"goodMeson_ditrk_pt", "scale")
 h4BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "D0 PT", 100, 0, 200),"goodMeson_pt", "scale")
 h4SGN.SetFillColor(ROOT.kGreen-9)
 h4BKG.SetFillColor(ROOT.kRed-9)
@@ -251,7 +251,7 @@ legend11.AddEntry(h11BKG.GetValue(), "Background", "f")
 legend11.Draw()
 
 #3pt
-h12SGN=df.Define("scale", "w*lumiIntegrated").Define("good", "goodMeson_three_pt[goodMeson_Nphotons>0]").Histo1D(("hist", "D0* three PT", 100, 0, 200),"good", "scale")
+h12SGN=df.Define("scale", "w*lumiIntegrated").Define("good", "goodMeson_pt[goodMeson_Nphotons>0]").Histo1D(("hist", "D0* three PT", 100, 0, 200),"good", "scale")
 h12BKG=dg.Define("scale", "w*lumiIntegrated").Define("good", "goodMeson_three_pt[goodMeson_Nphotons>0]").Histo1D(("hist", "D0* three PT", 100, 0, 200),"good", "scale")
 h12SGN.SetFillColor(ROOT.kGreen-9)
 h12BKG.SetFillColor(ROOT.kRed-9)

@@ -6,12 +6,13 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.cc","k")
 
 #date = "MAY30"
-date = "JUN13"
+date = "JUN20"
 
 chainSGN = ROOT.TChain("events")
 chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_Phi3Cat_2018.root".format(date))
 
 date = "MAY19"
+
 chainBKG = ROOT.TChain("events")
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc10_GFcat_OmegaCat_2018.root".format(date))
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc11_GFcat_OmegaCat_2018.root".format(date))
@@ -22,14 +23,12 @@ chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc14_GFcat_OmegaCat_
 df = ROOT.RDataFrame(chainSGN)
 dg = ROOT.RDataFrame(chainBKG)
 
-#df = df.Define("fil", "abs(goodMeson_threemass - 1.002) < 0.2")
-
-canvas = ROOT.TCanvas("canvas", "canvas", 1800, 5000)
-canvas.Divide(3, 13)
+canvas = ROOT.TCanvas("canvas", "canvas", 3000, 5100)
+canvas.Divide(3, 12)
 ROOT.gStyle.SetOptFit(1)
 
 #Kinematic Mass
-h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi kinematic mass", 100, 0.0, 2.0),"goodMeson_charged_mass", "scale")
+h1SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi kinematic mass", 100, 0.0, 2.0),"goodMeson_ditrk_mass", "scale")
 h1BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi kinematic mass", 100, 0.0, 2.0),"goodMeson_mass", "scale")
 h1SGN.SetFillColor(ROOT.kGreen-9)
 h1BKG.SetFillColor(ROOT.kRed-9)
@@ -92,7 +91,7 @@ legend4.AddEntry(h4BKG.GetValue(), "Background", "f")
 legend4.Draw()
 
 #phi PT charged
-h13SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi charged PT", 100, 0, 200),"goodMeson_charged_pt", "scale")
+h13SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi charged PT", 100, 0, 200),"goodMeson_ditrk_pt", "scale")
 h13BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "#phi PT", 100, 0, 200),"goodMeson_pt", "scale")
 h13SGN.SetFillColor(ROOT.kGreen-9)
 h13BKG.SetFillColor(ROOT.kRed-9)
@@ -276,26 +275,6 @@ legend14 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
 legend14.AddEntry(h14SGN.GetValue(), "Signal", "f")
 legend14.AddEntry(h14BKG.GetValue(), "Background", "f")
 legend14.Draw()
-
-#PhotonDR
-h15SGN=df.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Photon DR", 100, 0, 10),"goodMeson_photons_DR", "scale")
-h15BKG=dg.Define("scale", "w*lumiIntegrated").Histo1D(("hist", "Photon DR", 100, 0, 10),"goodMeson_photons_DR", "scale")
-h15SGN.SetFillColor(ROOT.kGreen-9)
-h15BKG.SetFillColor(ROOT.kRed-9)
-
-p=canvas.cd(37)
-h15SGN.Draw("hist")
-p=canvas.cd(38)
-h15BKG.Draw("hist")
-p=canvas.cd(39)
-stack15 = ROOT.THStack("stack", "Photon DR")
-stack15.Add(h15BKG.GetValue())
-stack15.Add(h15SGN.GetValue())
-stack15.Draw("hist")
-legend15 = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
-legend15.AddEntry(h15SGN.GetValue(), "Signal", "f")
-legend15.AddEntry(h15BKG.GetValue(), "Background", "f")
-legend15.Draw()
 
 canvas.SaveAs("~/public_html/PhiBKG.png")
 

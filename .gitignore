@@ -13,3 +13,8 @@ analysis/__pycache__/*
 *.toc
 # Vscode
 analysis/.vscode/settings.json
+analysis/br_d0Star.txt
+analysis/br_omega.txt
+analysis/br_phi3.txt
+analysis/br_d0StarKmRho.txt
+analysis/.nfs*
