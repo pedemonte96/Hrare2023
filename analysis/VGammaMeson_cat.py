@@ -310,9 +310,9 @@ def dfGammaMeson(df,PDType):
              .Define("goodPhotons_energyErr", "Photon_energyErr[goodPhotons]")
              .Define("goodPhotons_isScEtaEB", "Photon_isScEtaEB[goodPhotons]")
              .Define("jet_mask", "cleaningMask(Photon_jetIdx[goodPhotons],nJet)")
-             .Define("goodPhotons_calo_x", "Photon_x_calo[goodPhotons]")
-             .Define("goodPhotons_calo_y", "Photon_y_calo[goodPhotons]")
-             .Define("goodPhotons_calo_z", "Photon_z_calo[goodPhotons]")
+             #.Define("goodPhotons_calo_x", "Photon_x_calo[goodPhotons]")
+             #.Define("goodPhotons_calo_y", "Photon_y_calo[goodPhotons]")
+             #.Define("goodPhotons_calo_z", "Photon_z_calo[goodPhotons]")
 #             .Define("jet_mask", "cleaningMask(Photon_jetIdx[loosePhotons],nJet)")
              )
     
@@ -643,7 +643,7 @@ def dfHiggsCand(df):
                .Define("meson_pt", "(index_pair[0]!= -1) ? goodMeson_pt[index_pair[0]]: 0.f")
                .Define("photon_pt", "(index_pair[1]!= -1) ? goodPhotons_pt[index_pair[1]]: 0.f")
                .Define("HCandMass", "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)")
-               .Define("HCandMassVtxCorr", "compute_HiggsVars_var_VtxCorr(goodMeson_pt[index_pair[0]], goodMeson_eta[index_pair[0]], goodMeson_phi[index_pair[0]], goodMeson_mass[index_pair[0]], goodMeson_bestVtx_X[index_pair[0]], goodMeson_bestVtx_Y[index_pair[0]], goodMeson_bestVtx_Z[index_pair[0]], goodPhotons_calo_x[index_pair[1]], goodPhotons_calo_y[index_pair[1]], goodPhotons_calo_z[index_pair[1]], photon_pt, goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]], 0)")
+               #.Define("HCandMassVtxCorr", "compute_HiggsVars_var_VtxCorr(goodMeson_pt[index_pair[0]], goodMeson_eta[index_pair[0]], goodMeson_phi[index_pair[0]], goodMeson_mass[index_pair[0]], goodMeson_bestVtx_X[index_pair[0]], goodMeson_bestVtx_Y[index_pair[0]], goodMeson_bestVtx_Z[index_pair[0]], goodPhotons_calo_x[index_pair[1]], goodPhotons_calo_y[index_pair[1]], goodPhotons_calo_z[index_pair[1]], photon_pt, goodPhotons_eta[index_pair[1]], goodPhotons_phi[index_pair[1]], 0)")
                .Define("HCandPT",   "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],1)")
                .Define("HCandPHI",   "compute_HiggsVars_var(goodMeson_pt[index_pair[0]],goodMeson_eta[index_pair[0]],goodMeson_phi[index_pair[0]],goodMeson_mass[index_pair[0]],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],2)")
                .Define("dPhiGammaMesonCand","abs(deltaPhi(goodPhotons_phi[index_pair[1]], goodMeson_phi[index_pair[0]]))")
@@ -928,7 +928,7 @@ def DefineContent(branchList,isData):
 
     for branchName in [
             "HCandMass",
-            "HCandMassVtxCorr",
+            #"HCandMassVtxCorr",
             "HCandPT",
             "index_pair",
             "meson_pt",
@@ -944,9 +944,9 @@ def DefineContent(branchList,isData):
             "goodPhotons_sieie",
             "goodPhotons_mvaID",
             "goodPhotons_energyErr",
-            "goodPhotons_calo_x",
-            "goodPhotons_calo_y",
-            "goodPhotons_calo_z",
+            #"goodPhotons_calo_x",
+            #"goodPhotons_calo_y",
+            #"goodPhotons_calo_z",
             "nPhoton",
             "nGoodPhotons",
             "nPhotonsVeto",
