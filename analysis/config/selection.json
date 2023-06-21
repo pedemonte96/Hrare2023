@@ -163,7 +163,7 @@
             "definition_min": "(omega_iso > 0.90 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 10)",
             "definition_signal": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
             "definition_background": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_threemass - 1.023) < 0.2)",
-            "definition": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 18 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.616) < 2*0.10 && abs(omega_Nbody_mass - 1.023) < 0.2)",
+            "definition": "(omega_iso > 0.95 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 10 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_kin_pt > 20 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.63) < 0.23 && abs(omega_Nbody_mass - 1.023) < 0.23)",
             "notes":" used for isGF"
         },
 	{
@@ -176,7 +176,7 @@
             "name": "isZinv",
             "type": "isD0StarCat",
             "definition_old": "abs(d0_d0Star_3body_mass-2.007)<30*0.02 && d0_d0Star_3body_pt>38 && abs(d0_kin_mass-1.864)<5*0.05 && d0_pion_pt>5 && d0_kaon_pt>5 && d0_kin_valid && d0_iso > 0.9",
-            "definition": "(d0_iso > 0.95 && d0_kin_pt > 40 && d0_pion_pt > 5 && d0_kaon_pt > 5 && abs(d0_kin_mass - 1.865) < 2*0.03 && getMaximum(d0_pion_pt, d0_kaon_pt) > 20)",
+            "definition": "(d0_iso > 0.95 && d0_kin_pt > 40 && d0_pion_pt > 0 && d0_kaon_pt > 0 && abs(d0_kin_mass - 1.865) < 2*0.03 && getMaximum(d0_pion_pt, d0_kaon_pt) > 20 && getMinimum(d0_pion_pt, d0_kaon_pt) > 3)",
             "notes":" used for isGF"
 	}
     ],
