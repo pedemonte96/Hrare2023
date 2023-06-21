@@ -7,9 +7,9 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not
 if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.so" not in ROOT.gSystem.GetLibraries():
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.cc","k")
 
-numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarCat": [1041]}
+numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarRhoCat": [1040], "D0StarCat": [1041]}
 
-mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
+mesonLatex = {"OmegaCat": "#omega", "Phi3Cat": "#phi", "D0StarRhoCat": "D^{0*} (#rho)", "D0StarCat": "D^{0*}"}
 
 variableNames = {"goodMeson_ditrk_mass": ["ditrack mass", "m [GeV]"],
                  "goodMeson_mass": ["full mass", "m [GeV]"],
@@ -385,3 +385,111 @@ if __name__ == "__main__":
 
     cs_Omega.SaveAs("~/public_html/Omega_RECO_vs_GEN.png")
 
+
+    #D0StarRho----------------------------------------------------------------------------------------
+    mesonCat = "D0StarRhoCat"
+    histograms = []
+    numRows = 10
+    height = numRows * 800
+    cs_D0StarRho = ROOT.TCanvas("canvas_D0StarRho", "canvas", 2200, height)
+    cs_D0StarRho.Divide(2, numRows)
+    chain = ROOT.TChain("events")
+    for num in numDict[mesonCat]:
+        chain.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
+    df_D0StarRho = ROOT.RDataFrame(chain)
+
+    df_D0StarRho = df_D0StarRho.Define("scale", "w*lumiIntegrated")\
+        .Define("goodMeson_ditrk_mass_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 213, 421, 423, 25)[3]")\
+        .Define("goodMeson_ditrk_pt_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 213, 421, 423, 25)[0]")\
+        .Define("goodMeson_leadtrk_pt_GEN", "getMaximum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 213, 421, 423, 25))")\
+        .Define("goodMeson_subleadtrk_pt_GEN", "getMinimum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 213, 421, 423, 25))")\
+        .Define("goodPhotons_pt_GEN", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 25)")\
+        .Define("goodMeson_DR_GEN", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25, 213, 421, 423, 25)")\
+        .Define("goodMeson_mass_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")\
+        .Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[0]")\
+        .Define("HCandMass_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25)[3]")\
+        .Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)")\
+        .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")
+
+
+    nbins, xlow, xhigh = 200, 1.6, 2.1
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_ditrk_mass", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_ditrk_mass", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 200.
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_ditrk_pt", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_ditrk_pt", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 100.
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_leadtrk_pt", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_leadtrk_pt", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 100.
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_subleadtrk_pt", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_subleadtrk_pt", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 200.
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodPhotons_pt", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodPhotons_pt", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 0.2
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_DR", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_DR", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 1.85, 2.15
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_mass", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_mass", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 0., 200.
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_pt", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "goodMeson_pt", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 105, 145
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "HCandMass", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "HCandMass", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    nbins, xlow, xhigh = 200, 105, 145
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "HCandMassMissing", "RECO"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_D0StarRho, mesonCat, "HCandMassMissing", "GEN"))
+    p = cs_D0StarRho.cd(len(histograms))
+    histograms[-1].Draw("hist")
+
+    cs_D0StarRho.SaveAs("~/public_html/D0StarRho_RECO_vs_GEN.png")

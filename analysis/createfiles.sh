@@ -11,6 +11,9 @@ bash createonefile.sh $cat isOmegaCat 1038 $year
 #Signal Phi3
 bash createonefile.sh $cat isPhi3Cat 1039 $year
 
+#Signal D0StarRho
+bash createonefile.sh $cat isD0StarRhoCat 1040 $year
+
 #Signal D0Star
 bash createonefile.sh $cat isD0StarCat 1041 $year
 
