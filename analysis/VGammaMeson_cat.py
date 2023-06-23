@@ -472,14 +472,12 @@ def dfHiggsCand(df):
             dfbase = (dfbase.Define("goodMeson_pt", "omega_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
-                .Define("goodMeson_threemass", "omega_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_kin_mass[goodMeson]")
-                .Define("goodMeson_threemass", "omega_threemass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_threemass[goodMeson]"))
             
     elif(isPhi3Cat=="true"):
 
@@ -524,14 +522,12 @@ def dfHiggsCand(df):
             dfbase = (dfbase.Define("goodMeson_pt", "omega_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
-                .Define("goodMeson_threemass", "omega_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_kin_mass[goodMeson]")
-                .Define("goodMeson_threemass", "omega_threemass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_threemass[goodMeson]"))
             
     elif(isD0StarRhoCat=="true"):
 
@@ -576,14 +572,12 @@ def dfHiggsCand(df):
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_d0Star_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_d0Star_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]")
-                .Define("goodMeson_threemass", "d0_d0Star_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_3body_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_kin_mass[goodMeson]")
-                .Define("goodMeson_threemass", "d0_d0Star_3body_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]"))
 
     elif(isD0StarCat=="true"):
 
@@ -628,14 +622,12 @@ def dfHiggsCand(df):
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_d0Star_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_d0Star_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]")
-                .Define("goodMeson_threemass", "d0_d0Star_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_3body_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_kin_mass[goodMeson]")
-                .Define("goodMeson_threemass", "d0_d0Star_3body_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]"))
 
 
     dfFinal = (dfbase.Define("index_pair","HiggsCandFromRECO(goodMeson_pt, goodMeson_eta, goodMeson_phi, goodMeson_mass, goodMeson_trk1_pt, goodMeson_trk2_pt, wrongMeson_pt, goodPhotons_pt, goodPhotons_eta, goodPhotons_phi)").Filter("index_pair[0]!= -1", "at least a good meson candidate")
@@ -1031,7 +1023,6 @@ def DefineContent(branchList,isData):
     if (isOmegaCat=="true" or isPhi3Cat=="true" or isD0StarRhoCat=="true" or isD0StarCat=="true"):
         for branchName in [
                 "goodMesonOld",
-                "goodMeson_threemass",
                 "goodMeson_ditrk_pt",
                 "goodMeson_ditrk_eta",
                 "goodMeson_ditrk_phi",

@@ -3,7 +3,7 @@
 declare -A paths
 # Add key-value pairs to the paths
 paths["br_omega.txt"]="/work/submit/mariadlf/Hrare/D02/2018/ggh-homegagamma-powheg/NANOAOD_03_test3/step7_ggH_OmegaGamma_9.root"
-paths["br_phi3.txt"]="/work/submit/mariadlf/Hrare/D02/2018/ggh-hphipipipi0gamma-powheg/NANOAOD_03_test3/step7_ggH_Phi3Gamma_9.root"
+paths["br_phi3.txt"]="/work/submit/mariadlf/Hrare/D02/2018/ggh-hphipipipi0gamma-powheg/NANOAOD_03_test4/step7_ggH_Phi3Gamma_9.root"
 paths["br_d0StarKmRho.txt"]="/work/submit/mariadlf/Hrare/D02/2018/ggh-hD0StarKmRhoPgamma-powheg/NANOAOD_03_test3/step7_ggh-hD0StarKmRhoPgamma_9.root"
 paths["br_d0Star.txt"]="/work/submit/mariadlf/Hrare/D02/2018/ggh-hD0Stargamma-powheg/NANOAOD_03_test3/step7_ggH_HD0StarGamma_9.root"
 

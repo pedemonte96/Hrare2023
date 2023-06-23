@@ -287,429 +287,6 @@ Vec_f getDR(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i&
 }
 
 
-Vec_f getHiggsPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idMother1, int idParticle2, int idMother2){
-	/*Get Higgs variables with idParticle1, idMother1, idParticle2 and idMother2
-	This is for phi: idParticle1 = 333, idMother1=25, idParticle2=22, idMother2=25*/
-    Vec_f selection = {};
-	Vec_i indexMother1 = {};
-	Vec_i indexMother2 = {};
-    float pt1 = 0;
-	float pt2 = 0;
-	float eta1 = 0;
-    float eta2 = 0;
-	float phi1 = 0;
-    float phi2 = 0;
-    float mass1 = 0;
-	float mass2 = 0;
-    bool particle1 = false;
-    bool particle2 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-		//Particle 1
-		if(genPart_pdgId[i] == idMother1){
-            indexMother1.push_back(i);
-        }
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
-				pt1 = genPart_pt[i];
-				eta1 = genPart_eta[i];
-            	phi1 = genPart_phi[i];
-				mass1 = getMass(idParticle1, genPart_mass[i]);
-            	particle1 = true;
-        	}
-		}
-		//Particle 2
-		if(genPart_pdgId[i] == idMother2){
-            indexMother2.push_back(i);
-        }
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
-				pt2 = genPart_pt[i];
-				eta2 = genPart_eta[i];
-            	phi2 = genPart_phi[i];
-				mass2 = getMass(idParticle2, genPart_mass[i]);
-            	particle2 = true;
-        	}
-		}
-    }
-    if(particle1 && particle2){
-		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
-		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
-		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
-    }
-    return selection;
-}
-
-
-Vec_f getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
-	/* Correct Higgs mass with all particles for D0*.
-	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25, idParticle3=111/22, idMother3=423, idGrandMother3=25*/
-	int idParticle1 = 421;
-	int idMother1 = 423;
-	int idGrandMother1 = 25;
-	int idParticle2 = 22;
-	int idMother2 = 25;
-	int idParticle3a = 111;
-	int idParticle3b = 22;
-	int idMother3 = 423;
-	int idGrandMother3 = 25;
-    Vec_f selection = {};
-	Vec_i indexMother1 = {};
-	Vec_i indexMother2 = {};
-	Vec_i indexMother3 = {};
-	Vec_i indexGrandMother1 = {};
-	Vec_i indexGrandMother3 = {};
-	float pt1 = 0;
-	float pt2 = 0;
-	float pt3 = 0;
-	float eta1 = 0;
-    float eta2 = 0;
-	float eta3 = 0;
-	float phi1 = 0;
-    float phi2 = 0;
-	float phi3 = 0;
-    float mass1 = 0;
-	float mass2 = 0;
-	float mass3 = 0;
-    bool particle1 = false;
-    bool particle2 = false;
-	bool particle3 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-		//Particle 1 (D0)
-		if(genPart_pdgId[i] == idGrandMother1){
-            indexGrandMother1.push_back(i);
-        }
-		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){
-            	indexMother1.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother1.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
-				pt1 = genPart_pt[i];
-				eta1 = genPart_eta[i];
-            	phi1 = genPart_phi[i];
-				mass1 = getMass(idParticle1, genPart_mass[i]);
-            	particle1 = true;
-        	}
-		}
-		//Particle 2 (photon)
-		if(genPart_pdgId[i] == idMother2){
-            indexMother2.push_back(i);
-        }
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
-				pt2 = genPart_pt[i];
-				eta2 = genPart_eta[i];
-            	phi2 = genPart_phi[i];
-				mass2 = getMass(idParticle2, genPart_mass[i]);
-            	particle2 = true;
-        	}
-		}
-		//Particle 3 (pi0/photon)
-		if(genPart_pdgId[i] == idGrandMother3){
-            indexGrandMother3.push_back(i);
-        }
-		else if(std::find(indexGrandMother3.begin(), indexGrandMother3.end(), genPart_genPartIdxMother[i]) != indexGrandMother3.end()){
-        	if(genPart_pdgId[i] == idMother3){
-            	indexMother3.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
-        	if(genPart_pdgId[i] == idMother3){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother3.push_back(i);
-        	}
-			if((genPart_pdgId[i] == idParticle3a || genPart_pdgId[i] == idParticle3b) && !particle3){//get particle 3
-				pt3 = genPart_pt[i];
-				eta3 = genPart_eta[i];
-            	phi3 = genPart_phi[i];
-				mass3 = getMass(genPart_pdgId[i], genPart_mass[i]);
-            	particle3 = true;
-        	}
-		}
-    }
-    if(particle1 && particle2 && particle3){
-		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
-		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
-		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
-		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
-    }
-    return selection;
-}
-
-
-Vec_f getHiggsPtEtaPhiMD0StarDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
-	/* Missing pi0/photon Higgs mass for D0*.
-	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25*/
-	int idParticle1 = 421;
-	int idMother1 = 423;
-	int idGrandMother1 = 25;
-	int idParticle2 = 22;
-	int idMother2 = 25;
-    Vec_f selection = {};
-	Vec_i indexMother1 = {};
-	Vec_i indexMother2 = {};
-	Vec_i indexGrandMother1 = {};
-    float pt1 = 0;
-	float pt2 = 0;
-	float eta1 = 0;
-    float eta2 = 0;
-	float phi1 = 0;
-    float phi2 = 0;
-    float mass1 = 0;
-	float mass2 = 0;
-    bool particle1 = false;
-    bool particle2 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-		//Particle 1 with grandmother
-		if(genPart_pdgId[i] == idGrandMother1){
-            indexGrandMother1.push_back(i);
-        }
-		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){
-            	indexMother1.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother1.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
-				pt1 = genPart_pt[i];
-				eta1 = genPart_eta[i];
-            	phi1 = genPart_phi[i];
-				mass1 = getMass(idParticle1, genPart_mass[i]);
-            	particle1 = true;
-        	}
-		}
-		//Particle 2
-		if(genPart_pdgId[i] == idMother2){
-            indexMother2.push_back(i);
-        }
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
-				pt2 = genPart_pt[i];
-				eta2 = genPart_eta[i];
-            	phi2 = genPart_phi[i];
-				mass2 = getMass(idParticle2, genPart_mass[i]);
-            	particle2 = true;
-        	}
-		}
-    }
-    if(particle1 && particle2){
-		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
-		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
-		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
-    }
-    return selection;
-}
-
-
-Vec_f getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
-	/* Missing pi0 Higgs mass for Phi3.
-	This is for Phi3: idParticle1 = 211, idMother1=333, idGrandMother1=25, idParticle2 = -211, idMother2=333, idGrandMother2=25, idParticle3=22, idMother3=25*/
-	int idParticle1 = 211;
-	int idMother1 = 333;
-	int idGrandMother1 = 25;
-	int idParticle2 = -211;
-	int idMother2 = 333;
-	int idGrandMother2 = 25;
-	int idParticle3 = 22;
-	int idMother3 = 25;
-    Vec_f selection = {};
-	Vec_i indexMother1 = {};
-	Vec_i indexMother2 = {};
-	Vec_i indexMother3 = {};
-	Vec_i indexGrandMother1 = {};
-	Vec_i indexGrandMother2 = {};
-	float pt1 = 0;
-	float pt2 = 0;
-	float pt3 = 0;
-	float eta1 = 0;
-    float eta2 = 0;
-	float eta3 = 0;
-	float phi1 = 0;
-    float phi2 = 0;
-	float phi3 = 0;
-    float mass1 = 0;
-	float mass2 = 0;
-	float mass3 = 0;
-    bool particle1 = false;
-    bool particle2 = false;
-	bool particle3 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-		//Particle 1 with grandmother
-		if(genPart_pdgId[i] == idGrandMother1){
-            indexGrandMother1.push_back(i);
-        }
-		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){
-            	indexMother1.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother1.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
-				pt1 = genPart_pt[i];
-				eta1 = genPart_eta[i];
-            	phi1 = genPart_phi[i];
-				mass1 = getMass(idParticle1, genPart_mass[i]);
-            	particle1 = true;
-        	}
-		}
-		//Particle 2 with grandmother
-		if(genPart_pdgId[i] == idGrandMother2){
-            indexGrandMother2.push_back(i);
-        }
-		else if(std::find(indexGrandMother2.begin(), indexGrandMother2.end(), genPart_genPartIdxMother[i]) != indexGrandMother2.end()){
-        	if(genPart_pdgId[i] == idMother2){
-            	indexMother2.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-        	if(genPart_pdgId[i] == idMother2){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother2.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
-				pt2 = genPart_pt[i];
-				eta2 = genPart_eta[i];
-            	phi2 = genPart_phi[i];
-				mass2 = getMass(idParticle2, genPart_mass[i]);
-            	particle2 = true;
-        	}
-		}
-		//Particle 3
-		if(genPart_pdgId[i] == idMother3){
-            indexMother3.push_back(i);
-        }
-		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
-			if(genPart_pdgId[i] == idParticle3 && !particle3){//get particle 3
-				pt3 = genPart_pt[i];
-				eta3 = genPart_eta[i];
-            	phi3 = genPart_phi[i];
-				mass3 = getMass(idParticle3, genPart_mass[i]);
-            	particle3 = true;
-        	}
-		}
-    }
-    if(particle1 && particle2 && particle3){
-		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
-		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
-		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
-		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
-    }
-    return selection;
-}
-
-
-Vec_f getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
-	/* Missing pi0 Higgs mass for Omega.
-	This is for Omega: idParticle1 = 211, idMother1=223, idGrandMother1=25, idParticle2 = -211, idMother2=223, idGrandMother2=25, idParticle3=22, idMother3=25*/
-	int idParticle1 = 211;
-	int idMother1 = 223;
-	int idGrandMother1 = 25;
-	int idParticle2 = -211;
-	int idMother2 = 223;
-	int idGrandMother2 = 25;
-	int idParticle3 = 22;
-	int idMother3 = 25;
-    Vec_f selection = {};
-	Vec_i indexMother1 = {};
-	Vec_i indexMother2 = {};
-	Vec_i indexMother3 = {};
-	Vec_i indexGrandMother1 = {};
-	Vec_i indexGrandMother2 = {};
-	float pt1 = 0;
-	float pt2 = 0;
-	float pt3 = 0;
-	float eta1 = 0;
-    float eta2 = 0;
-	float eta3 = 0;
-	float phi1 = 0;
-    float phi2 = 0;
-	float phi3 = 0;
-    float mass1 = 0;
-	float mass2 = 0;
-	float mass3 = 0;
-    bool particle1 = false;
-    bool particle2 = false;
-	bool particle3 = false;
-    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
-		//Particle 1 with grandmother
-		if(genPart_pdgId[i] == idGrandMother1){
-            indexGrandMother1.push_back(i);
-        }
-		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){
-            	indexMother1.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
-        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother1.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
-				pt1 = genPart_pt[i];
-				eta1 = genPart_eta[i];
-            	phi1 = genPart_phi[i];
-				mass1 = getMass(idParticle1, genPart_mass[i]);
-            	particle1 = true;
-        	}
-		}
-		//Particle 2 with grandmother
-		if(genPart_pdgId[i] == idGrandMother2){
-            indexGrandMother2.push_back(i);
-        }
-		else if(std::find(indexGrandMother2.begin(), indexGrandMother2.end(), genPart_genPartIdxMother[i]) != indexGrandMother2.end()){
-        	if(genPart_pdgId[i] == idMother2){
-            	indexMother2.push_back(i);
-        	}
-		}
-		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
-        	if(genPart_pdgId[i] == idMother2){//this is for when the mother changes state, mother has 2 indexes
-            	indexMother2.push_back(i);
-        	}
-			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
-				pt2 = genPart_pt[i];
-				eta2 = genPart_eta[i];
-            	phi2 = genPart_phi[i];
-				mass2 = getMass(idParticle2, genPart_mass[i]);
-            	particle2 = true;
-        	}
-		}
-		//Particle 3
-		if(genPart_pdgId[i] == idMother3){
-            indexMother3.push_back(i);
-        }
-		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
-			if(genPart_pdgId[i] == idParticle3 && !particle3){//get particle 3
-				pt3 = genPart_pt[i];
-				eta3 = genPart_eta[i];
-            	phi3 = genPart_phi[i];
-				mass3 = getMass(idParticle3, genPart_mass[i]);
-            	particle3 = true;
-        	}
-		}
-    }
-    if(particle1 && particle2 && particle3){
-		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
-		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
-		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
-		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
-    }
-    return selection;
-}
-
-
 Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get PtEtaPhiM with idParticle, idMother and idGrandMother*/
     Vec_f selection = {};
@@ -1068,6 +645,437 @@ Vec_f getD0StarPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_p
 }
 
 
+Vec_f getHiggsPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idMother1, int idParticle2, int idMother2){
+	/*Get Higgs variables with idParticle1, idMother1, idParticle2 and idMother2
+	This is for phi: idParticle1 = 333, idMother1=25, idParticle2=22, idMother2=25*/
+    Vec_f selection = {};
+	Vec_i indexMother1 = {};
+	Vec_i indexMother2 = {};
+    float pt1 = 0;
+	float pt2 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+    bool particle1 = false;
+    bool particle2 = false;
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		//Particle 1
+		if(genPart_pdgId[i] == idMother1){
+            indexMother1.push_back(i);
+        }
+		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}
+		}
+		//Particle 2
+		if(genPart_pdgId[i] == idMother2){
+            indexMother2.push_back(i);
+        }
+		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
+			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}
+		}
+    }
+    if(particle1 && particle2){
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
+		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+    }
+    return selection;
+}
+
+
+Vec_f getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+	/* Correct Higgs mass with all particles for D0*.
+	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25, idParticle3=111/22, idMother3=423, idGrandMother3=25*/
+	int idParticle1 = 421;
+	int idMother1 = 423;
+	int idGrandMother1 = 25;
+	int idParticle2 = 22;
+	int idMother2 = 25;
+	int idParticle3a = 111;
+	int idParticle3b = 22;
+	int idMother3 = 423;
+	int idGrandMother3 = 25;
+    Vec_f selection = {};
+	Vec_i indexMother1 = {};
+	Vec_i indexMother2 = {};
+	Vec_i indexMother3 = {};
+	Vec_i indexGrandMother1 = {};
+	Vec_i indexGrandMother3 = {};
+	float pt1 = 0;
+	float pt2 = 0;
+	float pt3 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float eta3 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+	float phi3 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+	float mass3 = 0;
+    bool particle1 = false;
+    bool particle2 = false;
+	bool particle3 = false;
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		//Particle 1 (D0)
+		if(genPart_pdgId[i] == idGrandMother1){
+            indexGrandMother1.push_back(i);
+        }
+		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){
+            	indexMother1.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother1.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}
+		}
+		//Particle 2 (photon)
+		if(genPart_pdgId[i] == idMother2){
+            indexMother2.push_back(i);
+        }
+		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
+			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}
+		}
+		//Particle 3 (pi0/photon)
+		if(genPart_pdgId[i] == idGrandMother3){
+            indexGrandMother3.push_back(i);
+        }
+		else if(std::find(indexGrandMother3.begin(), indexGrandMother3.end(), genPart_genPartIdxMother[i]) != indexGrandMother3.end()){
+        	if(genPart_pdgId[i] == idMother3){
+            	indexMother3.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
+        	if(genPart_pdgId[i] == idMother3){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother3.push_back(i);
+        	}
+			if((genPart_pdgId[i] == idParticle3a || genPart_pdgId[i] == idParticle3b) && !particle3){//get particle 3
+				pt3 = genPart_pt[i];
+				eta3 = genPart_eta[i];
+            	phi3 = genPart_phi[i];
+				mass3 = getMass(genPart_pdgId[i], genPart_mass[i]);
+            	particle3 = true;
+        	}
+		}
+    }
+    if(particle1 && particle2 && particle3){
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
+		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
+		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+    }
+    return selection;
+}
+
+
+Vec_f getHiggsPtEtaPhiMD0StarDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+	/* Missing pi0/photon Higgs mass for D0*.
+	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25*/
+	int idParticle1 = 421;
+	int idMother1 = 423;
+	int idGrandMother1 = 25;
+	int idParticle2 = 22;
+	int idMother2 = 25;
+    Vec_f selection = {};
+	Vec_i indexMother1 = {};
+	Vec_i indexMother2 = {};
+	Vec_i indexGrandMother1 = {};
+    float pt1 = 0;
+	float pt2 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+    bool particle1 = true;
+    bool particle2 = false;
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		//Particle 1 with grandmother
+		/*
+		if(genPart_pdgId[i] == idGrandMother1){
+            indexGrandMother1.push_back(i);
+        }
+		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){
+            	indexMother1.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother1.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}
+		}
+		*/
+		//Particle 2
+		if(genPart_pdgId[i] == idMother2){
+            indexMother2.push_back(i);
+        }
+		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
+			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}
+		}
+    }
+    if(particle1 && particle2){
+		//Get D0 from 2body:
+		Vec_f d0PtEtaPhiM = get2BodyPtEtaPhiM(genPart_pt, genPart_eta, genPart_phi, genPart_mass, genPart_pdgId, genPart_genPartIdxMother, -321, 211, 421, 423, 25);
+		pt1 = d0PtEtaPhiM[0];
+		eta1 = d0PtEtaPhiM[1];
+		phi1 = d0PtEtaPhiM[2];
+		mass1 = d0PtEtaPhiM[3];
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
+		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+    }
+    return selection;
+}
+
+
+Vec_f getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+	/* Missing pi0 Higgs mass for Phi3.
+	This is for Phi3: idParticle1 = 211, idMother1=333, idGrandMother1=25, idParticle2 = -211, idMother2=333, idGrandMother2=25, idParticle3=22, idMother3=25*/
+	int idParticle1 = 211;
+	int idMother1 = 333;
+	int idGrandMother1 = 25;
+	int idParticle2 = -211;
+	int idMother2 = 333;
+	int idGrandMother2 = 25;
+	int idParticle3 = 22;
+	int idMother3 = 25;
+    Vec_f selection = {};
+	Vec_i indexMother1 = {};
+	Vec_i indexMother2 = {};
+	Vec_i indexMother3 = {};
+	Vec_i indexGrandMother1 = {};
+	Vec_i indexGrandMother2 = {};
+	float pt1 = 0;
+	float pt2 = 0;
+	float pt3 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float eta3 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+	float phi3 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+	float mass3 = 0;
+    bool particle1 = false;
+    bool particle2 = false;
+	bool particle3 = false;
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		//Particle 1 with grandmother
+		if(genPart_pdgId[i] == idGrandMother1){
+            indexGrandMother1.push_back(i);
+        }
+		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){
+            	indexMother1.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother1.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}
+		}
+		//Particle 2 with grandmother
+		if(genPart_pdgId[i] == idGrandMother2){
+            indexGrandMother2.push_back(i);
+        }
+		else if(std::find(indexGrandMother2.begin(), indexGrandMother2.end(), genPart_genPartIdxMother[i]) != indexGrandMother2.end()){
+        	if(genPart_pdgId[i] == idMother2){
+            	indexMother2.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
+        	if(genPart_pdgId[i] == idMother2){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother2.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}
+		}
+		//Particle 3
+		if(genPart_pdgId[i] == idMother3){
+            indexMother3.push_back(i);
+        }
+		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
+			if(genPart_pdgId[i] == idParticle3 && !particle3){//get particle 3
+				pt3 = genPart_pt[i];
+				eta3 = genPart_eta[i];
+            	phi3 = genPart_phi[i];
+				mass3 = getMass(idParticle3, genPart_mass[i]);
+            	particle3 = true;
+        	}
+		}
+    }
+    if(particle1 && particle2 && particle3){
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
+		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
+		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+    }
+    return selection;
+}
+
+
+Vec_f getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+	/* Missing pi0 Higgs mass for Omega.
+	This is for Omega: idParticle1 = 211, idMother1=223, idGrandMother1=25, idParticle2 = -211, idMother2=223, idGrandMother2=25, idParticle3=22, idMother3=25*/
+	int idParticle1 = 211;
+	int idMother1 = 223;
+	int idGrandMother1 = 25;
+	int idParticle2 = -211;
+	int idMother2 = 223;
+	int idGrandMother2 = 25;
+	int idParticle3 = 22;
+	int idMother3 = 25;
+    Vec_f selection = {};
+	Vec_i indexMother1 = {};
+	Vec_i indexMother2 = {};
+	Vec_i indexMother3 = {};
+	Vec_i indexGrandMother1 = {};
+	Vec_i indexGrandMother2 = {};
+	float pt1 = 0;
+	float pt2 = 0;
+	float pt3 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float eta3 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+	float phi3 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+	float mass3 = 0;
+    bool particle1 = false;
+    bool particle2 = false;
+	bool particle3 = false;
+    for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		//Particle 1 with grandmother
+		if(genPart_pdgId[i] == idGrandMother1){
+            indexGrandMother1.push_back(i);
+        }
+		else if(std::find(indexGrandMother1.begin(), indexGrandMother1.end(), genPart_genPartIdxMother[i]) != indexGrandMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){
+            	indexMother1.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother1.begin(), indexMother1.end(), genPart_genPartIdxMother[i]) != indexMother1.end()){
+        	if(genPart_pdgId[i] == idMother1){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother1.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}
+		}
+		//Particle 2 with grandmother
+		if(genPart_pdgId[i] == idGrandMother2){
+            indexGrandMother2.push_back(i);
+        }
+		else if(std::find(indexGrandMother2.begin(), indexGrandMother2.end(), genPart_genPartIdxMother[i]) != indexGrandMother2.end()){
+        	if(genPart_pdgId[i] == idMother2){
+            	indexMother2.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother2.begin(), indexMother2.end(), genPart_genPartIdxMother[i]) != indexMother2.end()){
+        	if(genPart_pdgId[i] == idMother2){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother2.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}
+		}
+		//Particle 3
+		if(genPart_pdgId[i] == idMother3){
+            indexMother3.push_back(i);
+        }
+		else if(std::find(indexMother3.begin(), indexMother3.end(), genPart_genPartIdxMother[i]) != indexMother3.end()){
+			if(genPart_pdgId[i] == idParticle3 && !particle3){//get particle 3
+				pt3 = genPart_pt[i];
+				eta3 = genPart_eta[i];
+            	phi3 = genPart_phi[i];
+				mass3 = getMass(idParticle3, genPart_mass[i]);
+            	particle3 = true;
+        	}
+		}
+    }
+    if(particle1 && particle2 && particle3){
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
+		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
+		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+    }
+    return selection;
+}
+
+
 Vec_f getMinimum(Vec_f v1, Vec_f v2){
 	Vec_f output = {};
 	if (!v1.empty() && !v2.empty() && v1.size() == v2.size()){
@@ -1208,5 +1216,17 @@ Vec_i getFilteredGoodParticleMaxPt(Vec_i goodParticle, Vec_f goodParticle_pt){
 	}
     return filteredIndexes;
 }
+
+
+PtEtaPhiMVector test(const float meson_pt, const float meson_eta, const float meson_phi, const float meson_mass, 
+	const float photon_pt, const float photon_eta, const float photon_phi){
+
+	PtEtaPhiMVector new_ph(photon_pt, photon_eta, photon_phi, 0);
+	PtEtaPhiMVector ditrack(meson_pt, meson_eta, meson_phi, meson_mass);
+	PtEtaPhiMVector goodMeson = (new_ph + ditrack);
+
+    return goodMeson;
+}
+
 
 #endif
