@@ -95,6 +95,7 @@ if __name__ == "__main__":
 
     #D0Star----------------------------------------------------------------------------------------
     mesonCat = "D0StarCat"
+    '''
     fitSig(cat, mesonCat, year, date)
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
@@ -107,9 +108,14 @@ if __name__ == "__main__":
     extraTitle = "barrel meson, endcap photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "endcap meson, endcap photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)'''
+    date = "JUN21"
+    extraTitle = "missing photon"
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
+    extraTitle = "missing pion"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
 
-
+'''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
     fitSig(cat, mesonCat, year, date)
@@ -125,4 +131,4 @@ if __name__ == "__main__":
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "endcap meson, endcap photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    
+    '''

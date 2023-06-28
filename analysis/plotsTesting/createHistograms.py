@@ -92,8 +92,7 @@ def makePlots(cat, mesonCat, year, date, background):
             .Define("HCandMassFilt", "Vec_f {HCandMass}")\
             .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25)[3]")\
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")\
-            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")\
-            .Define("photon_D0Star_size", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 423, 25).size()")
+            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")
     elif (mesonCat == "Phi3Cat"):
         df_SGN = df_SGN.Define("scale", "w*lumiIntegrated")\
             .Define("goodMeson_ditrk_mass_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -211, 211, 333, 25)[3]")\
@@ -260,8 +259,8 @@ def makePlots(cat, mesonCat, year, date, background):
     histograms[-1].Draw("hist")
     if (mesonCat == "D0StarCat" or mesonCat == "D0StarRhoCat"):
         #Stack
-        h_ph_RECO=df_SGN.Filter("photon_D0Star_size == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable, "scale")
-        h_pi_RECO=df_SGN.Filter("photon_D0Star_size == 0").Histo1D(("hist", "title", nbins, xlow, xhigh), variable, "scale")
+        h_ph_RECO=df_SGN.Filter("getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 423, 25).size() == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable, "scale")
+        h_pi_RECO=df_SGN.Filter("getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 423, 25).size() == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable, "scale")
         h_ph_RECO.SetFillColor(ROOT.kGreen-2)
         h_ph_RECO.SetLineColor(ROOT.kBlack)
         h_pi_RECO.SetFillColor(ROOT.kGreen-9)
@@ -285,8 +284,8 @@ def makePlots(cat, mesonCat, year, date, background):
     histograms[-1].Draw("hist")
     if (mesonCat == "D0StarCat" or mesonCat == "D0StarRhoCat"):
         #Stack
-        h_ph_GEN=df_SGN.Filter("photon_D0Star_size == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable + "_GEN", "scale")
-        h_pi_GEN=df_SGN.Filter("photon_D0Star_size == 0").Histo1D(("hist", "title", nbins, xlow, xhigh), variable + "_GEN", "scale")
+        h_ph_GEN=df_SGN.Filter("getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 423, 25).size() == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable + "_GEN", "scale")
+        h_pi_GEN=df_SGN.Filter("getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 423, 25).size() == 1").Histo1D(("hist", "title", nbins, xlow, xhigh), variable + "_GEN", "scale")
         h_ph_GEN.SetFillColor(ROOT.kBlue-2)
         h_ph_GEN.SetLineColor(ROOT.kBlack)
         h_pi_GEN.SetFillColor(ROOT.kBlue-9)

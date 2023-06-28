@@ -18,5 +18,6 @@ analysis/br_omega.txt
 analysis/br_phi3.txt
 analysis/br_d0StarKmRho.txt
 analysis/.nfs*
-analysis/func_marti_cc_ACLiC_dict_rdict.pcm
-analysis/func_marti_cc.so
+analysis/func_marti_cc*
+analysis/functions_cc*
+*.pyc

@@ -1218,14 +1218,27 @@ Vec_i getFilteredGoodParticleMaxPt(Vec_i goodParticle, Vec_f goodParticle_pt){
 }
 
 
-PtEtaPhiMVector test(const float meson_pt, const float meson_eta, const float meson_phi, const float meson_mass, 
-	const float photon_pt, const float photon_eta, const float photon_phi){
+PtEtaPhiMVector sum2Body(const float particle1_pt, const float particle1_eta, const float particle1_phi, const float particle1_mass, 
+	const float particle2_pt, const float particle2_eta, const float particle2_phi, const float particle2_mass){
 
-	PtEtaPhiMVector new_ph(photon_pt, photon_eta, photon_phi, 0);
-	PtEtaPhiMVector ditrack(meson_pt, meson_eta, meson_phi, meson_mass);
-	PtEtaPhiMVector goodMeson = (new_ph + ditrack);
+	PtEtaPhiMVector particle1P4(particle1_pt, particle1_eta, particle1_phi, particle1_mass);
+	PtEtaPhiMVector particle2P4(particle2_pt, particle2_eta, particle2_phi, particle2_mass);
+	PtEtaPhiMVector twoBody = (particle1P4 + particle2P4);
 
-    return goodMeson;
+    return twoBody;
+}
+
+
+PtEtaPhiMVector sum3Body(const float particle1_pt, const float particle1_eta, const float particle1_phi, const float particle1_mass, 
+	const float particle2_pt, const float particle2_eta, const float particle2_phi, const float particle2_mass,
+	const float particle3_pt, const float particle3_eta, const float particle3_phi, const float particle3_mass){
+
+	PtEtaPhiMVector particle1P4(particle1_pt, particle1_eta, particle1_phi, particle1_mass);
+	PtEtaPhiMVector particle2P4(particle2_pt, particle2_eta, particle2_phi, particle2_mass);
+	PtEtaPhiMVector particle3P4(particle3_pt, particle3_eta, particle3_phi, particle3_mass);
+	PtEtaPhiMVector threeBody = (particle1P4 + particle2P4 + particle3P4);
+
+    return threeBody;
 }
 
 

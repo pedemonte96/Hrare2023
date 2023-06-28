@@ -6,7 +6,7 @@ numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1
 mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 
 
-def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None):
+def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False):
     """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
 
     print("[getHisto] Creating Histogram {} {} {}...".format(mesonCat, cat, extraTitle))
@@ -25,7 +25,10 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
     if extraTitle is not None:
         title += " ({})".format(extraTitle)
 
-    h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
+    if ditrack:
+        h = df.Define("scale", "w*lumiIntegrated").Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassMissing", "scale")
+    else:
+        h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
     #h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassVtxCorr", "scale")
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
