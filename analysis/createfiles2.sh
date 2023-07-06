@@ -18,7 +18,7 @@ bash createonefile.sh $cat isD0StarCat 1041 $year
 #for part in "isOmegaCat" "isD0StarCat" "isPhi3Cat"
 for part in "isD0StarCat"
 do
-for num in "10" "11"
+for num in "10" "11" "14"
 do
 	sleep 0.00001
 	bash createonefile.sh $cat $part $num $year

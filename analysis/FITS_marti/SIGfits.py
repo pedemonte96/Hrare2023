@@ -8,11 +8,12 @@ xlowRange = 100.
 xhighRange = 150.
 
 sig = "ggH"
+workspaceName = 'WS_JUL06'
 
 
 def fitSig(tag, mesonCat, year, date, extraTitle=None):
 
-    print("[fitSig] Fitting Histogram {} {} {}...".format(mesonCat, cat, extraTitle))
+    print('\033[1;36m' + "[fitSig] Fitting Histogram {} {} {} {}...".format(mesonCat, cat, date, extraTitle) + '\033[0m')
 
     #Read Hist file saved
 
@@ -23,7 +24,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None):
 
     x.setRange("full", xlowRange, xhighRange)
 
-    data = ROOT.RooDataHist('datahist' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
+    data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
 
     cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 125., 125-10., 125+10.)
     cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 0., 5.)
@@ -85,18 +86,54 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None):
         fileName2 = fileName2[:-4] + "_" + extraTitle.replace(" ", "_").replace(",", "") + fileName2[-4:]
     canvas2.SaveAs(fileName2)
 
+    # -------------------------------------------------------------
+
+    w = ROOT.RooWorkspace("w", "workspace")
+
+    norm_SR = data_full.Integral(data_full.FindBin(xlowRange), data_full.FindBin(xhighRange))
+    SIG_norm = ROOT.RooRealVar(model.GetName()+ "_norm", model.GetName()+ "_norm", norm_SR) # no range means contants
+
+    # -----------------------------------------------------------------------------
+    # Create workspace, import data and model
+
+    cb_mu.setConstant()
+    cb_sigma.setConstant()
+    cb_alphaL.setConstant()
+    cb_alphaR.setConstant()
+    cb_nL.setConstant()
+    cb_nR.setConstant()
+    SIG_norm.setConstant()
+
+    # Import model and all its components into the workspace
+    print("[fitSig] ------------------------getattr(w,'import')(model)-----------------------")
+    getattr(w,'import')(model)
+    print("[fitSig] ------------------------getattr(w,'import')(SIG_norm)-----------------------")
+    getattr(w,'import')(SIG_norm)
+    print('INSIDE fitSig: integral signal = ',SIG_norm.Print())
+
+    # Import data into the workspace
+    getattr(w,'import')(data)
+
+    # Print workspace contents
+    w.Print()
+
+    # -----------------------------------------------------------------------------
+    # Save workspace in file
+    w.writeToFile(workspaceName+"/Signal_"+mesonCat[:-3]+"_"+tag+"_"+str(year)+"_workspace.root")
+    print('\033[1;36m' + "[fitSig] Fit done, workspace created!" + '\033[0m')
+
 
 if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "JUN14"
+    date = "JUN29"
 
 
     #D0Star----------------------------------------------------------------------------------------
     mesonCat = "D0StarCat"
-    '''
     fitSig(cat, mesonCat, year, date)
+    '''
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "barrel photon"
@@ -108,17 +145,18 @@ if __name__ == "__main__":
     extraTitle = "barrel meson, endcap photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "endcap meson, endcap photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)'''
+    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     date = "JUN21"
     extraTitle = "missing photon"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "missing pion"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
 
-'''
+    '''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
     fitSig(cat, mesonCat, year, date)
+    '''
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
     extraTitle = "barrel photon"

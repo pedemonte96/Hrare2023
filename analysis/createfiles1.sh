@@ -18,7 +18,7 @@ cat="isGFtag"
 #for part in "isOmegaCat" "isD0StarCat" "isPhi3Cat"
 for part in "isPhi3Cat"
 do
-for num in "12" "13" "14"
+for num in "12" "13"
 do
 	sleep 0.00001
 	bash createonefile.sh $cat $part $num $year

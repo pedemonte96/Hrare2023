@@ -17,7 +17,7 @@ analysis/br_d0Star.txt
 analysis/br_omega.txt
 analysis/br_phi3.txt
 analysis/br_d0StarKmRho.txt
-analysis/.nfs*
+*.nfs*
 analysis/func_marti_cc*
 analysis/functions_cc*
 *.pyc

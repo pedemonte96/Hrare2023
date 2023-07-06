@@ -1,0 +1,13 @@
+**** Phi3 GFcat ****
+ <<< Combine >>> 
+>>> method used is AsymptoticLimits
+>>> random number generator seed is 123456
+
+ -- AsymptoticLimits ( CLs ) --
+Expected  2.5%: r < 1.4452
+Expected 16.0%: r < 1.7565
+Expected 50.0%: r < 2.2422
+Expected 84.0%: r < 2.9304
+Expected 97.5%: r < 3.7656
+
+Done in 0.00 min (cpu), 0.00 min (real)

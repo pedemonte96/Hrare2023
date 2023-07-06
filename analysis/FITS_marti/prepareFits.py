@@ -9,7 +9,7 @@ mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False):
     """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
 
-    print("[getHisto] Creating Histogram {} {} {}...".format(mesonCat, cat, extraTitle))
+    print("[getHisto] Creating Histogram {} {} {} {}...".format(mesonCat, cat, date, extraTitle))
 
     chain = ROOT.TChain("events")
     for num in nums:
@@ -37,7 +37,7 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
     h.SetFillColor(ROOT.kGreen-6)
     h.SetLineColor(ROOT.kBlack)
 
-    print("[getHisto] -------------------------------------Histogram created!----------------------")
+    print("[getHisto] ---------------------------------------- Histogram created! ----------------------")
 
     return ROOT.TH1D(h.GetValue())
 

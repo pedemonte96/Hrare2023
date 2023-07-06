@@ -332,7 +332,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "JUN21"  
+    date = "JUN29"
 
     #D0Star----------------------------------------------------------------------------------------
     background = True
@@ -342,7 +342,7 @@ if __name__ == "__main__":
     #Phi3----------------------------------------------------------------------------------------
     background = True
     mesonCat = "Phi3Cat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     background = False
 
