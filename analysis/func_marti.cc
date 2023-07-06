@@ -288,7 +288,7 @@ Vec_f getDR(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i&
 
 
 Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother, int idGreatGrandMother){
-	/*Get PtEtaPhiM with idParticle, idMother and idGrandMother*/
+	/*Get PtEtaPhiM with idParticle, idMother and idGrandMother, idGreatGrandMother*/
     Vec_f selection = {};
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
@@ -396,7 +396,11 @@ Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_2Body = (p_part1 + p_part2);
-		selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), p_2Body.M()};
+		if (abs(p_2Body.M()) < 0.01){
+			selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), std::sqrt(-(p_2Body.X()*p_2Body.X() + p_2Body.Y()*p_2Body.Y() + p_2Body.Z()*p_2Body.Z()) + p_2Body.E()*p_2Body.E())};
+		}else{
+			selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), p_2Body.M()};
+		}
     }
     return selection;
 }

@@ -386,7 +386,7 @@ def SwitchSample(argument,year):
         #1040: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg_03_test"+"/NANOAOD_03_test",48580*0.153), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
         #1040: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg_03_test2"+"/NANOAOD_03_test2",48580*0.153), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
         #1041: (dirLocalNEW2+"ggh-hD0StarKmRhoPgamma-powheg_03_test2"+"/NANOAOD_03_test2",48580*0.11), #xsec = 3*9.426E-02 (xsec*ggH) * BR(HPhiaGamma)=1
-        1038: (dirLocalNEW2+"ggh-homegagamma-powheg"+"/NANOAOD_03_test3", 48580*0.892), 
+        1038: (dirLocalNEW2+"ggh-homegagamma-powheg"+"/NANOAOD_03_test4", 48580*0.892), 
         1039: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg"+"/NANOAOD_03_test4", 48580*0.153),
         1040: (dirLocalNEW2+"ggh-hD0StarKmRhoPgamma-powheg"+"/NANOAOD_03_test3", 48580*0.11),
         1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test3", 48580*0.0389),
