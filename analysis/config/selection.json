@@ -154,13 +154,12 @@
 	{
             "name": "isZinv",
             "type": "isOmegaCat",
-            "definition": "omega_iso > 0",
+            "definition": "(omega_iso > 0.90 && omega_kin_pt > 10 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 6 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 0 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.47) < 0.17)",
             "notes":" used for isGF"
         },
 	{
             "name": "isZinv",
             "type": "isPhi3Cat",
-            "definition_b": "(omega_iso > 0.80 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 0 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 0 && omega_kin_pt > 0 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.60) < 0.3 && abs(omega_threemass -  1.023) < 1000*0.23)",
             "definition": "(omega_iso > 0.90 && omega_kin_pt > 10 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 4 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 0 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.59) < 0.25)",
             "notes":" used for isGF"
         },
@@ -179,7 +178,6 @@
 	{
             "name": "isZinv",
             "type": "isD0StarCat",
-            "definition_old": "abs(d0_d0Star_3body_mass-2.007)<30*0.02 && d0_d0Star_3body_pt>38 && abs(d0_kin_mass-1.864)<5*0.05 && d0_pion_pt>5 && d0_kaon_pt>5 && d0_kin_valid && d0_iso > 0.9",
             "definition": "(d0_iso > 0.90 && d0_kin_pt > 38 && abs(d0_kin_mass - 1.865) < 0.065 && getMaximum(d0_pion_pt, d0_kaon_pt) > 21 && getMinimum(d0_pion_pt, d0_kaon_pt) > 6)",
             "notes":" used for isGF"
 	}

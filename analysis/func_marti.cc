@@ -450,6 +450,80 @@ Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 }
 
 
+Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother, int idGreatGrandMother){
+	/*Get 3Body PtEtaPhiM with idParticle1,2,3, idMother and idGrandMother, idGreatGrandMother*/
+    Vec_f selection = {};
+	Vec_i indexMother = {};
+	Vec_i indexGrandMother = {};
+	Vec_i indexGreatGrandMother = {};
+	float pt1 = 0;
+	float pt2 = 0;
+	float pt3 = 0;
+	float eta1 = 0;
+    float eta2 = 0;
+	float eta3 = 0;
+	float phi1 = 0;
+    float phi2 = 0;
+	float phi3 = 0;
+    float mass1 = 0;
+	float mass2 = 0;
+	float mass3 = 0;
+    bool particle1 = false;
+    bool particle2 = false;
+	bool particle3 = false;
+	for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		if(genPart_pdgId[i] == idGreatGrandMother){
+            indexGreatGrandMother.push_back(i);
+        }
+        else if(std::find(indexGreatGrandMother.begin(), indexGreatGrandMother.end(), genPart_genPartIdxMother[i]) != indexGreatGrandMother.end()){
+        	if(genPart_pdgId[i] == idGrandMother){
+            	indexGrandMother.push_back(i);
+        	}
+		}
+		else if(std::find(indexGrandMother.begin(), indexGrandMother.end(), genPart_genPartIdxMother[i]) != indexGrandMother.end()){
+			if(genPart_pdgId[i] == idGrandMother){//this is for when the grandmother changes state, grandmother has 2 indexes
+            	indexGrandMother.push_back(i);
+        	}
+        	if(genPart_pdgId[i] == idMother){
+            	indexMother.push_back(i);
+        	}
+		}
+		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
+        	if(genPart_pdgId[i] == idMother){//this is for when the mother changes state, mother has 2 indexes
+            	indexMother.push_back(i);
+        	}
+			if(genPart_pdgId[i] == idParticle1 && !particle1){//get particle 1
+				pt1 = genPart_pt[i];
+				eta1 = genPart_eta[i];
+            	phi1 = genPart_phi[i];
+				mass1 = getMass(idParticle1, genPart_mass[i]);
+            	particle1 = true;
+        	}else if(genPart_pdgId[i] == idParticle2 && !particle2){//get particle 2
+				pt2 = genPart_pt[i];
+				eta2 = genPart_eta[i];
+            	phi2 = genPart_phi[i];
+				mass2 = getMass(idParticle2, genPart_mass[i]);
+            	particle2 = true;
+        	}else if(genPart_pdgId[i] == idParticle3 && !particle3){//get particle 3
+				pt3 = genPart_pt[i];
+				eta3 = genPart_eta[i];
+            	phi3 = genPart_phi[i];
+				mass3 = getMass(idParticle3, genPart_mass[i]);
+            	particle3 = true;
+        	}
+		}
+    }
+	if(particle1 && particle2 && particle3){
+		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
+		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
+		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
+		PtEtaPhiMVector p_3Body = (p_part1 + p_part2 + p_part3);
+		selection = {p_3Body.pt(), p_3Body.Eta(), p_3Body.Phi(), p_3Body.M()};
+    }
+    return selection;
+}
+
+
 Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother){
 	/*Get 3Body PtEtaPhiM with idParticle1,2,3, idMother and idGrandMother*/
     Vec_f selection = {};

@@ -11,6 +11,8 @@ numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1
 
 mesonLatex = {"OmegaCat": "#omega", "Phi3Cat": "#phi", "D0StarRhoCat": "D^{0*} (#rho)", "D0StarCat": "D^{0*}"}
 
+colors = {"RECO": "\033[1;36m", "GEN": "\033[1;34m", "BKG": "\033[1;31m", "NC": "\033[0m", "YELLOW": "\033[1;33m"}
+
 variableNames = {"goodMeson_ditrk_mass": ["ditrack mass", "m [GeV]", "GeV"],
                  "goodMeson_mass": ["full mass", "m [GeV]", "GeV"],
                  "goodMeson_ditrk_pt": ["ditrack p_{T}", "p_{T} [GeV]", "GeV"],
@@ -25,7 +27,8 @@ variableNames = {"goodMeson_ditrk_mass": ["ditrack mass", "m [GeV]", "GeV"],
 
 
 def getHistogram(nbins, xlow, xhigh, df, mesonCat, variable, level):
-    print("[getHistogram] ------------------------Creating histogram {} {} {}-----------------------".format(mesonCat, variable, level))
+    text = " Creating histogram {} {} {} ".format(mesonCat, variable, level).center(70, "-")
+    print(colors[level] + "[getHistogram]{}".format(text) + colors["NC"])
     title = mesonLatex[mesonCat] + ": " + variableNames[variable][0] + ", " + level
     xAxisTitle = variableNames[variable][1]
     yAxisTitle = "Events/(" + str(round((xhigh - xlow)/nbins, 5)) + " " + variableNames[variable][2] + ")"
@@ -49,11 +52,15 @@ def getHistogram(nbins, xlow, xhigh, df, mesonCat, variable, level):
     h.SetLineColor(ROOT.kBlack)
     h.GetXaxis().SetTitle(xAxisTitle)
     h.GetYaxis().SetTitle(yAxisTitle)
-    print("[getHistogram] ------------------------Histogram created!-----------------------")
+    text = " Histogram created! ".center(70, "-")
+    print(colors[level] + "[getHistogram]{}".format(text) + colors["NC"])
     return ROOT.TH1D(h.GetValue())
 
 
 def makePlots(cat, mesonCat, year, date, background):
+
+    text = " Making plots for {} {} ".format(mesonCat, date).center(70, "~")
+    print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"])
 
     numRows = 11
     numCols = 3 if background else 2
@@ -123,12 +130,12 @@ def makePlots(cat, mesonCat, year, date, background):
             .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMOmegaDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")
     elif (mesonCat == "D0StarRhoCat"):
         df_SGN = df_SGN.Define("scale", "w*lumiIntegrated")\
-            .Define("goodMeson_ditrk_mass_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 213, 421, 423, 25)[3]")\
-            .Define("goodMeson_ditrk_pt_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 213, 421, 423, 25)[0]")\
-            .Define("goodMeson_leadtrk_pt_GEN", "getMaximum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 213, 421, 423, 25))")\
-            .Define("goodMeson_subleadtrk_pt_GEN", "getMinimum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 213, 421, 423, 25))")\
+            .Define("goodMeson_ditrk_mass_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 211, 421, 423, 25)[3]")\
+            .Define("goodMeson_ditrk_pt_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 211, 421, 423, 25)[0]")\
+            .Define("goodMeson_leadtrk_pt_GEN", "getMaximum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 421, 423, 25))")\
+            .Define("goodMeson_subleadtrk_pt_GEN", "getMinimum(getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25), getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 421, 423, 25))")\
             .Define("goodPhotons_pt_GEN", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 25)")\
-            .Define("goodMeson_DR_GEN", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25, 213, 421, 423, 25)")\
+            .Define("goodMeson_DR_GEN", "getDR(GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25, 211, 421, 423, 25)")\
             .Define("goodMeson_mass_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]")\
             .Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[0]")\
             .Define("HCandMassFilt", "Vec_f {HCandMass}")\
@@ -138,8 +145,12 @@ def makePlots(cat, mesonCat, year, date, background):
         
     
     nbins, xlow, xhigh, variable = 200, 1.65, 2.05, "goodMeson_ditrk_mass"
-    if (mesonCat == "Phi3Cat" or mesonCat == "OmegaCat"):
-        xlow, xhigh = 0.0, 1.2
+    if (mesonCat == "Phi3Cat"):
+        xlow, xhigh = 0.2, 1.0
+    elif (mesonCat == "OmegaCat"):
+        xlow, xhigh = 0.2, 0.8
+    elif (mesonCat == "D0StarRhoCat"):
+        xlow, xhigh = 0.0, 2.05
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
     histograms[-1].Draw("hist")
@@ -213,9 +224,9 @@ def makePlots(cat, mesonCat, year, date, background):
 
     nbins, xlow, xhigh, variable = 200, 1.85, 2.15, "goodMeson_mass"
     if (mesonCat == "Phi3Cat"):
-        xlow, xhigh = 0.6, 1.4
+        xlow, xhigh = 0.6, 1.3
     elif (mesonCat == "OmegaCat"):
-        xlow, xhigh = 0.0, 1.3
+        xlow, xhigh = 0.3, 1.3
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
     histograms[-1].Draw("hist")
@@ -252,7 +263,7 @@ def makePlots(cat, mesonCat, year, date, background):
         histograms[-1].Draw("hist")
 
     nbins, xlow, xhigh, variable = 200, 105, 135, "HCandMassMissing"
-    if (mesonCat == "Phi3Cat" or mesonCat == "OmegaCat"):
+    if (mesonCat == "Phi3Cat" or mesonCat == "OmegaCat" or mesonCat == "D0StarRhoCat"):
         xlow, xhigh = 50, 140
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
@@ -309,7 +320,7 @@ def makePlots(cat, mesonCat, year, date, background):
         p = cs.cd(len(histograms))
         histograms[-1].Draw("hist")
 
-    nbins, xlow, xhigh, variable = 200, 0.85, 1.05, "goodMeson_iso"
+    nbins, xlow, xhigh, variable = 200, 0.0, 1.20, "goodMeson_iso"
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
     p.SetLogy()
@@ -324,6 +335,8 @@ def makePlots(cat, mesonCat, year, date, background):
         histograms[-1].Draw("hist")
 
     cs.SaveAs("~/public_html/{}_RECO_vs_GEN.png".format(mesonCat[:-3]))
+    text = " Done! ".center(70, "~")
+    print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"] + "\n")
     
 
 if __name__ == "__main__":
@@ -334,23 +347,23 @@ if __name__ == "__main__":
     year = 2018
     date = "JUN29"
 
-    #D0Star----------------------------------------------------------------------------------------
+    #D0Star--------------------------------------------------------------------------------------
     background = True
     mesonCat = "D0StarCat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
     background = True
     mesonCat = "Phi3Cat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
-    background = False
-
-    #Omega----------------------------------------------------------------------------------------
+    #Omega---------------------------------------------------------------------------------------
+    background = True
     mesonCat = "OmegaCat"
     #makePlots(cat, mesonCat, year, date, background)
 
-    #D0StarRho----------------------------------------------------------------------------------------
+    #D0StarRho-----------------------------------------------------------------------------------
+    background = False
     mesonCat = "D0StarRhoCat"
     #makePlots(cat, mesonCat, year, date, background)
     
