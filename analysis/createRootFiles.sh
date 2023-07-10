@@ -33,10 +33,10 @@ else
 	elif [[ ${1,,} == "phi" || ${1,,} == "phi3" ]]; then
 		mesonCat="isPhi3Cat"
 		numSignal=1039
-	elif [[ ${1,,} == "d0starrho" ]]; then
+	elif [[ ${1,,} == "d0starrho" || ${1,,} == "dr" ]]; then
 		mesonCat="isD0StarRhoCat"
 		numSignal=1040
-	elif [[ ${1,,} == "d0star" ]]; then
+	elif [[ ${1,,} == "d0star" || ${1,,} == "d" ]]; then
 		mesonCat="isD0StarCat"
 		numSignal=1041
 	else

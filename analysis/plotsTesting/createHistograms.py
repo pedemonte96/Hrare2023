@@ -150,7 +150,7 @@ def makePlots(cat, mesonCat, year, date, background):
     elif (mesonCat == "OmegaCat"):
         xlow, xhigh = 0.2, 0.8
     elif (mesonCat == "D0StarRhoCat"):
-        xlow, xhigh = 0.0, 2.05
+        xlow, xhigh = 0.4, 2.00
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
     histograms[-1].Draw("hist")
@@ -227,6 +227,8 @@ def makePlots(cat, mesonCat, year, date, background):
         xlow, xhigh = 0.6, 1.3
     elif (mesonCat == "OmegaCat"):
         xlow, xhigh = 0.3, 1.3
+    elif (mesonCat == "D0StarRhoCat"):
+        xlow, xhigh = 0.6, 2.30
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
     histograms[-1].Draw("hist")

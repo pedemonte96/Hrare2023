@@ -5,26 +5,26 @@ ROOT.ROOT.EnableImplicitMT()
 if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.so" not in ROOT.gSystem.GetLibraries():
 	ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/func_marti.cc","k")
 
-date = "MAY09"
+date = "JUN29"
 
 chain = ROOT.TChain("events")
-chain.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1039_GFcat_D0StarCat_2018.root".format(date))
+chain.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc1041_GFcat_D0StarCat_2018.root".format(date))
 
 df = ROOT.RDataFrame(chain)
 
-h0=df.Define("D0StarGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25)").Histo1D(("hist", "D^{0}* PT GEN", 200, 0, 200),"D0StarGenPT")
+h0=df.Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[0]").Histo1D(("hist", "D^{0}* PT GEN", 200, 0, 200),"goodMeson_pt_GEN")
 
-h1=df.Define("D0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 421, 423, 25)").Define("D0GenPTgood","D0GenPT[D0GenPT>0]").Histo1D(("hist", "D^{0} PT GEN", 200, 0, 200),"D0GenPTgood")
+h1=df.Define("goodMeson_ditrk_pt_GEN", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 211, 421, 423, 25)[0]").Histo1D(("hist", "D^{0} PT GEN", 200, 0, 200),"goodMeson_ditrk_pt_GEN")
 
-h2=df.Define("HiggsPhotonGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 25)").Histo1D(("hist", "#gamma from Higgs PT GEN", 200, 0, 200),"HiggsPhotonGenPT")
+h2=df.Define("goodPhotons_pt_GEN", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 25)").Histo1D(("hist", "#gamma from Higgs PT GEN", 200, 0, 200),"goodPhotons_pt_GEN")
 
 h3g=df.Define("PhotonD0StarGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 22, 423, 25)").Define("PhotonD0StarGenPTGood", "PhotonD0StarGenPT[PhotonD0StarGenPT>0]").Histo1D(("hist", "#gamma from D^{0}* PT GEN", 150, 0, 30),"PhotonD0StarGenPTGood")
 
 h3p=df.Define("Pi0D0StarGenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 111, 423, 25)").Define("Pi0D0StarGenPTGood", "Pi0D0StarGenPT[Pi0D0StarGenPT>0]").Histo1D(("hist", "#pi^{0} from D^{0}* PT GEN", 150, 0, 30),"Pi0D0StarGenPTGood")
 
-h4=df.Define("PiplusD0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 421, 423)").Define("PiplusD0GenPTGood", "PiplusD0GenPT[PiplusD0GenPT>0]").Histo1D(("hist", "#pi^{+} from D^{0} PT GEN", 70, 0, 70),"PiplusD0GenPTGood")
+h4=df.Define("PiplusD0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, 211, 421, 423, 25)").Define("PiplusD0GenPTGood", "PiplusD0GenPT[PiplusD0GenPT>0]").Histo1D(("hist", "#pi^{+} from D^{0} PT GEN", 70, 0, 70),"PiplusD0GenPTGood")
 
-h5=df.Define("KaonD0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423)").Define("KaonD0GenPTGood", "KaonD0GenPT[KaonD0GenPT>0]").Histo1D(("hist", "K^{-} from D^{0} PT GEN", 70, 0, 70),"KaonD0GenPTGood")
+h5=df.Define("KaonD0GenPT", "getPt(GenPart_pt, GenPart_pdgId, GenPart_genPartIdxMother, -321, 421, 423, 25)").Define("KaonD0GenPTGood", "KaonD0GenPT[KaonD0GenPT>0]").Histo1D(("hist", "K^{-} from D^{0} PT GEN", 70, 0, 70),"KaonD0GenPTGood")
 
 h6pt=df.Define("TwoBodyPTGen", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 211, 421, 423)[0]").Histo1D(("hist", "Two Body D^{0} PT GEN", 200, 0, 200),"TwoBodyPTGen")
 h6m=df.Define("TwoBodyMassGen", "get2BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -321, 211, 421, 423)[3]").Histo1D(("hist", "Two Body D^{0} Mass GEN", 200, 0, 3.0),"TwoBodyMassGen")

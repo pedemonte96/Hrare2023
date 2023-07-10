@@ -172,13 +172,13 @@
 	{
             "name": "isZinv",
             "type": "isD0StarRhoCat",
-            "definition": "d0_iso > 0",
+            "definition": "(d0pi0_iso > 0.90 && d0pi0_kin_pt > 13 && abs(d0pi0_kin_mass - 1.180) < 0.57 && getMaximum(d0pi0_pion_pt, d0pi0_kaon_pt) > 7 && getMinimum(d0pi0_pion_pt, d0pi0_kaon_pt) > 3)",
             "notes":" used for isGF"
         },
 	{
             "name": "isZinv",
             "type": "isD0StarCat",
-            "definition": "(d0_iso > 0.90 && d0_kin_pt > 38 && abs(d0_kin_mass - 1.865) < 0.065 && getMaximum(d0_pion_pt, d0_kaon_pt) > 21 && getMinimum(d0_pion_pt, d0_kaon_pt) > 6)",
+            "definition": "(d0_iso > 0.90 && d0_kin_pt > 38 && abs(d0_kin_mass - 1.865) < 0.065 && getMaximum(d0_pion_pt, d0_kaon_pt) > 21 && getMinimum(d0_pion_pt, d0_kaon_pt) > 4)",
             "notes":" used for isGF"
 	}
     ],
