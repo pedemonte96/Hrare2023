@@ -53,6 +53,9 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<float> > PtEtaPhiMVect
 const float pi0_mass = 0.1349766;
 const float pi1_mass = 0.13957018;
 const float D0_mass = 1.86484;
+const float D0Star_mass = 2.00685;
+const float phi_mass = 1.019461;
+const float omega_mass = 0.78266;
 
 const int pi0_id = 111;
 const int pi1_id = 211;
@@ -1284,6 +1287,40 @@ Vec_i getFilteredGoodParticleMaxPt(Vec_i goodParticle, Vec_f goodParticle_pt){
 				maxPt = goodParticle_pt[i];
 				filteredIndexes[maxPt_idx] = 0;
 				maxPt_idx = i;
+				filteredIndexes.push_back(1);
+			}else{
+				filteredIndexes.push_back(0);
+			}
+		}else{
+			filteredIndexes.push_back(0);
+		}
+	}
+    return filteredIndexes;
+}
+
+
+Vec_i getFilteredGoodParticleMaxPtMass(Vec_i goodParticle, Vec_f goodParticle_pt, Vec_i goodParticle_Nphotons, Vec_f goodParticle_Nbody_mass, int caseNum){
+	//case0: omega, case1: phi, case2: D0Star
+	if (Sum(goodParticle_Nphotons) == 0) return getFilteredGoodParticleMaxPt(goodParticle, goodParticle_pt);
+	
+	float theoretical_mass = 0.0;
+	if (caseNum == 0){
+		theoretical_mass = omega_mass;
+	} else if (caseNum == 1){
+		theoretical_mass = phi_mass;
+	} else if(caseNum == 2){
+		theoretical_mass = D0Star_mass;
+	}
+
+	Vec_i filteredIndexes = {};
+	float bestNBodyMassDiff = 1000.0;
+	int bestNBodyMass_idx = 0;
+	for(unsigned int i = 0; i < goodParticle.size(); i++){		
+		if (goodParticle[i] == 1 && goodParticle_Nphotons[i] > 0){
+			if (abs(goodParticle_Nbody_mass[i] - theoretical_mass) < bestNBodyMassDiff){
+				bestNBodyMassDiff = abs(goodParticle_Nbody_mass[i] - theoretical_mass);
+				filteredIndexes[bestNBodyMass_idx] = 0;
+				bestNBodyMass_idx = i;
 				filteredIndexes.push_back(1);
 			}else{
 				filteredIndexes.push_back(0);

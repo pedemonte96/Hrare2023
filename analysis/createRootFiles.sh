@@ -27,10 +27,10 @@ if [[ $# == 0 ]]; then
 	done
 else
 	#Select meson
-	if [[ ${1,,} == "omega" ]]; then
+	if [[ ${1,,} == "omega" || ${1,,} == "o" ]]; then
 		mesonCat="isOmegaCat"
 		numSignal=1038
-	elif [[ ${1,,} == "phi" || ${1,,} == "phi3" ]]; then
+	elif [[ ${1,,} == "phi" || ${1,,} == "phi3" || ${1,,} == "p" ]]; then
 		mesonCat="isPhi3Cat"
 		numSignal=1039
 	elif [[ ${1,,} == "d0starrho" || ${1,,} == "dr" ]]; then
