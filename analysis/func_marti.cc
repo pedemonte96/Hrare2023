@@ -1357,4 +1357,15 @@ PtEtaPhiMVector sum3Body(const float particle1_pt, const float particle1_eta, co
 }
 
 
+PtEtaPhiMVector diff2Body(const float particle1_pt, const float particle1_eta, const float particle1_phi, const float particle1_mass, 
+	const float particle2_pt, const float particle2_eta, const float particle2_phi, const float particle2_mass){
+
+	PtEtaPhiMVector particle1P4(particle1_pt, particle1_eta, particle1_phi, particle1_mass);
+	PtEtaPhiMVector particle2P4(particle2_pt, particle2_eta, particle2_phi, particle2_mass);
+	PtEtaPhiMVector twoBody = (particle1P4 - particle2P4);
+
+    return twoBody;
+}
+
+
 #endif
