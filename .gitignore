@@ -21,3 +21,4 @@ analysis/br_d0StarKmRho.txt
 analysis/func_marti_cc*
 analysis/functions_cc*
 *.pyc
+analysis/TMVA_tutorials/dataset/*
