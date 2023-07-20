@@ -470,6 +470,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_photons_pt", "omega_photon_pt[goodMeson]")
                   .Define("goodMeson_photons_eta", "omega_photon_eta[goodMeson]")
                   .Define("goodMeson_photons_phi", "omega_photon_phi[goodMeson]")
+                  .Define("goodMeson_photons_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -533,6 +534,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_photons_pt", "omega_photon_pt[goodMeson]")
                   .Define("goodMeson_photons_eta", "omega_photon_eta[goodMeson]")
                   .Define("goodMeson_photons_phi", "omega_photon_phi[goodMeson]")
+                  .Define("goodMeson_photons_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -596,6 +598,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_photons_pt", "d0pi0_d0Star_photon_pt[goodMeson]")
                   .Define("goodMeson_photons_eta", "d0pi0_d0Star_photon_eta[goodMeson]")
                   .Define("goodMeson_photons_phi", "d0pi0_d0Star_photon_phi[goodMeson]")
+                  .Define("goodMeson_photons_DR","DeltaR(d0pi0_kin_eta[goodMeson], d0pi0_d0Star_photon_eta[goodMeson], d0pi0_kin_phi[goodMeson], d0pi0_d0Star_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -659,6 +662,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_photons_pt", "d0_d0Star_photon_pt[goodMeson]")
                   .Define("goodMeson_photons_eta", "d0_d0Star_photon_eta[goodMeson]")
                   .Define("goodMeson_photons_phi", "d0_d0Star_photon_phi[goodMeson]")
+                  .Define("goodMeson_photons_DR","DeltaR(d0_kin_eta[goodMeson], d0_d0Star_photon_eta[goodMeson], d0_kin_phi[goodMeson], d0_d0Star_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -1109,6 +1113,7 @@ def DefineContent(branchList,isData):
                 "goodMeson_photons_pt",
                 "goodMeson_photons_eta",
                 "goodMeson_photons_phi",
+                "goodMeson_photons_DR",
         ]:
             branchList.push_back(branchName)
 

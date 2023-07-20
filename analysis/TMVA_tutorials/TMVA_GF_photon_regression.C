@@ -15,7 +15,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* outFileName, const char* channel, int testSet=0){
+void TMVA_GF_photon_regression(const char* outFileName, const char* channel, int testSet=0){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -24,7 +24,7 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 25;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weights";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../work/submit/pdmonte/weights";
     
     // Open files
     TFile* sgnfile;
@@ -40,30 +40,29 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
         return -1;
 
     // Initialize the dataset
-    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/%s", outFileName), "RECREATE");    
+    TFile* outfile = TFile::Open(Form("/work/submit/pdmonte/%s", outFileName), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset
-    dataloader->AddVariable("goodMeson_pt[0]", "goodMeson_pt", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_eta[0]", "goodMeson_eta", "", 'F');
-    dataloader->AddVariable("goodMeson_phi[0]", "goodMeson_phi", "", 'F');
-    dataloader->AddVariable("goodMeson_mass[0]", "goodMeson_mass", "GeV", 'F');
+    dataloader->AddVariable("goodMeson_pt[0]", "meson_pt", "GeV", 'F');
+    dataloader->AddVariable("goodMeson_eta[0]", "meson_eta", "", 'F');
+    dataloader->AddVariable("goodMeson_phi[0]", "meson_phi", "", 'F');
+    dataloader->AddVariable("goodMeson_mass[0]", "meson_mass", "GeV", 'F');
 
-    dataloader->AddVariable("goodMeson_ditrk_pt[0]", "goodMeson_ditrk_pt", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_ditrk_eta[0]", "goodMeson_ditrk_eta", "", 'F');
-    dataloader->AddVariable("goodMeson_ditrk_phi[0]", "goodMeson_ditrk_phi", "", 'F');
-    dataloader->AddVariable("goodMeson_ditrk_mass[0]", "goodMeson_ditrk_mass", "GeV", 'F');
+    dataloader->AddVariable("goodMeson_ditrk_pt[0]", "meson_ditrk_pt", "GeV", 'F');
+    dataloader->AddVariable("goodMeson_ditrk_eta[0]", "meson_ditrk_eta", "", 'F');
+    dataloader->AddVariable("goodMeson_ditrk_phi[0]", "meson_ditrk_phi", "", 'F');
+    dataloader->AddVariable("goodMeson_ditrk_mass[0]", "meson_ditrk_mass", "GeV", 'F');
 
-    dataloader->AddVariable("goodMeson_Nphotons[0]", "goodMeson_Nphotons", "", 'I');
-    dataloader->AddVariable("goodMeson_photons_pt[0]", "goodMeson_photons_pt", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_photons_DR[0]", "goodMeson_photons_DR", "", 'F');
+    dataloader->AddVariable("goodMeson_Nphotons[0]", "meson_N_photons", "", 'I');
+    dataloader->AddVariable("goodMeson_photons_pt[0]", "meson_photons_pt", "GeV", 'F');
+    dataloader->AddVariable("goodMeson_photons_DR[0]", "meson_photons_DR", "", 'F');
 
-    dataloader->AddVariable("goodPhotons_pt[0]", "goodPhotons_pt", "GeV", 'F');
-    dataloader->AddVariable("goodPhotons_eta[0]", "goodPhotons_eta", "", 'F');
-    dataloader->AddVariable("goodPhotons_phi[0]", "goodPhotons_phi", "", 'F');
+    dataloader->AddVariable("goodPhotons_pt[0]", "photon_pt", "GeV", 'F');
+    dataloader->AddVariable("goodPhotons_eta[0]", "photon_eta", "", 'F');
+    dataloader->AddVariable("goodPhotons_phi[0]", "photon_phi", "", 'F');
 
     // Add spectators not used in training
-    
     dataloader->AddSpectator("HCandMass", "HCandMass");
     dataloader->AddSpectator("goodMeson_pt", "goodMeson_pt");
     dataloader->AddSpectator("goodMeson_eta", "goodMeson_eta");
@@ -79,16 +78,15 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     dataloader->AddSpectator("goodPhotons_pt_GEN", "goodPhotons_pt_GEN");
     dataloader->AddSpectator("goodPhotons_eta_GEN", "goodPhotons_eta_GEN");
     dataloader->AddSpectator("goodPhotons_phi_GEN", "goodPhotons_phi_GEN");
-    
 
     // Add target value
-    dataloader->AddTarget("goodMeson_pt_GEN");
+    dataloader->AddTarget("goodPhotons_pt_GEN");
+
+    // Set weights.
+    Double_t regWeight  = 1.0;
     
     // Add training and testing trees
     cout << "\033[1;36m-------------------------------------- ADD TREES, CUT and SPLIT -------------------------------------\033[0m" << endl;
-    // Set weights.
-    //dataloader->SetWeightExpression("w*lumiIntegrated", "Regression");
-    Double_t regWeight  = 1.0;
     TCut cutTrain = Form("(Entry$ %% 3) != %d", testSet);
     TCut cutTest = Form("(Entry$ %% 3) == %d", testSet);
     dataloader->AddTree((TTree*)sgnfile->Get("events"), "Regression", regWeight, cutTrain, "train");
@@ -106,17 +104,17 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     cout << "\033[1;36m------------------------------------------ PREPARING TREES ------------------------------------------\033[0m" << endl;
     
     TString prepareOptions = "!V:SplitMode=Random:NormMode=None:MixMode=Random";
+
     dataloader->PrepareTrainingAndTestTree("", prepareOptions);
     
     cout << "\033[1;36m---------------------------------------------- FACTORY ----------------------------------------------\033[0m" << endl;
     
     TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar:AnalysisType=Regression:Transformations=P,D");
 
-    // Booking Methods ------------------------------------------------------------------------------------
- 
-factory.BookMethod(dataloader, TMVA::Types::kBDT, "BDTG",
-	"!V:VarTransform=P,D,N:NTrees=1000:BoostType=Grad:Shrinkage=0.21054:MaxDepth=5:SeparationType=RegressionVariance:nCuts=60:UseRandomisedTrees=T:UseNvars=40:UseBaggedBoost:BaggedSampleFraction=1.34796:PruneMethod=NoPruning:PruneStrength=0:PruningValFraction=1.30694");
-
+    // Booking Methods 
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, "BDTG_photon",
+	    "!V:VarTransform=P,N:NTrees=1000:BoostType=Grad:Shrinkage=0.3:MaxDepth=5:SeparationType=MisClassificationError:nCuts=30:UseRandomisedTrees:UseNvars=39:UseBaggedBoost:BaggedSampleFraction=1.45822:PruneMethod=NoPruning");
+    
     // Train Methods: Here we train all the previously booked methods.
     cout << "\033[1;36m-------------------------------------------- TRAINING... --------------------------------------------\033[0m" << endl;
     factory.TrainAllMethods();
@@ -129,6 +127,7 @@ factory.BookMethod(dataloader, TMVA::Types::kBDT, "BDTG",
 
     outfile->Close();
     std::cout << "==> Wrote root file: " << outfile->GetName() << std::endl;
+    std::cout << "==> TMVARegression is done!" << std::endl;
 
     time_t end_t;
     time (&end_t);
