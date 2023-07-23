@@ -15,7 +15,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* outFileName, const char* channel, int testSet=0){
+void TMVA_GF_regression_auto(const char* outFileName, const char* channel, int testSet=0, const char* nameModel="model", const char* optionsModel=""){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -24,7 +24,7 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 25;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsGOOD";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weights";
     
     // Open files
     TFile* sgnfile;
@@ -54,7 +54,7 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     dataloader->AddVariable("goodMeson_ditrk_phi_input_pred", "goodMeson_ditrk_phi_input_pred", "", 'F');
     dataloader->AddVariable("goodMeson_ditrk_mass_input_pred", "goodMeson_ditrk_mass_input_pred", "GeV", 'F');
 
-    dataloader->AddVariable("goodMeson_Nphotons_input_pred", "goodMeson_Nphotons_input_pred", "", 'F');
+    dataloader->AddVariable("goodMeson_Nphotons_input_pred", "goodMeson_Nphotons_input_pred", "", 'I');
     dataloader->AddVariable("goodMeson_photons_pt_input_pred", "goodMeson_photons_pt_input_pred", "GeV", 'F');
     dataloader->AddVariable("goodMeson_photons_DR_input_pred", "goodMeson_photons_DR_input_pred", "", 'F');
 
@@ -79,7 +79,7 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     dataloader->AddSpectator("goodPhotons_pt_GEN", "goodPhotons_pt_GEN");
     dataloader->AddSpectator("goodPhotons_eta_GEN", "goodPhotons_eta_GEN");
     dataloader->AddSpectator("goodPhotons_phi_GEN", "goodPhotons_phi_GEN");
-    
+
     // Add target value
     dataloader->AddTarget("goodMeson_pt_GEN");
     
@@ -109,12 +109,11 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     
     cout << "\033[1;36m---------------------------------------------- FACTORY ----------------------------------------------\033[0m" << endl;
     
-    TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar=T:AnalysisType=Regression:Transformations=P,D");
+    TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar=F:AnalysisType=Regression:Transformations=P,D");
 
     // Booking Methods ------------------------------------------------------------------------------------
  
-factory.BookMethod(dataloader, TMVA::Types::kBDT, "BDTG",
-	"!V:NTrees=2000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning");
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%d", nameModel, testSet), optionsModel);
     
 	// Train Methods: Here we train all the previously booked methods.
     cout << "\033[1;36m-------------------------------------------- TRAINING... --------------------------------------------\033[0m" << endl;
