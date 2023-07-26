@@ -704,7 +704,119 @@ def dfHiggsCand(df, isData):
             .Define("goodMeson_photons_DR_input_pred", "goodMeson_photons_DR[0]")
             .Define("goodPhotons_pt_input_pred", "goodPhotons_pt[0]")
             .Define("goodPhotons_eta_input_pred", "goodPhotons_eta[0]")
-            .Define("goodPhotons_phi_input_pred", "goodPhotons_phi[0]"))
+            .Define("goodPhotons_phi_input_pred", "goodPhotons_phi[0]")
+
+            .Define("var0_input_pred", "goodMeson_pt[0]/goodPhotons_pt[0]")
+            .Define("var1_input_pred", "goodMeson_pt[0]/goodMeson_ditrk_pt[0]")
+            .Define("var2_input_pred", "goodMeson_pt[0]/goodMeson_mass[0]")
+            .Define("var3_input_pred", "goodMeson_pt[0]/goodMeson_ditrk_mass[0]")
+            .Define("var4_input_pred", "goodPhotons_pt[0]/goodMeson_pt[0]")
+            .Define("var5_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_pt[0]")
+            .Define("var6_input_pred", "goodPhotons_pt[0]/goodMeson_mass[0]")
+            .Define("var7_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_mass[0]")
+            .Define("var8_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_pt[0]")
+            .Define("var9_input_pred", "goodMeson_ditrk_pt[0]/goodPhotons_pt[0]")
+            .Define("var10_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_mass[0]")
+            .Define("var11_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_ditrk_mass[0]")
+            .Define("var12_input_pred", "goodMeson_mass[0]/goodMeson_pt[0]")
+            .Define("var13_input_pred", "goodMeson_mass[0]/goodPhotons_pt[0]")
+            .Define("var14_input_pred", "goodMeson_mass[0]/goodMeson_ditrk_pt[0]")
+            .Define("var15_input_pred", "goodMeson_mass[0]/goodMeson_ditrk_mass[0]")
+            .Define("var16_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_pt[0]")
+            .Define("var17_input_pred", "goodMeson_ditrk_mass[0]/goodPhotons_pt[0]")
+            .Define("var18_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_ditrk_pt[0]")
+            .Define("var19_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_mass[0]")
+            .Define("var20_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var21_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var22_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var23_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var24_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var25_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var26_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var27_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var28_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var29_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var30_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var31_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var32_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var33_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var34_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var35_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var36_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var37_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var38_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var39_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var40_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var41_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var42_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var43_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var44_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var45_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var46_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var47_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var48_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var49_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var50_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var51_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var52_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var53_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var54_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var55_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var56_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var57_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var58_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var59_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var60_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var61_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var62_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var63_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var64_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var65_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var66_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var67_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var68_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var69_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var70_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var71_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var72_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var73_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var74_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var75_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var76_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var77_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var78_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var79_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var80_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var81_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var82_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var83_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var84_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var85_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var86_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var87_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var88_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var89_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var90_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var91_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var92_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var93_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var94_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var95_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var96_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var97_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var98_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var99_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var100_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var101_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
+            .Define("var102_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var103_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var104_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var105_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var106_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
+            .Define("var107_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var108_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
+            .Define("var109_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            )
 
     dfFinal = (dfbase.Define("index_pair","HiggsCandFromRECO(goodMeson_pt, goodMeson_eta, goodMeson_phi, goodMeson_mass, goodMeson_trk1_pt, goodMeson_trk2_pt, wrongMeson_pt, goodPhotons_pt, goodPhotons_eta, goodPhotons_phi)").Filter("index_pair[0]!= -1", "at least a good meson candidate")
                .Define("jet_mask2", "cleaningJetFromOBJ(Jet_eta, Jet_phi, goodMeson_eta[index_pair[0]], goodMeson_phi[index_pair[0]])")
@@ -1149,6 +1261,116 @@ def DefineContent(branchList,isData):
                 "goodPhotons_pt_input_pred",
                 "goodPhotons_eta_input_pred",
                 "goodPhotons_phi_input_pred",
+                "var0_input_pred",
+                "var1_input_pred",
+                "var2_input_pred",
+                "var3_input_pred",
+                "var4_input_pred",
+                "var5_input_pred",
+                "var6_input_pred",
+                "var7_input_pred",
+                "var8_input_pred",
+                "var9_input_pred",
+                "var10_input_pred",
+                "var11_input_pred",
+                "var12_input_pred",
+                "var13_input_pred",
+                "var14_input_pred",
+                "var15_input_pred",
+                "var16_input_pred",
+                "var17_input_pred",
+                "var18_input_pred",
+                "var19_input_pred",
+                "var20_input_pred",
+                "var21_input_pred",
+                "var22_input_pred",
+                "var23_input_pred",
+                "var24_input_pred",
+                "var25_input_pred",
+                "var26_input_pred",
+                "var27_input_pred",
+                "var28_input_pred",
+                "var29_input_pred",
+                "var30_input_pred",
+                "var31_input_pred",
+                "var32_input_pred",
+                "var33_input_pred",
+                "var34_input_pred",
+                "var35_input_pred",
+                "var36_input_pred",
+                "var37_input_pred",
+                "var38_input_pred",
+                "var39_input_pred",
+                "var40_input_pred",
+                "var41_input_pred",
+                "var42_input_pred",
+                "var43_input_pred",
+                "var44_input_pred",
+                "var45_input_pred",
+                "var46_input_pred",
+                "var47_input_pred",
+                "var48_input_pred",
+                "var49_input_pred",
+                "var50_input_pred",
+                "var51_input_pred",
+                "var52_input_pred",
+                "var53_input_pred",
+                "var54_input_pred",
+                "var55_input_pred",
+                "var56_input_pred",
+                "var57_input_pred",
+                "var58_input_pred",
+                "var59_input_pred",
+                "var60_input_pred",
+                "var61_input_pred",
+                "var62_input_pred",
+                "var63_input_pred",
+                "var64_input_pred",
+                "var65_input_pred",
+                "var66_input_pred",
+                "var67_input_pred",
+                "var68_input_pred",
+                "var69_input_pred",
+                "var70_input_pred",
+                "var71_input_pred",
+                "var72_input_pred",
+                "var73_input_pred",
+                "var74_input_pred",
+                "var75_input_pred",
+                "var76_input_pred",
+                "var77_input_pred",
+                "var78_input_pred",
+                "var79_input_pred",
+                "var80_input_pred",
+                "var81_input_pred",
+                "var82_input_pred",
+                "var83_input_pred",
+                "var84_input_pred",
+                "var85_input_pred",
+                "var86_input_pred",
+                "var87_input_pred",
+                "var88_input_pred",
+                "var89_input_pred",
+                "var90_input_pred",
+                "var91_input_pred",
+                "var92_input_pred",
+                "var93_input_pred",
+                "var94_input_pred",
+                "var95_input_pred",
+                "var96_input_pred",
+                "var97_input_pred",
+                "var98_input_pred",
+                "var99_input_pred",
+                "var100_input_pred",
+                "var101_input_pred",
+                "var102_input_pred",
+                "var103_input_pred",
+                "var104_input_pred",
+                "var105_input_pred",
+                "var106_input_pred",
+                "var107_input_pred",
+                "var108_input_pred",
+                "var109_input_pred",
         ]:
             branchList.push_back(branchName)
             
