@@ -390,7 +390,7 @@ def SwitchSample(argument,year):
         1039: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg"+"/NANOAOD_03_test4", 48580*0.153),
         #1040: (dirLocalNEW2+"ggh-hD0StarKmRhoPgamma-powheg"+"/NANOAOD_03_test3", 48580*0.11),
         1040: (dirLocalNEW2+"ggh-hD0StarKmPiPPi0gamma-powheg"+"/NANOAOD_03_test4", 48580*0.14),
-        1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test4", 48580*0.0389),
+        1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test5", 48580*0.0389),
         #
         1019: (dirLocalNEW+"vbf-hphiKLKSgamma-powheg"+"/NANOAOD_01",3781.7*0.24), # xsec = 4pb * BR(Hphigamma)=1 BR(phi->kLkS)=0.24
         #

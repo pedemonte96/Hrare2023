@@ -5,6 +5,7 @@ directory="/data/submit/pdmonte/TMVA_models/evalFiles"
 
 # Output file to store the first lines
 outputFile="evaluationAllVars.out"
+#outputFile="/data/submit/pdmonte/TMVA_models/evalFiles/evaluationMixed39OneVar.txt"
 
 # Clear the output file if it already exists
 > "$outputFile"
@@ -15,6 +16,5 @@ for file in "$directory"/*; do
     if [ -f "$file" ]; then
         # Get the first line of the file and append it to the output file
         echo "$(cat "$file")" >> "$outputFile"
-        # rm "$file"
     fi
 done

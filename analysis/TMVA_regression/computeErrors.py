@@ -61,7 +61,7 @@ else:
     s = '''
     TMVA::Experimental::RReader modelScale("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}.weights.xml");
     computeModelScale = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale);
-    '''.format(modelName=options.modelName, numVarsTotal=getNumVarsExtra(options.modelName) + 8)
+    '''.format(modelName=options.modelName, numVarsTotal=getNumVarsExtra(options.modelName) + 8 + 4)
 
     ROOT.gInterpreter.ProcessLine(s)
     variables = list(ROOT.modelScale.GetVariableNames())

@@ -1,0 +1,5 @@
+BDTG_mixed_23_var17_var36:root -l -q -b 'TMVA_GF_regression_mixed_vars.C("BDTG_mixed_23_var17_var36.root", "phi", 0, "BDTG_mixed_23_var17_var36", (const char*[]){"var17_input_pred", "var36_input_pred"}, 2, 23)'
+BDTG_mixed_23_var58_var94:root -l -q -b 'TMVA_GF_regression_mixed_vars.C("BDTG_mixed_23_var58_var94.root", "phi", 0, "BDTG_mixed_23_var58_var94", (const char*[]){"var58_input_pred", "var94_input_pred"}, 2, 23)'
+BDTG_mixed_23_var59_var77:root -l -q -b 'TMVA_GF_regression_mixed_vars.C("BDTG_mixed_23_var59_var77.root", "phi", 0, "BDTG_mixed_23_var59_var77", (const char*[]){"var59_input_pred", "var77_input_pred"}, 2, 23)'
+BDTG_mixed_23_var59_var78:root -l -q -b 'TMVA_GF_regression_mixed_vars.C("BDTG_mixed_23_var59_var78.root", "phi", 0, "BDTG_mixed_23_var59_var78", (const char*[]){"var59_input_pred", "var78_input_pred"}, 2, 23)'
+BDTG_mixed_55_var100:root -l -q -b 'TMVA_GF_regression_mixed_vars.C("BDTG_mixed_55_var100.root", "phi", 0, "BDTG_mixed_55_var100", (const char*[]){"var100_input_pred"}, 1, 55)'
