@@ -304,7 +304,7 @@ def makePlots(cat, mesonCat, year, date, background):
         p.SetLogy()
         histograms[-1].Draw("hist")
 
-    cs.SaveAs("~/public_html/{}_RECO_vs_GEN2.png".format(mesonCat[:-3]))
+    cs.SaveAs("~/public_html/{}_RECO_vs_GEN.png".format(mesonCat[:-3]))
     text = " Done! ".center(70, "~")
     print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"] + "\n")
     
@@ -315,12 +315,12 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "JUL22"
+    date = "JUL31"
 
     #D0Star--------------------------------------------------------------------------------------
     #background = True
     mesonCat = "D0StarCat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
     background = True

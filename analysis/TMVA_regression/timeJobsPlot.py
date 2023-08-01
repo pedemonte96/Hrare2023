@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 from datetime import datetime, timedelta
 import argparse
+import subprocess
 
 def read_file(filename):
     names, errors, shape = [], [], []
@@ -59,6 +60,7 @@ remainingTime = "Remaining time: {}:{:02d}:{:02d}".format(int((nTotJobs - arrs[1
 time_obj_seconds = timedelta(seconds=(nTotJobs - arrs[1][-1])/slope*60)
 finish_datetime = datetime.strptime(arrs[0][-1], time_format) + time_obj_seconds
 finishTime = "Finish time:       {}".format(finish_datetime.time().strftime("%H:%M:%S"))
+queuedJobs = subprocess.run("squeue --me | wc -l", shell=True, capture_output=True, text=True).stdout
 
 #print(remainingTime)
 #print(finishTime)
@@ -70,7 +72,7 @@ x_max = datetime.strptime(arrs[0][-1], time_format)
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(18, 18))
 
 ax1.plot([datetime.strptime(t, time_format) for t in arrs[0]], arrs[1], color="#ff3333")
-ax1.annotate(remainingTime + "\n" + finishTime, xy=(0.01, 0.90), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='bottom')
+ax1.annotate(remainingTime + "\n" + finishTime + "\n" + "Queue: " + str(queuedJobs), xy=(0.01, 0.98), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='top')
 ax1.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter(time_format_axis))
 ax1.set_xlim(x_min, x_max)
 ax1.set_ylim(0)

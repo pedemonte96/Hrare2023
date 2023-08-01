@@ -2,7 +2,7 @@
 
 while true; do
     queueLength=$(squeue -u pdmonte | wc -l)
-    python timeJobsPlot.py -n 5995
+    python timeJobsPlot.py -n 6160
     if [ "$queueLength" -lt 50 ]; then
         break
     fi

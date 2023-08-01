@@ -15,7 +15,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* outFileName, const char* channel, int testSet=0){
+void TMVA_GF_regression(const char* outFileName, const char* channel, int testSet=0, const char* nameModel = "model", const char* variables[] = {}, int numVariables=0, int codeDF=127, int codeDL=511){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -29,57 +29,47 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     // Open files
     TFile* sgnfile;
     if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL22/2018/outname_mc1038_GFcat_OmegaCat_2018.root", "READ");
+        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1038_GFcat_OmegaCat_2018.root", "READ");
     else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL22/2018/outname_mc1039_GFcat_Phi3Cat_2018.root", "READ");
+        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1039_GFcat_Phi3Cat_2018.root", "READ");
     else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL22/2018/outname_mc1040_GFcat_D0StarRhoCat_2018.root", "READ");
+        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1040_GFcat_D0StarRhoCat_2018.root", "READ");
     else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL22/2018/outname_mc1041_GFcat_D0StarCat_2018.root", "READ");     
+        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1041_GFcat_D0StarCat_2018.root", "READ");     
     else
         return -1;
 
     // Initialize the dataset
-    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/%s", outFileName), "RECREATE");    
+    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/rootVars/%s", outFileName), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset
-    dataloader->AddVariable("goodMeson_pt_input_pred", "goodMeson_pt_input_pred", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_eta_input_pred", "goodMeson_eta_input_pred", "", 'F');
-    dataloader->AddVariable("goodMeson_phi_input_pred", "goodMeson_phi_input_pred", "", 'F');
-    //dataloader->AddVariable("goodMeson_mass_input_pred", "goodMeson_mass_input_pred", "GeV", 'F');
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_eta_input_pred", "goodMeson_eta_input_pred", "", 'F');}   codeDL /= 2;                  // 000000001 = 1    1
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_phi_input_pred", "goodMeson_phi_input_pred", "", 'F');}   codeDL /= 2;                  // 000000010 = 2    2
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_ditrk_eta_input_pred", "goodMeson_ditrk_eta_input_pred", "", 'F');}   codeDL /= 2;      // 000000100 = 4    3
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_ditrk_phi_input_pred", "goodMeson_ditrk_phi_input_pred", "", 'F');}   codeDL /= 2;      // 000001000 = 8    4
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_Nphotons_input_pred", "goodMeson_Nphotons_input_pred", "", 'F');}   codeDL /= 2;        // 000010000 = 16   5
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_photon1_DR_input_pred", "goodMeson_photon1_DR_input_pred", "", 'F');}   codeDL /= 2;    // 000100000 = 32   6
+    if (codeDL % 2) {dataloader->AddVariable("goodMeson_photon2_DR_input_pred", "goodMeson_photon2_DR_input_pred", "", 'F');}   codeDL /= 2;    // 001000000 = 64   7
+    if (codeDL % 2) {dataloader->AddVariable("goodPhotons_eta_input_pred", "goodPhotons_eta_input_pred", "", 'F');}   codeDL /= 2;              // 010000000 = 128  8
+    if (codeDL % 2) {dataloader->AddVariable("goodPhotons_phi_input_pred", "goodPhotons_phi_input_pred", "", 'F');}   codeDL /= 2;              // 100000000 = 256  9
+    if (codeDL > 0) {cout << "codeDL greater than 511!" << endl; return -1;}
 
-    //dataloader->AddVariable("goodMeson_ditrk_pt_input_pred", "goodMeson_ditrk_pt_input_pred", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_ditrk_eta_input_pred", "goodMeson_ditrk_eta_input_pred", "", 'F');
-    dataloader->AddVariable("goodMeson_ditrk_phi_input_pred", "goodMeson_ditrk_phi_input_pred", "", 'F');
-    //dataloader->AddVariable("goodMeson_ditrk_mass_input_pred", "goodMeson_ditrk_mass_input_pred", "GeV", 'F');
+    
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_photon1_pt_input_pred", "goodMeson_photon1_pt_input_pred", "GeV", 'F');}   codeDF /= 2;  // 0000001 = 1     1
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_photon2_pt_input_pred", "goodMeson_photon2_pt_input_pred", "GeV", 'F');}   codeDF /= 2;  // 0000010 = 2     2
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_ditrk_mass_input_pred", "goodMeson_ditrk_mass_input_pred", "GeV", 'F');}   codeDF /= 2;  // 0000100 = 4     3
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_mass_input_pred", "goodMeson_mass_input_pred", "GeV", 'F');}               codeDF /= 2;  // 0001000 = 8     4
+    if (codeDF % 2) {dataloader->AddVariable("goodPhotons_pt_input_pred", "goodPhotons_pt_input_pred", "GeV", 'F');}               codeDF /= 2;  // 0010000 = 16    5
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_ditrk_pt_input_pred", "goodMeson_ditrk_pt_input_pred", "GeV", 'F');}       codeDF /= 2;  // 0100000 = 32    6
+    if (codeDF % 2) {dataloader->AddVariable("goodMeson_pt_input_pred", "goodMeson_pt_input_pred", "GeV", 'F');}                   codeDF /= 2;  // 1000000 = 64    7
+    if (codeDF > 0) {cout << "codeDF greater than 127!" << endl; return -1;}
 
-    dataloader->AddVariable("goodMeson_Nphotons_input_pred", "goodMeson_Nphotons_input_pred", "", 'F');
-    //dataloader->AddVariable("goodMeson_photons_pt_input_pred", "goodMeson_photons_pt_input_pred", "GeV", 'F');
-    dataloader->AddVariable("goodMeson_photons_DR_input_pred", "goodMeson_photons_DR_input_pred", "", 'F');
+    for(int i = 0; i < numVariables; i++){
+        cout << variables[i] << endl;
+        dataloader->AddVariable(variables[i], variables[i], "", 'F');
+    }
 
-    //dataloader->AddVariable("goodPhotons_pt_input_pred", "goodPhotons_pt_input_pred", "GeV", 'F');
-    dataloader->AddVariable("goodPhotons_eta_input_pred", "goodPhotons_eta_input_pred", "", 'F');
-    dataloader->AddVariable("goodPhotons_phi_input_pred", "goodPhotons_phi_input_pred", "", 'F');
-
-    // Add spectators not used in training
-    /*
-    dataloader->AddSpectator("HCandMass", "HCandMass");
-    dataloader->AddSpectator("goodMeson_pt", "goodMeson_pt");
-    dataloader->AddSpectator("goodMeson_eta", "goodMeson_eta");
-    dataloader->AddSpectator("goodMeson_phi", "goodMeson_phi");
-    dataloader->AddSpectator("goodMeson_mass", "goodMeson_mass");
-    dataloader->AddSpectator("goodPhotons_pt", "goodPhotons_pt");
-    dataloader->AddSpectator("goodPhotons_eta", "goodPhotons_eta");
-    dataloader->AddSpectator("goodPhotons_phi", "goodPhotons_phi");
-    dataloader->AddSpectator("goodMeson_pt_GEN", "goodMeson_pt_GEN");
-    dataloader->AddSpectator("goodMeson_eta_GEN", "goodMeson_eta_GEN");
-    dataloader->AddSpectator("goodMeson_phi_GEN", "goodMeson_phi_GEN");
-    dataloader->AddSpectator("goodMeson_mass_GEN", "goodMeson_mass_GEN");
-    dataloader->AddSpectator("goodPhotons_pt_GEN", "goodPhotons_pt_GEN");
-    dataloader->AddSpectator("goodPhotons_eta_GEN", "goodPhotons_eta_GEN");
-    dataloader->AddSpectator("goodPhotons_phi_GEN", "goodPhotons_phi_GEN");
-    */
     // Add target value
     dataloader->AddTarget("goodMeson_pt_GEN/goodMeson_pt_input_pred");
     
@@ -88,8 +78,8 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     // Set weights.
     //dataloader->SetWeightExpression("w*lumiIntegrated", "Regression");
     Double_t regWeight  = 1.0;
-    TCut cutTrain = Form("(Entry$ %% 30) != %d", testSet);
-    TCut cutTest = Form("(Entry$ %% 30) == %d", testSet);
+    TCut cutTrain = Form("(Entry$ %% 20) != %d", testSet);
+    TCut cutTest = Form("(Entry$ %% 20) == %d", testSet);
     dataloader->AddTree((TTree*)sgnfile->Get("events"), "Regression", regWeight, cutTrain, "train");
     dataloader->AddTree((TTree*)sgnfile->Get("events"), "Regression", regWeight, cutTest, "test");
 
@@ -109,12 +99,12 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     
     cout << "\033[1;36m---------------------------------------------- FACTORY ----------------------------------------------\033[0m" << endl;
     
-    TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar=T:AnalysisType=Regression:Transformations=P,D");
+    TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar=F:AnalysisType=Regression:Transformations=P,D");
 
     // Booking Methods ------------------------------------------------------------------------------------
  
-factory.BookMethod(dataloader, TMVA::Types::kBDT, "BDTG_NoNorm1",
-	"!V:NTrees=1000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning");
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, nameModel,
+        "!V:NTrees=1000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning");
     
 	// Train Methods: Here we train all the previously booked methods.
     cout << "\033[1;36m-------------------------------------------- TRAINING... --------------------------------------------\033[0m" << endl;

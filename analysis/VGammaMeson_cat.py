@@ -468,10 +468,10 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_trk2_phi", "omega_trk2_phi[goodMeson]")
                   .Define("goodMeson_DR","DeltaR(omega_trk1_eta[goodMeson], omega_trk2_eta[goodMeson], omega_trk1_phi[goodMeson], omega_trk2_phi[goodMeson])")
                   .Define("goodMeson_Nphotons", "omega_Nphotons[goodMeson]")
-                  .Define("goodMeson_photons_pt", "omega_photon_pt[goodMeson]")
-                  .Define("goodMeson_photons_eta", "omega_photon_eta[goodMeson]")
-                  .Define("goodMeson_photons_phi", "omega_photon_phi[goodMeson]")
-                  .Define("goodMeson_photons_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
+                  .Define("goodMeson_photon1_pt", "omega_photon_pt[goodMeson]")
+                  .Define("goodMeson_photon1_eta", "omega_photon_eta[goodMeson]")
+                  .Define("goodMeson_photon1_phi", "omega_photon_phi[goodMeson]")
+                  .Define("goodMeson_photon1_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -491,12 +491,20 @@ def dfHiggsCand(df, isData):
             dfbase = (dfbase.Define("goodMeson_pt", "omega_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "omega_photon2_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "omega_photon2_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "omega_photon2_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon2_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon2_phi[goodMeson])"))
         else:
-            dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
+            dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")#redefine all this when new background
                 .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_threemass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_threemass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "omega_photon_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "omega_photon_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "omega_photon_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])"))
             
     elif(isPhi3Cat=="true"):
 
@@ -532,10 +540,10 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_trk2_phi", "omega_trk2_phi[goodMeson]")
                   .Define("goodMeson_DR","DeltaR(omega_trk1_eta[goodMeson], omega_trk2_eta[goodMeson], omega_trk1_phi[goodMeson], omega_trk2_phi[goodMeson])")
                   .Define("goodMeson_Nphotons", "omega_Nphotons[goodMeson]")
-                  .Define("goodMeson_photons_pt", "omega_photon_pt[goodMeson]")
-                  .Define("goodMeson_photons_eta", "omega_photon_eta[goodMeson]")
-                  .Define("goodMeson_photons_phi", "omega_photon_phi[goodMeson]")
-                  .Define("goodMeson_photons_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
+                  .Define("goodMeson_photon1_pt", "omega_photon_pt[goodMeson]")
+                  .Define("goodMeson_photon1_eta", "omega_photon_eta[goodMeson]")
+                  .Define("goodMeson_photon1_phi", "omega_photon_phi[goodMeson]")
+                  .Define("goodMeson_photon1_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -555,12 +563,20 @@ def dfHiggsCand(df, isData):
             dfbase = (dfbase.Define("goodMeson_pt", "omega_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_Nbody_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "omega_photon2_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "omega_photon2_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "omega_photon2_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon2_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon2_phi[goodMeson])"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "omega_kin_pt[goodMeson]")
                 .Define("goodMeson_eta", "omega_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "omega_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "omega_threemass[goodMeson]"))
+                .Define("goodMeson_mass", "omega_threemass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "omega_photon_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "omega_photon_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "omega_photon_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(omega_kin_eta[goodMeson], omega_photon_eta[goodMeson], omega_kin_phi[goodMeson], omega_photon_phi[goodMeson])"))
             
     elif(isD0StarRhoCat=="true"):
 
@@ -596,10 +612,10 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_trk2_phi", "d0pi0_kaon_phi[goodMeson]")
                   .Define("goodMeson_DR","DeltaR(d0pi0_pion_eta[goodMeson], d0pi0_kaon_eta[goodMeson], d0pi0_pion_phi[goodMeson], d0pi0_kaon_phi[goodMeson])")
                   .Define("goodMeson_Nphotons", "d0pi0_d0Star_Nphotons[goodMeson]")
-                  .Define("goodMeson_photons_pt", "d0pi0_d0Star_photon_pt[goodMeson]")
-                  .Define("goodMeson_photons_eta", "d0pi0_d0Star_photon_eta[goodMeson]")
-                  .Define("goodMeson_photons_phi", "d0pi0_d0Star_photon_phi[goodMeson]")
-                  .Define("goodMeson_photons_DR","DeltaR(d0pi0_kin_eta[goodMeson], d0pi0_d0Star_photon_eta[goodMeson], d0pi0_kin_phi[goodMeson], d0pi0_d0Star_photon_phi[goodMeson])")
+                  .Define("goodMeson_photon1_pt", "d0pi0_d0Star_photon_pt[goodMeson]")
+                  .Define("goodMeson_photon1_eta", "d0pi0_d0Star_photon_eta[goodMeson]")
+                  .Define("goodMeson_photon1_phi", "d0pi0_d0Star_photon_phi[goodMeson]")
+                  .Define("goodMeson_photon1_DR","DeltaR(d0pi0_kin_eta[goodMeson], d0pi0_d0Star_photon_eta[goodMeson], d0pi0_kin_phi[goodMeson], d0pi0_d0Star_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -619,12 +635,20 @@ def dfHiggsCand(df, isData):
             dfbase = (dfbase.Define("goodMeson_pt", "d0pi0_d0Star_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0pi0_d0Star_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0pi0_d0Star_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0pi0_d0Star_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0pi0_d0Star_Nbody_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "d0pi0_d0Star_photon2_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "d0pi0_d0Star_photon2_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "d0pi0_d0Star_photon2_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(d0pi0_kin_eta[goodMeson], d0pi0_d0Star_photon2_eta[goodMeson], d0pi0_kin_phi[goodMeson], d0pi0_d0Star_photon2_phi[goodMeson])"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_3body_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "d0pi0_d0Star_photon_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "d0pi0_d0Star_photon_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "d0pi0_d0Star_photon_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(d0pi0_kin_eta[goodMeson], d0pi0_d0Star_photon_eta[goodMeson], d0pi0_kin_phi[goodMeson], d0pi0_d0Star_photon_phi[goodMeson])"))
 
     elif(isD0StarCat=="true"):
 
@@ -664,6 +688,10 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_photons_eta", "d0_d0Star_photon_eta[goodMeson]")
                   .Define("goodMeson_photons_phi", "d0_d0Star_photon_phi[goodMeson]")
                   .Define("goodMeson_photons_DR","DeltaR(d0_kin_eta[goodMeson], d0_d0Star_photon_eta[goodMeson], d0_kin_phi[goodMeson], d0_d0Star_photon_phi[goodMeson])")
+                  .Define("goodMeson_photon1_pt", "d0_d0Star_photon_pt[goodMeson]")
+                  .Define("goodMeson_photon1_eta", "d0_d0Star_photon_eta[goodMeson]")
+                  .Define("goodMeson_photon1_phi", "d0_d0Star_photon_phi[goodMeson]")
+                  .Define("goodMeson_photon1_DR","DeltaR(d0_kin_eta[goodMeson], d0_d0Star_photon_eta[goodMeson], d0_kin_phi[goodMeson], d0_d0Star_photon_phi[goodMeson])")
                   .Define("wrongMeson","({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt","Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   )
@@ -683,12 +711,20 @@ def dfHiggsCand(df, isData):
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_Nbody_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_d0Star_Nbody_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_d0Star_Nbody_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "d0_d0Star_photon2_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "d0_d0Star_photon2_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "d0_d0Star_photon2_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(d0_kin_eta[goodMeson], d0_d0Star_photon2_eta[goodMeson], d0_kin_phi[goodMeson], d0_d0Star_photon2_phi[goodMeson])"))
         else:
             dfbase = (dfbase.Define("goodMeson_pt", "d0_d0Star_3body_pt[goodMeson]")
                 .Define("goodMeson_eta", "d0_kin_eta[goodMeson]")
                 .Define("goodMeson_phi", "d0_kin_phi[goodMeson]")
-                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]"))
+                .Define("goodMeson_mass", "d0_d0Star_3body_mass[goodMeson]")
+                .Define("goodMeson_photon2_pt", "d0_d0Star_photon_pt[goodMeson]")
+                .Define("goodMeson_photon2_eta", "d0_d0Star_photon_eta[goodMeson]")
+                .Define("goodMeson_photon2_phi", "d0_d0Star_photon_phi[goodMeson]")
+                .Define("goodMeson_photon2_DR","DeltaR(d0_kin_eta[goodMeson], d0_d0Star_photon_eta[goodMeson], d0_kin_phi[goodMeson], d0_d0Star_photon_phi[goodMeson])"))
             
     if (trainGoodMesonPT):
         dfbase = (dfbase.Define("goodMeson_pt_input_pred", "goodMeson_pt[0]")
@@ -700,8 +736,10 @@ def dfHiggsCand(df, isData):
             .Define("goodMeson_ditrk_phi_input_pred", "goodMeson_ditrk_phi[0]")
             .Define("goodMeson_ditrk_mass_input_pred", "goodMeson_ditrk_mass[0]")
             .Define("goodMeson_Nphotons_input_pred", "(float)goodMeson_Nphotons[0]")
-            .Define("goodMeson_photons_pt_input_pred", "goodMeson_photons_pt[0]")
-            .Define("goodMeson_photons_DR_input_pred", "goodMeson_photons_DR[0]")
+            .Define("goodMeson_photon1_pt_input_pred", "goodMeson_photon1_pt[0]")
+            .Define("goodMeson_photon1_DR_input_pred", "goodMeson_photon1_DR[0]")
+            .Define("goodMeson_photon2_pt_input_pred", "goodMeson_photon2_pt[0]")
+            .Define("goodMeson_photon2_DR_input_pred", "goodMeson_photon2_DR[0]")
             .Define("goodPhotons_pt_input_pred", "goodPhotons_pt[0]")
             .Define("goodPhotons_eta_input_pred", "goodPhotons_eta[0]")
             .Define("goodPhotons_phi_input_pred", "goodPhotons_phi[0]")
@@ -710,112 +748,57 @@ def dfHiggsCand(df, isData):
             .Define("var1_input_pred", "goodMeson_pt[0]/goodMeson_ditrk_pt[0]")
             .Define("var2_input_pred", "goodMeson_pt[0]/goodMeson_mass[0]")
             .Define("var3_input_pred", "goodMeson_pt[0]/goodMeson_ditrk_mass[0]")
-            .Define("var4_input_pred", "goodPhotons_pt[0]/goodMeson_pt[0]")
-            .Define("var5_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_pt[0]")
-            .Define("var6_input_pred", "goodPhotons_pt[0]/goodMeson_mass[0]")
-            .Define("var7_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_mass[0]")
-            .Define("var8_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_pt[0]")
-            .Define("var9_input_pred", "goodMeson_ditrk_pt[0]/goodPhotons_pt[0]")
-            .Define("var10_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_mass[0]")
-            .Define("var11_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_ditrk_mass[0]")
-            .Define("var12_input_pred", "goodMeson_mass[0]/goodMeson_pt[0]")
-            .Define("var13_input_pred", "goodMeson_mass[0]/goodPhotons_pt[0]")
-            .Define("var14_input_pred", "goodMeson_mass[0]/goodMeson_ditrk_pt[0]")
-            .Define("var15_input_pred", "goodMeson_mass[0]/goodMeson_ditrk_mass[0]")
-            .Define("var16_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_pt[0]")
-            .Define("var17_input_pred", "goodMeson_ditrk_mass[0]/goodPhotons_pt[0]")
-            .Define("var18_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_ditrk_pt[0]")
-            .Define("var19_input_pred", "goodMeson_ditrk_mass[0]/goodMeson_mass[0]")
-            .Define("var20_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var21_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var22_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var23_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var24_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
-            .Define("var25_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var26_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var27_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var28_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var29_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var30_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var31_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var32_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var33_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var34_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var35_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var36_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var37_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var38_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var39_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var40_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var41_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var42_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
-            .Define("var43_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var44_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var45_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var46_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
-            .Define("var47_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var48_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var49_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var50_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var51_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var52_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var53_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var54_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
-            .Define("var55_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var56_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var57_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var58_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var59_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var60_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var61_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var62_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var63_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var64_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var65_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var66_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var67_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var68_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var69_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var70_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var71_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var72_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
-            .Define("var73_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var74_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var75_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var76_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var77_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var78_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var79_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var80_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var81_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var82_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var83_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var84_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var85_input_pred", "goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
-            .Define("var86_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var87_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var88_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var89_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var90_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var91_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
-            .Define("var92_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var93_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var94_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var95_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var96_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var97_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
-            .Define("var98_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
-            .Define("var99_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var100_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var101_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodPhotons_pt[0])")
-            .Define("var102_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var103_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var104_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var105_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
-            .Define("var106_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_pt[0])")
-            .Define("var107_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_ditrk_pt[0])")
-            .Define("var108_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodPhotons_pt[0]*goodMeson_mass[0])")
-            .Define("var109_input_pred", "goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var4_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_pt[0]")
+            .Define("var5_input_pred", "goodPhotons_pt[0]/goodMeson_mass[0]")
+            .Define("var6_input_pred", "goodPhotons_pt[0]/goodMeson_ditrk_mass[0]")
+            .Define("var7_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_mass[0]")
+            .Define("var8_input_pred", "goodMeson_ditrk_pt[0]/goodMeson_ditrk_mass[0]")
+            .Define("var9_input_pred", "goodMeson_mass[0]/goodMeson_ditrk_mass[0]")
+            .Define("var10_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var11_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var12_input_pred", "goodMeson_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var13_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var14_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var15_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var16_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var17_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var18_input_pred", "goodMeson_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var19_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var20_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var21_input_pred", "goodMeson_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var22_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var23_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var24_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var25_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var26_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var27_input_pred", "goodPhotons_pt[0]*goodMeson_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var28_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var29_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var30_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var31_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var32_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var33_input_pred", "goodPhotons_pt[0]*goodPhotons_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var34_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var35_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var36_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var37_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var38_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var39_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var40_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var41_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var42_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var43_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var44_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var45_input_pred", "goodPhotons_pt[0]*goodMeson_mass[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var46_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_pt[0])")
+            .Define("var47_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var48_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_pt[0]*goodMeson_mass[0])")
+            .Define("var49_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
+            .Define("var50_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_ditrk_pt[0])")
+            .Define("var51_input_pred", "goodPhotons_pt[0]*goodMeson_ditrk_mass[0]/(goodMeson_mass[0]*goodMeson_mass[0])")
+            .Define("var52_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_pt[0]/(goodMeson_ditrk_mass[0]*goodMeson_ditrk_mass[0])")
+            .Define("var53_input_pred", "goodMeson_mass[0]*goodMeson_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_mass[0])")
+            .Define("var54_input_pred", "goodMeson_mass[0]*goodMeson_ditrk_mass[0]/(goodMeson_ditrk_pt[0]*goodMeson_ditrk_pt[0])")
             )
 
     dfFinal = (dfbase.Define("index_pair","HiggsCandFromRECO(goodMeson_pt, goodMeson_eta, goodMeson_phi, goodMeson_mass, goodMeson_trk1_pt, goodMeson_trk2_pt, wrongMeson_pt, goodPhotons_pt, goodPhotons_eta, goodPhotons_phi)").Filter("index_pair[0]!= -1", "at least a good meson candidate")
@@ -1238,10 +1221,14 @@ def DefineContent(branchList,isData):
                 "goodMeson_trk1_phi",
                 "goodMeson_trk2_phi",
                 "goodMeson_Nphotons",
-                "goodMeson_photons_pt",
-                "goodMeson_photons_eta",
-                "goodMeson_photons_phi",
-                "goodMeson_photons_DR",
+                "goodMeson_photon1_pt",
+                "goodMeson_photon1_eta",
+                "goodMeson_photon1_phi",
+                "goodMeson_photon1_DR",
+                "goodMeson_photon2_pt",
+                "goodMeson_photon2_eta",
+                "goodMeson_photon2_phi",
+                "goodMeson_photon2_DR",
         ]:
             branchList.push_back(branchName)
 
@@ -1256,8 +1243,10 @@ def DefineContent(branchList,isData):
                 "goodMeson_ditrk_phi_input_pred",
                 "goodMeson_ditrk_mass_input_pred",
                 "goodMeson_Nphotons_input_pred",
-                "goodMeson_photons_pt_input_pred",
-                "goodMeson_photons_DR_input_pred",
+                "goodMeson_photon1_pt_input_pred",
+                "goodMeson_photon1_DR_input_pred",
+                "goodMeson_photon2_pt_input_pred",
+                "goodMeson_photon2_DR_input_pred",
                 "goodPhotons_pt_input_pred",
                 "goodPhotons_eta_input_pred",
                 "goodPhotons_phi_input_pred",
@@ -1316,61 +1305,6 @@ def DefineContent(branchList,isData):
                 "var52_input_pred",
                 "var53_input_pred",
                 "var54_input_pred",
-                "var55_input_pred",
-                "var56_input_pred",
-                "var57_input_pred",
-                "var58_input_pred",
-                "var59_input_pred",
-                "var60_input_pred",
-                "var61_input_pred",
-                "var62_input_pred",
-                "var63_input_pred",
-                "var64_input_pred",
-                "var65_input_pred",
-                "var66_input_pred",
-                "var67_input_pred",
-                "var68_input_pred",
-                "var69_input_pred",
-                "var70_input_pred",
-                "var71_input_pred",
-                "var72_input_pred",
-                "var73_input_pred",
-                "var74_input_pred",
-                "var75_input_pred",
-                "var76_input_pred",
-                "var77_input_pred",
-                "var78_input_pred",
-                "var79_input_pred",
-                "var80_input_pred",
-                "var81_input_pred",
-                "var82_input_pred",
-                "var83_input_pred",
-                "var84_input_pred",
-                "var85_input_pred",
-                "var86_input_pred",
-                "var87_input_pred",
-                "var88_input_pred",
-                "var89_input_pred",
-                "var90_input_pred",
-                "var91_input_pred",
-                "var92_input_pred",
-                "var93_input_pred",
-                "var94_input_pred",
-                "var95_input_pred",
-                "var96_input_pred",
-                "var97_input_pred",
-                "var98_input_pred",
-                "var99_input_pred",
-                "var100_input_pred",
-                "var101_input_pred",
-                "var102_input_pred",
-                "var103_input_pred",
-                "var104_input_pred",
-                "var105_input_pred",
-                "var106_input_pred",
-                "var107_input_pred",
-                "var108_input_pred",
-                "var109_input_pred",
         ]:
             branchList.push_back(branchName)
             
@@ -1522,7 +1456,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "/data/submit/pdmonte/outputs/JUL22/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "/data/submit/pdmonte/outputs/JUL31/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
