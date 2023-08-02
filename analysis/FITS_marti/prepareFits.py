@@ -1,12 +1,12 @@
 import ROOT
-ROOT.ROOT.EnableImplicitMT()
+#ROOT.ROOT.EnableImplicitMT()
 
 numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarCat": [1041]}
 
 mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 
 
-def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False):
+def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False, regressionModel=None):
     """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
 
     print("[getHisto] Creating Histogram {} {} {} {}...".format(mesonCat, cat, date, extraTitle))
@@ -24,12 +24,18 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
     title = "Higgs candidate mass for {}, reconstruction".format(mesonLatex)
     if extraTitle is not None:
         title += " ({})".format(extraTitle)
-
-    if ditrack:
-        h = df.Define("scale", "w*lumiIntegrated").Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassMissing", "scale")
+    if regressionModel is None:
+        if ditrack:
+            h = df.Define("scale", "w*lumiIntegrated").Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassMissing", "scale")
+        else:
+            h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
     else:
-        h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
-    #h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassVtxCorr", "scale")
+        computeModel, variables = regressionModel
+        h = (df.Define("scale", "w*lumiIntegrated")
+             .Define("scaleFactor", computeModel, variables)
+             .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
+             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)")
+             .Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale"))
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
     h.GetYaxis().SetTitle("Events")

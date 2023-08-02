@@ -15,8 +15,11 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None):
     print('\033[1;31m' + "[fitBkg] Fitting Histogram {} {} {} {} BKG...".format(mesonCat, cat, date, extraTitle) + '\033[0m')
 
     #Read Hist file saved
-
-    data_full = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle="BKG"))
+    if extraTitle is None:
+        extratitle="BKG"
+    else:
+        extratitle="BKG_{}".format(extraTitle)
+    data_full = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle=extratitle))
     print("[fitBkg] ------------------------Histogram read!-----------------------")
 
     x = ROOT.RooRealVar('mh', 'm_{{#gamma, {0} }} [GeV]'.format(mesonLatex[mesonCat]), xlowRange, xhighRange)
@@ -105,7 +108,7 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None):
     #pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
     #pad1.Draw()
     #pad1.cd()
-    plotFrameWithNormRange = x.frame(ROOT.RooFit.Title("mH_" + mesonCat + "_" + tag + "_" + str(year) + "_BKG"))
+    plotFrameWithNormRange = x.frame(ROOT.RooFit.Title("mH_" + mesonCat + "_" + tag + "_" + str(year) + "_" + extratitle))
     data.plotOn(plotFrameWithNormRange)
     model.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
     model2.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model2.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
@@ -129,7 +132,7 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None):
     latex.SetTextColor(ROOT.kBlue)
     latex.DrawLatexNDC(0.14, 0.79, model2.GetName())
 
-    canvas.SaveAs("~/public_html/fits/{}/{}_fit_BKG.png".format(mesonCat[:-3], mesonCat))
+    canvas.SaveAs("~/public_html/fits/{}/{}_fit_{}.png".format(mesonCat[:-3], mesonCat, extratitle))
 
     # -------------------------------------------------------------
 
@@ -167,10 +170,11 @@ if __name__ == "__main__":
     #BACKGROUND D0Star-----------------------------------------------------------------------------
     mesonCat = "D0StarCat"
     date = "JUN29"
-    fitBkg(cat, mesonCat, year, date)
+    #fitBkg(cat, mesonCat, year, date)
 
 
     #BACKGROUND Phi3-------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    date = "JUN29"
+    date = "JUL31"
+    fitBkg(cat, mesonCat, year, date, extraTitle="regression")
     fitBkg(cat, mesonCat, year, date)

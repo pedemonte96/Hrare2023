@@ -11,7 +11,7 @@ while true; do
         ((indexCommands += 50))
         continue
     fi
-    if [ "$indexCommands" -gt 6060 ]; then
+    if [ "$indexCommands" -gt 7308 ]; then
         break
     fi
     fi

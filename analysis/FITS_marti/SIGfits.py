@@ -27,7 +27,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None):
     data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
 
     cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 125., 125-10., 125+10.)
-    cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 0., 5.)
+    cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 1.5, 0., 5.)
     cb_alphaL = ROOT.RooRealVar('cb_alphaL_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaL', 0., 5.)
     cb_alphaR = ROOT.RooRealVar('cb_alphaR_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaR', 0., 5.)
     cb_nL = ROOT.RooRealVar('cb_nL_' + mesonCat + "_" + tag + '_' + sig, 'cb_nL', 0., 20.)
@@ -127,12 +127,12 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "JUN29"
+    date = "JUL31"
 
 
     #D0Star----------------------------------------------------------------------------------------
     mesonCat = "D0StarCat"
-    fitSig(cat, mesonCat, year, date)
+    #fitSig(cat, mesonCat, year, date)
     '''
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
@@ -155,6 +155,7 @@ if __name__ == "__main__":
     '''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
+    fitSig(cat, mesonCat, year, date, extraTitle="regression")
     fitSig(cat, mesonCat, year, date)
     '''
     extraTitle = "barrel meson"

@@ -6,7 +6,7 @@ if true; then
     outputFile="eval_all.out"
 else
     directory="/data/submit/pdmonte/TMVA_models/evalFiles"
-    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFiles/eval_temp.txt"
+    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFiles/eval_tmp.txt"
 fi
 
 # Clear the output file if it already exists
