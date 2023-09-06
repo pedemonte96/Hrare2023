@@ -1,1 +1,0 @@
-BDTG_df47_dl511_v45_v49_v51:root -l -q -b 'TMVA_GF_regression.C("BDTG_df47_dl511_v45_v49_v51.root", "phi", 0, "BDTG_df47_dl511_v45_v49_v51", (const char*[]){"var45_input_pred", "var49_input_pred", "var51_input_pred"}, 3, 47, 511)' && python computeErrors.py -m BDTG_df47_dl511_v45_v49_v51

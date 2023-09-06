@@ -17,6 +17,7 @@ variableNames = {"goodMeson_ditrk_mass": ["ditrack mass", "m [GeV]", "GeV"],
                  "goodMeson_mass": ["full mass", "m [GeV]", "GeV"],
                  "goodMeson_ditrk_pt": ["ditrack p_{T}", "p_{T} [GeV]", "GeV"],
                  "goodMeson_pt": ["full p_{T}", "p_{T} [GeV]", "GeV"],
+                 "goodMeson_Nphotons": ["Num photons", "#", ""],
                  "goodMeson_leadtrk_pt": ["leading track p_{T}", "p_{T} [GeV]", "GeV"],
                  "goodMeson_subleadtrk_pt": ["subleading track p_{T}", "p_{T} [GeV]", "GeV"],
                  "goodPhotons_pt": ["photon from H p_{T}", "p_{T} [GeV]", "GeV"],
@@ -39,6 +40,8 @@ def getHistogram(nbins, xlow, xhigh, df, mesonCat, variable, level):
 
     if (level == "RECO" or level == "BKG"):
         h = df.Define("good", "{0}[{0}>0]".format(extendedVariable)).Histo1D(("hist", title, nbins, xlow, xhigh), "good", "scale")
+        if(variable == "goodMeson_Nphotons"):
+            h = df.Define("good", "{0}[{0}>=-1]".format(extendedVariable)).Histo1D(("hist", title, nbins, xlow, xhigh), "good", "scale")
         if (level == "RECO"):
             h.SetFillColor(ROOT.kGreen-9)
         elif (level == "BKG"):
@@ -62,7 +65,7 @@ def makePlots(cat, mesonCat, year, date, background):
     text = " Making plots for {} {} ".format(mesonCat, date).center(70, "~")
     print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"])
 
-    numRows = 11
+    numRows = 12
     numCols = 3 if background else 2
     height = numRows * 800
     width = numCols * 850
@@ -220,6 +223,18 @@ def makePlots(cat, mesonCat, year, date, background):
         p = cs.cd(len(histograms))
         histograms[-1].Draw("hist")
 
+    nbins, xlow, xhigh, variable = 9, -1., 8., "goodMeson_Nphotons"
+    histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
+    p = cs.cd(len(histograms))
+    histograms[-1].Draw("hist")
+    histograms.append(0)
+    p = cs.cd(len(histograms))
+    #histograms[-1].Draw("hist")
+    if background:
+        histograms.append(getHistogram(nbins, xlow, xhigh, df_BKG, mesonCat, variable, "BKG"))
+        p = cs.cd(len(histograms))
+        histograms[-1].Draw("hist")
+
     nbins, xlow, xhigh, variable = 200, 105, 145, "HCandMassFilt"
     histograms.append(getHistogram(nbins, xlow, xhigh, df_SGN, mesonCat, variable, "RECO"))
     p = cs.cd(len(histograms))
@@ -311,29 +326,29 @@ def makePlots(cat, mesonCat, year, date, background):
 
 if __name__ == "__main__":
 
-    background = False
+    background = True
 
     cat = "GFcat"
     year = 2018
-    date = "JUL31"
+    date = "AUG24"
 
     #D0Star--------------------------------------------------------------------------------------
-    #background = True
+    #background = False
     mesonCat = "D0StarCat"
     #makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
-    background = True
+    #background = False
     mesonCat = "Phi3Cat"
     #makePlots(cat, mesonCat, year, date, background)
 
     #Omega---------------------------------------------------------------------------------------
-    background = True
+    #background = False
     mesonCat = "OmegaCat"
     #makePlots(cat, mesonCat, year, date, background)
 
     #D0StarRho-----------------------------------------------------------------------------------
-    background = False
+    #background = False
     mesonCat = "D0StarRhoCat"
     #makePlots(cat, mesonCat, year, date, background)
     

@@ -6,12 +6,12 @@ while true; do
     queueLength=$(squeue -u pdmonte | wc -l)
     #echo -e "[$(date +'%T')] Queue: ${queueLength}"
     if true; then
-    if [ "$queueLength" -lt 850 ]; then
+    if [ "$queueLength" -lt 800 ]; then
         python slurm.py -i commands.txt --minIndex $indexCommands --maxIndex $((indexCommands + 50))
         ((indexCommands += 50))
         continue
     fi
-    if [ "$indexCommands" -gt 7308 ]; then
+    if [ "$indexCommands" -gt 5940 ]; then
         break
     fi
     fi

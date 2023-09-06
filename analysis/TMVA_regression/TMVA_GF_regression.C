@@ -15,7 +15,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* outFileName, const char* channel, int testSet=0, const char* nameModel = "model", const char* variables[] = {}, int numVariables=0, int codeDF=127, int codeDL=511){
+void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=0, const char* variables[] = {}, int numVariables=0, int codeDF=127, int codeDL=511){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -27,20 +27,39 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsVars";
     
     // Open files
-    TFile* sgnfile;
-    if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1038_GFcat_OmegaCat_2018.root", "READ");
-    else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1039_GFcat_Phi3Cat_2018.root", "READ");
-    else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1040_GFcat_D0StarRhoCat_2018.root", "READ");
-    else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0)
-        sgnfile = TFile::Open("/data/submit/pdmonte/outputs/JUL31/2018/outname_mc1041_GFcat_D0StarCat_2018.root", "READ");     
-    else
+    int trainA, trainB;
+    if(testSet == 0){
+        trainA = 1;
+        trainB = 2;
+    }else if(testSet == 1){
+        trainA = 2;
+        trainB = 0;
+    }else if(testSet == 2){
+        trainA = 0;
+        trainB = 1;
+    }
+
+    cout << trainA << trainB << endl;
+
+    TFile* sgnfileA;
+    TFile* sgnfileB;
+    if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0){
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainB), "READ");
+    }else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0){
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainB), "READ");
+    }else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0){
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainB), "READ");
+    }else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0){
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/AUG24/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainB), "READ");   
+    }else
         return -1;
 
     // Initialize the dataset
-    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/rootVars/%s", outFileName), "RECREATE");    
+    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/rootVars/%s", Form("%s_%s_%d.root", nameModel, channel, testSet)), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset
@@ -78,14 +97,16 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
     // Set weights.
     //dataloader->SetWeightExpression("w*lumiIntegrated", "Regression");
     Double_t regWeight  = 1.0;
-    TCut cutTrain = Form("(Entry$ %% 20) != %d", testSet);
-    TCut cutTest = Form("(Entry$ %% 20) == %d", testSet);
-    dataloader->AddTree((TTree*)sgnfile->Get("events"), "Regression", regWeight, cutTrain, "train");
-    dataloader->AddTree((TTree*)sgnfile->Get("events"), "Regression", regWeight, cutTest, "test");
+    TCut cutTrain = Form("(Entry$ %% 50) != %d", testSet);
+    TCut cutTest = Form("(Entry$ %% 50) == %d", testSet);
+    dataloader->AddTree((TTree*)sgnfileA->Get("events"), "Regression", regWeight, cutTrain, "train");
+    dataloader->AddTree((TTree*)sgnfileA->Get("events"), "Regression", regWeight, cutTest, "test");
+    dataloader->AddTree((TTree*)sgnfileB->Get("events"), "Regression", regWeight, cutTrain, "train");
+    dataloader->AddTree((TTree*)sgnfileB->Get("events"), "Regression", regWeight, cutTest, "test");
 
-    int nEntries = ((TTree*)sgnfile->Get("events"))->GetEntries();
-    int nTrain = (((TTree*)sgnfile->Get("events"))->CopyTree(cutTrain))->GetEntries();
-    int nTest = (((TTree*)sgnfile->Get("events"))->CopyTree(cutTest))->GetEntries();
+    int nEntries = ((TTree*)sgnfileA->Get("events"))->GetEntries() + ((TTree*)sgnfileB->Get("events"))->GetEntries();
+    int nTrain = (((TTree*)sgnfileA->Get("events"))->CopyTree(cutTrain))->GetEntries() + (((TTree*)sgnfileB->Get("events"))->CopyTree(cutTrain))->GetEntries();
+    int nTest = (((TTree*)sgnfileA->Get("events"))->CopyTree(cutTest))->GetEntries() + (((TTree*)sgnfileB->Get("events"))->CopyTree(cutTest))->GetEntries();
 
     cout << "Number of entries: " << nEntries << endl;
     cout << "Cut train: " << cutTrain << "\tTraining events: " << nTrain << " (" << ((double)((int)((double)nTrain/nEntries*10000)))/100.0 << "\%)" << endl;
@@ -103,7 +124,7 @@ void TMVA_GF_regression(const char* outFileName, const char* channel, int testSe
 
     // Booking Methods ------------------------------------------------------------------------------------
  
-    factory.BookMethod(dataloader, TMVA::Types::kBDT, nameModel,
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%s_%d", nameModel, channel, testSet),
         "!V:NTrees=1000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning");
     
 	// Train Methods: Here we train all the previously booked methods.

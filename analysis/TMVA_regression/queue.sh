@@ -2,7 +2,7 @@
 
 outFile="/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/TMVA_regression/timeJobs.txt"
 
-#> "$outFile"
+> "$outFile"
 
 while true; do
     doneJobs=$(( $(ls /data/submit/pdmonte/TMVA_models/evalFiles/*.out | wc -l) ))

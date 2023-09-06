@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Directory containing the files
 if true; then
-    directory="/data/submit/pdmonte/TMVA_models/finalEvalFiles"
-    outputFile="eval_all.out"
+    #directory="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhi"
+    #outputFile="eval_all_phi.out"
+    directory="/data/submit/pdmonte/TMVA_models/finalEvalFilesD0Star"
+    outputFile="eval_all_d0star.out"
 else
     directory="/data/submit/pdmonte/TMVA_models/evalFiles"
-    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFiles/eval_tmp.txt"
+    #outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhi/eval_tmp.txt"
+    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesD0Star/eval_tmp.txt"
 fi
 
 # Clear the output file if it already exists
