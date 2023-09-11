@@ -10,7 +10,7 @@ while true; do
     #echo -e "[$(date +'%T')] Done: ${doneJobs}\tQueue: ${queueLength}"
     echo -e "$(date +'%T')\t${doneJobs}\t${queueLength}" >> "$outFile"
     sleep 10
-	if [ "$queueLength" -lt 50 ]; then
+	if [ "$queueLength" -lt 10 ]; then
         break
     fi
 done

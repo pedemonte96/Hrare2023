@@ -1,51 +1,136 @@
 import ROOT
+import os
 #ROOT.ROOT.EnableImplicitMT()
 
 numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarCat": [1041]}
 
 mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 
+mesonChannel = {"OmegaCat": "omega", "D0StarCat": "d0star", "Phi3Cat": "phi"}
 
-def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False, regressionModel=None):
+
+def getNumVarsFromCode(code):
+    nVars = 0
+    while(code > 0):
+        nVars += int(code%2)
+        code = int(code/2)
+    return nVars
+
+
+def getTotalNumVars(modelName):
+    splitted = modelName.split("_")
+    numVars = getNumVarsFromCode(int(splitted[1].replace("df", "")))
+    numVars += getNumVarsFromCode(int(splitted[2].replace("dl", "")))
+    numVars += len(splitted) - 3
+    return numVars
+
+
+def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False, regModelName=None):
     """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
 
-    print("[getHisto] Creating Histogram {} {} {} {}...".format(mesonCat, cat, date, extraTitle))
-
-    chain = ROOT.TChain("events")
-    for num in nums:
-        chain.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
-
-    df = ROOT.RDataFrame(chain)
-    
-    for i in range(len(filters)):
-        filterName = "filter_" + str(i)
-        df = df.Define(filterName, filters[i]).Filter("Sum({})>0".format(filterName))
+    verbString = "[getHisto] Creating Histogram {} {} {}".format(mesonCat, cat, date)
+    if regModelName is not None:
+        verbString += " {}".format(regModelName)
+    if extraTitle is not None:
+        verbString += " {}".format(extraTitle)
+    verbString += "..."
+    print(verbString)
 
     title = "Higgs candidate mass for {}, reconstruction".format(mesonLatex)
+    if regModelName is not None:
+        title += " ({})".format(regModelName)
     if extraTitle is not None:
         title += " ({})".format(extraTitle)
-    if regressionModel is None:
+
+    if regModelName is None:
+        #No regression model
+        chain = ROOT.TChain("events")
+        for num in nums:
+            chain.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
+
+        df = ROOT.RDataFrame(chain)
+        for i in range(len(filters)):
+            filterName = "filter_" + str(i)
+            df = df.Define(filterName, filters[i]).Filter("Sum({})>0".format(filterName))
         if ditrack:
-            h = df.Define("scale", "w*lumiIntegrated").Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassMissing", "scale")
+            h = df.Define("scale", "w*lumiIntegrated").Define("HCandMassMissing", "compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMassMissing", "scale").GetValue()
         else:
-            h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale")
+            h = df.Define("scale", "w*lumiIntegrated").Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass", "scale").GetValue()
     else:
-        computeModel, variables = regressionModel
-        h = (df.Define("scale", "w*lumiIntegrated")
-             .Define("scaleFactor", computeModel, variables)
-             .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
-             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)")
-             .Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale"))
+        #With a regression model to correct the PT of the meson
+        #Load models
+        variableName = regModelName + "_" + mesonChannel[mesonCat] + "_"
+        variableName += "BKG" if len(nums) > 1 else "SGN"
+        #print(variableName)
+
+        s = '''
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_0.weights.xml");
+        {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_1.weights.xml");
+        {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_2.weights.xml");
+        {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
+        '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
+
+        ROOT.gInterpreter.ProcessLine(s)
+        variables = list(getattr(ROOT, variableName + "Reader0").GetVariableNames())
+        #print(variables)
+        
+        if len(nums) > 1:#BKG
+            chainBKG = ROOT.TChain("events")
+            for num in nums:
+                chainBKG.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
+            dfBKG = ROOT.RDataFrame(chainBKG)
+            dfBKG = (dfBKG.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", getattr(ROOT, variableName + "0"), variables)
+                    .Define("scaleFactor1", getattr(ROOT, variableName + "1"), variables)
+                    .Define("scaleFactor2", getattr(ROOT, variableName + "2"), variables)
+                    #.Define("scaleFactor0", ROOT.computeModelScale0, variables)
+                    #.Define("scaleFactor1", ROOT.computeModelScale1, variables)
+                    #.Define("scaleFactor2", ROOT.computeModelScale2, variables)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            h = dfBKG.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+
+        else:#SGN
+            chainSGN0 = ROOT.TChain("events")
+            chainSGN1 = ROOT.TChain("events")
+            chainSGN2 = ROOT.TChain("events")
+            chainSGN0.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}_sample0.root".format(date, year, nums[0], cat, mesonCat, year))
+            chainSGN1.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}_sample1.root".format(date, year, nums[0], cat, mesonCat, year))
+            chainSGN2.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}_sample2.root".format(date, year, nums[0], cat, mesonCat, year))
+            dfSGN0 = ROOT.RDataFrame(chainSGN0)
+            dfSGN1 = ROOT.RDataFrame(chainSGN1)
+            dfSGN2 = ROOT.RDataFrame(chainSGN2)
+            #need to divide scale factor by 3 in each sample to be able to add all together
+            dfSGN0 = (dfSGN0.Define("scale", "w*lumiIntegrated/3.")
+                    .Define("scaleFactor", getattr(ROOT, variableName + "0"), variables)
+                    #.Define("scaleFactor", ROOT.computeModelScale0, variables)
+                    .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            dfSGN1 = (dfSGN1.Define("scale", "w*lumiIntegrated/3.")
+                    .Define("scaleFactor", getattr(ROOT, variableName + "1"), variables)
+                    #.Define("scaleFactor", ROOT.computeModelScale1, variables)
+                    .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated/3.")
+                    .Define("scaleFactor", getattr(ROOT, variableName + "2"), variables)
+                    #.Define("scaleFactor", ROOT.computeModelScale2, variables)
+                    .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            
+            h = dfSGN0.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h.Add(dfSGN1.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
+            h.Add(dfSGN2.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
     h.GetYaxis().SetTitle("Events")
-
     h.SetFillColor(ROOT.kGreen-6)
     h.SetLineColor(ROOT.kBlack)
 
     print("[getHisto] ---------------------------------------- Histogram created! ----------------------")
 
-    return ROOT.TH1D(h.GetValue())
+    return ROOT.TH1D(h)
 
 
 def getHistoFromFile(fileName):
@@ -73,9 +158,11 @@ def saveHistoToFile(h, fileName):
         outfile.WriteObject(h, "myhisto")
 
 
-def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None):
+def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelName=None):
     """Generates the full file name for a histogram file based on the provided parameters."""
-    fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date + ".root"
+    fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date
+    if regModelName is not None:
+        fileName += "_" + regModelName
     if extraTitle is not None:
-        fileName = fileName[:-5] + "__" + extraTitle.replace(" ", "_").replace(",", "") + fileName[-5:]
-    return "/data/submit/pdmonte/outHistsFits/" + fileName
+        fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    return "/data/submit/pdmonte/outHistsFits/" + fileName + ".root"

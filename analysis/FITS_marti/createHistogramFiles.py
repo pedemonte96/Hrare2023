@@ -7,27 +7,23 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.so" not 
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.cc","k")
 
 
-def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None, ditrack=False, regressionModel=None):
+def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None, ditrack=False, regModelName=None):
     """Creates a histogram and saves it to a file."""
     print('\033[1;36m' + "\n[createAndSaveHistogramSIG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
-    histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle, ditrack, regressionModel=regressionModel)
+    histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle, ditrack, regModelName=regModelName)
     #Save histogram
-    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle)
+    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
     saveHistoToFile(histogram, name)
     print('\033[1;36m' + "[createAndSaveHistogramSIG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;36m' + "[createAndSaveHistogramSIG] {}".format((" " + name[34:] + " ").center(65, "-") + '\033[0m'))
 
 
-def createAndSaveHistogramBackground(tag, mesonCat, year, date, regressionModel=None):
+def createAndSaveHistogramBackground(tag, mesonCat, year, date, regModelName=None):
     """Creates a histogram and saves it to a file."""
     print('\033[1;31m' + "\n[createAndSaveHistogramBKG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
-    histogram = getHisto(200, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regressionModel=regressionModel)
+    histogram = getHisto(200*10, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
     #Save histogram
-    if regressionModel is None:
-        extratitle="BKG"
-    else:
-        extratitle="BKG_regression"
-    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extratitle)
+    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName)
     saveHistoToFile(histogram, name)
     print('\033[1;31m' + "[createAndSaveHistogramBKG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;31m' + "[createAndSaveHistogramBKG] {}".format((" " + name[34:] + " ").center(65, "-")) + '\033[0m')
@@ -37,7 +33,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "JUL31"
+    date = "AUG24"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -78,16 +74,11 @@ if __name__ == "__main__":
     '''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    s = '''
-        TMVA::Experimental::RReader modelScale("{modelFileName}");
-        computeModelScale = TMVA::Experimental::Compute<{numVars}, float>(modelScale);
-        '''.format(modelFileName="/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_BDTG_df15_dl511_v1_v35.weights.xml", numVars=15)
-
-    ROOT.gInterpreter.ProcessLine(s)
-
-    regressionModelPhi3 = (ROOT.computeModelScale, list(ROOT.modelScale.GetVariableNames()))
-    createAndSaveHistogramSignal(cat, mesonCat, year, date, extraTitle="regression", regressionModel=regressionModelPhi3)
-    createAndSaveHistogramSignal(cat, mesonCat, year, date)
+    regModelName = "BDTG_df15_dl511_v7_v46"
+    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
+    regModelName = "BDTG_df15_dl511_v0"
+    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
+    #createAndSaveHistogramSignal(cat, mesonCat, year, date)
     '''
     filters = ["abs(goodMeson_eta) < 1.4"]
     extraTitle = "barrel meson"
@@ -122,6 +113,6 @@ if __name__ == "__main__":
 
     #BACKGROUND Phi3-------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    date = "JUL31"
-    createAndSaveHistogramBackground(cat, mesonCat, year, date, regressionModel=regressionModelPhi3)
-    createAndSaveHistogramBackground(cat, mesonCat, year, date)
+    date = "AUG24"
+    createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName)
+    #createAndSaveHistogramBackground(cat, mesonCat, year, date)
