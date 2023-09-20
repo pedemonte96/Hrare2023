@@ -10,6 +10,8 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.so" not 
 def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None, ditrack=False, regModelName=None):
     """Creates a histogram and saves it to a file."""
     print('\033[1;36m' + "\n[createAndSaveHistogramSIG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
+    if regModelName == "RECO":
+        regModelName = None
     histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle, ditrack, regModelName=regModelName)
     #Save histogram
     name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
@@ -21,6 +23,8 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
 def createAndSaveHistogramBackground(tag, mesonCat, year, date, regModelName=None):
     """Creates a histogram and saves it to a file."""
     print('\033[1;31m' + "\n[createAndSaveHistogramBKG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
+    if regModelName == "RECO":
+        regModelName = None
     histogram = getHisto(200*10, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
     #Save histogram
     name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName)
@@ -33,7 +37,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "AUG24"
+    date = "SEP13"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -74,11 +78,16 @@ if __name__ == "__main__":
     '''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    regModelName = "BDTG_df15_dl511_v7_v46"
-    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
-    regModelName = "BDTG_df15_dl511_v0"
-    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
-    #createAndSaveHistogramSignal(cat, mesonCat, year, date)
+
+    with open('models.txt', 'r') as file:
+        for line in file:
+            regModelName = line.strip()
+            createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
+            createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName)
+
+    createAndSaveHistogramSignal(cat, mesonCat, year, date)
+    createAndSaveHistogramBackground(cat, mesonCat, year, date)
+
     '''
     filters = ["abs(goodMeson_eta) < 1.4"]
     extraTitle = "barrel meson"
@@ -108,11 +117,4 @@ if __name__ == "__main__":
     #BACKGROUND D0Star-----------------------------------------------------------------------------
     mesonCat = "D0StarCat"
     date = "JUN29"
-    #createAndSaveHistogramBackground(cat, mesonCat, year, date)
-
-
-    #BACKGROUND Phi3-------------------------------------------------------------------------------
-    mesonCat = "Phi3Cat"
-    date = "AUG24"
-    createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName)
     #createAndSaveHistogramBackground(cat, mesonCat, year, date)

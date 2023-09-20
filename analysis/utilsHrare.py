@@ -393,10 +393,10 @@ def SwitchSample(argument,year):
         1040: (dirLocalNEW2+"ggh-hD0StarKmPiPPi0gamma-powheg"+"/NANOAOD_03_test5", 48580*0.14),
         1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test5", 48580*0.0389),
         # Split into 3 samples
-        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample2", 48580*0.892), 
-        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample2", 48580*0.153),
-        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample2", 48580*0.14),
-        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample2", 48580*0.0389),
+        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample0", 48580*0.892), 
+        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample0", 48580*0.153),
+        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample0", 48580*0.14),
+        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample0", 48580*0.0389),
 
         #
         1019: (dirLocalNEW+"vbf-hphiKLKSgamma-powheg"+"/NANOAOD_01",3781.7*0.24), # xsec = 4pb * BR(Hphigamma)=1 BR(phi->kLkS)=0.24
@@ -425,11 +425,11 @@ def SwitchSample(argument,year):
         ##
         9: (dirT2+"VBFGamma_5f_TuneCP5_DipoleRecoil_13TeV-madgraph-pythia8+"+campaign,21.09*1000), #LO
         ##
-        10: (dirGluster+"GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,18540.0*1000*1.26), #LO *1.26
-        11: (dirGluster+"GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaignFIX,8644.0*1000*1.26), #LO *1.26
-        12: (dirGluster+"GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,2183.0*1000*1.26), #LO *1.26
-        13: (dirGluster+"GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,260.2*1000*1.26), #LO *1.26
-        14: (dirGluster+"GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,86.58*1000*1.26), #LO *1.26
+        10: (dirGluster_new+"GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,18540.0*1000*1.26), #LO *1.26
+        11: (dirGluster_new+"GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaignFIX,8644.0*1000*1.26), #LO *1.26
+        12: (dirGluster_new+"GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,2183.0*1000*1.26), #LO *1.26
+        13: (dirGluster_new+"GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,260.2*1000*1.26), #LO *1.26
+        14: (dirGluster_new+"GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,86.58*1000*1.26), #LO *1.26
         #
         15: (dirGluster+"GJets_DR-0p4_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,15750.0*1000*1.26), #LO *1.26
         16: (dirGluster+"GJets_DR-0p4_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8+"+campaign,5034*1000*1.26), #LO *1.26

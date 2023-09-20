@@ -8,9 +8,12 @@ xlowRange = 100.
 xhighRange = 150.
 
 sig = "ggH"
-workspaceName = 'WS_AUG24'
+workspaceName = 'WS_SEP13'
 
 def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+
+    if regModelName == "RECO":
+        regModelName = None
 
     verbString = "[fitSig] Fitting Histogram {} {} {}".format(mesonCat, cat, date)
     if regModelName is not None:
@@ -36,7 +39,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
 
     #Crystal ball definition --------------------------------------------------------------
-    cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 125., 125-10., 125+10.)
+    cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 124.8, 125-10., 125+10.)
     cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 1.5, 0., 5.)
     cb_alphaL = ROOT.RooRealVar('cb_alphaL_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaL', 0., 5.)
     cb_alphaR = ROOT.RooRealVar('cb_alphaR_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaR', 0., 5.)
@@ -162,7 +165,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "AUG24"
+    date = "SEP13"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -190,11 +193,12 @@ if __name__ == "__main__":
     '''
     #Phi3------------------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    regModelName = "BDTG_df15_dl511_v7_v46"
-    fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-    regModelName = "BDTG_df15_dl511_v0"
-    fitSig(cat, mesonCat, year, date, regModelName=regModelName)
+    with open('models.txt', 'r') as file:
+        for line in file:
+            regModelName = line.strip()
+            fitSig(cat, mesonCat, year, date, regModelName=regModelName)
     #fitSig(cat, mesonCat, year, date)
+
     '''
     extraTitle = "barrel meson"
     fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)

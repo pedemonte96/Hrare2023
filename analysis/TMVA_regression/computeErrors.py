@@ -62,8 +62,8 @@ def sigmoid(x, a=0.4, b=113):
     return 1/(1+np.exp(-a*(x-b)))
 
 
-def getLoss(mu, N, integral=120000):
-    return -np.log((mu-125)**2/(N**2*integral)/(1+20*sigmoid(mu))/(1+np.exp(0.1*(mu-100))))
+def getLoss(mu, N=4000, integral=180000):
+    return -np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5
 
 
 parser = argparse.ArgumentParser(description="Famous Submitter")
@@ -71,7 +71,7 @@ parser.add_argument("-m", "--modelName", type=str, required=True, help="Input th
 parser.add_argument("-c", "--channel", type=str, required=True, help="Channel (e.g. phi, omega, d0starrho, d0star).")
 options = parser.parse_args()
 
-date = "AUG24"
+date = "SEP13"
 mesonCat = ""
 mesonNum = 0
 if (options.channel == "omega"):
@@ -115,9 +115,9 @@ dfBKG = ROOT.RDataFrame(chainBKG)
 if options.modelName == "RECO":
 
     #dfSGN = (dfSGN.Define("scale", "w*lumiIntegrated"))
-    dfSGN0 = (dfSGN0.Define("scale", "w*lumiIntegrated"))
-    dfSGN1 = (dfSGN1.Define("scale", "w*lumiIntegrated"))
-    dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated"))
+    dfSGN0 = (dfSGN0.Define("scale", "w*lumiIntegrated/3."))
+    dfSGN1 = (dfSGN1.Define("scale", "w*lumiIntegrated/3."))
+    dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated/3."))
     dfBKG = (dfBKG.Define("scale", "w*lumiIntegrated"))
 
     nbins, xlow, xhigh = 200, 105, 145
@@ -130,7 +130,7 @@ if options.modelName == "RECO":
     h6 = dfBKG.Histo1D(("hist", "HCandMass RECO", nbins, xlow, xhigh), "HCandMass", "scale")
 
     #NSig_predTOT = h3.Integral(h3.FindBin(117), h3.FindBin(133))
-    NSig_pred = h3.Integral(h3.FindBin(117), h3.FindBin(133))/3. #account for weights x3
+    NSig_pred = h3.Integral(h3.FindBin(117), h3.FindBin(133))
     NBkg_pred = h6.Integral(h6.FindBin(117), h6.FindBin(133))
 
     #hError = dfSGN.Define("good", "goodMeson_pt - goodMeson_pt_GEN").Histo1D(("hist", "RECO - GEN", nbins, -30, 30), "good", "scale")
@@ -159,15 +159,15 @@ else:
     ROOT.gInterpreter.ProcessLine(s)
     variables = list(ROOT.modelScale0.GetVariableNames())
 
-    dfSGN0 = (dfSGN0.Define("scale", "w*lumiIntegrated")
+    dfSGN0 = (dfSGN0.Define("scale", "w*lumiIntegrated/3.")
             .Define("scaleFactor", ROOT.computeModelScale0, variables)
             .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
-    dfSGN1 = (dfSGN1.Define("scale", "w*lumiIntegrated")
+    dfSGN1 = (dfSGN1.Define("scale", "w*lumiIntegrated/3.")
             .Define("scaleFactor", ROOT.computeModelScale1, variables)
             .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
-    dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated")
+    dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated/3.")
             .Define("scaleFactor", ROOT.computeModelScale2, variables)
             .Define("goodMeson_pt_PRED", "scaleFactor[0]*goodMeson_pt[0]")
             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
@@ -187,7 +187,7 @@ else:
     h3.Add(h32)
     h6 = dfBKG.Histo1D(("hist", "HCandMass RECO + PT PREDICTED", nbins, xlow, xhigh), "HCandMass_varPRED", "scale")
 
-    NSig_pred = h3.Integral(h3.FindBin(117), h3.FindBin(133))/3. #account for weights x3
+    NSig_pred = h3.Integral(h3.FindBin(117), h3.FindBin(133))
     NBkg_pred = h6.Integral(h6.FindBin(117), h6.FindBin(133))
 
     hError = dfSGN0.Define("good", "goodMeson_pt_PRED - goodMeson_pt_GEN").Histo1D(("hist", "PRED - GEN", nbins, -30, 30), "good", "scale").GetValue()

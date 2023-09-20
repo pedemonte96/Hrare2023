@@ -8,9 +8,12 @@ xlowRange = 100.
 xhighRange = 150.
 
 sig = "ggH"
-workspaceName = 'WS_AUG24'
+workspaceName = 'WS_SEP13'
 
 def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+
+    if regModelName == "RECO":
+        regModelName = None
 
     verbString = "[fitBkg] Fitting Histogram {} {} {}".format(mesonCat, cat, date)
     if regModelName is not None:
@@ -220,7 +223,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "AUG24"
+    date = "SEP13"
 
 
     #BACKGROUND D0Star-----------------------------------------------------------------------------
@@ -230,6 +233,8 @@ if __name__ == "__main__":
 
     #BACKGROUND Phi3-------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    regModelName = "BDTG_df15_dl511_v7_v46"
-    fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+    with open('models.txt', 'r') as file:
+        for line in file:
+            regModelName = line.strip()
+            fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)
