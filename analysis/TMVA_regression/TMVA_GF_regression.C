@@ -16,7 +16,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=0, const std::vector<int>& variables={}, int codeDF=127, int codeDL=4095){
+void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=0, const std::vector<int>& variables={}, int codeDF=127, int codeDL=4095, const char* options = ""){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -25,7 +25,7 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 80;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsVars";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts";
     
     // Open files
     int trainA, trainB;
@@ -128,9 +128,11 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     TMVA::Factory factory("TMVARegression", outfile, "!V:!Silent:Color:DrawProgressBar=F:AnalysisType=Regression:Transformations=P,D");
 
     // Booking Methods ------------------------------------------------------------------------------------
- 
-    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%s_%d", nameModel, channel, testSet),
-        "!V:NTrees=1000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning");
+    TString modelOptions = "!V:NTrees=1000:BoostType=Grad:Shrinkage=0.2:MaxDepth=5:SeparationType=SDivSqrtSPlusB:nCuts=90:UseRandomisedTrees=T:UseNvars=67:UseBaggedBoost:BaggedSampleFraction=2.4:PruneMethod=NoPruning";
+    if(std::strcmp(options, "") != 0){
+        modelOptions = options;
+    }
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%s_%d", nameModel, channel, testSet), modelOptions);
     
 	// Train Methods: Here we train all the previously booked methods.
     cout << "\033[1;36m-------------------------------------------- TRAINING... --------------------------------------------\033[0m" << endl;

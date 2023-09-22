@@ -22,6 +22,8 @@ def getTotalNumVars(modelName):
     numVars = getNumVarsFromCode(int(splitted[1].replace("df", "")))
     numVars += getNumVarsFromCode(int(splitted[2].replace("dl", "")))
     numVars += len(splitted) - 3
+    if "opt" in modelName:
+        numVars -= 1
     return numVars
 
 
@@ -64,11 +66,11 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsVars/TMVARegression_{modelName}_{channel}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
