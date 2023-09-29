@@ -37,7 +37,7 @@ if(options.maxIndex == -1):
     options.maxIndex = len(jobs)
 # Loop over samples
 for i, job in enumerate(jobs[options.minIndex:options.maxIndex]):
-    sample, cmd = job.split(":")
+    sample, cmd = job.split(":::")
     print(i, sample)
     
     # Generate the SLURM script content

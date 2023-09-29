@@ -22,5 +22,6 @@ while true; do
     echo -e "Jobs pdmonte:\n${pdmonteQueue}" >> "$outputFile"
     echo -e "--------------------------------------------------------------------------------------" >> "$outputFile"
     echo -e "Jobs:\n${totalQueue}" >> "$outputFile"
+    squeue -r -t PD -u pdmonte -o "scontrol release %i" | sh
     sleep 120
 done

@@ -7,19 +7,29 @@ ROOT.gSystem.Load("libHiggsAnalysisCombinedLimit.so")
 xlowRange = 100.
 xhighRange = 150.
 
-workspaceName = 'WS_JUL06'
+sig = "ggH"
+workspaceName = 'WS_SEP13'
 
+def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
-def fitBkg(tag, mesonCat, year, date, extraTitle=None):
+    if regModelName == "RECO":
+        regModelName = None
 
-    print('\033[1;31m' + "[fitBkg] Fitting Histogram {} {} {} {} BKG...".format(mesonCat, cat, date, extraTitle) + '\033[0m')
+    verbString = "[fitBkg] Fitting Histogram {} {} {}".format(mesonCat, cat, date)
+    if regModelName is not None:
+        verbString += " {}".format(regModelName)
+    if extraTitle is not None:
+        verbString += " {}".format(extraTitle)
+    verbString += "..."
+    print('\033[1;31m' + verbString + '\033[0m')
 
-    #Read Hist file saved
     if extraTitle is None:
-        extratitle="BKG"
+        extraTitle = "BKG"
     else:
-        extratitle="BKG_{}".format(extraTitle)
-    data_full = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle=extratitle))
+        extraTitle = "BKG_{}".format(extraTitle)
+    
+    #Read Hist file saved
+    data_full = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle=extraTitle, regModelName=regModelName))
     print("[fitBkg] ------------------------Histogram read!-----------------------")
 
     x = ROOT.RooRealVar('mh', 'm_{{#gamma, {0} }} [GeV]'.format(mesonLatex[mesonCat]), xlowRange, xhighRange)
@@ -102,37 +112,78 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None):
     storedPdfs.add(model2)
 
     # Here we will plot the results
-    canvas = ROOT.TCanvas("canvas", "canvas", 1600, 960)
+    canvas = ROOT.TCanvas("canvas", "canvas", 1600, 1600)
 
-    #canvas.cd()
-    #pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
-    #pad1.Draw()
-    #pad1.cd()
-    plotFrameWithNormRange = x.frame(ROOT.RooFit.Title("mH_" + mesonCat + "_" + tag + "_" + str(year) + "_" + extratitle))
+    canvas.cd()
+    pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
+    pad1.Draw()
+    pad1.cd()
+    title = "mH_" + mesonCat + "_" + tag + "_" + str(year)
+    if regModelName is not None:
+        title += "_({})".format(regModelName)
+    if extraTitle is not None:
+        title += "_({})".format(extraTitle)
+    plotFrameWithNormRange = x.frame(ROOT.RooFit.Title(title))
     data.plotOn(plotFrameWithNormRange)
     model.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
     model2.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model2.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
     name1 = model.GetName() + "_Norm[mh]_Comp[" + model.GetName() + "]_Range[full]_NormRange[full]"
     name2 = model2.GetName() + "_Norm[mh]_Comp[" + model2.GetName() + "]_Range[full]_NormRange[full]"
-    chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize())
+    chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     chi2_2 = plotFrameWithNormRange.chiSquare(name2, "h_" + data.GetName(), fitresults2.floatParsFinal().getSize())
-
     print('----------------------------------------')
     print(model2.GetName(), "    chi2/ndof=",round(chi2_2,2), " ndof", fitresults2.floatParsFinal().getSize())
     print(model.GetName(), "    chi2/ndof=",round(chi2_1,2), " ndof", fitresults.floatParsFinal().getSize())
     print('----------------------------------------')
-
     plotFrameWithNormRange.Draw()
+    data_full.GetXaxis().SetRangeUser(xlowRange, xhighRange)
 
     latex = ROOT.TLatex()
-    latex.SetTextColor(ROOT.kRed)
     latex.SetTextSize(0.03)
-    #latex.DrawLatex(102, + 1.00*data_full.GetMaximum(), model.GetName())
-    latex.DrawLatexNDC(0.14, 0.84, model.GetName())
+    latex.SetTextColor(ROOT.kRed)
+    latex.SetTextAlign(12)
+    latex.DrawLatexNDC(0.13, 0.865, model.GetName())
+    latex.SetTextAlign(32)
+    latex.DrawLatexNDC(0.49, 0.865, "#chi^{{2}}/ndof: {}".format(round(chi2_1, 2)))
     latex.SetTextColor(ROOT.kBlue)
-    latex.DrawLatexNDC(0.14, 0.79, model2.GetName())
+    latex.SetTextAlign(12)
+    latex.DrawLatexNDC(0.13, 0.825, model2.GetName())
+    latex.SetTextAlign(32)
+    latex.DrawLatexNDC(0.49, 0.825, "#chi^{{2}}/ndof: {}".format(round(chi2_2, 2)))
+    latex.SetTextColor(ROOT.kBlack)
+    latex.SetTextAlign(12)
+    latex.DrawLatexNDC(0.74, 0.865, "Entries:")
+    latex.DrawLatexNDC(0.74, 0.825, "Mean:")
+    latex.DrawLatexNDC(0.74, 0.785, "Std Dev:")
+    latex.SetTextAlign(32)
+    latex.DrawLatexNDC(0.89, 0.865, "{}".format(int(data_full.GetEntries())))
+    latex.DrawLatexNDC(0.89, 0.825, "{}".format(round(data_full.GetMean(), 2)))
+    latex.DrawLatexNDC(0.89, 0.785, "{}".format(round(data_full.GetStdDev(), 4)))
 
-    canvas.SaveAs("~/public_html/fits/{}/{}_fit_{}.png".format(mesonCat[:-3], mesonCat, extratitle))
+    canvas.cd()
+    pad2 = ROOT.TPad("Res pad", "Res pad", 0, 0.20, 1.0, 0.40)
+    pad2.Draw()
+    pad2.cd()
+    residualsFrame1 = x.frame(ROOT.RooFit.Title("Residuals model 1"))
+    hresid1 = plotFrameWithNormRange.residHist("h_" + data.GetName(), name1)
+    residualsFrame1.addPlotable(hresid1, "P")
+    residualsFrame1.Draw()
+    
+    canvas.cd()
+    pad3 = ROOT.TPad("Pull pad", "Pull pad", 0, 0, 1.0, 0.20)
+    pad3.Draw()
+    pad3.cd()
+    residualsFrame2 = x.frame(ROOT.RooFit.Title("Residuals model 2"))
+    hresid2 = plotFrameWithNormRange.residHist("h_" + data.GetName(), name2)
+    residualsFrame2.addPlotable(hresid2, "P")
+    residualsFrame2.Draw()
+
+    fileName = "~/public_html/fits/{}/{}".format(mesonCat[:-3], mesonCat)
+    if regModelName is not None:
+        fileName += "_" + regModelName
+    if extraTitle is not None:
+        fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    canvas.SaveAs(fileName + "_fit.png")
 
     # -------------------------------------------------------------
 
@@ -156,8 +207,15 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None):
     w.Print()
 
     # -----------------------------------------------------------------------------
-    # Save workspace in file
-    w.writeToFile(workspaceName+"/Bkg_"+mesonCat[:-3]+"_"+tag+"_"+str(year)+"_workspace.root")
+    # Save workspace in file, create folder if it does not exist
+    if not os.path.exists(workspaceName):
+        os.mkdir(workspaceName)
+
+    workspaceFileName = "Bkg_" + mesonCat[:-3] + "_" + tag + "_" + str(year)
+    if regModelName is not None:
+        workspaceFileName += "_" + regModelName
+
+    w.writeToFile(workspaceName + "/" + workspaceFileName + "_workspace.root")
     print('\033[1;31m' + "[fitBkg] Fit done, workspace created!" + '\033[0m')
 
 
@@ -165,16 +223,18 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
+    date = "SEP13"
 
 
     #BACKGROUND D0Star-----------------------------------------------------------------------------
     mesonCat = "D0StarCat"
-    date = "JUN29"
     #fitBkg(cat, mesonCat, year, date)
 
 
     #BACKGROUND Phi3-------------------------------------------------------------------------------
     mesonCat = "Phi3Cat"
-    date = "JUL31"
-    fitBkg(cat, mesonCat, year, date, extraTitle="regression")
-    fitBkg(cat, mesonCat, year, date)
+    with open('models.txt', 'r') as file:
+        for line in file:
+            regModelName = line.strip()
+            fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+    #fitBkg(cat, mesonCat, year, date)

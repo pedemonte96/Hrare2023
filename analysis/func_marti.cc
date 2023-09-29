@@ -1368,4 +1368,13 @@ PtEtaPhiMVector diff2Body(const float particle1_pt, const float particle1_eta, c
 }
 
 
+Vec_f fmod(Vec_f v1, float mod){
+	Vec_f output = {};
+    for (unsigned int i = 0; i < v1.size(); i++){
+			output.push_back(std::fmod(v1[i], mod));
+	}
+    return output;
+}
+
+
 #endif
