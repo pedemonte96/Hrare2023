@@ -1146,7 +1146,7 @@ FUNCTION {begin.bib}
   if$
   newline$
   "\providecommand{\href}[2]{#2}"
-  "\begingroup\raggedright\begin{thebibliography}{" * longest.label  *
+  "\begingroup\begin{thebibliography}{" * longest.label  *
   "}" * write$ newline$ }
 
 EXECUTE {begin.bib}
