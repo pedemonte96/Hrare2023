@@ -1,0 +1,20 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\feynmandiagram [horizontal=a to b] {
+    
+    i1 [particle=\(q'\)]-- [anti fermion] a -- [anti fermion] i2 [particle=\(q\)],
+    a -- [boson, edge label=\(V\)] b [dot],
+    i3 [particle=\(H\)] -- [scalar] b -- [boson] i4 [particle=\(V\)],
+};
+
+\end{document}

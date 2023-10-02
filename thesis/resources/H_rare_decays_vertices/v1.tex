@@ -1,0 +1,32 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (h) {$H$};
+    \vertex [right=of h, xshift=-0.0cm, yshift=-0.0cm] (cent);
+    \vertex [right=of cent, xshift=-0.0cm, yshift=1.75cm] (b) {$s$};
+    \vertex [right=of cent, xshift=-1.1cm, yshift=-0.40cm] (d);
+    \vertex [right=of cent, xshift=0.0cm, yshift=0.9cm] (e) {$\bar{s}$};
+    \vertex [right=of cent, xshift=0.0cm, yshift=-1.75cm] (f) {$\gamma$};
+
+    \node [dot] at (cent) {};
+    \diagram* {
+    (h) -- [scalar] (cent),
+    (b) -- [anti fermion] (cent) -- [with reversed arrow=0.7] (d) -- [with reversed arrow=0.65] (e),
+    (d) -- [photon] (f),
+    
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}

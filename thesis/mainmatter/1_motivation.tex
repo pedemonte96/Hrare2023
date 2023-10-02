@@ -148,15 +148,87 @@ To generate mass terms for up-type like quarks the Yukawa term involves the char
 
 The Standard Model Lagrangian \eqref{eq:L_SM} induces the interactions between all particles present in the theory. These interactions can be seen as Feynman diagram vertices, shown in Figure \ref{fig:SM_vertices}.
 
-\todo{Redo feynman diagrams of the vertices of the SM and explain them a bit}
+\todo{Explain SM feynman diagrams}
 
 \begin{figure}[!ht]
-    \vspace*{-0.0cm}
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.7\mylength]{resources/SM_Feynman_vertices.png}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v1.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v2.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (b)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v3.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (c)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}\baselineskip    
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v4.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v5.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (e)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v6.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (f)}
+    \end{subfigure}%
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v7.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (g)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v8.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (h)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v9.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (i)}
+    \end{subfigure}%
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v10.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (j)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/SM_vertices/v11.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            %\caption{\footnotesize (k)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
     \vspace*{-0.0cm}
-    \caption{Interactions in the Standard Model. All Feynman diagrams in the model are built from combinations of these vertices. q is any quark, g is a gluon, X is any charged particle, $\gamma$ is a photon, f is any fermion, m is any particle with mass (with the possible exception of the neutrinos), mB is any boson with mass. In diagrams with multiple particle labels separated by / one particle label is chosen. In diagrams with particle labels separated by | the labels must be chosen in the same order. For example, in the four boson electroweak case the valid diagrams are $WWWW$, $WWZZ$, $WW\gamma\gamma$, $WWZ\gamma$. The conjugate of each listed vertex (reversing the direction of arrows) is also allowed.}
+    \caption{All possible interactions in the Standard Model, represented by Feynman diagrams. $q$ is any quark, $g$ is (any) gluon, $X^{\pm}$ is any charged particle, $\gamma$ is a photon, $f$ is any fermion, $m$ is any massive particle (with the possible exception of the neutrinos), $m_{B}$ is any boson with mass. In diagrams with multiple particle labels separated by / one particle label is chosen. In diagrams with particle labels separated by | the labels must be chosen in the same order. For example, in the four boson electroweak case the valid diagrams are $WWWW$, $WWZZ$, $WW\gamma\gamma$ and $WWZ\gamma$. The conjugate of each listed vertex (reversing the direction of arrows) is also allowed.}
     \label{fig:SM_vertices}
     \vspace*{-0.0cm}
 \end{figure}
@@ -192,17 +264,53 @@ To understand the production and decay modes of the Higgs boson, it's important 
 
 Collecting the relevant Feynman vertices one can get the dominant production modes for the Higgs boson, as seen in Figure \ref{fig:Higgs_production}. Since the heavier the particle, the stronger its Higgs coupling constant is, we see that in most cases particles present in the vertex where the Higgs boson is produced are very heavy (top and bottom quarks and massive gauge bosons).
 
-\todo{Talk about Higgs production at LHC, redo feynman diagrams}
+\todo{Talk about Higgs production at LHC}
 
 \begin{figure}[!ht]
-    \vspace*{-0.0cm}
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.8\mylength]{resources/Higgs_production.png}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v1.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v2.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (b)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.20\mylength]{resources/H_production_diagrams/v3.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (c)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}\baselineskip    
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v4.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v5.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (e)}
+    \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v6.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (f)}
+    \end{subfigure}%
     \vspace*{-0.0cm}
-    \caption{Higgs boson production in (a) gluon-gluon fusion (ggH), (b) vector boson fusion (VBF), (c)
-    associated production with a $W$ or $Z$ (V) boson (VH), (d) associated production with a top or
-    bottom quark pair (ttH or bbH), (e, f) associated production with a single top quark (tH).}
+    \caption{Higgs boson production in (a) gluon-gluon fusion (ggH), (b) vector boson fusion (VBF), (c) associated production with a $W$ or $Z$ (V) boson (VH), (d) associated production with a top or bottom quark pair (ttH or bbH), (e, f) associated production with a single top quark (tH).}
     \label{fig:Higgs_production}
     \vspace*{-0.0cm}
 \end{figure}
@@ -218,19 +326,19 @@ To compare the different production cross sections with the SM it is useful to d
     \begin{tabular}{|l|c|c|c|}
         \hline
         \cellcolor{lightgray}Production mode & \cellcolor{lightgray} SM $\sigma$ [fb] & \cellcolor{lightgray} Measured $\sigma$ [fb] & \cellcolor{lightgray} Measured $\mu$ \\ \hline
-        ggH                         & $48400 \pm 2400$          & $47000 \pm 1500$          & $0.97 \pm 0.08$           \\
-        VBF                         & $3770 \pm 80$             & $3020 \pm 800$            & $0.80 \pm 0.12$    \\
-        WH                          & $1365  \pm 28$            & $2030  \pm 310$           & $1.49 \pm 0.26$     \\
+        ggH                         & $48400 \pm 2400$          & $47000 \pm 4500$          & $0.97 \pm 0.08$           \\
+        VBF                         & $3770 \pm 80$             & $3020 \pm 870$            & $0.80 \pm 0.12$    \\
+        WH                          & $1365  \pm 28$            & $2030  \pm 360$           & $1.49 \pm 0.26$     \\
         %W$^+$H ($W^+\to l^+\nu$)    & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
         %W$^+$H                      & $835  \pm 17$             & $0.0  \pm 0.0$        \\
         %W$^-$H ($W^-\to l^-\nu$)    & $3\times(59.4  \pm 1.2)$  & $0.0  \pm 0.0$        \\
         %W$^-$H                      & $530  \pm 11$             & $0.0  \pm 0.0$        \\
-        Z$^0$H                      & $879  \pm 36$             & $1760  \pm 290$           & $1.29 \pm 0.24$    \\
+        Z$^0$H                      & $879  \pm 36$             & $1130  \pm 220$           & $1.29 \pm 0.24$    \\
         %Z$^0$H ($Z^0\to l^-l^+$)    & $3\times(29.7  \pm 1.2)$  & $0.0  \pm 0.0$        \\
         %ggZ$^0$H ($Z^0\to l^-l^+$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
         %Z$^0$H ($Z^0\to \nu\bar{\nu}$)& $3\times(177  \pm 7)$  & $0.0  \pm 0.0$        \\
         %ggZ$^0$H ($Z^0\to \nu\nu$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
-        ttH +tH                     & $582  \pm 61$             & $658  \pm 36$             & $1.13 \pm 0.18$    \\
+        ttH +tH                     & $582  \pm 61$             & $660  \pm 130$             & $1.13 \pm 0.18$    \\
         %ttH                        & $505  \pm 50$            & $0.0  \pm 0.0$        \\
         bbH                         & $480  \pm 120$            & Not measured       & Not measured \\ \hline
         %tH + tbarH (s and t channels)                  & $77  \pm 12$            & $0.0  \pm 0.0$        \\ \hline
@@ -241,16 +349,41 @@ To compare the different production cross sections with the SM it is useful to d
 
 Once the Higgs boson is produced it decays almost instantly into lighter particles. According to the SM Yukawa couplings of the Higgs field to the fermions, at the first loop order, the Higgs boson predominantly decays to the most massive particles that are kinematically accessible. Despite than, there are certain decay modes where the Higgs boson decays into massless particles (to a pair of gluons or photons), for the first loop contributions are not negligible. The most relevant Feynman diagrams of the Higgs boson decay are shown in Figure \ref{fig:Higgs_decays}. Table \ref{tab:Higgs_decays} shows the most frequent decay channels for the Higgs boson, comparing the SM predicted value to the measured value for the different channels.
 
-\todo{Higgs decays. Why no measurement H->gg. Redo feynman diagrams, add H->gg diagram.}
+\todo{Higgs decays. Why no measurement H->gg.}
 
 \begin{figure}[!ht]
-    \vspace*{-0.0cm}
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.53\mylength]{resources/Higgs_decays.png}
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v1.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v2.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (b)}
+    \end{subfigure}%
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v3.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (c)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v4.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
     \vspace*{-0.0cm}
-    \caption{Higgs boson decays into (g) heavy vector boson pairs, (h) fermion-antifermion pairs, and (i, j)
-    photon pairs or $Z^0\gamma$.}
+    \caption{Higgs boson decays into (a) heavy vector boson pairs ($V$ is $Z^{0}/W^{\pm}$), (b) fermion-antifermion pairs, and (c, d) photon pairs or $Z^0\gamma$. Note that $\text{H}\protect\decaysto gg$ is forbidden at tree level, but its non-negligoble branching fraction comes from a heavy quark loop like in (b).}
     \label{fig:Higgs_decays}
     \vspace*{-0.0cm}
 \end{figure}
@@ -260,14 +393,14 @@ Once the Higgs boson is produced it decays almost instantly into lighter particl
     \begin{tabular}{|l|c|c|c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray} SM $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mu$ \\ \hline
-        $\text{H}\decaysto b\bar{b}$     & $57.8 \pm 0.7$        & $60 \pm 11$         & $1.04 \pm 0.20$ \cite{CMS:2018nsn}  \\
-        $\text{H}\decaysto WW^*$         & $21.8 \pm 0.3$        & $20.7 \pm 1.7$      & $0.95 \pm 0.09$ \cite{CMS:2022uhn}  \\
+        $\text{H}\decaysto b\bar{b}$     & $57.8 \pm 0.7$        & $60 \pm 12$         & $1.04 \pm 0.20$ \cite{CMS:2018nsn}  \\
+        $\text{H}\decaysto WW^*$         & $21.8 \pm 0.3$        & $20.7 \pm 2.1$      & $0.95 \pm 0.09$ \cite{CMS:2022uhn}  \\
         $\text{H}\decaysto gg$           & $8.2 \pm 0.4$         & Not measured (QCD bkg)    &   \\
-        $\text{H}\decaysto \tau^+\tau^-$ & $6.23 \pm 0.10$       & $6.1 \pm 1.0$       & $0.98 \pm 0.18$ \cite{CMS:2017zyp}  \\
+        $\text{H}\decaysto \tau^+\tau^-$ & $6.23 \pm 0.10$       & $6.1 \pm 1.1$       & $0.98 \pm 0.18$ \cite{CMS:2017zyp}  \\
         $\text{H}\decaysto c\bar{c}$     & $2.87 \pm 0.16$       & $<40$               & $<14$ \cite{CMS:2022psv}            \\
         $\text{H}\decaysto ZZ^*$         & $2.68 \pm 0.04$       & $2.6 \pm 0.3$       & $0.97 \pm 0.12$ \cite{CMS:2022dwd}  \\
-        $\text{H}\decaysto \gamma\gamma$ & $0.227 \pm 0.005$     & $0.254 \pm 0.015$   & $1.12 \pm 0.09$ \cite{CMS:2021kom}  \\
-        $\text{H}\decaysto Z\gamma$      & $0.155 \pm 0.009$     & $0.37 \pm 0.12$     & $2.4 \pm 0.9$ \cite{CMS:2022ahq}    \\
+        $\text{H}\decaysto \gamma\gamma$ & $0.227 \pm 0.005$     & $0.254 \pm 0.021$   & $1.12 \pm 0.09$ \cite{CMS:2021kom}  \\
+        $\text{H}\decaysto Z\gamma$      & $0.155 \pm 0.009$     & $0.37 \pm 0.14$     & $2.4 \pm 0.9$ \cite{CMS:2022ahq}    \\
         $\text{H}\decaysto \mu^+\mu^-$   & $0.0216 \pm 0.0004$   & $0.026 \pm 0.009$   & $1.19 \pm 0.43$ \cite{CMS:2020xwi}  \\ \hline
     \end{tabular}
     \caption{Most frequent decay modes of the Higgs boson.}
@@ -375,13 +508,26 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
 
 As seen before, the most significant Higgs production channel is gluon fusion, responsible for 87\% of all Higgs production. Therefore, within the limited timeframe of this project, our primary focus will be on this production mode. Although other modes, such as vector boson fusion or associated production with a $W$/$Z$ boson, share reasonable similarities with ggH in terms of implementation, we will concentrate on the latter.
 
-\todo{direct/indirect veritces in the decay of the higgs}
+\todo{Explain direct/indirect veritces in the decay of the higgs}
+
 
 \begin{figure}[!ht]
-    \vspace*{-0.0cm}
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.60\mylength]{resources/vertices.png}
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.27\mylength]{resources/H_rare_decays_vertices/v1.pdf}
+            \setlength{\unitlength}{0.27\mylength}
+            \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.5\mylength}
+            \centering
+            \includegraphics[height=0.27\mylength]{resources/H_rare_decays_vertices/v2.pdf}
+            \setlength{\unitlength}{0.27\mylength}
+            \caption{\footnotesize (b)}
+    \end{subfigure}%
     \vspace*{-0.0cm}
     \caption{Direct and indirect contributions involved in the decays under analysis.}
     \label{fig:veritces}

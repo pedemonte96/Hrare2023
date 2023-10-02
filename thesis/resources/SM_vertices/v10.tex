@@ -1,0 +1,19 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\feynmandiagram [horizontal=a to b] {
+    
+    i1 -- [fermion, edge label=\(m\)] a [dot] -- [fermion, edge label=\(m\)] i2,
+    a -- [scalar, edge label=\(H\)] b,
+};
+
+\end{document}
