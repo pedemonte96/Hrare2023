@@ -1,29 +1,28 @@
 \chapter[Theory and Motivation]{Theory and Motivation}
 
-This chapter aims to provide an overview of the Standard Model of Particle Physics (SM), with a particular focus on the pivotal role played by the Higgs boson. We will briefly introduce the SM and its fundamental particles, as well as the Lagrangian that governs their behavior. Additionally, we will delve into the details of the Higgs boson – its properties, its most frequent production and decay modes, and the Yukawa couplings to the three different fermion families. Finally, we will focus on the decay channels present in our analysis, and explore how a significant discrepancy between the measurements of these decay modes and the SM predictions might lead to new physics beyond the SM.
+This chapter aims to provide an overview of the Standard Model of Particle Physics (SM), with a specific focus on the important role played by the Higgs boson. We will give a brief introduction to the SM and its fundamental particles, discuss the Lagrangian that governs their behaviour, and explore their interactions represented by Feynman diagrams. Moreover, we will examine the characteristics of the Higgs boson – its properties, its most frequent production and decay modes, and the Yukawa couplings to the three different fermion families. Finally, we will concentrate on the decay channels subject of our analysis, and explore how a significant discrepancy between the measurements of these decay modes and the SM predictions might lead to new physics beyond the SM.
 
 \section{The Standard Model}
 
-One of the traits that distinguishes humans from other life forms is our sense of curiosity. Since ancient times, we have been trying to explain what happens around us, enabling us to predict and potentially harness the laws of nature. An extraordinary theory that has come very close to achieving this goal is the Standard Model of Particle Physics (SM), one of the most precise theories humanity has ever conceived, and the most successful theory of particle physics to date. The Standard Model is a theory capable of describing three of the four known fundamental forces in the Universe (electromagnetic, weak, and strong force, but not gravity). This is achieved by classifying a set of elementary particles and defining the interactions between them.
+One of the traits that distinguishes humans from other life forms is our sense of curiosity. Since ancient times, we have been trying to explain what happens around us, enabling us to predict and potentially harness the laws of nature. An exceptional theory that has come very close to achieving this goal is the Standard Model of Particle Physics (SM). It stands as one of the most precise theories ever conceived by humanity, and is the most successful theory of particle physics to date. The Standard Model serves as a theory capable of describing three of the four known fundamental forces in the Universe (electromagnetic, weak and strong forces, but not gravity). This is achieved by classifying a set of elementary particles and defining the interactions between them. Summaries of the SM can be found in \cite{Perkins:1982xb, Peskin:1995ev} among many others.
 
-More in detail, the SM is a quantum field theory (QFT) defined by an internal local $\text{SU}(3)_{\text{C}}\times \text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ gauge symmetry. Each elementary particle has its own corresponding field in the theory and is categorized as a fermion or a boson, based on its spin (half-integer-spin particles are fermions, whereas integer-spin particles are bosons). There are twelve fermions organized in three families or generations of four members: a charged lepton (e.g. the electron), a neutral lepton (neutrino), an up-type quark and a down-type quark (in addition, each particle has its own corresponding antiparticle) (see Figure \ref{fig:SM}).
+More in detail, the SM is a quantum field theory (QFT) defined by an internal local $\text{SU}(3)_{\text{C}}\times \text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ gauge symmetry. Each elementary particle has its corresponding field in the theory and is categorized as a fermion or a boson based on its spin (half-integer-spin particles are fermions, whereas integer-spin particles are bosons). There are twelve fermions organized into three families or generations of four members: a charged lepton (e.g., the electron), a neutral lepton (neutrino), an up-type quark and a down-type quark (in addition, each particle has its own corresponding antiparticle) (see Figure \ref{fig:SM}).
 
 \begin{figure}[!ht]
     \vspace*{-0.0cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.8\mylength]{resources/SM.png}
+    \includegraphics[width=0.84\mylength]{resources/SM_particles/SM_particles.pdf}
     \vspace*{-0.0cm}
-    \caption{Elementary particles of the Standard Model.}
+    \caption{Elementary particles of the Standard Model. The electric charge, mass and spin of each particle are shown. Figure from \cite{Wongel:2816526}.}
     \label{fig:SM}
-    \vspace*{-0.0cm}
+    \vspace*{-0.3cm}
 \end{figure}
+These three factors of the gauge symmetry group give rise to the three fundamental interactions between fermions, which are mediated by gauge bosons. To be precise, each generator of a local invariant gauge group induces a massless gauge boson. In the same way that in quantum electrodynamics (QED), the local gauge invariance of the theory under the $\text{U}(1)$ group leads to the existence of a massless gauge field $A_\mu$ (the photon field), in the SM, the process is analogous.
 
-These three factors of the gauge symmetry group give rise to the three fundamental interactions between fermions, which are mediated by gauge bosons. To be precise, each generator of a local invariant gauge group induces a massless gauge boson. The same way that in quantum electrodynamics (QED) the local gauge invariance of the theory under the $\text{U}(1)$ group leads to the existance of a massless, gauge field $A_\mu$ (the photon field), in the SM the process is analogous.
+The invariance of the SM under $\text{SU}(3)_{\text{C}}$ postulates the existence of the gluon. More precisely, the eight generators of $\text{SU}(3)_{\text{C}}$ introduce eight gluons that mediate the strong force between particles that possess color charge (quarks and gluons). This is known as the quantum chromodynamics (QCD) sector of the Standard Model.
 
-The invariance of the SM under $\text{SU}(3)_{\text{C}}$ postulates the existance of the gluon. More precisely, the eight generators of $\text{SU}(3)_{\text{C}}$ introduce eight gluons that mediate the strong force between particles that possess color charge (quarks). This is known as the quantum chromodynamics (QCD) sector of the standard model.
-
-Similarly, the invariance of the second and third factors $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ indicates the existance of the photon, the $Z^{0}$ and the $W^{\pm}$ bosons. In this case, unlike in QED or QCD, we cannot directly associate the photon to the generator of the hypercharge group $\text{U}(1)_{\text{Y}}$ and the $Z^{0}$, $W^{\pm}$ bosons to the generators of the left weak isospin group $\text{SU}(2)_{\text{L}}$. Instead, the generators of $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ give rise to four intermediate vector bosons ($W_\mu^{1,2,3}$ for $\text{SU}(2)_{\text{L}}$ and $B_\mu$ for $\text{U}(1)_{\text{Y}}$), which are then mixed through the weak mixing angle or Weinberg angle $\theta_{\text{W}}$ to produce the physical $\gamma$ ($A_\mu$), $Z^{0}$, $W^{\pm}$. The physical bosons are then defined as:
+Similarly, the invariance of the second and third factors $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ indicates the existence of the photon, the $Z^{0}$ and the $W^{\pm}$ bosons. In this case, unlike in QED or QCD, we cannot directly associate the photon with the generator of the hypercharge group $\text{U}(1)_{\text{Y}}$ and the $Z^{0}$, $W^{\pm}$ bosons with the generators of the left weak isospin group $\text{SU}(2)_{\text{L}}$. Instead, the generators of $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$ give rise to four intermediate vector bosons ($W_\mu^{1,2,3}$ for $\text{SU}(2)_{\text{L}}$ and $B_\mu$ for $\text{U}(1)_{\text{Y}}$), which are then mixed through the weak mixing angle or Weinberg angle, $\theta_{\text{W}}$, to produce the physical $\gamma$ ($A_\mu$), $Z^{0}$, $W^{\pm}$. The physical bosons are then defined as:
 \begin{align*}
     W_\mu^{\pm} &= \frac{1}{\sqrt{2}}(W_\mu^{1}\mp iW_\mu^{2})\\
     \begin{pmatrix}
@@ -40,11 +39,11 @@ Similarly, the invariance of the second and third factors $\text{SU}(2)_{\text{L
         W^{3}_\mu
     \end{pmatrix}
 \end{align*}
-By definition of the groups $\text{SU}(2)_{\text{L}}$ and $\text{U}(1)_{\text{Y}}$, the field $W_\mu^{1,2,3}$ couples only to left-handed (negative helicity) particles, whereas the hypercharge field $B_\mu$ couples to both left and right components with the same strength. Therefore, the intermediate boson mixing implies that $W^{\pm}$ only couple to left-handed particles, but $Z^{0}$ couples to both left and right-handed particles with different strengths, inducing parity violation (although not maximal).
+By the definition of the groups $\text{SU}(2)_{\text{L}}$ and $\text{U}(1)_{\text{Y}}$, the field $W_\mu^{1,2,3}$ couples only to left-handed (negative helicity) particles, whereas the hypercharge field $B_\mu$ couples to both left and right components with the same strength. Therefore, the intermediate boson mixing implies that $W^{\pm}$ only couple to left-handed particles, but $Z^{0}$ couples to both left and right-handed particles with different strengths, inducing (non-maximal) parity violation.
 
-All gauge bosons that arise from the generators of gauge invariant groups are to be massless, or else the principle of local gauge invariance is spoiled and the theory becomes unrenormalizable. But this is in contradiction with experiments, from where we know that the $Z^{0}$, $W^{\pm}$ bosons are in fact massive. This breaking of gauge invariance when giving a mass to a particle is not restricted only to gauge bosons, but also happens for fermions. In the SM, to be able to have massive fields, all particles obtain their masses using spontanoeus symmetry breaking (SSB) via the Higgs mechanism.
+All gauge bosons that arise from the generators of gauge-invariant groups are expected to be massless; otherwise, the principle of local gauge invariance is spoiled and the theory becomes unrenormalizable. However, this contradicts experimental observations, which confirm that the $Z^{0}$ and $W^{\pm}$ bosons are, in fact, massive. This breaking of gauge invariance when giving a mass to a particle is not restricted only to gauge bosons but also happens for fermions. In the SM, to allow for massive fields, all particles obtain their masses using spontaneous symmetry breaking (SSB) via the Higgs mechanism.
 
-Spontaneous symmetry breaking is a fundamental principle of QFT to explain how gauge bosons (and, in general, massive particles) can acquire non-vanishing mass. This process describes systems where the Lagrangian obeys symmetries, but the lowest-energy vacuum solutions do not exhibit the same symmetries. In the case of the Higgs mechanism, it relies on the existance of a $\text{SU}(2)$ doublet complex scalar field $\phi$ with hypercharge $Y = +1$, which can be written as 
+Spontaneous symmetry breaking is a fundamental principle of QFT used to explain how gauge bosons (and, in general, massive particles) can acquire non-vanishing mass while maintaining the theory gauge-invariant. This process describes systems where the Lagrangian obeys symmetries, but the lowest-energy vacuum solutions do not exhibit the same symmetries. In the case of the Higgs mechanism, it relies on the existence of an $\text{SU}(2)$ doublet complex scalar field $\phi$ with hypercharge $Y = +1$, which can be written as 
 \begin{equation*}
     \phi=
     \begin{pmatrix}
@@ -52,7 +51,7 @@ Spontaneous symmetry breaking is a fundamental principle of QFT to explain how g
         \phi^{0}
     \end{pmatrix}
 \end{equation*}
-with $(\phi^{+})^{*}=\phi^{-}$ and $(\phi^{0})^{*}=\phi^{0}$, with Lagrangian density $\mathcal{L}=\abs{D_{\mu}\phi}^2 - V(\phi)$ and potential $V(\phi) = \mu^2\phi^\dag\phi+\lambda(\phi^\dag\phi)^2$, where $D_\mu$ is the covariant derivative determined by $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$. When expanding the field $\phi$ around a minimum of the potential $V$, one finds out that there are infinitely many values $\phi$ that minimize the potential. Suppose one expands $\phi$ around
+with $(\phi^{+})^{*}=\phi^{-}$ and $(\phi^{0})^{*}=\phi^{0}$. This scalar field has a Lagrangian density given by $\mathcal{L}=\abs{D_{\mu}\phi}^2 - V(\phi)$ and a potential $V(\phi) = \mu^2\phi^\dag\phi+\lambda(\phi^\dag\phi)^2$, where $D_\mu$ is the covariant derivative determined by $\text{SU}(2)_{\text{L}}\times \text{U}(1)_{\text{Y}}$. When expanding the field $\phi$ around a minimum of the potential $V$, one finds out that there are infinitely many values of $\phi$ that minimize the potential. Suppose one expands $\phi$ around
 \begin{equation*}
     \phi_{0}=\frac{1}{\sqrt{2}}
     \begin{pmatrix}
@@ -91,17 +90,17 @@ The used notation is the following: $\phi$, $Q$, $u$, $d$, $L$, $e$ are the SM H
 \end{equation*}
 whereas for the right-handed singlets lowercase letters are used. We use the usual covariant derivative defined as
 \begin{equation*}
-    D_\mu = \partial_\mu + ig_{s}T^{a}G_\mu^{a} + ig\frac{\sigma^{i}}{2}W_\mu^{i} + ig'YB_\mu
+    D_\mu = \partial_\mu - ig_{s}T^{a}G_\mu^{a} - ig\frac{\sigma^{i}}{2}W_\mu^{i} - ig'\frac{Y}{2}B_\mu
 \end{equation*}
-and where $T^{a}$ and $\sigma^{i}$ are the generators of SU(3) and SU(2), respectively. 
+and where $T^{a}$, $\sigma^{i}$ (Pauli matrices) and $Y$ (weak hypercharge) are the generators of SU(3), SU(2) and SU(1) respectively, and $g_s$, $g$ and $g'$ are the coupling constants. $\phi^{c}$ is the charge conjugate of $\phi$ defined by $\phi^{c} = i\frac{\sigma_{2}}{2}\phi^{\dag}$.
 
-The first line in Equation \eqref{eq:L_SM} describes the kinetic energies and interactions of the gauge boson fields. The field strength tensors associated to $G_\mu^{a}$ (gluons), $W_\mu^{i}$ and $B_\mu$ ($W^{\pm}, Z^{0}, \gamma$) are defined by
+The first line in Equation \eqref{eq:L_SM} describes the kinetic energies and interactions of the gauge boson fields. The field strength tensors associated to $G_\mu^{a}$ (gluons), $W_\mu^{i}$ and $B_\mu$ ($W^{\pm}$, $Z^{0}$, $\gamma$) are defined by
 \begin{align*}
     G_{\mu\nu}^{a} &= \partial_\mu G_\nu^{a} - \partial_\nu G_\mu^{a} - g_{s} f^{abc}G_\mu^{b}G_\nu^{c}\\
     W_{\mu\nu}^{i} &= \partial_\mu W_\nu^{i} - \partial_\nu W_\mu^{i} - g \epsilon^{ijk}W_\mu^{j}W_\nu^{k}\\
     B_{\mu\nu} &= \partial_\mu B_\nu - \partial_\nu B_\mu
 \end{align*}
-where $f^{abc}$ and $\epsilon^{ijk}$ are the group structure constants of SU(3) and SU(2), respectively (the strength tensor of the hypercharge field $B_\mu$ does not have this extra term since U(1) is abelian). This is why gluons and electroweak bosons are self-interacting.
+where $f^{abc}$ and $\epsilon^{ijk}$ are the group structure constants of SU(3) and SU(2), respectively (the strength tensor of the hypercharge field $B_\mu$ does not have this extra term since U(1) is abelian). This is the origin of gluons and electroweak bosons self-interactions.
 
 The second line in Equation \eqref{eq:L_SM} describes the Higgs field and generates the masses of the weak gauge bosons $W^{\pm}$, $Z^{0}$ and of the Higgs boson. In particular, the term $\abs{D_{\mu}\phi}^2$ generates all interactions between the gauge bosons and the Higgs field.
 
@@ -111,7 +110,7 @@ The third line in Equation \eqref{eq:L_SM} is responsible for fermion kinetic en
     \begin{pmatrix}
         \bar{\nu}_{L}^{\alpha} & \bar{e}_{L}^{\alpha}
     \end{pmatrix}
-    \gamma^{\mu}\left(\partial_\mu + ig\frac{\sigma^{i}}{2}W_\mu^{i} + ig'YB_\mu\right)
+    \gamma^{\mu}\left(\partial_\mu - ig\frac{\sigma^{i}}{2}W_\mu^{i} - ig'\frac{Y}{2}B_\mu\right)
     \begin{pmatrix}
         \nu_{L}^{\alpha}\\
         e_{L}^{\alpha}
@@ -120,7 +119,7 @@ The third line in Equation \eqref{eq:L_SM} is responsible for fermion kinetic en
 since the leptons do not carry color charge, but the fourth term would expand as
 \begin{equation*}
     i\bar{u}\slashed{D} u = i\bar{u}\gamma^{\mu}D_\mu u = i \bar{u}_{R}^{i}
-    \gamma^{\mu}\left(\partial_\mu + ig_{s}T^{a}G_\mu^{a} + ig'YB_\mu\right) u_{R}^{i},
+    \gamma^{\mu}\left(\partial_\mu - ig_{s}T^{a}G_\mu^{a} - ig'\frac{Y}{2}B_\mu\right) u_{R}^{i},
 \end{equation*}
 because the right-handed quark is a singlet under SU(2)$_{\text{L}}$.
 
@@ -146,9 +145,26 @@ after spontaneous symmetry breaking. One can easily identify the mass of the thr
 \end{equation*}
 To generate mass terms for up-type like quarks the Yukawa term involves the charge conjugate of the Higgs doublet (as in the second term of the fourth line in Equation \eqref{eq:L_SM}).
 
-The Standard Model Lagrangian \eqref{eq:L_SM} induces the interactions between all particles present in the theory. These interactions can be seen as Feynman diagram vertices, shown in Figure \ref{fig:SM_vertices}.
+The Standard Model Lagrangian in Equation \eqref{eq:L_SM} governs the interactions between all particles within the theory. These interactions can be represented as vertices in Feynman diagrams. The vertices shown in Figure \ref{fig:SM_vertices} are all possible interactions in the SM, and are constructed from the terms in the SM Lagrangian. Terms that, after SSB, involve only two fields do not result in vertices as they are interpreted as mass terms. Consequently, we only see vertices with at least three fields.
 
-\todo{Explain SM feynman diagrams}
+For instance, to derive the QED vertex for the electron, one must expand the terms $i\left(\bar{L}\slashed{D} L + \bar{e}\slashed{D} e\right)$ and keep the terms of the form $\bar{e}\cdot\ldots\cdot e$. This expansion ultimately yields two contributions. The first one corresponds to the coupling of the electron to the photon field:
+\begin{equation}
+    \label{eq:qed_term}
+    -\frac{gg'}{\sqrt{{g'}^2 + g^2}}\bar{e}\gamma^\mu eA_\mu = -e \bar{e}\gamma^\mu eA_\mu\ .
+\end{equation}
+The first $e$ in the latter expression refers to the electrical charge, therefore connecting both couplings $g$ and $g'$ with the electrical charge and the weak mixing angle, yielding $e=g'\cos{\theta_{\text{W}}}=g\sin{\theta_{\text{W}}}$. The second term that arises corresponds to the $Z^0$ boson:
+\begin{equation*}
+    \frac{1}{\sqrt{{g'}^2 + g^2}}\left(\frac{{g'}^2 - g^2}{2}\bar{e}_{L}\gamma^\mu e_{L} + {g'}^2 \bar{e}_{R}\gamma^\mu e_{R}\right)Z^0_\mu \ .
+\end{equation*}
+We can see that the $Z^0$ couples to both left-handed and right-handed components of the electron but with different strengths. Hence, by removing the fields from Equation \eqref{eq:qed_term} and multiplying by $i$, the coupling of the electron to the photon associated with the QED vertex is
+\begin{equation}
+    \label{eq:qed_vertex}
+\vcenter{\hbox{
+\setlength{\mylength}{\textwidth}
+\includegraphics[height=0.16\mylength]{resources/SM_vertices/qed.pdf}
+ }} = -ie \gamma^\mu \ .
+\end{equation}
+Each of the vertices in Figure \ref{fig:SM_vertices} has an associated factor that can be computed from the SM Lagrangian density in a similar manner. Therefore, we can observe, for example, that the Higgs boson does not couple to the photon or the gluon field, and that there is no direct interaction between three fermions.
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -228,20 +244,20 @@ The Standard Model Lagrangian \eqref{eq:L_SM} induces the interactions between a
             %\caption{\footnotesize (k)}
     \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
     \vspace*{-0.0cm}
-    \caption{All possible interactions in the Standard Model, represented by Feynman diagrams. $q$ is any quark, $g$ is (any) gluon, $X^{\pm}$ is any charged particle, $\gamma$ is a photon, $f$ is any fermion, $m$ is any massive particle (with the possible exception of the neutrinos), $m_{B}$ is any boson with mass. In diagrams with multiple particle labels separated by / one particle label is chosen. In diagrams with particle labels separated by | the labels must be chosen in the same order. For example, in the four boson electroweak case the valid diagrams are $WWWW$, $WWZZ$, $WW\gamma\gamma$ and $WWZ\gamma$. The conjugate of each listed vertex (reversing the direction of arrows) is also allowed.}
+    \caption{All possible interactions in the Standard Model, represented by Feynman diagrams. $q$ is any quark, $g$ is (any) gluon, $X^{\pm}$ is any charged particle, $\gamma$ is a photon, $f$ is any fermion, $m$ is any massive particle (except neutrinos), $m_{B}$ is any massive boson. In diagrams with multiple particle labels separated by / one particle label is chosen. In diagrams with particle labels separated by | the labels must be chosen in the same order. For example, in the four electroweak boson case the valid diagrams are $WWWW$, $WWZZ$, $WW\gamma\gamma$ and $WWZ\gamma$.}
     \label{fig:SM_vertices}
-    \vspace*{-0.0cm}
+    \vspace*{-0.2cm}
 \end{figure}
 
-The Standard Model has proven to predict numerous measurements with exceptional precision, yet the theory does not explain why the masses of all particles are given by the values we measure. In fact, aside from the mass of the photon, which is protected by the unbroken U(1) gauge symmetry of QED, the SM does not predict any other mass value. All fermion masses (or equivalently the Yukawa couplings) are free parameters of the theory.
+The Standard Model has proven to predict numerous measurements with exceptional precision. Yet, the theory does not explain why the masses of all particles are given by the values we measure. In fact, aside from the mass of the photon, which is protected by the unbroken U(1) gauge symmetry of QED, the SM does not predict any other mass value. All fermion masses (or equivalently, the Yukawa couplings) are free parameters of the theory.
 
-While this theory has been remarkably successful, it cannot serve as the final theory of nature, as numerous unresolved puzzles persist. Many cosmological observations remain unaccounted for by the SM, i.e., the baryon-antibaryon asymmetry, the behaviour of gravity as described by General Relativity, the accelerated expansion of the Universe — potentially described by dark energy — and the absence of a suitable candidate for dark matter. Furthermore, the SM fails to explain the non-vanishing mass of the neutrinos as a consequence of neutrino flavour oscillation. In pursuit of a superior theory capable of encompassing the SM as well as these (and many other) discrepancies, the physics community is thoroughly trying to ``break'' the Standard Model to unveil hints towards an ultimate theory.
+While this theory has been remarkably successful, it cannot serve as the final theory of nature, as numerous unresolved puzzles persist. Many cosmological observations remain unaccounted for by the SM, such as the baryon-antibaryon asymmetry, the behaviour of gravity as described by General Relativity, the accelerated expansion of the Universe — potentially described by dark energy — and the absence of a suitable candidate for dark matter. Furthermore, the SM fails to explain the non-vanishing mass of the neutrinos as a consequence of neutrino flavour oscillation. In pursuit of a superior theory capable of encompassing the SM as well as these (and many other) discrepancies, the physics community is thoroughly trying to ``break'' the Standard Model to unveil hints towards an ultimate theory.
 
 \section{The Higgs boson}
 
-In 1964, Peter Higgs, along with five other theoretical physicists, proposed the Higgs mechanism to explain how certain particles (fermions and weak bosons) might acquire mass in local gauge theories \cite{Higgs:1964pj,Englert:1964et,Guralnik:1964eu}. If these ideas were correct, a spin-0 particle (namely the Higgs boson) should exist and possess some well-defined properties. Nearly 50 years later, on the 4\textsuperscript{th} of July of 2012, a scalar particle consistent with the Higgs boson was discovered at the LHC by the CMS and ATLAS collaborations \cite{CMS:2012qbp,ATLAS:2012yve}.
+In 1964, Peter Higgs, along with five other theoretical physicists, proposed the Higgs mechanism to explain how certain particles (fermions and weak bosons) might acquire mass in local gauge theories \cite{Higgs:1964pj,Englert:1964et,Guralnik:1964eu}. If these ideas were correct, a spin-0 particle (namely the Higgs boson) should exist and possess some well-defined properties. Nearly 50 years later, on the 4\textsuperscript{th} of July 2012, a scalar particle consistent with the Higgs boson was discovered at the LHC by the CMS and ATLAS collaborations \cite{CMS:2012qbp,ATLAS:2012yve}.
 
-The Higgs boson is a weak isospin SU(2)$_{\text{L}}$ doublet, massive scalar boson, this is, a particle with spin 0. Table \ref{tab:higgs_properties} summarizes the SM predicted properties \cite{Djouadi:2005gi,LHCHiggsCrossSectionWorkingGroup:2016ypw} as well as the measured properties of the Higgs boson from the Particle Data Group (PDG) \cite{PDG}.
+The Higgs boson is a weak isospin SU(2)$_{\text{L}}$ doublet, massive scalar neutral boson. Table \ref{tab:higgs_properties} summarizes the SM predicted properties \cite{Djouadi:2005gi, LHCHiggsCrossSectionWorkingGroup:2016ypw} as well as the measured properties of the Higgs boson from the Particle Data Group (PDG) \cite{PDG}.
 
 \begin{table}[ht]
     \centering
@@ -260,11 +276,9 @@ The Higgs boson is a weak isospin SU(2)$_{\text{L}}$ doublet, massive scalar bos
 
 As stated previously, the SM does not predict the mass of any particle (except for the photon), including the mass of the Higgs boson. Nevertheless, some theoretical arguments, such as radiative corrections and unitarity considerations, enabled theorists to establish upper bounds on the Higgs mass \cite{Djouadi:2005gi}.
 
-To understand the production and decay modes of the Higgs boson, it's important to recall that the Higgs boson couples to all the other particles of the SM (it couples to the gauge bosons via the $\abs{D_{\mu}\phi}^2$ term in Higgs part of Equation \eqref{eq:L_SM} and to fermions via the Yukawa couplings in the last line of Equation \eqref{eq:L_SM}), as well as to itself. By expanding the terms in the Lagrangian, it can be seen that the coupling between the Higgs boson and any massive particle is directly proportional to the particle's rest mass.
+To understand the production and decay modes of the Higgs boson, it's important to recall that the Higgs boson couples to all the other massive particles of the SM (it couples to the gauge bosons via the $\abs{D_{\mu}\phi}^2$ term in the Higgs part of the SM Lagrangian and to fermions via the Yukawa couplings), as well as to itself. By expanding the terms in the Lagrangian, it can be seen that the coupling between the Higgs boson and any massive particle is directly proportional to the particle's rest mass.
 
-Collecting the relevant Feynman vertices one can get the dominant production modes for the Higgs boson, as seen in Figure \ref{fig:Higgs_production}. Since the heavier the particle, the stronger its Higgs coupling constant is, we see that in most cases particles present in the vertex where the Higgs boson is produced are very heavy (top and bottom quarks and massive gauge bosons).
-
-\todo{Talk about Higgs production at LHC}
+Collecting the relevant Feynman vertices, one can determine the dominant production modes for the Higgs boson, as shown in Figure \ref{fig:Higgs_production}. Since the heavier the particle, the stronger its Higgs coupling constant is, we observe that in most cases, the particles involved in the vertex where the Higgs boson is produced are very heavy (top and bottom quarks and massive gauge bosons).
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -273,19 +287,19 @@ Collecting the relevant Feynman vertices one can get the dominant production mod
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v1.pdf}
+            \includegraphics[height=0.16\mylength]{resources/H_production_diagrams/v1.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v2.pdf}
+            \includegraphics[height=0.16\mylength]{resources/H_production_diagrams/v2.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (b)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.20\mylength]{resources/H_production_diagrams/v3.pdf}
+            \includegraphics[height=0.185\mylength]{resources/H_production_diagrams/v3.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (c)}
     \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}\baselineskip    
@@ -293,39 +307,53 @@ Collecting the relevant Feynman vertices one can get the dominant production mod
     \vspace*{-0.1cm}
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v4.pdf}
+            \includegraphics[height=0.16\mylength]{resources/H_production_diagrams/v4.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v5.pdf}
+            \includegraphics[height=0.16\mylength]{resources/H_production_diagrams/v5.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (e)}
     \end{subfigure}%\begin{subfigure}[t]{0.33\mylength}
     \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_production_diagrams/v6.pdf}
+            \includegraphics[height=0.16\mylength]{resources/H_production_diagrams/v6.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (f)}
     \end{subfigure}%
     \vspace*{-0.0cm}
-    \caption{Higgs boson production in (a) gluon-gluon fusion (ggH), (b) vector boson fusion (VBF), (c) associated production with a $W$ or $Z$ (V) boson (VH), (d) associated production with a top or bottom quark pair (ttH or bbH), (e, f) associated production with a single top quark (tH).}
+    \caption{Higgs boson production in (a) gluon-gluon fusion (ggH), (b) vector boson fusion (VBF), (c) associated production with a $W$ or $Z$ (V) boson (VH), also known as Higgsstrahlung, (d) associated production with a top or bottom quark pair (ttH or bbH), or tt fusion, and (e, f) associated production with a single top quark (tH).}
     \label{fig:Higgs_production}
     \vspace*{-0.0cm}
 \end{figure}
 
-\todo{Higgs production rates SM/measured}
+Despite being a second-order process (it requires a heavy quark loop), the strong coupling to heavy quarks makes gluon fusion the process that contributes the most to the production of the Higgs boson at the LHC, a proton-proton collider. The LHC is a gluon-gluon collider when it comes to Higgs production, as gluons dominate the production of Higgs bosons with a mass of around 125 GeV. The second most important process at the LHC is vector boson fusion, where two fermions collide and exchange a virtual vector boson, which radiates a Higgs boson. The third contribution to Higgs boson production, and the first one at LEP, is associated production with a vector boson or Higgsstrahlung. In this production mode, a fermion and antifermion collide and can form a virtual $W^{\pm}$ or $Z^0$ boson which, if it carries enough energy, can emit a Higgs boson.
 
-To compare the different production cross sections with the SM it is useful to define the \textit{signal strength} $\mu$ as the measured producion cross section times branching fraction divided by the expected SM value. According to the SM, the total Higgs boson cross section at a center of mass energy of $\sqrt{s} = 13$ TeV is $\sigma = 55400 \pm 2600$ fb \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, with around 87\% coming from gluon fusion. The predicted and measured cross section of the Higgs boson at $\sqrt{s} = 13$ TeV from different production modes are shown in Table \ref{tab:Higgs_production}.
+\todo{Add higgs production signatures}
 
-\comm{I am not sure if I can compute the measured $\sigma$ like $\sigma_{measured} = \sigma_{SM}\mu$, because there is also the cross section. I have computed, both for the production cross sections and decay branching rations, the measurements like $v_{measured} = v_{SM}\mu$, where $v$ is either the production cross section or the decay branching ratio. Is this correct?}
+To compare the different production cross sections with the SM predictions, we introduce some important quantities to describe interactions at particle colliders. The \textit{center-of-mass energy} $\sqrt{s}$ describes the combined energy of the collided particle beams and is defined as the square root of the Mandelstam variable
+\begin{equation*}
+\sqrt{s} = \sqrt{(p_1+p_2)^2}\ ,
+\end{equation*}
+where $p_1$ and $p_2$ are the four-momenta of the two particles. When colliding elementary particles (e.g., $e^+e^-$), the center-of-mass energy is precisely the available energy to produce particles in the collision. When colliding composite particles (e.g., protons), however, the available energy to produce particles is slightly less due to the parton distribution functions within the proton, and there is an energy spread. The \textit{cross section} $\sigma$ of a process describes the likelihood of a specific final state, as a measure of the effective area or target size for a particular interaction. It is measured in units of area, usually barns, defined as barn $= 10^{-28}$ cm$^{2}$. The number of events per unit time can be expressed in terms of the \textit{instantaneous luminosity} $\mathscr{L}$ and the cross section of the studied event $\sigma$ as
+\begin{equation*}
+    \frac{\d N_{\text{events}}}{\d t} = \mathscr{L}\sigma\ ,
+\end{equation*}
+and the \textit{integrated luminosity} is defined as 
+\begin{equation*}
+    L = \int\mathscr{L}\d t\ .
+\end{equation*}
+Finally, the \textit{signal strength} $\mu$ expresses a measured cross section divided by the expected SM value.
+
+Having established these fundamental concepts, we can now compare the theoretical and measured cross sections for the production of the Higgs boson. Our analysis uses 2018 data from the LHC, with a center-of-mass energy of $\sqrt{s} = 13$ TeV and an integrated luminosity of $L=39.50$ fb$^{-1}$. According to the SM, the total Higgs boson cross section at a center-of-mass energy of $\sqrt{s} = 13$ TeV is $\sigma = 55500 \pm 2800$ fb \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, with around 87\% coming from gluon fusion, 7\% from vector boson fusion and 4\% from Higgsstrahlung. The predicted and measured cross section of the Higgs boson at $\sqrt{s} = 13$ TeV from different production modes are shown in Table \ref{tab:Higgs_production}.
 
 \begin{table}[ht]
     \centering
     \begin{tabular}{|l|c|c|c|}
         \hline
-        \cellcolor{lightgray}Production mode & \cellcolor{lightgray} SM $\sigma$ [fb] & \cellcolor{lightgray} Measured $\sigma$ [fb] & \cellcolor{lightgray} Measured $\mu$ \\ \hline
+        \cellcolor{lightgray} Production mode & \cellcolor{lightgray} SM $\sigma$ [fb] & \cellcolor{lightgray} Measured $\sigma$ [fb] & \cellcolor{lightgray} Measured $\mu$ \\ \hline
         ggH                         & $48400 \pm 2400$          & $47000 \pm 4500$          & $0.97 \pm 0.08$           \\
         VBF                         & $3770 \pm 80$             & $3020 \pm 870$            & $0.80 \pm 0.12$    \\
         WH                          & $1365  \pm 28$            & $2030  \pm 360$           & $1.49 \pm 0.26$     \\
@@ -338,18 +366,16 @@ To compare the different production cross sections with the SM it is useful to d
         %ggZ$^0$H ($Z^0\to l^-l^+$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
         %Z$^0$H ($Z^0\to \nu\bar{\nu}$)& $3\times(177  \pm 7)$  & $0.0  \pm 0.0$        \\
         %ggZ$^0$H ($Z^0\to \nu\nu$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
-        ttH +tH                     & $582  \pm 61$             & $660  \pm 130$             & $1.13 \pm 0.18$    \\
+        ttH +tH                     & $580  \pm 60$             & $660  \pm 130$             & $1.13 \pm 0.18$    \\
         %ttH                        & $505  \pm 50$            & $0.0  \pm 0.0$        \\
         bbH                         & $480  \pm 120$            & Not measured       & Not measured \\ \hline
         %tH + tbarH (s and t channels)                  & $77  \pm 12$            & $0.0  \pm 0.0$        \\ \hline
     \end{tabular}
-    \caption{Cross section of the Higgs boson's most frequent production modes at $\sqrt{s} = 13$ TeV. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, measured values from \cite{CMS:2022dwd}.}
+    \caption{Cross section of the Higgs boson's most frequent production modes at $\sqrt{s} = 13$ TeV. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, measured values from \cite{CMS:2022dwd}. At the moment of this writing, the bbH production channel has not bean measured yet.}
     \label{tab:Higgs_production}
 \end{table}
 
-Once the Higgs boson is produced it decays almost instantly into lighter particles. According to the SM Yukawa couplings of the Higgs field to the fermions, at the first loop order, the Higgs boson predominantly decays to the most massive particles that are kinematically accessible. Despite than, there are certain decay modes where the Higgs boson decays into massless particles (to a pair of gluons or photons), for the first loop contributions are not negligible. The most relevant Feynman diagrams of the Higgs boson decay are shown in Figure \ref{fig:Higgs_decays}. Table \ref{tab:Higgs_decays} shows the most frequent decay channels for the Higgs boson, comparing the SM predicted value to the measured value for the different channels.
-
-\todo{Higgs decays. Why no measurement H->gg.}
+Once the Higgs boson is produced it decays almost instantly into lighter particles. According to the SM Yukawa couplings of the Higgs field to the fermions, at the first loop order, the Higgs boson predominantly decays to the most massive particles that are kinematically accessible. However, there are certain decay modes where the Higgs boson decays into massless particles (to a pair of gluons or photons), as the first-loop contributions are not negligible. The most relevant Feynman diagrams of the Higgs boson decay are shown in Figure \ref{fig:Higgs_decays}, whereas Table \ref{tab:Higgs_decays} presents the most frequent decay channels for the Higgs boson, comparing the SM predicted value to the measured value for the different channels.
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -358,32 +384,38 @@ Once the Higgs boson is produced it decays almost instantly into lighter particl
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.5\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v1.pdf}
+            \includegraphics[height=0.1539\mylength]{resources/H_decay_diagrams/v1.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.5\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v2.pdf}
+            \includegraphics[height=0.1539\mylength]{resources/H_decay_diagrams/v2.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (b)}
     \end{subfigure}%
     \vskip\baselineskip
     \vspace*{-0.1cm}
-    \begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v3.pdf}
+            \includegraphics[height=0.1539\mylength]{resources/H_decay_diagrams/v3.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (c)}
     \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
-    \begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
             \centering
-            \includegraphics[height=0.17\mylength]{resources/H_decay_diagrams/v4.pdf}
+            \includegraphics[height=0.1539\mylength]{resources/H_decay_diagrams/v4.pdf}
             \setlength{\unitlength}{0.25\mylength}
             \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.33\mylength}
+            \centering
+            \includegraphics[height=0.1539\mylength]{resources/H_decay_diagrams/v5.pdf}
+            \setlength{\unitlength}{0.25\mylength}
+            \caption{\footnotesize (e)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
     \vspace*{-0.0cm}
-    \caption{Higgs boson decays into (a) heavy vector boson pairs ($V$ is $Z^{0}/W^{\pm}$), (b) fermion-antifermion pairs, and (c, d) photon pairs or $Z^0\gamma$. Note that $\text{H}\protect\decaysto gg$ is forbidden at tree level, but its non-negligoble branching fraction comes from a heavy quark loop like in (b).}
+    \caption{Higgs boson decays into (a) heavy vector boson pairs ($V$ is $Z^{0}/W^{\pm}$), (b) fermion-antifermion pairs, (c, d) photon pairs or $Z^0\gamma$, and (e) gluon pairs.}
     \label{fig:Higgs_decays}
     \vspace*{-0.0cm}
 \end{figure}
@@ -395,7 +427,7 @@ Once the Higgs boson is produced it decays almost instantly into lighter particl
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray} SM $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mu$ \\ \hline
         $\text{H}\decaysto b\bar{b}$     & $57.8 \pm 0.7$        & $60 \pm 12$         & $1.04 \pm 0.20$ \cite{CMS:2018nsn}  \\
         $\text{H}\decaysto WW^*$         & $21.8 \pm 0.3$        & $20.7 \pm 2.1$      & $0.95 \pm 0.09$ \cite{CMS:2022uhn}  \\
-        $\text{H}\decaysto gg$           & $8.2 \pm 0.4$         & Not measured (QCD bkg)    &   \\
+        $\text{H}\decaysto gg$           & $8.2 \pm 0.4$         & -    & -  \\
         $\text{H}\decaysto \tau^+\tau^-$ & $6.23 \pm 0.10$       & $6.1 \pm 1.1$       & $0.98 \pm 0.18$ \cite{CMS:2017zyp}  \\
         $\text{H}\decaysto c\bar{c}$     & $2.87 \pm 0.16$       & $<40$               & $<14$ \cite{CMS:2022psv}            \\
         $\text{H}\decaysto ZZ^*$         & $2.68 \pm 0.04$       & $2.6 \pm 0.3$       & $0.97 \pm 0.12$ \cite{CMS:2022dwd}  \\
@@ -403,23 +435,27 @@ Once the Higgs boson is produced it decays almost instantly into lighter particl
         $\text{H}\decaysto Z\gamma$      & $0.155 \pm 0.009$     & $0.37 \pm 0.14$     & $2.4 \pm 0.9$ \cite{CMS:2022ahq}    \\
         $\text{H}\decaysto \mu^+\mu^-$   & $0.0216 \pm 0.0004$   & $0.026 \pm 0.009$   & $1.19 \pm 0.43$ \cite{CMS:2020xwi}  \\ \hline
     \end{tabular}
-    \caption{Most frequent decay modes of the Higgs boson.}
+    \caption{Most frequent decay modes of the Higgs boson. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}.}
     \label{tab:Higgs_decays}
 \end{table}
 
+\todo{Talk more about the decays: Why no measurement H->gg (QCD bkg)? What does the * in WW* ZZ* mean?}
+
+\todo{\lipsum[1] \lipsum[1]}
+
 \section{Searching of a model beyond the SM}
 
-If the Standard Model is right, the coupling between the Higgs boson and every massive fermion is proportional to the fermion's mass. That is why we can create the plot in Figure \ref{fig:Yukawa_couplings}, which according to the SM should follow a straight line. So far the measured values for the massive weak bosons, the third generation of fermions (top and bottom quarks and the tau lepton) and the second generation lepton (the muon) are in perfect agreement with the Standard Model predictions, as seen in Figure \ref{fig:Yukawa_couplings}. \todo{cite the source of this plot}.
+\todo{Improve the section}
 
-\todo{Clean and redo plot of the couplings to the different families}
+If the Standard Model is right, the coupling between the Higgs boson and every massive fermion is proportional to the fermion's mass. That is why we can create the plot in Figure \ref{fig:Yukawa_couplings}, which according to the SM should follow a straight line. So far the measured values for the massive weak bosons, the third generation of fermions (top and bottom quarks and the tau lepton) and the second generation lepton (the muon) are in perfect agreement with the Standard Model predictions, as seen in Figure \ref{fig:Yukawa_couplings}. 
 
 \begin{figure}[!ht]
     \vspace*{-0.0cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.80\mylength]{resources/Yukawa_couplings.png}
+    \includegraphics[width=0.50\mylength]{resources/Yukawa_couplings.png}
     \vspace*{-0.0cm}
-    \caption{Yukawa couplings.}
+    \caption{Yukawa couplings \cite{CMS:2020xwi}.}
     \label{fig:Yukawa_couplings}
     \vspace*{-0.0cm}
 \end{figure}
@@ -537,5 +573,3 @@ As seen before, the most significant Higgs production channel is gluon fusion, r
 \todo{unmeasured sectors of the higgs}
 
 \todo{Explain how deviations from SM predictions in these sectors could point to new physics and justify the need for precise measurements.}
-
-\comm{I don't know if I should add something else to this chapter? I have still some points to develope further, this is the first draft and like so is very provisional.}
