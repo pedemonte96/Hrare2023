@@ -257,6 +257,8 @@ While this theory has been remarkably successful, it cannot serve as the final t
 
 In 1964, Peter Higgs, along with five other theoretical physicists, proposed the Higgs mechanism to explain how certain particles (fermions and weak bosons) might acquire mass in local gauge theories \cite{Higgs:1964pj,Englert:1964et,Guralnik:1964eu}. If these ideas were correct, a spin-0 particle (namely the Higgs boson) should exist and possess some well-defined properties. Nearly 50 years later, on the 4\textsuperscript{th} of July 2012, a scalar particle consistent with the Higgs boson was discovered at the LHC by the CMS and ATLAS collaborations \cite{CMS:2012qbp,ATLAS:2012yve}.
 
+\subsection{Properties of the Higgs boson}
+
 The Higgs boson is a weak isospin SU(2)$_{\text{L}}$ doublet, massive scalar neutral boson. Table \ref{tab:higgs_properties} summarizes the SM predicted properties \cite{Djouadi:2005gi, LHCHiggsCrossSectionWorkingGroup:2016ypw} as well as the measured properties of the Higgs boson from the Particle Data Group (PDG) \cite{PDG}.
 
 \begin{table}[ht]
@@ -276,7 +278,9 @@ The Higgs boson is a weak isospin SU(2)$_{\text{L}}$ doublet, massive scalar neu
 
 As stated previously, the SM does not predict the mass of any particle (except for the photon), including the mass of the Higgs boson. Nevertheless, some theoretical arguments, such as radiative corrections and unitarity considerations, enabled theorists to establish upper bounds on the Higgs mass \cite{Djouadi:2005gi}.
 
-To understand the production and decay modes of the Higgs boson, it's important to recall that the Higgs boson couples to all the other massive particles of the SM (it couples to the gauge bosons via the $\abs{D_{\mu}\phi}^2$ term in the Higgs part of the SM Lagrangian and to fermions via the Yukawa couplings), as well as to itself. By expanding the terms in the Lagrangian, it can be seen that the coupling between the Higgs boson and any massive particle is directly proportional to the particle's rest mass.
+\subsection{Main production modes of the Higgs boson}
+
+To understand the production and decay modes of the Higgs boson, it's important to recall that the Higgs boson couples to all the other massive particles of the SM (it couples to the gauge bosons via the $\abs{D_{\mu}\phi}^2$ term in the Higgs part of the SM Lagrangian and to fermions via the Yukawa couplings), as well as to itself. Expanding the terms in the Lagrangian reveals that the coupling between the Higgs boson and any fermion is directly proportional to the particle's rest mass, while the coupling between the Higgs boson and any massive vector boson is directly proportional to the square of the particle's rest mass.
 
 Collecting the relevant Feynman vertices, one can determine the dominant production modes for the Higgs boson, as shown in Figure \ref{fig:Higgs_production}. Since the heavier the particle, the stronger its Higgs coupling constant is, we observe that in most cases, the particles involved in the vertex where the Higgs boson is produced are very heavy (top and bottom quarks and massive gauge bosons).
 
@@ -331,7 +335,7 @@ Collecting the relevant Feynman vertices, one can determine the dominant product
 
 Despite being a second-order process (it requires a heavy quark loop), the strong coupling to heavy quarks makes gluon fusion the process that contributes the most to the production of the Higgs boson at the LHC, a proton-proton collider. The LHC is a gluon-gluon collider when it comes to Higgs production, as gluons dominate the production of Higgs bosons with a mass of around 125 GeV. The second most important process at the LHC is vector boson fusion, where two fermions collide and exchange a virtual vector boson, which radiates a Higgs boson. The third contribution to Higgs boson production, and the first one at LEP, is associated production with a vector boson or Higgsstrahlung. In this production mode, a fermion and antifermion collide and can form a virtual $W^{\pm}$ or $Z^0$ boson which, if it carries enough energy, can emit a Higgs boson.
 
-\todo{Add higgs production signatures}
+\todo{Add Higgs production signatures}
 
 To compare the different production cross sections with the SM predictions, we introduce some important quantities to describe interactions at particle colliders. The \textit{center-of-mass energy} $\sqrt{s}$ describes the combined energy of the collided particle beams and is defined as the square root of the Mandelstam variable
 \begin{equation*}
@@ -353,9 +357,9 @@ Having established these fundamental concepts, we can now compare the theoretica
     \centering
     \begin{tabular}{|l|c|c|c|}
         \hline
-        \cellcolor{lightgray} Production mode & \cellcolor{lightgray} SM $\sigma$ [fb] & \cellcolor{lightgray} Measured $\sigma$ [fb] & \cellcolor{lightgray} Measured $\mu$ \\ \hline
-        ggH                         & $48400 \pm 2400$          & $47000 \pm 4500$          & $0.97 \pm 0.08$           \\
-        VBF                         & $3770 \pm 80$             & $3020 \pm 870$            & $0.80 \pm 0.12$    \\
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Production mode} & \cellcolor{lightgray} SM $\sigma$ [fb] & \cellcolor{lightgray} Measured $\sigma$ [fb] & \cellcolor{lightgray} Measured $\mu$ \\ \hline
+        ggH                         & $48400 \pm 2440$          & $47000 \pm 4500$          & $0.97 \pm 0.08$           \\
+        VBF                         & $3774 \pm 81$             & $3020 \pm 460$            & $0.80 \pm 0.12$    \\
         WH                          & $1365  \pm 28$            & $2030  \pm 360$           & $1.49 \pm 0.26$     \\
         %W$^+$H ($W^+\to l^+\nu$)    & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
         %W$^+$H                      & $835  \pm 17$             & $0.0  \pm 0.0$        \\
@@ -366,16 +370,20 @@ Having established these fundamental concepts, we can now compare the theoretica
         %ggZ$^0$H ($Z^0\to l^-l^+$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
         %Z$^0$H ($Z^0\to \nu\bar{\nu}$)& $3\times(177  \pm 7)$  & $0.0  \pm 0.0$        \\
         %ggZ$^0$H ($Z^0\to \nu\nu$)  & $3\times(93.7  \pm 1.8)$  & $0.0  \pm 0.0$        \\
-        ttH +tH                     & $580  \pm 60$             & $660  \pm 130$             & $1.13 \pm 0.18$    \\
+        ttH + H                     & $582  \pm 61$             & $660  \pm 130$             & $1.13 \pm 0.18$    \\
         %ttH                        & $505  \pm 50$            & $0.0  \pm 0.0$        \\
-        bbH                         & $480  \pm 120$            & Not measured       & Not measured \\ \hline
+        bbH                         & $484  \pm 116$            & -       & - \\ \hline
         %tH + tbarH (s and t channels)                  & $77  \pm 12$            & $0.0  \pm 0.0$        \\ \hline
     \end{tabular}
-    \caption{Cross section of the Higgs boson's most frequent production modes at $\sqrt{s} = 13$ TeV. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, measured values from \cite{CMS:2022dwd}. At the moment of this writing, the bbH production channel has not bean measured yet.}
+    \caption{Cross section of the Higgs boson's most frequent production modes at $\sqrt{s} = 13$ TeV. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, measured $\mu$ values from \cite{CMS:2022dwd}, and measured $\sigma$ from $\sigma=\mu\sigma_{\text{SM}}$. At the moment of this writing, the bbH production channel has not been measured yet.}
     \label{tab:Higgs_production}
 \end{table}
 
-Once the Higgs boson is produced it decays almost instantly into lighter particles. According to the SM Yukawa couplings of the Higgs field to the fermions, at the first loop order, the Higgs boson predominantly decays to the most massive particles that are kinematically accessible. However, there are certain decay modes where the Higgs boson decays into massless particles (to a pair of gluons or photons), as the first-loop contributions are not negligible. The most relevant Feynman diagrams of the Higgs boson decay are shown in Figure \ref{fig:Higgs_decays}, whereas Table \ref{tab:Higgs_decays} presents the most frequent decay channels for the Higgs boson, comparing the SM predicted value to the measured value for the different channels.
+Since the most significant Higgs boson production channel is gluon fusion, within the limited timeframe of this project, our primary focus will be on this production mode. However, other modes, such as vector boson fusion or associated production with a $W$/$Z$ boson, share reasonable similarities with ggH in terms of implementation and could be further extensions of this analysis.
+
+\subsection{Main decay channels of the Higgs boson}
+
+The Higgs boson is a very short-lived particle, decaying almost instantaneously after its production into lighter particles. According to the couplings of the Higgs field to all other SM particles, at the first loop order, the Higgs boson predominantly decays to the most massive particles that are kinematically accessible. However, there are certain decay modes where the Higgs boson decays into massless particles, such as gluon or photon pairs, as the first-loop contributions are not negligible. Figure \ref{fig:Higgs_decays} shows the most relevant Feynman diagrams for the Higgs boson decay, while Table \ref{tab:Higgs_decays} presents the most frequent decay channels for the Higgs boson, comparing the SM predicted value to the measured value for every decay mode.
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -422,66 +430,122 @@ Once the Higgs boson is produced it decays almost instantly into lighter particl
 
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{|l|c|c|c|}
+    \begin{tabular}{|l|c|c|cc|}
         \hline
-        \cellcolor{lightgray}Decay channel & \cellcolor{lightgray} SM $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mu$ \\ \hline
-        $\text{H}\decaysto b\bar{b}$     & $57.8 \pm 0.7$        & $60 \pm 12$         & $1.04 \pm 0.20$ \cite{CMS:2018nsn}  \\
-        $\text{H}\decaysto WW^*$         & $21.8 \pm 0.3$        & $20.7 \pm 2.1$      & $0.95 \pm 0.09$ \cite{CMS:2022uhn}  \\
-        $\text{H}\decaysto gg$           & $8.2 \pm 0.4$         & -    & -  \\
-        $\text{H}\decaysto \tau^+\tau^-$ & $6.23 \pm 0.10$       & $6.1 \pm 1.1$       & $0.98 \pm 0.18$ \cite{CMS:2017zyp}  \\
-        $\text{H}\decaysto c\bar{c}$     & $2.87 \pm 0.16$       & $<40$               & $<14$ \cite{CMS:2022psv}            \\
-        $\text{H}\decaysto ZZ^*$         & $2.68 \pm 0.04$       & $2.6 \pm 0.3$       & $0.97 \pm 0.12$ \cite{CMS:2022dwd}  \\
-        $\text{H}\decaysto \gamma\gamma$ & $0.227 \pm 0.005$     & $0.254 \pm 0.021$   & $1.12 \pm 0.09$ \cite{CMS:2021kom}  \\
-        $\text{H}\decaysto Z\gamma$      & $0.155 \pm 0.009$     & $0.37 \pm 0.14$     & $2.4 \pm 0.9$ \cite{CMS:2022ahq}    \\
-        $\text{H}\decaysto \mu^+\mu^-$   & $0.0216 \pm 0.0004$   & $0.026 \pm 0.009$   & $1.19 \pm 0.43$ \cite{CMS:2020xwi}  \\ \hline
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \cellcolor{lightgray} SM $\mathcal{B}$ (\%) & \cellcolor{lightgray} Measured $\mathcal{B}$ (\%) & \multicolumn{2}{c|}{\cellcolor{lightgray} Measured $\mu$} \\ \hline
+        $\text{H}\decaysto b\bar{b}$     & $57.8 \pm 0.7$        & $60 \pm 12$         & $1.04 \pm 0.20$ & \cite{CMS:2018nsn}  \\
+        $\text{H}\decaysto WW^*$         & $21.8 \pm 0.3$        & $20.7 \pm 2.1$      & $0.95 \pm 0.09$ & \cite{CMS:2022uhn}  \\
+        $\text{H}\decaysto gg$           & $8.2 \pm 0.4$         & -    & -  &\\
+        $\text{H}\decaysto \tau^+\tau^-$ & $6.23 \pm 0.10$       & $6.1 \pm 1.1$       & $0.98 \pm 0.18$ & \cite{CMS:2017zyp}  \\
+        $\text{H}\decaysto c\bar{c}$     & $2.87 \pm 0.16$       & $<40$               & $<14$ & \cite{CMS:2022psv}            \\
+        $\text{H}\decaysto ZZ^*$         & $2.68 \pm 0.04$       & $2.6 \pm 0.3$       & $0.97 \pm 0.12$ & \cite{CMS:2022dwd}  \\
+        $\text{H}\decaysto \gamma\gamma$ & $0.227 \pm 0.005$     & $0.254 \pm 0.021$   & $1.12 \pm 0.09$ & \cite{CMS:2021kom}  \\
+        $\text{H}\decaysto Z\gamma$      & $0.155 \pm 0.009$     & $0.37 \pm 0.14$     & $2.4 \pm 0.9$ & \cite{CMS:2022ahq}    \\
+        $\text{H}\decaysto s\bar{s}$     & $0.025 \pm 0.001$     & -                   & - &            \\
+        $\text{H}\decaysto \mu^+\mu^-$   & $0.0216 \pm 0.0004$   & $0.026 \pm 0.009$   & $1.19 \pm 0.43$ & \cite{CMS:2020xwi}  \\ \hline
     \end{tabular}
-    \caption{Most frequent decay modes of the Higgs boson. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}.}
+    \caption{Most frequent decay modes of the Higgs boson. SM values from \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw, CMS:2022dwd}, and measured $\mathcal{B}$ from $\mathcal{B}=\mu\mathcal{B}_{\text{SM}}$. At the moment of this writing, the $\text{H}\protect\decaysto gg$ and $\text{H}\protect\decaysto s\bar{s}$ decay channels have not been measured yet.}
     \label{tab:Higgs_decays}
 \end{table}
 
-\todo{Talk more about the decays: Why no measurement H->gg (QCD bkg)? What does the * in WW* ZZ* mean?}
+The predicted values by the SM in Table \ref{tab:Higgs_decays} are of significant interest, and there are some remarks worth mentioning.
 
-\todo{\lipsum[1] \lipsum[1]}
+Firstly, it is observed that there is no decay $\text{H}\decaysto t\bar{t}$. This is because the Higgs boson is lighter than the top quark, $M_H = 125$ GeV < $m_t = 173$ Gev, making it not massive enough to produce a top-antitop quark pair. In fact, the Higgs boson can not even create one real top quark and one virtual top quark. Consequently, the presence of top quarks in the Higgs boson decays is limited to virtual loops, as the ones present in diagrams (d) and (e) of Figure \ref{fig:Higgs_decays}.
+
+Let us examine the branching ratios in Table \ref{tab:Higgs_decays} more closely, starting with the fermionic decays. The Higgs-fermion vertex has a factor of
+\begin{equation}
+    \label{eq:higgs_fermion_vertex}
+\vcenter{\hbox{
+\setlength{\mylength}{\textwidth}
+\includegraphics[height=0.16\mylength]{resources/SM_vertices/higgs_fermion.pdf}
+ }} = -i \frac{m_f}{v} \ ,
+\end{equation}
+thus at first approximation, the expected decay width at tree level can be estimated as proportional to
+\begin{equation}
+\label{eq:Higgs_approx_fermions}
+\Gamma(H\decaysto f\bar{f}) \propto N_C m_f^2 \ ,
+\end{equation}
+where $N_C$ is the number of colours (3 for quarks, 1 for leptons). It is important to note that the mass to use in the above expression is the \textit{running mass} of the particle at an energy scale of $\mu=M_{H}$, rather than the ones presented in Figure \ref{fig:SM}\footnote{The masses of the quarks that are typically provided, for example, in \cite{PDG}, are $m_u(\mu = 2\ \GeV)$, $m_d(\mu = 2\ \GeV)$, $m_s(\mu = 2\ \GeV)$, $m_c(\mu = m_c)$, $m_b(\mu = m_b)$. The $t$-quark mass is determined from event kinematics, see \cite{PDG}. The differences in the masses at the Higgs energy scale compared to the ``usual'' values are more pronounced for heavy quarks. For more information on running masses refer to \cite{Huang:2020hdv}.}. Using the running masses of the particles (for precise values of the running masses, see \cite{Huang:2020hdv}) and the approximation presented above, we obtain the following relation of decay widths for the quarks, taking $\Gamma(H\decaysto s\bar{s}) = 1$:
+\begin{equation*}
+    \Gamma(H\decaysto b\bar{b}):\Gamma(H\decaysto c\bar{c}):\Gamma(H\decaysto s\bar{s}) \approx  2834:136:1\ ,
+\end{equation*}
+while the full SM computation yields
+\begin{equation*}
+    \Gamma(H\decaysto b\bar{b}):\Gamma(H\decaysto c\bar{c}):\Gamma(H\decaysto s\bar{s}) =  2312:115:1\ .
+\end{equation*}
+The approximation in Equation \eqref{eq:Higgs_approx_fermions} is even better for leptons:
+\begin{equation*}
+    \Gamma(H\decaysto \tau^+\tau^-):\Gamma(H\decaysto \mu^+\mu^-) \approx  288.53:1\ ,
+\end{equation*}
+while the full SM computation is remarkably close, giving
+\begin{equation*}
+    \Gamma(H\decaysto \tau^+\tau^-):\Gamma(H\decaysto \mu^+\mu^-) =  288.43:1\ .
+\end{equation*}
+The discrepancies between this initial approximation and the results from the SM in Table \ref{tab:Higgs_decays} arise from phase space factors, higher-order Feynman diagrams, and, in the case of quarks, QCD corrections.
+
+For vector bosons, the vertex has a factor of
+\begin{equation}
+    \label{eq:higgs_boson_vertex}
+\vcenter{\hbox{
+\setlength{\mylength}{\textwidth}
+\includegraphics[height=0.16\mylength]{resources/SM_vertices/higgs_boson.pdf}
+ }} = 2i \frac{M_V^2}{v}g^{\mu\nu} \ ,
+\end{equation}
+and similarly, one can estimate the expected decay width at tree level as proportional to
+\begin{equation}
+    \label{eq:Higgs_approx_bosons}
+\Gamma(H\decaysto VV) \propto M_V^4 \ .
+\end{equation}
+When we compute the same relations as for the fermions we obtain
+\begin{equation*}
+    \Gamma(H\decaysto WW^*):\Gamma(H\decaysto ZZ^*) \approx  0.604:1\ ,
+\end{equation*}
+while the full SM computation differs by almost a factor of 14:
+\begin{equation*}
+    \Gamma(H\decaysto WW^*):\Gamma(H\decaysto ZZ^*) =  8.134:1\ .
+\end{equation*}
+Despite the vertex in Equation \eqref{eq:higgs_boson_vertex} suggesting that $\Gamma(H\decaysto WW^*) < \Gamma(H\decaysto ZZ^*)$ due to $M_W < M_Z$, other factors play a more significant role in the decay width than just the vertex factors in the boson decays. First of all, the phase space of the decay into $Z^0$ bosons includes an extra $\frac{1}{2}$ symmetry factor due to the decay involving two identical particles. The remaining factor of 7 arises from the inclusion of higher-order Feynman diagrams and, most significantly, from the phase space contribution. The latter contribution quantifies the number of valid momentum and energy configurations for the outgoing particles while still obeying the conservation of energy and momentum.
+
+Note that $2M_W, 2M_Z > M_H > M_W, M_Z$, so for the Higgs boson to decay into two electroweak bosons, one of them must be \textit{off-shell} or \textit{virtual} (that is why one of them is marked with an asterisk). Off-shell or virtual particles do not need to satisfy the equation $E^2-p^2=m^2$, and are very short-lived. Therefore, for instance, the decay $H\decaysto WW^*$ means that the Higgs boson decays into a real $W$ boson and a virtual $W^*$ boson, which immediately decays into other particles. The phase factor for such a decay is intricate, as it involves the decay of a virtual boson into all possible channels, but is much smaller than it would be if the Higgs could decay to two real $Z^0$ or $W^{\pm}$ bosons. Additionally, the phase space contribution for the $ZZ^*$ channel is much smaller than that for the $WW^*$. This is mainly because the invariant mass of the virtual $Z^0$ boson tends to deviate more from the real $Z^0$ mass than the virtual $W^{\pm}$ boson is from the real $W^{\pm}$ mass.
+
+There are two decaying channels in Table \ref{tab:Higgs_decays} that have not yet been experimentally tested. The $\text{H}\decaysto s\bar{s}$ channel is extremely challenging to measure due to its low branching fraction, which is more than two orders of magnitude smaller than that of the $c\bar{c}$ channel, for which only an upper bound is currently known. The other channel, accounting for approximately 8\% of the Higgs boson decays, is the decay into a pair of gluons. Experimentally determining this branching ratio at the LHC is incredibly difficult because it involves QCD processes that are almost indistinguishable from the QCD background present at the Large Hadron Collider.
+
+Additionally, the Higgs boson decays into massless particles (gluons and photons) account for one in 12 decays. This indicates that, despite being higher-order Feynman diagrams, heavy quark loops, mainly involving top and bottom quarks, are not negligible and compete with tree-level decays. The decay into a pair of photons is particularly interesting because its signature in hadron colliders is relatively clean compared to the hadronic background, and was used in the Higgs boson discovery at the LHC in 2012.
 
 \section{Searching of a model beyond the SM}
 
-\todo{Improve the section}
-
-If the Standard Model is right, the coupling between the Higgs boson and every massive fermion is proportional to the fermion's mass. That is why we can create the plot in Figure \ref{fig:Yukawa_couplings}, which according to the SM should follow a straight line. So far the measured values for the massive weak bosons, the third generation of fermions (top and bottom quarks and the tau lepton) and the second generation lepton (the muon) are in perfect agreement with the Standard Model predictions, as seen in Figure \ref{fig:Yukawa_couplings}. 
+If the Standard Model is correct, the coupling between the Higgs boson and each massive fermion (boson) is directly proportional to the fermion's mass (the square of the boson's mass), as shown in Equations \eqref{eq:higgs_fermion_vertex} and \eqref{eq:higgs_boson_vertex}. One can visualize these relationships by plotting the Higgs couplings against the masses of the particles. According to the SM, this should result in a linear relationship, as in Figure \ref{fig:Yukawa_couplings}.
 
 \begin{figure}[!ht]
     \vspace*{-0.0cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \includegraphics[width=0.50\mylength]{resources/Yukawa_couplings.png}
+    \includegraphics[width=0.60\mylength]{resources/Yukawa_couplings.png}
     \vspace*{-0.0cm}
-    \caption{Yukawa couplings \cite{CMS:2020xwi}.}
+    \caption{Relationship between the Yukawa couplings of the third-generation fermions, massive bosons, and the second-generation muon and its masses, from \cite{CMS:2022dwd}. The dashed straight line represents the Standard Model prediction.}
     \label{fig:Yukawa_couplings}
     \vspace*{-0.0cm}
 \end{figure}
 
-It is interesting to explore the SM with regard to lighter fermions, specifically the second-generation strange and charm quarks, as well as all first-generation fermions, including the up and down quarks and the electron. Additionally, the non-vanishing mass of the neutrinos hints at a Yukawa-type coupling for them as well.
+As of the time of writing, the measured values for the massive weak bosons, the third generation of fermions (top and bottom quarks and the tau lepton), as well as the second-generation lepton (the muon), align remarkably well with the Standard Model predictions, as seen in Figure \ref{fig:Yukawa_couplings}. This exceptional agreement with the predictions of the Higgs mechanism, spanning three orders of magnitude in mass, is a powerful test of the validity of the underlying physics.
 
-In this analysis, our primary focus lies on decays of the form H$\decaysto M\gamma$, where $M$ represents a light vector meson. It is important to note that, given that the Higgs boson has spin 0 and the photon has spin 1, the meson $M$ must be a \textit{vector} meson to conserve total angular momentum.
+To further test the validity of the SM, it is interesting to expand the plot to include lighter fermions, specifically the second-generation strange and charm quarks, as well as all first-generation fermions, including the up and down quarks and the electron. Additionally, the non-vanishing masses of the neutrinos may suggest a Yukawa-type coupling for them as well.
 
-Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first three rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons. These are currently under analysis as of the writing of this document. Our specific focus within this analysis, however, lies in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons as well as neutral particles, specifically either pions or photons.
+Direct searches for Higgs boson decays into charm pairs have been conducted by both the ATLAS and CMS collaborations. Additionally, searches for H$\decaysto e^+e^-$ have been carried out to complete the picture. Furthermore, both collaborations have explored potential Beyond the Standard Model (BSM) couplings of the Higgs boson, including searches for flavour-changing neutral currents via $t$-quark decays ($t\decaysto cH$ and $t\decaysto uH$), as well as lepton flavour-violating decays such as H$\decaysto e^\pm\mu^\mp$, H$\decaysto e^\pm\tau^\mp$ and H$\decaysto \mu^\pm\tau^\mp$. To date, no evidence supporting these couplings has been found.
 
-\todo{Include comparison between SM branching rations and measured upper limits, when these are available.}
+Currently, the couplings of light quarks (u, d, s) the Higgs boson remain loosely constrained by the existing data on the total Higgs boson width. The large multi-jet background at the LHC inhibits the study of such couplings with inclusive H$\decaysto q\bar{q}$. Rare exclusive decays of the Higgs boson into a light meson and a photon have been proposed as a probe of both flavor-conserving and flavor-violating couplings of the Higgs boson to light quarks (up, down, charm and strange). Exclusive decays involving $W^\pm$ and $Z^0$ bosons are also a possibility \cite{Kagan:2014ila}.
+
+Initial experimental upper limits on hadronic two-body Higgs decays have been established by the ATLAS and CMS collaborations (ATLAS-CMS: H$\decaysto J/\psi + \gamma$ \cite{ATLAS:2022rej, CMS:2018gcm}, ATLAS: H$\decaysto \rho,\phi,\omega,K^{*0} + \gamma$ \cite{ATLAS:2017gko, ATLAS:2023alf}, CMS: H$\decaysto J/\psi,\rho,\phi + Z^0$ \cite{CMS:2022fsq, CMS:2020ggo}).
+
+This analysis focuses on decays of the form H$\decaysto M\gamma$, where $M$ represents a light vector meson with a mass of approximately 1-2 GeV. It is important to note that, given that the Higgs boson has spin 0 and the photon has spin 1, the meson $M$ must be a \textit{vector} meson to conserve total angular momentum.
+
+Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first three rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons. These processes are currently under analysis by the CMS collaboration as of the writing of this document. However, our specific focus within this analysis lies in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons along with neutral particles, specifically either pions or photons.
 
 \begin{table}[!ht]
     \centering
     \begin{tabular}[t]{|l|C{6.5cm}|}
     \hline
-    \cellcolor{lightgray}Higgs boson rare decay & \cellcolor{lightgray} Coupling \\ \hline &\\[-19pt]
-        %$\text{H}\decaysto \phi_{KK}\gamma$&  strange quark                             & ??\%\\[-6.4pt]
-        \hspace*{-3.75mm}
-        \begin{tikzpicture}
-            \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
-            \text{H}\decaysto \phi\gamma&\\
-                &[-0mm] K^+K^- \ {\scriptstyle(49.1\pm0.5\%)}\\
-            };
-            \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
-        \end{tikzpicture} & \vspace*{-1.3cm} strange quark \\[-16pt]
+    \multicolumn{1}{|c|}{\cellcolor{lightgray}Higgs boson rare decay} & \cellcolor{lightgray} Coupling \\ \hline &\\[-19pt]
         %$\text{H}\decaysto \rho^{0}_{\pi\pi}\gamma$& up/down quark                      & ??\%\\[-6.4pt]
         \hspace*{-3.75mm}
         \begin{tikzpicture}
@@ -491,7 +555,16 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
             };
             \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
         \end{tikzpicture} & \vspace*{-1.3cm} up/down quark \\[-16pt]
-        %$\text{H}\decaysto K^{*0}_{K\pi}\gamma$& flavor violating down/strange quark    & ??\%\\ \cdashline{1-3}
+        %$\text{H}\decaysto \phi_{KK}\gamma$&  strange quark                             & ??\%\\[-6.4pt]
+        \hspace*{-3.75mm}
+        \begin{tikzpicture}
+            \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
+            \text{H}\decaysto \phi\gamma&\\
+                &[-0mm] K^+K^- \ {\scriptstyle(49.1\pm0.5\%)}\\
+            };
+            \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
+        \end{tikzpicture} & \vspace*{-1.3cm} strange quark \\[-16pt]
+        %$\text{H}\decaysto K^{*0}_{K\pi}\gamma$& flavor-violating down/strange quark    & ??\%\\ \cdashline{1-3}
         \hspace*{-3.75mm}
         \begin{tikzpicture}
             \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
@@ -499,8 +572,7 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
                 &[-0mm] K^{\pm}\pi^{\mp} \ {\scriptstyle(\sim100\%)}\\
             };
             \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
-        \end{tikzpicture} & \vspace*{-1.3cm} flavor violating down/strange quark \\[-8pt]\cdashline{1-2}&\\[-19pt]
-
+        \end{tikzpicture} & \vspace*{-1.3cm} flavor-violating down/strange quark \\[-8pt]\cdashline{1-2}&\\[-19pt]
         %$\text{H}\decaysto \phi_{\pi\pi\pi^0}\gamma$& strange quark                     & ??\%\\[-6.4pt]
         \hspace*{-3.75mm}
         \begin{tikzpicture}
@@ -519,11 +591,11 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
             };
             \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
         \end{tikzpicture} & \vspace*{-1.3cm} up/down quark  \\[-16pt]
-        %$\text{H}\decaysto D^{*0}\gamma$& flavor violating up/charm quark               & \\[-6.4pt]
+        %$\text{H}\decaysto D^{*0}\gamma$& flavor-violating up/charm quark               & \\[-6.4pt]
         %$D^{*0}\decaysto D^0 + \pi^{0}/\gamma$&                                  &$100$\%            \\
         %$D^0\decaysto K^{-}\pi^{+}$&                                             &$3.947\pm0.030$\%  \\
         %$D^0\decaysto K^{-}\pi^{+}\pi^{0}$&                                      &$14.4\pm0.5$\%     \\\hline
-        %$\text{H}\decaysto D^{*0}\gamma$& flavor violating up/charm quark               & \\\hline
+        %$\text{H}\decaysto D^{*0}\gamma$& flavor-violating up/charm quark               & \\\hline
         \hspace*{-3.75mm}
         \begin{tikzpicture}
             \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
@@ -535,17 +607,31 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
             \draw[-stealth]([xshift=3mm, yshift=1mm]decay-1-1.south)|-(decay-2-2);
             \draw[-stealth]([xshift=-13mm, yshift=1mm]decay-2-2.south)|-(decay-3-3);
             \draw[-stealth]([xshift=-14mm, yshift=1mm]decay-2-2.south)|-(decay-4-3);
-        \end{tikzpicture} & \vspace*{-2.47cm} flavor violating up/charm quark \\[-8pt]\hline
+        \end{tikzpicture} & \vspace*{-2.47cm} flavor-violating up/charm quark \\[-8pt]\hline
         %$D^0\decaysto K^{S}\pi^{+}\pi^{-}$& Br$\sim2.8$\%\\\hline
     \end{tabular}
-    \caption{Higgs rare decays of the form H$\protect\decaysto M\gamma$, where $M$ is a vector containing light quarks.}
+    \caption{Higgs rare decays of the form H$\protect\decaysto M\gamma$, where $M$ is a vector meson containing light quarks.}
     \label{tab:Higgs_rare_decays}
 \end{table}
 
-As seen before, the most significant Higgs production channel is gluon fusion, responsible for 87\% of all Higgs production. Therefore, within the limited timeframe of this project, our primary focus will be on this production mode. Although other modes, such as vector boson fusion or associated production with a $W$/$Z$ boson, share reasonable similarities with ggH in terms of implementation, we will concentrate on the latter.
+\todo{Finish and comment comparison between SM branching rations and measured upper limits.}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|cc|cc|}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \multicolumn{2}{c|}{\cellcolor{lightgray} SM $\mathcal{B}$} & \multicolumn{2}{c|}{\cellcolor{lightgray} Measured $\mathcal{B}$} \\ \hline
+        $\text{H}\decaysto \rho^0\gamma$    & $(1.68 \pm 0.08)\times 10^{-5}$    & \cite{Konig:2015qat} & $< 8.8 \times 10^{-4}$ & \cite{ATLAS:2017gko}  \\
+        $\text{H}\decaysto \phi\gamma$      & $(2.31 \pm 0.11)\times 10^{-6}$    & \cite{Konig:2015qat} & $< 4.8 \times 10^{-4}$ & \cite{ATLAS:2017gko}  \\
+        $\text{H}\decaysto \omega\gamma$    & $(1.48 \pm 0.08)\times 10^{-6}$    & \cite{Konig:2015qat} & $< 1.5 \times 10^{-4}$ & \cite{ATLAS:2023alf}  \\
+        $\text{H}\decaysto K^{*0}\gamma$    & \r LOOK UP & \r [??]              & $< 8.9 \times 10^{-5}$ & \cite{ATLAS:2023alf}  \\
+        $\text{H}\decaysto D^{*0}\gamma$    & \r LOOK UP & \r [??]              & \r LOOK UP & \r [??]  \\ \hline
+    \end{tabular}
+    \caption{Higgs rare decays branching fractions.}
+    \label{tab:Higgs_rare_decays_values}
+\end{table}
 
 \todo{Explain direct/indirect veritces in the decay of the higgs}
-
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -570,6 +656,6 @@ As seen before, the most significant Higgs production channel is gluon fusion, r
     \vspace*{-0.0cm}
 \end{figure}
 
-\todo{unmeasured sectors of the higgs}
+\todo{Unmeasured sectors of the higgs: a paragraph}
 
 \todo{Explain how deviations from SM predictions in these sectors could point to new physics and justify the need for precise measurements.}

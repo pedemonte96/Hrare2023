@@ -13,13 +13,13 @@
 \begin{tikzpicture}[]
     \begin{feynman}
     \vertex (fant);
-    \vertex [above =of fant, xshift=0.0cm, yshift=-0.792cm] (f1) {$e^{-}$};%-1.792
-    \vertex [below =of fant, xshift=0.0cm, yshift=0.792cm] (f2) {$e^{+}$};
+    \vertex [above =of fant, xshift=0.0cm, yshift=-0.792cm] (f1) {$f$};%-1.792
+    \vertex [below =of fant, xshift=0.0cm, yshift=0.792cm] (f2) {$f$};
     \vertex [right=of fant, xshift=0.0cm, yshift=0.0cm] (a);
-    \vertex [right=of a, xshift=0.0cm, yshift=0.0cm] (b) {$\mu$};
+    \vertex [right=of a, xshift=0.0cm, yshift=0.0cm] (b);
     \node [dot] at (a) {};
     \diagram* {
-    (f1) -- [fermion] (a) -- [photon, edge label=\($\gamma$\)] (b),
+    (f1) -- [fermion] (a) -- [scalar, edge label=\(H\)] (b),
     (f2) -- [anti fermion] (a),
     };
     \end{feynman}
