@@ -533,13 +533,13 @@ To further test the validity of the SM, it is interesting to expand the plot to 
 
 Direct searches for Higgs boson decays into charm pairs have been conducted by both the ATLAS and CMS collaborations. Additionally, searches for H$\decaysto e^+e^-$ have been carried out to complete the picture. Furthermore, both collaborations have explored potential Beyond the Standard Model (BSM) couplings of the Higgs boson, including searches for flavour-changing neutral currents via $t$-quark decays ($t\decaysto cH$ and $t\decaysto uH$), as well as lepton flavour-violating decays such as H$\decaysto e^\pm\mu^\mp$, H$\decaysto e^\pm\tau^\mp$ and H$\decaysto \mu^\pm\tau^\mp$. To date, no evidence supporting these couplings has been found.
 
-Currently, the couplings of light quarks (u, d, s) the Higgs boson remain loosely constrained by the existing data on the total Higgs boson width. The large multi-jet background at the LHC inhibits the study of such couplings with inclusive H$\decaysto q\bar{q}$. Rare exclusive decays of the Higgs boson into a light meson and a photon have been proposed as a probe of both flavor-conserving and flavor-violating couplings of the Higgs boson to light quarks (up, down, charm and strange). Exclusive decays involving $W^\pm$ and $Z^0$ bosons are also a possibility \cite{Kagan:2014ila}.
+Currently, the couplings of light quarks (u, d, s) to the Higgs boson remain loosely constrained by the existing data on the total Higgs boson width. The large multi-jet background at the LHC inhibits the study of such couplings with inclusive H$\decaysto q\bar{q}$. Rare exclusive decays of the Higgs boson into a light meson and a photon have been proposed as a probe of both flavor-conserving and flavor-violating couplings of the Higgs boson to light quarks (up, down, charm and strange). Exclusive decays involving $W^\pm$ and $Z^0$ bosons are also a possibility \cite{Kagan:2014ila}.
 
 Initial experimental upper limits on hadronic two-body Higgs decays have been established by the ATLAS and CMS collaborations (ATLAS-CMS: H$\decaysto J/\psi + \gamma$ \cite{ATLAS:2022rej, CMS:2018gcm}, ATLAS: H$\decaysto \rho,\phi,\omega,K^{*0} + \gamma$ \cite{ATLAS:2017gko, ATLAS:2023alf}, CMS: H$\decaysto J/\psi,\rho,\phi + Z^0$ \cite{CMS:2022fsq, CMS:2020ggo}).
 
 This analysis focuses on decays of the form H$\decaysto M\gamma$, where $M$ represents a light vector meson with a mass of approximately 1-2 GeV. It is important to note that, given that the Higgs boson has spin 0 and the photon has spin 1, the meson $M$ must be a \textit{vector} meson to conserve total angular momentum.
 
-Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first three rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons. These processes are currently under analysis by the CMS collaboration as of the writing of this document. However, our specific focus within this analysis lies in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons along with neutral particles, specifically either pions or photons.
+Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first three rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons. These processes are currently under analysis by a group within the CMS collaboration as of the writing of this document. However, our specific focus within this analysis lies in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons along with neutral particles, specifically either pions or photons.
 
 \begin{table}[!ht]
     \centering
@@ -610,9 +610,11 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
         \end{tikzpicture} & \vspace*{-2.47cm} flavor-violating up/charm quark \\[-8pt]\hline
         %$D^0\decaysto K^{S}\pi^{+}\pi^{-}$& Br$\sim2.8$\%\\\hline
     \end{tabular}
-    \caption{Higgs rare decays of the form H$\protect\decaysto M\gamma$, where $M$ is a vector meson containing light quarks.}
+    \caption{Higgs rare decays of the form H$\protect\decaysto M\gamma$, where $M$ is a vector meson containing light quarks. The top half of the table focuses on decays where the light neutral vector meson decays into a pair of charged mesons. The bottom half of the table focuses on similar decays, but where there are also one or two neutral particles involved in the decay of the primary meson. All these decays are currently being analised by a group within the CMS collaboration.}
     \label{tab:Higgs_rare_decays}
 \end{table}
+
+The current branching ratio information of these decays that is known at the moment of this writing, both theoretical and experimental, is shown in Table \ref{tab:Higgs_rare_decays_values}.
 
 \todo{Finish and comment comparison between SM branching rations and measured upper limits.}
 
@@ -627,11 +629,11 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
         $\text{H}\decaysto K^{*0}\gamma$    & \r LOOK UP & \r [??]              & $< 8.9 \times 10^{-5}$ & \cite{ATLAS:2023alf}  \\
         $\text{H}\decaysto D^{*0}\gamma$    & \r LOOK UP & \r [??]              & \r LOOK UP & \r [??]  \\ \hline
     \end{tabular}
-    \caption{Higgs rare decays branching fractions.}
+    \caption{Higgs rare decay branching fractions. Because of the very large hadronic background at the LHC, only upper limits on the branching ratios have been computed so far, which are around two orders of magnitude bigger than the SM prediction.}
     \label{tab:Higgs_rare_decays_values}
 \end{table}
 
-\todo{Explain direct/indirect veritces in the decay of the higgs}
+When studying Higgs boson decays of the form H$\decaysto M\gamma$, which in essence are H$\decaysto q\bar{q}\gamma$, there are different Feynman diagrams that contribute to the width. We can distinguish the contributions into two different vertices. On the one hand, we have the tree-level diagram, which provides the direct contribution and is shown in diagram (a) of Figure \ref{fig:Higgs_rare_decay_veritces}. On the other hand, we have all other higher-order diagrams joined as an effective indirect vertex, represented in diagram (b) of Figure \ref{fig:Higgs_rare_decay_veritces}.
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -640,22 +642,91 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.5\mylength}
             \centering
-            \includegraphics[height=0.27\mylength]{resources/H_rare_decays_vertices/v1.pdf}
-            \setlength{\unitlength}{0.27\mylength}
+            \includegraphics[height=0.26\mylength]{resources/H_rare_decays_vertices/v1.pdf}
+            \setlength{\unitlength}{0.26\mylength}
             \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.5\mylength}
             \centering
-            \includegraphics[height=0.27\mylength]{resources/H_rare_decays_vertices/v2.pdf}
-            \setlength{\unitlength}{0.27\mylength}
+            \includegraphics[height=0.26\mylength]{resources/H_rare_decays_vertices/v2_2.pdf}
+            \setlength{\unitlength}{0.26\mylength}
             \caption{\footnotesize (b)}
     \end{subfigure}%
     \vspace*{-0.0cm}
-    \caption{Direct and indirect contributions involved in the decays under analysis.}
-    \label{fig:veritces}
+    \caption{Direct (a) and indirect (b) contributions involved in the decays under analysis. Here we have considered the decay to a strange-antistrange quark pair, but it is analogous for the other light quarks.}
+    \label{fig:Higgs_rare_decay_veritces}
     \vspace*{-0.0cm}
 \end{figure}
 
-\todo{Unmeasured sectors of the higgs: a paragraph}
+According to the Standard Model, the direct contribution is of the order of $10^{-11}$, while the indirect contribution is of the order of $10^{-6}$, which means that higher-order corrections dominate the behaviour of these type of decays.
 
-\todo{Explain how deviations from SM predictions in these sectors could point to new physics and justify the need for precise measurements.}
+A few examples of diagrams that contribute to the effective vertex are provided in Figure \ref{fig:Higgs_decays_indirect}. In diagram (a) the blue loop can either be a heavy charged fermion loop or a $W^{\pm}$ boson loop.
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.3546\mylength}
+            \centering
+            \includegraphics[width=0.344\mylength]{resources/H_rare_indirect/v1.pdf}
+            \caption{\footnotesize (a)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.3546\mylength}
+            \centering
+            \includegraphics[width=0.344\mylength]{resources/H_rare_indirect/v2.pdf}
+            \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.2907\mylength}
+            \centering
+            \includegraphics[width=0.282\mylength]{resources/H_rare_indirect/v3.pdf}
+            \caption{\footnotesize (c)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    %\begin{subfigure}[t]{0.5\mylength}
+    %        \centering
+    %        \includegraphics[height=0.26429\mylength]{resources/H_rare_indirect/v4.pdf}
+    %        \caption{\footnotesize (d)}
+    %\end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    %\vspace*{-0.0cm}
+    \caption{Some examples of the many one-loop diagrams accounted for in the effective vertex. The blue loops are heavy charged fermion or $W^{\pm}$ boson loops.}
+    \label{fig:Higgs_decays_indirect}
+    \vspace*{-0.0cm}
+\end{figure}
+
+To ultimately compute the Yukawa couplings to the lighter families of quarks, one has to take into consideration contributions from both the direct and the indirect vertex, since experimentally what is measured from the direct decay is the overall effect coming from both vertices.
+
+Therefore, the full diagrams of the decays that are object of study in these thesis (bottom half part of Table \ref{tab:Higgs_rare_decays}) are shown in Figure \ref{fig:Higgs_decays_studied}.
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.43\mylength}
+            \centering
+            \includegraphics[width=0.41764\mylength]{resources/H_rare_decays_diagrams/v1.pdf}%62mm
+            \caption{\footnotesize (a)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \begin{subfigure}[t]{0.57\mylength}
+            \centering
+            \includegraphics[width=0.55236\mylength]{resources/H_rare_decays_diagrams/v2_1.pdf}%82mm
+            \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
+    \caption{Full diagrams of the Higgs rare decays studied. Diagram (a) shows the decays $\text{H}\protect\decaysto \phi/\omega\gamma$. Diagram (b) shows the different decays $\text{H}\protect\decaysto D^{*0}\gamma$, where the orange line indicates that the particle can either be a $\pi^{0}$ ($\sim$ 65\%) or a $\gamma$ ($\sim$ 35\%) \cite{PDG}. This last diagram includes the two decays involving $D^{*0}$ studied, where $\pi^{0}$ is not there for the 2-body decay of the $D^{0}$ meson.}
+    \label{fig:Higgs_decays_studied}
+    \vspace*{-0.0cm}
+\end{figure}
+
+Diagram \ref{fig:Higgs_decays_studied} (a) depicts the decays $\text{H}\decaysto \phi\gamma$ and $\text{H}\decaysto \omega\gamma$, which are very similar and are going to share a lot of the features of the framework built. Diagram \ref{fig:Higgs_decays_studied} (b) shows the decays involving a $D^{*0}$ meson, $\text{H}\decaysto D^{*0}\gamma$, where the orange line from the decay of the $D^{*0}$ meson indicates that the particle can either be a $\pi^{0}$ (in around 65\% of the cases) or a $\gamma$ ($\sim$ 35\%) \cite{PDG}. This diagram encompasses the two decays involving $D^{*0}$ studied, where $D^{0}\decaysto K^{-}\pi^{+}$ corresponds to the diagram where the red line associated to $\pi^{0}$ is removed, and $D^{0}\decaysto K^{-}\pi^{+}\pi^{0}$ where the red edge is maintained.
+
+The main difference between this analysis and the one studying the three decays presented in the top half of Table \ref{tab:Higgs_rare_decays} lies in the fact that we are dealing with 3-body decays involving neutral particles, which are more challenging to track compared to charged ones. That is why we will focus most of our attention on accurately recovering the missing neutral particles.
+
+The main goal of this Master's Thesis is to compute a reasonable expected upper limit for the branching ratio of the aforementioned Higgs boson decays. Table \ref{tab:Higgs_rare_decays_values} shows the order of magnitude of the branching fractions one would ultimately like to measure. Nevertheless, due to the large hadronic background at the LHC, analyses of this kind are targeting an upper limit rather than a precise measurement at this stage.
+
+Deviations from the predictions of the Standard Model within the Higgs boson sector can serve as compelling indications of new physics beyond our current understanding of particle physics. The Higgs boson plays a central role in the SM by giving particles mass through the Higgs mechanism. Therefore, any discrepancies in its properties, including decay widths, could reveal hidden phenomena and particles that the SM fails to describe.
+
+One possible scenario involves determining an upper limit on a Higgs decay branching ratio that significantly exceeds the SM prediction. Such a discrepancy would suggest the presence of additional particles and interaction processes not accounted for in the SM. These new BSM particles could contribute to the Higgs decay width in ways not initially anticipated.
+
+Accurate measurements are essential in this context, as they allow us to probe the Higgs sector with the highest level of precision. Through the precise determination of the Higgs boson's properties, one can identify even the most subtle deviations from the SM, providing clues about the nature of new physics. Consequently, the need for precision in Higgs boson measurements is of utmost importance, as it can not only further confirm the validity of the SM but also has the potential to illuminate the path towards a more comprehensive theory of particle physics, one that goes beyond the boundaries of the Standard Model.
+
+The Future Circular Collider (FCC) project, with its proposed scenarios, including FCC-ee (electron-positron collisions) and FCC-hh (hadron-hadron collisions), presents a promising opportunity to advance our understanding of the Higgs boson and, by extension, the Standard Model \cite{FCC:2018byv}. The FCC-ee, with its high-energy lepton collisions, would enable us to conduct precise measurements of the Higgs boson's properties, including its interactions with other SM particles. This collider could provide an order of magnitude improvement in accuracy compared to current experiments, allowing for detailed studies of the Higgs, $W^\pm$, and $Z^0$ bosons, as well as the top quark \cite{Ellis:2015sca, dEnterria:2016fpc}. Together with the FCC-hh, which would operate with hadron collisions at significantly higher energies (potentially up to 30 times that of the current LHC \cite{FCC:2018vvp}), these colliders within the FCC project hold the potential to shed light on dark matter, probe neutrino masses, and investigate other unexplained phenomena.

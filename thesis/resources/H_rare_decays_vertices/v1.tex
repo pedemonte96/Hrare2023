@@ -13,17 +13,17 @@
 \begin{tikzpicture}[]
     \begin{feynman}
     \vertex (h) {$H$};
-    \vertex [right=of h, xshift=-0.0cm, yshift=-0.0cm] (cent);
-    \vertex [right=of cent, xshift=-0.0cm, yshift=1.75cm] (b) {$s$};
-    \vertex [right=of cent, xshift=-1.1cm, yshift=-0.40cm] (d);
-    \vertex [right=of cent, xshift=0.0cm, yshift=0.9cm] (e) {$\bar{s}$};
-    \vertex [right=of cent, xshift=0.0cm, yshift=-1.75cm] (f) {$\gamma$};
+    \vertex [right=of h, xshift=0.0cm, yshift=-0.0cm] (cent);
+    \vertex [right=of h, xshift=2.0cm, yshift=1.5cm] (b) {$s$};
+    \vertex [right=of h, xshift=2.0cm, yshift=0.9cm] (e) {$\bar{s}$};
+    \vertex [right=of h, xshift=0.4cm, yshift=-0.3cm] (middle);
+    \vertex [right=of h, xshift=2.0cm, yshift=-1.5cm] (f) {$\gamma$};
 
-    \node [dot] at (cent) {};
+    %\node [dot] at (cent) {};
     \diagram* {
     (h) -- [scalar] (cent),
-    (b) -- [anti fermion] (cent) -- [with reversed arrow=0.7] (d) -- [with reversed arrow=0.65] (e),
-    (d) -- [photon] (f),
+    (b) -- [anti fermion] (cent) -- [with reversed arrow=0.7] (middle) -- [with reversed arrow=0.65] (e),
+    (middle) -- [photon] (f),
     
     };
     \end{feynman}
