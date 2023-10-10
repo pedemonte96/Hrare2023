@@ -794,12 +794,14 @@ FUNCTION {article}
         }
         { blank.sep format.report output format.eprint.paren output}
       if$
+      note output
     }
 
     {
       format.article.crossref output.nonnull
       format.pages.nopp output
       format.eprint.paren output
+      note output
     }
   if$
 
@@ -992,16 +994,17 @@ FUNCTION {misc}
     { howpublished empty$ not
       month empty$ year empty$ and
       or
-	{ format.title.p output.nonnull }
+	{ format.title "title" output.check }
 	{ format.title output.nonnull }
       if$
       blank.sep
     }
   if$
+  %format.title "title" output.check
   howpublished output
   format.date output
   new.block
-  % note output
+  note output
   doi output
   fin.entry
   empty.misc.check
