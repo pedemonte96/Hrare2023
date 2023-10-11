@@ -1066,10 +1066,11 @@ FUNCTION {techreport}
 FUNCTION {unpublished}
 { output.bibitem
   format.author.or.collaboration
-  format.title.p "title" output.check
+  format.title "title" output.check
   blank.sep
-  % note "note" output.check
   format.date output
+  new.block
+  note output
   fin.entry
 }
 
