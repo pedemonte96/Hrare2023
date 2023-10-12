@@ -79,6 +79,34 @@ Storing all recorded events in the detector is impractical, so only events meeti
 
 The Compact Muon Solenoid experiment is one of the largest international scientific collaborations in history, involving more than 6000 particle physicists, engineers, technicians, students and support staff from 257 institutes in 59 countries as of October 2023 \cite{CERN:CMS_people}.
 
-\section{The discovery of the Higgs boson at CMS}
+\section{The discovery of the Higgs boson}
 
-\todo{Discovery of the higgs: when, CMS/ATLAS, which channels were used, sigmas, initial mass and values.}
+Nearly 50 years after the Higgs boson had been proposed, in 2012, the CMS and ATLAS collaborations observed a new scalar boson with a mass of 125 GeV \cite{CMS:2012qbp, ATLAS:2012yve}. The properties of this particle were compatible with those of the Higgs boson, including its spin and mass (in 2012 precision electroweak measurements and direct searches at LEP had constrained the mass of the Higgs boson to be in the interval $114.4\ \GeV < m_H < 152\ \GeV$ at 95\% conficende level (CL) \cite{ALEPH:2010aa, LEPWorkingGroupforHiggsbosonsearches:2003ing}).
+
+\begin{figure}[!ht]
+    \vspace*{-0.0cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \includegraphics[width=0.60\mylength]{resources/CMS_Higgs_diphoton.jpg}
+    \vspace*{-0.0cm}
+    \caption{The diphoton invariant mass distribution computed by CMS in \cite{CMS:2012qbp}. The lines represent the fitted background and signal, and the coloured bands $\pm1\ \sigma$ and $\pm2\ \sigma$ in the background estimate.}
+    \label{fig:CMS_Higgs_diphoton}
+    \vspace*{-0.3cm}
+\end{figure}
+
+The CMS experiment used data recorded at $\sqrt{s} = 7$ and 8 TeV, with integrated luminosities of up to 5.1 fb$^{-1}$ at 7 TeV and 5.3 fb$^{-1}$ at 8 TeV. For the search, five decay modes were employed: H$\decaysto\gamma\gamma$, $ZZ^*$, $WW^*$, $\tau^+\tau^-$ and $b\bar{b}$, which according to the SM is about 89\% of all the decay modes of the Higgs boson (see Table \ref{tab:Higgs_decays}). They reported an excess of events over the expected background, consistent with the production of a new particle with mass near 125 GeV, with an observed local signigicance of 5.0 standard deviations ($\sigma$). The strongest evidence came from the two final states with the best mass resolution, which are H$\decaysto\gamma\gamma$ with a significance of 4.1$\sigma$ and H$\decaysto ZZ^*$ with a significance of 3.2$\sigma$. Moreover, H$\decaysto\gamma\gamma$ indicated that the new particle was a boson with spin different from one \cite{CMS:2012qbp}. Figure \ref{fig:CMS_Higgs_diphoton} presents the diphoton invariant mass $m_{\gamma\gamma}$ presented by CMS in 2012, where the excess at 125 GeV is evident in the weighted and unweighted distributions.
+
+The confidence level of the combined result as a function of the Higgs boson mass is presented in Figure \ref{fig:CMS_Higgs_CLs}. The observed values are shown as the solid points, while the dashed line represents the median of the expected results for the background-only hypothesis. The green and yellow bands indicate the ranges where CLs values are expected to lie in 68\% and 95\% of the experiments under the background-only hypothesis. The red horizontal lines indicate CLs values of 0.05, 0.01, and 0.001. The mass regions where the observed CLs values are below these lines are excluded with the corresponding (1 - CLs) confidence levels. In the range $121.5 < m_H < 128$ GeV a significant excess is observed, and the SM Higgs boson cannot be excluded at 95\% CL. They also determined the Higgs boson mass by using the $\gamma\gamma$ and $ZZ^*$ decay modes, obtaining a value of $m_H=125.3\pm0.4\text{ (stat.)}\pm0.5\text{ (syst.)}\ \GeV = 125.3\pm0.6\ \GeV$.
+
+\begin{figure}[!ht]
+    \vspace*{-0.0cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \includegraphics[width=0.60\mylength]{resources/CMS_Higgs_CLs.jpg}
+    \vspace*{-0.0cm}
+    \caption{The CLs values for the SM Higgs boson hypothesis as a function of the Higgs boson mass in the range 110-145 GeV, by CMS in \cite{CMS:2012qbp}.}
+    \label{fig:CMS_Higgs_CLs}
+    \vspace*{-0.3cm}
+\end{figure}
+
+In ATLAS analysis \cite{ATLAS:2012yve}, they reported a significance of 5.9$\sigma$ and a mass of $m_H=126.0\pm0.4\text{ (stat.)}\pm0.4\text{ (syst.)}\ \GeV = 126.0\pm0.6\ \GeV$, compatible with CMS's results.
