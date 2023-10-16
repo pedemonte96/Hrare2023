@@ -1,38 +1,102 @@
-\chapter[Analysis]{Analysis}
+\chapter[Analysis]{Analysis}\label{chap:analysis}
 
-This chapter is the central cornerstone of this dissertation. In it, we will discuss the analysis conducted, starting with a general overview, followed by an explanation of the samples, triggers, and object definitions. We will then discuss the corrections made to the data and simulations to enhance the analysis results. We will also cover the various criteria utilized in event selection and how the signal and background have been modeled. Ultimately, we will present the expected limits for each channel. The chapter concludes by addressing the subsequent steps required prior to data unblinding and the attainment of the final experimental measurement.
+This chapter constitutes the core of this dissertation. Here, we will discuss the analysis conducted, starting with a general overview, followed by an explanation of the samples, triggers, and object definitions. We will then talk about the corrections applied to the data and simulations to enhance the analysis results. Additionally, we will cover the criteria used in event selection and how the signal and background have been modeled. Finally, we will present the expected upper limits of the branching ratio for each channel, as this analysis will only be working with simulated signal, alongside simulated and real background data. The chapter concludes by addressing the subsequent steps required before data unblinding and the attainment of the final experimental measurement, as well as suggesting other ideas to improve the results.
 
-The final goal of this thesis is to compute a reasonable upper limit on the branching ratio of the aforementioned Higgs boson decays. Table \ref{tab:Higgs_rare_decays_values} shows the order of magnitude of the branching fractions we ultimately would like to measure, but due to the large hadronic background at the LHC we are targeting an upper limit. 
+\section{Analysis overview}\label{sec:analysis_overview}
 
-Because of the time scope of this project only an estimation of the upper limits using leading order monte carlo simulations is going to be computed, although the process would be analogous for real data from the LHC (of course taking into consideration more backgrounds, systematics, etc.). This is a first estimation.
+This analysis uses data from proton-proton collisions corresponding to an integrated luminosity of 39.54 fb$^{-1}$ at $\sqrt{s}=$13 TeV, collected by the CMS detector at LHC in 2018 during Run 2. It only targets the Higgs boson production mode via gluon fusion (ggH), which accounts for approximately 87\% of the Higgs boson production at LHC at $\sqrt{s}=$13 TeV. Although it is possible to extend this analysis to include more production modes, time constraints have led us to focus to the main production channel. The final states of interest consist of an isolated and energetic photon, a charged meson pair, and photons compatible with a third (and sometimes fourth) neutral meson, with 0 hadronic jets and no additional leptons ($e/\mu$). The mesons considered here are a $\phi$, a $\omega$ and a $D^{*0}$, each further decaying into two charged particles and a third (and fourth) neutral one (see Table \ref{tab:Higgs_rare_decays_three}).
 
-\section{Analysis overview}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{ll}
+        $\text{H}\decaysto \phi\gamma$ ,& $\phi\decaysto \pi^+\pi^-\pi^0$ \\
+        $\text{H}\decaysto \omega\gamma$ ,& $\omega\decaysto \pi^+\pi^-\pi^0$\\
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}$\\
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}\pi^{0}$
+    \end{tabular}
+    \caption{Higgs rare decays under study in this analysis.}
+    \label{tab:Higgs_rare_decays_three}
+\end{table}
 
-The main difference between this analysis and the one studying the three decays in the top half of Table \ref{tab:Higgs_rare_decays} lies in the fact that we are dealing with 3-body decays involving neutral particles, which are more challenging to track compared to charged ones. That is why we will focus most of our attention on accurately recovering the missing neutral particles.
+The analysis strategy involves categorizing events to increase the signal to background ratio. In our production mode (ggH), the largest background source in this analysis consists of $\gamma$ plus jets events.
 
-\section{Samples and triggers}
+The branching fractions of rare Higgs boson decays to a meson and photon can be computed using a factorization approach in QCD. The calculation considers both direct and indirect contributions, as explained in the first chapter and depicted in Figure \ref{fig:Higgs_rare_decay_veritces}. The interference between these components is significant. In the SM, the indirect component dominates, and the Higgs boson couplings to light quarks are probed by searching for modifications in this branching fraction due to interference effects.
 
-\todo{Explain data, background and signal MC simulation, triggers}
+As previously explained, given the exotic nature of the decays under study, the theoretical decay widths being so small, the large hadronic background at the LHC, and the limited amount of data collected, we cannot aim for precise measurements of the branching fractions. Instead, the end goal of this thesis is to calculate a reasonable upper limit on the branching ratio of the aforementioned Higgs boson decays, using Monte Carlo (MC) samples to model the SM expected signal. To obtain a competitive, real result, this initial estimation requires further refinement and improvement, such as considering additional background sources, systematic uncertainties, etc.
 
-\section{Object definitions}
+The main difference between this analysis and the study of the three decays in the upper half of Table \ref{tab:Higgs_rare_decays} is that, in contrast to those, we are studying 3-body decays with neutral particles, which are more challenging to track than charged ones. The framework used for this analysis builds upon the existing framework for the simpler two-body decays currently under analysis by the Particle Physics Collaboration at MIT. To extend their study to include three-body decays involving neutral particles, our main focus has been on accurately recovering the missing neutral particles.
+
+\section{Samples and triggers}\label{sec:samples_triggers}
+
+To develop this analysis, the data file format used is one designed by CMS, which is an extended version of \verb+NANOAOD+. It is based on the official \verb+NANOAODv9+ recipe and includes the reconstructed mesons, as described in Section \ref{sec:objects}, as additional objects. The \verb+NANOAOD+ format consists of an Ntuple-like structure used by CMS, which can be read using bare root, and containing the per-event information that is needed in most generic analyses \cite{CMS:NanoAOD}. This analysis is performed using the \verb+ROOT+ data analysis framework, an open-source data analysis tool commonly used in high energy physics written mainly in C++ \cite{CERN:root}.
+
+\subsection{Data and Tau trigger}
+
+Events are selected from proton-proton collision data at a center-of-mass energy of $\sqrt{s}=$13 TeV and a bunch spacing of 25 ns, collected by the CMS experiment during the LHC's Run 2 in 2018, corresponding to a total integrated luminosity of 39.54 fb$^{-1}$. Good run ranges and luminosity blocks are chosen based on criteria encoded in a golden JSON file.
+
+To filter data in the gluon fusion production mode, a tau-like trigger is employed. This Tau trigger selects a photon with $\pT^{\gamma} > 35\ \GeV$ and a ditrack system with $\pT^{\text{jet}} > 35\ \GeV$, after going through the L1 trigger, which also imposes rapidity restrictions of $\abs{\eta^{\gamma}}<2.1$ and $\abs{\eta^{\text{jet}}}<2.1$. The trigger is applied to both data and MC. Introduced in 2018, this trigger recorded events enriched in gluon fusion production of the Higgs boson and VBF that were not registered by the dedicated trigger, providing an effective luminosity of 39.54 fb$^{-1}$. The trigger selecting events during 2018 is encoded as \verb+Photon35_TwoProngs35+. \todo{Should I include trigger efficiencies for each channel in the appendix? If so, how do I obtain these plots?} The datasets used in gluon fusion and VBF analysis are detailed in Table \ref{tab:ggH_datasets}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Year} & \cellcolor{lightgray}Dataset & \cellcolor{lightgray}Integrated luminosity [fb$^{-1}$] \\ \hline
+        2018    & \verb+/Tau/Run2018B-UL2018+  & 0.67 \\
+        2018    & \verb+/Tau/Run2018C-UL2018+  & 6.94 \\
+        2018    & \verb+/Tau/Run2018D-UL2018+  & 31.93 \\ \hline
+    \end{tabular}
+    \caption{Datasets used in the gluon fusion analysis from the campaign MiniAODv2 of the MINIAOD data tier.}
+    \label{tab:ggH_datasets}
+\end{table}
+
+\subsection{Background simulation}
+
+The background estimation will ultimately rely solely on data. However, at the early stage of this analysis, simulated samples are used to understand the background processes affecting the different selected final states. The main background process for the gluon fusion production mode is a single photon and jets.
+
+Background event generation is performed at leading order (LO) precision using the MADGRAPH5 generator \verb+MG5_aMC@NLO+ \cite{Alwall:2014hca} and POWHEG \cite{Alioli:2010xd}, while PYTHIA8 \cite{Sjostrand:2014zea} is used for the hadronization. For all simulations, the NNPDF 3.1 \cite{NNPDF:2017mvq} next-to-next-to-leading-order parton distribution functions (PDFs) are used, while the modeling of the underlying event is generated using the CMS Pythia 5 (CP5) tunes \cite{CMS:2019csb}. The Run 2 legacy reconstruction algorithms \cite{Elmetenawee:2020emw} are used for all the MC and data samples. Table \ref{tab:MC_samples} summarizes the list of datasets used for the study along with their cross sections \cite{CERN:xsdb}. \todo{include campaign and tag}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Monte Carlo name} & \cellcolor{lightgray}Cross section [pb] \\ \hline
+        \verb+GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8+  & 18540 (LO) $\times$ 1.26 \\
+        \verb+GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8+  & 8644 (LO) $\times$ 1.26 \\
+        \verb+GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8+  & 2183 (LO) $\times$ 1.26 \\
+        \verb+GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8+  & 260.2 (LO) $\times$ 1.26 \\
+        \verb+GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8+  & 86.58 (LO) $\times$ 1.26 \\ \hline
+    \end{tabular}
+    \caption{MC samples used for the gluon fusion production mode. The normalization of $\gamma+$jets is scaled by 1.26 \cite{CMS:2018qao} \todo{WHY?}.}
+    \label{tab:MC_samples}
+\end{table}
+
+\subsection{Signal simulation}
+
+\todo{Here}
+
+\todo{Signal MC}
+
+\section{Object definitions}\label{sec:objects}
 
 \todo{Primary vertex, leptons?, jets, missing energy, photons, mesons}
 
-\section{Corrections to data and simulations}
+\todo{Here goes the whole reconstruction of neutral particles}
 
-\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction (+regression of the pt), triggers scale factors}
+\section{Corrections to data and simulations}\label{sec:corrections}
 
-\section{Event selection}
+\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction, triggers scale factors}
+
+\section{Event selection}\label{sec:event_selection}
 
 \todo{Gluon fusion selection for each channel}
 
-\section{Signal and background modelling}
+\section{Signal and background modelling}\label{sec:modelling}
 
 \todo{signal, background model from MC and data, bias studies}
 
-\section{Results}
+\section{Results}\label{sec:results}
 
-\section{Multivariate analysis for final results}
+\section{Multivariate analysis for final results}\label{sec:MVA}
 
 \todo{talk about MVA and what are next steps before unblinding data}
 

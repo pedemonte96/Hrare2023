@@ -20,12 +20,13 @@
     \vertex [right=of h, xshift=1.2cm, yshift=-0.9cm] (middle2);
     \vertex [right=of h, xshift=2.0cm, yshift=-1.5cm] (middle3);
     \vertex [right=of h, xshift=3.0cm, yshift=-1.5cm] (f) {$\gamma$};
+    \vertex [right=of h, xshift=0.5cm, yshift=-0.9cm] (tag) {$Z^0/\gamma$};
 
     %\node [dot] at (cent) {};
     \diagram* {
     (h) -- [scalar] (cent),
     (b) -- [anti fermion] (cent) -- [with reversed arrow=0.7] (middle) -- [with reversed arrow=0.6] (e),
-    (middle) -- [boson, edge label'=\(Z^0\)] (middle2),
+    (middle) -- [boson] (middle2),
     (middle2) -- [blue, very thick, half left] (middle3) -- [blue, very thick, half left] (middle2),
     (middle3) -- [photon] (f),
     

@@ -1,8 +1,8 @@
-\chapter[Theory and Motivation]{Theory and Motivation}
+\chapter[Theory and Motivation]{Theory and Motivation}\label{chap:theory_motivation}
 
 This chapter aims to provide an overview of the Standard Model of Particle Physics (SM), with a specific focus on the important role played by the Higgs boson. We will give a brief introduction to the SM and its fundamental particles, discuss the Lagrangian that governs their behaviour, and explore their interactions represented by Feynman diagrams. Moreover, we will examine the characteristics of the Higgs boson --- its properties, its most frequent production and decay modes, and the Yukawa couplings to the three different fermion families. Finally, we will concentrate on the decay channels subject of our analysis, and explore how a significant discrepancy between the measurements of these decay modes and the SM predictions might lead to new physics beyond the SM.
 
-\section{The Standard Model}
+\section{The Standard Model}\label{sec:SM}
 
 One of the traits that distinguishes humans from other life forms is our sense of curiosity. Since ancient times, we have been trying to explain what happens around us, enabling us to predict and potentially harness the laws of nature. An exceptional theory that has come very close to achieving this goal is the Standard Model of Particle Physics (SM). It stands as one of the most precise theories ever conceived by humanity, and is the most successful theory of particle physics to date. The Standard Model serves as a theory capable of describing three of the four known fundamental forces in the Universe (electromagnetic, weak and strong forces, but not gravity). This is achieved by classifying a set of elementary particles and defining the interactions between them. Summaries of the SM can be found in \cite{Perkins:1982xb, Peskin:1995ev} among many others.
 
@@ -253,7 +253,7 @@ The Standard Model has proven to predict numerous measurements with exceptional 
 
 While this theory has been remarkably successful, it cannot serve as the final theory of nature, as numerous unresolved puzzles persist. Many cosmological observations remain unaccounted for by the SM, such as the baryon-antibaryon asymmetry, the behaviour of gravity as described by General Relativity, the accelerated expansion of the Universe — potentially described by dark energy — and the absence of a suitable candidate for dark matter. Furthermore, the SM fails to explain the non-vanishing mass of the neutrinos as a consequence of neutrino flavour oscillation. In pursuit of a superior theory capable of encompassing the SM as well as these (and many other) discrepancies, the physics community is thoroughly trying to ``break'' the Standard Model to unveil hints towards an ultimate theory.
 
-\section{The Higgs boson}
+\section{The Higgs boson}\label{sec:Higgs_boson}
 
 In 1964, Peter Higgs, along with five other theoretical physicists, proposed the Higgs mechanism to explain how certain particles (fermions and weak bosons) might acquire mass in local gauge theories \cite{Higgs:1964pj,Englert:1964et,Guralnik:1964eu}. If these ideas were correct, a spin-0 particle (namely the Higgs boson) should exist and possess some well-defined properties. Nearly 50 years later, on the 4\textsuperscript{th} of July 2012, a scalar particle consistent with the Higgs boson was discovered at the LHC by the CMS and ATLAS collaborations \cite{CMS:2012qbp,ATLAS:2012yve}.
 
@@ -351,7 +351,7 @@ and the \textit{integrated luminosity} is defined as
 \end{equation*}
 Finally, the \textit{signal strength} $\mu$ expresses a measured cross section divided by the expected SM value.
 
-Having established these fundamental concepts, we can now compare the theoretical and measured cross sections for the production of the Higgs boson. Our analysis uses 2018 data from the LHC, with a center-of-mass energy of $\sqrt{s} = 13$ TeV and an integrated luminosity of $L=39.50$ fb$^{-1}$. According to the SM, the total Higgs boson cross section at a center-of-mass energy of $\sqrt{s} = 13$ TeV is $\sigma = 55500 \pm 2800$ fb \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, with around 87\% coming from gluon fusion, 7\% from vector boson fusion and 4\% from Higgsstrahlung. The predicted and measured cross section of the Higgs boson at $\sqrt{s} = 13$ TeV from different production modes are shown in Table \ref{tab:Higgs_production}.
+Having established these fundamental concepts, we can now compare the theoretical and measured cross sections for the production of the Higgs boson. Our analysis uses 2018 data from the LHC, with a center-of-mass energy of $\sqrt{s} = 13$ TeV and an integrated luminosity of $L=39.54$ fb$^{-1}$. According to the SM, the total Higgs boson cross section at a center-of-mass energy of $\sqrt{s} = 13$ TeV is $\sigma = 55500 \pm 2800$ fb \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}, with around 87\% coming from gluon fusion, 7\% from vector boson fusion and 4\% from Higgsstrahlung. The predicted and measured cross section of the Higgs boson at $\sqrt{s} = 13$ TeV from different production modes are shown in Table \ref{tab:Higgs_production}.
 
 \begin{table}[ht]
     \centering
@@ -512,7 +512,7 @@ There are two decaying channels in Table \ref{tab:Higgs_decays} that have not ye
 
 Additionally, the Higgs boson decays into massless particles (gluons and photons) account for one in 12 decays. This indicates that, despite being higher-order Feynman diagrams, heavy quark loops, mainly involving top and bottom quarks, are not negligible and compete with tree-level decays. The decay into a pair of photons is particularly interesting because its signature in hadron colliders is relatively clean compared to the hadronic background, and was used in the Higgs boson discovery at the LHC in 2012.
 
-\section{Searching of a model beyond the SM}
+\section{Searching of a model beyond the SM}\label{sec:BSM}
 
 If the Standard Model is correct, the coupling between the Higgs boson and each massive fermion (boson) is directly proportional to the fermion's mass (the square of the boson's mass), as shown in Equations \eqref{eq:higgs_fermion_vertex} and \eqref{eq:higgs_boson_vertex}. One can visualize these relationships by plotting the Higgs couplings against the masses of the particles. According to the SM, this should result in a linear relationship, as in Figure \ref{fig:Yukawa_couplings}.
 
@@ -667,19 +667,19 @@ A few examples of diagrams that contribute to the effective vertex are provided 
     \vspace*{-0.2cm}
     \centering
     \setlength{\mylength}{\textwidth}
-    \begin{subfigure}[t]{0.3546\mylength}
+    \begin{subfigure}[t]{0.333\mylength}
             \centering
-            \includegraphics[width=0.344\mylength]{resources/H_rare_indirect/v1.pdf}
+            \includegraphics[width=0.323\mylength]{resources/H_rare_indirect/v1.pdf}%50x28
             \caption{\footnotesize (a)}
     \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
-    \begin{subfigure}[t]{0.3546\mylength}
+    \begin{subfigure}[t]{0.333\mylength}
             \centering
-            \includegraphics[width=0.344\mylength]{resources/H_rare_indirect/v2.pdf}
+            \includegraphics[width=0.323\mylength]{resources/H_rare_indirect/v2.pdf}%50x28
             \caption{\footnotesize (b)}
     \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
-    \begin{subfigure}[t]{0.2907\mylength}
+    \begin{subfigure}[t]{0.333\mylength}
             \centering
-            \includegraphics[width=0.282\mylength]{resources/H_rare_indirect/v3.pdf}
+            \includegraphics[width=0.323\mylength]{resources/H_rare_indirect/v4.pdf}%3:41x35 %4:50x37
             \caption{\footnotesize (c)}
     \end{subfigure}%\begin{subfigure}[t]{0.5\mylength}
     %\begin{subfigure}[t]{0.5\mylength}
