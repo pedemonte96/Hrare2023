@@ -11,8 +11,8 @@ This analysis uses data from proton-proton collisions corresponding to an integr
     \begin{tabular}{ll}
         $\text{H}\decaysto \phi\gamma$ ,& $\phi\decaysto \pi^+\pi^-\pi^0$ \\
         $\text{H}\decaysto \omega\gamma$ ,& $\omega\decaysto \pi^+\pi^-\pi^0$\\
-        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}$\\
-        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}\pi^{0}$
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{\mp}\pi^{\pm}$\\
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{\mp}\pi^{\pm}\pi^{0}$
     \end{tabular}
     \caption{Higgs rare decays under study in this analysis.}
     \label{tab:Higgs_rare_decays_three}
@@ -53,11 +53,11 @@ To filter data in the gluon fusion production mode, a tau-like trigger is employ
 
 The background estimation will ultimately rely solely on data. However, at the early stage of this analysis, simulated samples are used to understand the background processes affecting the different selected final states. The main background process for the gluon fusion production mode is a single photon and jets.
 
-Background event generation is performed at leading order (LO) precision using the MADGRAPH5 generator \verb+MG5_aMC@NLO+ \cite{Alwall:2014hca} and POWHEG \cite{Alioli:2010xd}, while PYTHIA8 \cite{Sjostrand:2014zea} is used for the hadronization. For all simulations, the NNPDF 3.1 \cite{NNPDF:2017mvq} next-to-next-to-leading-order parton distribution functions (PDFs) are used, while the modeling of the underlying event is generated using the CMS Pythia 5 (CP5) tunes \cite{CMS:2019csb}. The Run 2 legacy reconstruction algorithms \cite{Elmetenawee:2020emw} are used for all the MC and data samples. Table \ref{tab:MC_samples} summarizes the list of datasets used for the study along with their cross sections \cite{CERN:xsdb}. \todo{include campaign and tag}
+Every event is generated at leading order (LO) precision using the MADGRAPH5 generator \verb+MG5_aMC@NLO+ \cite{Alwall:2014hca} and POWHEG \cite{Alioli:2010xd}, while PYTHIA8 \cite{Sjostrand:2014zea} is used for the hadronization. For all simulations, the NNPDF 3.1 \cite{NNPDF:2017mvq} next-to-next-to-leading-order (NNLO) parton distribution functions (PDFs) are used, while the modeling of the underlying event is generated using the CMS Pythia 5 (CP5) tunes \cite{CMS:2019csb}. The Run 2 legacy reconstruction algorithms \cite{Elmetenawee:2020emw} are used for all the MC and data samples. The campaign and global tag used to produce the background and signal MC samples are \verb+RunIISummer20UL18MiniAODv2-106X+ and \verb+upgrade2018_realistic_v16_L1v1+, respectively. Table \ref{tab:MC_samples} summarizes the list of datasets used for the study along with their cross sections \cite{CERN:xsdb}.
 
 \begin{table}[ht]
     \centering
-    \begin{tabular}{|c|c|}
+    \begin{tabular}{|l|c|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Monte Carlo name} & \cellcolor{lightgray}Cross section [pb] \\ \hline
         \verb+GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8+  & 18540 (LO) $\times$ 1.26 \\
@@ -72,19 +72,130 @@ Background event generation is performed at leading order (LO) precision using t
 
 \subsection{Signal simulation}
 
-\todo{Here}
+The only Higgs boson production mode studied, gluon fusion, is generated at next-to-leading order (NLO) using the POWHEGv2 event generator extended with the MiNLO procedure \cite{Hamilton:2012np}. The production rates and kinematic distributions for the Higgs boson with $m_H=125\ \GeV$ are assumed throughout. In particular, the cross section for gluon fusion is computed at NNLO in QCD and NLO in electroweak accuracy, resulting in 48.58 pb, as provided by the LHC Higgs Cross Section Working Group in Ref. \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}.
 
-\todo{Signal MC}
+The decay of the Higgs boson is handled by Pythia. Direct and indirect effective vertices are not simulated. The expected SM branching fractions of the Higgs rare decays are as previously shown in Table \ref{tab:Higgs_rare_decays_values}: $\mathcal{B}(\text{H}\decaysto \phi\gamma) = (2.31 \pm 0.11)\times 10^{-6}$ and $\mathcal{B}(\text{H}\decaysto \omega\gamma) = (1.48 \pm 0.08)\times 10^{-6}$, while $\mathcal{B}(\text{H}\decaysto D^{*0}\gamma)$ has not yet been computed. In the analysis, however, the branching ratios are set to
+\begin{equation*}
+    \mathcal{B}(\text{H}\decaysto \phi\gamma) = \mathcal{B}(\text{H}\decaysto \omega\gamma) = \mathcal{B}(\text{H}\decaysto D^{*0}\gamma) = 1\ ,
+\end{equation*}
+because \todo{explain why}. The branching fractions of the meson decays used are also shown in Table \ref{tab:Higgs_rare_decays}, but further detailed in Table \ref{tab:Meson_decay_br}.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|c|}
+        \hline
+        \multicolumn{1}{|c|}{\cellcolor{lightgray}Meson decay channel} & \multicolumn{1}{c|}{\cellcolor{lightgray} SM $\mathcal{B}$ (\%)} \\ \hline
+        $\phi\decaysto \pi^+\pi^-\pi^0$     & $15.4 \pm 0.4$   \\
+        $\omega\decaysto \pi^+\pi^-\pi^0$   & $89.2 \pm 0.7$   \\
+        $D^{*0}\decaysto D^{0}\pi^0$        & $64.7 \pm 0.9$   \\
+        $D^{*0}\decaysto D^{0}\gamma$       & $35.3 \pm 0.9$   \\
+        $D^{0}\decaysto K^{\mp}\pi^{\pm}$           & $3.962 \pm 0.031$   \\
+        $D^{0}\decaysto K^{\mp}\pi^{\pm}\pi^0$      & $14.43 \pm 0.50$   \\
+        \hline
+    \end{tabular}
+    \caption{Meson decay branching ratios used throughout the analysis, from the PDG \cite{PDG}.}
+    \label{tab:Meson_decay_br}
+\end{table}
 
 \section{Object definitions}\label{sec:objects}
 
-\todo{Primary vertex, leptons?, jets, missing energy, photons, mesons}
+This analysis primarily relies on photons and charged tracks to extract the final state signature of exclusive hadronic decays, while also making use of other physics objects such as additional leptons (or the lack thereof) and hadronic jets to suppress background. All objects, except the mesons, are discussed in this section, with the next section dedicated solely to meson reconstruction.
 
-\todo{Here goes the whole reconstruction of neutral particles}
+\textbf{Primary vertex (PV):} To consider an event, it must contain at least one primary vertex, which is regarded as the vertex of the hard interaction. There should be a minimum of four tracks associated with the selected primary vertex (from the Higgs boson, the photon and the ditrack system). For events with multiple selected vertices, the PV is chosen to be the vertex corresponding to the hardest scattering in the event, determined using tracking information alone, as described in Ref. \cite{Contardo:2015bmq}.
 
-\section{Corrections to data and simulations}\label{sec:corrections}
+\textbf{Jets:} During the reconstruction of a proton-proton (pp) collision, jets are often reconstructed with a $\pT$ that differs from that of the final-state particles within the jet. The jet energy corrections (JEC) adjust the reconstructed jet energy to match the true energy of the final-state particles. The CMS collaboration has developed a factorized approach to these JEC, consisting of multiple levels that correct various physics or detector effects. This approach provides flexibility in the corrections to suit various types of analyses. These correction levels are commonly referred to as L1FastJet, L2Relative, L3Absolute, and L2L3Residual.
 
-\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction, triggers scale factors}
+The flow of these JEC is as follows: Jets are reconstructed from particle flow (PF) candidates using the anti-$k_\text{T}$ clustering algorithm with a distance parameter of $R = 0.4$ as implemented by FastJet \cite{Cacciari:2011ma}. Jets within this small cone (referred to as AK4 jets for $R = 0.4$) are selected among those with $\pT > 25\ \GeV$ and $\abs{\eta} < 4.7$ for forward tagging. At the LHC, a significant number of pp collisions occur simultaniously during one bunch crossing, with soft ones contaminating the collision of interest. To mitigate this effect, known as \textit{pileup} (PU), charged hadrons not originating from the primary vertex are removed using the charged hadron subtraction (CHS) algorithm \cite{CMS:2014ata, Perloff:2012wpa}. The tight pileup ID criterion is applied to reduce the contamination of jets with $\pT < 50\ \GeV$ initiated by the pileup interactions. Jets are corrected for the response inside the detector, differentially in $\abs{\eta} - \abs{\phi}$, for the pileup contributions, and for data only, the residual difference observed between data and simulation.
+
+In the current analysis version, the \verb+Summer19UL+ jet energy corrections set is used, as well as the DeepJet tagging algorithm with the medium working point to identify $b$-jets \cite{Bols:2020bkb}.
+
+\textbf{Missing energy:} The $\pT^{\text{miss}}$ measures the transverse momentum imbalance in the event. To estimate it, the deepMET algorithm \cite{Feng:2744871} is used, and $\pT^{\text{miss}}$ filters are then applied to account for instrumental noise in the detector and minimize the impact of the non-collisional background.
+
+\textbf{Photons:} Photon candidates are reconstructed as SuperCluster objects in the ECAL with $\ET > 38\ \GeV$ and $\abs{\eta^{\gamma}} < 2.1$ in both the barrel and endcap regions. In addition, photons have to satisfy the multivariate analysis (MVA) based selection identification (mvaID) criteria following the \verb+Fall17IsoV2+ recipe \cite{CMS:2020uim}. For the production mode used, the mvaID provides 80\% (90\%) signal selection efficiency for the endcap (barrel) region. The mvaID criteria include photon isolation, charged hadron isolation, and require photons to pass shower shape preselection cuts \cite{Rembser:2019ijh}. The photon's ECAL cluster must be inconsistent with charged particle tracks reconstructed in the silicon tracker to reject electrons faking photons, achieved using a conversion safe electron veto. Residual $\ET$ -dependent photon energy scale and smearing corrections are applied. Additional photons with looser requirements ($\ET > 20\ \GeV$ and the WP90 version of the photonID) are also vetoed to reduce the potential contribution of diphotons. Table \ref{tab:photon_selection} summarizes the criteria for photon selection.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|c|}
+        \hline
+            \multicolumn{2}{|c|}{\cellcolor{lightgray}Selection criteria ($\gamma$ from PV)}\\ \hline
+            $\pT^{\gamma}$            &$>38$ GeV\\
+            $\abs{\eta^{\gamma}}$       &$<2.1$ \\
+            mvaID                       &WP90/WP80 \\
+            electron Veto               &Yes \\\hline
+        \end{tabular}
+    \caption{Selection criteria applied to the photon from the primary vertex.}
+    \label{tab:photon_selection}
+\end{table}
+
+\section{Meson reconstruction \todo{ADD FOURTH D0* CHANNEL}}\label{sec:meson_reconstruction}
+
+The $\phi$, $\omega$ and $D^{*0}$ mesons decay products are reconstructed using charged particle tracks measured in the tracker, as well as energy deposited in the ECAL compatible with neutral particles coming from the PV. For the $\phi$ and $\omega$ mesons, the targeted charged ditrack is $\pi^\pm\pi^\mp$, while for the $D^{*0}$ meson the charged ditrack is $K^{\mp}\pi^{\pm}$.
+
+In the following sections, the term \textit{ditrack system} will refer to the system of the two charged tracks, and even though it is not a real particle, notions like ditrack mass will be used (understand the mass of the ditrack as the mass component of the sum of the four-momenta of both tracks). To refer to the meson originating from the PV, namely $\phi$, $\omega$ and $D^{*0}$, terms like \textit{meson} or \textit{full meson} will be used, emphasizing that the neutral particle has been accounted for. Some considerations have been made to precisely reconstruct the full meson:
+
+\textbf{Track selection:} To be selected, the tracks need to satisfy a ``high purity'' reconstruction criteria, which considers the number of tracker layers with hits, track fit quality, and the impact parameter values relative to their uncertainties. For a detailed description of the algorithm, refer to Ref. \cite{CMS:2014pgm}.
+
+\textbf{Meson decay vertex:} The meson decay vertex is determined using the standard CMSSW kinematic vertex fitting package, as described in Ref. \cite{Prokofiev:2005zz}. Using the candidate's decay vertex and its associated momentum, a newly fitted transient track is constructed to represent the meson candidate. Then, for each primary vertex, the track is extrapolated to the nearest point in 3D space. The meson vertex's longitudinal distance is required to be within 24 cm from the center of the detector.
+
+\textbf{Isolation:} Dedicated isolation of the candidate based on the tracks is employed. The isolation (Iso) is determined from the meson momentum and other tracks in a cone of radius $\Delta R = 0.3$ around the direction of the ditrack system as follows: \todo{Finish, define $\Delta R$ also for JEC}
+
+\begin{equation*}
+    \text{Iso} = \frac{\pT^{\text{meson}}}{\pT^{\text{meson}}+\sum_{\text{trk}}{\abs{\pT^{\text{trk}}}}}
+\end{equation*}
+
+\textbf{Neutral particle photons:} \todo{}
+
+\textbf{Ditrack mass hypothesis:} \todo{explain kinematic fit}
+
+\textbf{Meson mass hypothesis:} \todo{explain invariant meson mass correction}
+
+\textbf{Meson transverse momentum correction:} \todo{explain regression}
+
+Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the meson candidate selection criteria used.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \cellcolor{lightgray}Variable & \cellcolor{lightgray}$\phi(\pi^{\pm}\pi^{\mp}\pi^{0})$ & \cellcolor{lightgray}$\omega(\pi^{\pm}\pi^{\mp}\pi^{0})$ \\ \hline
+        Meson mass                                              &$0.96\pm0.26$ GeV  &$0.785\pm0.215$ GeV    \\
+        Ditrack mass                                            &$0.59\pm0.25$ GeV  &$0.47\pm0.15$ GeV      \\
+        $\pT^{\text{diTrk}}$                                  &$>10$ GeV          &$>15$ GeV              \\
+        $\pT^{\text{leadTrk}}$                                &$>5$ GeV           &$>8$ GeV               \\
+        $\#\gamma^{\text{diTrk}}$                               &$>0$               &$>0$                   \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$ rad    &$\pi\pm2.3$ rad        \\
+        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$              \\
+        Iso                                                     &$>0.95$            &$>0.95$                \\
+        \hline
+        \end{tabular}
+    \caption{Selection criteria applied to the $\phi$ and $\omega$ mesons used in the analysis.}
+    \label{tab:meson_selection_1}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \cellcolor{lightgray}Variable & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
+        Meson mass                                              &                   &\r $x.xx\pm x.xx$ GeV  \\
+        Ditrack mass                                            &$1.865\pm0.060$ GeV&\r $x.xx\pm x.xx$ GeV  \\
+        $\pT^{\text{diTrk}}$                                  &$>40$ GeV          &\r $>xx$ GeV           \\
+        $\pT^{\text{leadTrk}}$                                &$>21$ GeV          &\r $>xx$ GeV           \\
+        $\#\gamma^{\text{diTrk}}$                               &                   &\r $>xx$               \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$ rad    &\r $\pi\pm2.3$ rad     \\
+        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &\r $0\pm1.9$           \\
+        Iso                                                     &$>0.91$            &\r $>  xx$             \\
+        \hline
+        \end{tabular}
+    \caption{Selection criteria applied to each channel of the $D^{*0}$ meson decay used in the analysis.}
+    \label{tab:meson_selection_2}
+\end{table}
+
+\todo{Talk about the criteria used a bit}
+
+%\section{Corrections to data and simulations}\label{sec:corrections}
+
+%\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction, triggers scale factors}
 
 \section{Event selection}\label{sec:event_selection}
 
@@ -96,7 +207,9 @@ Background event generation is performed at leading order (LO) precision using t
 
 \section{Results}\label{sec:results}
 
-\section{Multivariate analysis for final results}\label{sec:MVA}
+\todo{Present results}
 
-\todo{talk about MVA and what are next steps before unblinding data}
+\section{Future potential improvements}\label{sec:future_improvements}
+
+\todo{talk about MVA, data-MC corrections, and what are next steps before unblinding data}
 

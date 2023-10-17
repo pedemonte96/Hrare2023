@@ -462,7 +462,10 @@ FUNCTION {format.collaboration}
 
 
 FUNCTION {format.btitle}
-{ title emphasize
+{ title empty$
+    { "" }
+    { "``\emph{" title * "}''" * }
+  if$
 }
 
 FUNCTION {tie.or.space.connect}
@@ -1054,7 +1057,7 @@ FUNCTION {techreport}
   format.author.or.collaboration
   format.title "title" output.check
   blank.sep
-  format.tr.number output
+  %format.tr.number output
   institution "institution" output.check
   address "address" output.check
   blank.sep
