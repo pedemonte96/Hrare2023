@@ -88,13 +88,26 @@ def makePlots(cat, mesonCat, year, date, background):
         chainSGN.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
     df_SGN = ROOT.RDataFrame(chainSGN)
 
-    filterStr = "abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3"
-    filterStr += " && "
-    filterStr += "goodMeson_iso[0] > 0.95"
-    filterStr += " && "
-    filterStr += "goodMeson_mass[0] > 0.67 && goodMeson_mass[0] < 1.23"
-    filterStr += " && "
-    filterStr += "abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9"
+    filterStr = ""
+
+    '''if (mesonCat == "D0StarCat"):
+        filterStr += "abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3"
+        filterStr += " && "
+        filterStr += "abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9"
+    elif (mesonCat == "Phi3Cat"):
+        filterStr += "abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3"
+        filterStr += " && "
+        filterStr += "goodMeson_mass[0] > 0.70 && goodMeson_mass[0] < 1.22"
+        filterStr += " && "
+        filterStr += "abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9"
+    elif (mesonCat == "OmegaCat"):
+        filterStr += "abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3"
+        filterStr += " && "
+        filterStr += "goodMeson_mass[0] > 0.57 && goodMeson_mass[0] < 1.00"
+        filterStr += " && "
+        filterStr += "abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9"
+    elif (mesonCat == "D0StarRhoCat"):
+        filterStr += ""    '''
 
     if background:
         chainBKG = ROOT.TChain("events")
@@ -104,9 +117,10 @@ def makePlots(cat, mesonCat, year, date, background):
         df_BKG = (df_BKG.Define("scale", "w*lumiIntegrated")
             .Define("HCandMassFilt", "Vec_f {HCandMass}")
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")
-            .Filter(filterStr))
+            #.Filter(filterStr)
+            )
 
-    df_SGN = df_SGN.Filter(filterStr)
+    #df_SGN = df_SGN.Filter(filterStr)
 
     if (mesonCat == "D0StarCat"):
         df_SGN = (df_SGN.Define("scale", "w*lumiIntegrated")
@@ -487,22 +501,22 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "SEP13"
+    date = "SEP25"
 
     #D0Star--------------------------------------------------------------------------------------
     #background = False
     mesonCat = "D0StarCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
     #background = False
     mesonCat = "Phi3Cat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #Omega---------------------------------------------------------------------------------------
     #background = False
     mesonCat = "OmegaCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #D0StarRho-----------------------------------------------------------------------------------
     #background = False

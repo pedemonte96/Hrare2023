@@ -9,12 +9,18 @@ else
     if [[ ${1,,} == "f" || ${1,,} == "false" ]]; then
         directory="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhiOptions"
         outputFile="eval_all_phi_opts.out"
+        directory="/data/submit/pdmonte/TMVA_models/finalEvalFilesOmegaOptions"
+        outputFile="eval_all_omega_opts.out"
+        directory="/data/submit/pdmonte/TMVA_models/finalEvalFilesD0StarOptions"
+        outputFile="eval_all_d0star_opts.out"
     elif [[ ${1,,} == "t" || ${1,,} == "true" ]]; then
         directory="/data/submit/pdmonte/TMVA_models/evalFiles"
         if [[ $# == 1 ]]; then
-            outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhiOptions/eval_run3.out" 
+            outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhiOptions/eval_run4.out" 
+            outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesOmegaOptions/eval_run1.out" 
+            outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesD0StarOptions/eval_run0.out"
         elif [[ $2 =~ ^[0-9]+$ ]]; then
-            outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhiOptions/eval_run${2}.out"
+            #outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFilesPhiOptions/eval_run${2}.out"
             filtering=1
         else
             echo -e "Second parameter is an integer (number of variables)."

@@ -8,6 +8,11 @@ mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi"}
 
 mesonChannel = {"OmegaCat": "omega", "D0StarCat": "d0star", "Phi3Cat": "phi"}
 
+#title, variable, xaxis label, range, max
+doubleFitVar = {"OmegaCat": ["Full meson mass", "goodMeson_mass", "m_{#omega}", (0.57, 1.0), 0.7873],
+                "Phi3Cat": ["Full meson mass", "goodMeson_mass", "m_{#phi}", (0.71, 1.21), 1.023],
+                 "D0StarCat": ["Ditrack mass", "goodMeson_ditrk_mass", "m_{D^{0}}", (1.805, 1.925), 1.865]}
+
 
 def getNumVarsFromCode(code):
     nVars = 0
@@ -66,11 +71,11 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
@@ -135,6 +140,33 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
     return ROOT.TH1D(h)
 
 
+def getHistoDoubleFit(nbin, date, nums, cat, mesonCat, mesonLatex, year):
+    """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
+
+    verbString = "[getHistoDoubleFit] Creating Histogram {} {} {}...".format(mesonCat, cat, date)
+    print(verbString)
+
+    title = "{} for {}, reconstruction".format(doubleFitVar[mesonCat][0], mesonLatex)
+
+    xlow, xhigh = doubleFitVar[mesonCat][3]
+
+    chain = ROOT.TChain("events")
+    for num in nums:
+        chain.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
+
+    df = ROOT.RDataFrame(chain)
+    h = df.Define("scale", "w*lumiIntegrated").Histo1D((doubleFitVar[mesonCat][0], title, nbin, xlow, xhigh), doubleFitVar[mesonCat][1], "scale").GetValue()
+    
+    h.GetXaxis().SetTitle('{} [GeV]'.format(doubleFitVar[mesonCat][2]))
+    h.GetYaxis().SetTitle("Events")
+    h.SetFillColor(ROOT.kGreen-6)
+    h.SetLineColor(ROOT.kBlack)
+
+    print("[getHistoDoubleFit] ---------------------------------------- Histogram created! ----------------------")
+
+    return ROOT.TH1D(h)
+
+
 def getHistoFromFile(fileName):
     """Reads a histogram object from a ROOT file specified by `fileName`."""
     # Read using python 2.7.14 and ROOT 6.14
@@ -160,11 +192,13 @@ def saveHistoToFile(h, fileName):
         outfile.WriteObject(h, "myhisto")
 
 
-def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelName=None):
+def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelName=None, doubleFit=False):
     """Generates the full file name for a histogram file based on the provided parameters."""
     fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date
     if regModelName is not None:
         fileName += "_" + regModelName
     if extraTitle is not None:
         fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    if doubleFit:
+        fileName += "_2D"
     return "/data/submit/pdmonte/outHistsFits/" + fileName + ".root"

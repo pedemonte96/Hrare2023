@@ -49,6 +49,11 @@ def getJobsPerMinuteNew(times, nJobs, spacing=5):
             height.append((n-n_last)/tDiff*60.0)
             width.append(tDiff/(3600*24))
             t_last, n_last = t, n
+    t, n = times[-1], nJobs[-1]
+    tDiff = time_difference_in_seconds(t_last, t)
+    xPos.append(time_average(t_last, t))
+    height.append((n-n_last)/tDiff*60.0)
+    width.append(tDiff/(3600*24))
     return xPos, height, np.asarray(width)
 
 
@@ -79,7 +84,7 @@ hourTimes, hourJobs = getLastHourValues(arrs[0], arrs[1])
 #for t, n in zip(hourTimes, hourJobs):
 #    print(t, n)
 #slope, intercept, r_value, p_value, std_err = stats.linregress([datetime.strptime(t, time_format).hour*60 + datetime.strptime(t, time_format).minute for t in arrs[0][-360:]], arrs[1][-360:])
-slope, intercept, r_value, p_value, std_err = stats.linregress([datetime.strptime(t, time_format).hour*60 + datetime.strptime(t, time_format).minute for t in hourTimes], hourJobs)
+slope, intercept, r_value, p_value, std_err = stats.linregress([datetime.strptime(t, time_format).day*24*60 + datetime.strptime(t, time_format).hour*60 + datetime.strptime(t, time_format).minute + datetime.strptime(t, time_format).second/60. for t in hourTimes], hourJobs)
 
 nTotJobs = options.numTotJobs
 
@@ -87,7 +92,8 @@ remainingTime = "Remaining time: {}:{:02d}:{:02d}".format(int((nTotJobs - arrs[1
 time_obj_seconds = timedelta(seconds=(nTotJobs - arrs[1][-1])/slope*60)
 finish_datetime = datetime.strptime(arrs[0][-1], time_format) + time_obj_seconds
 finishTime = "Finish time:       {}".format(finish_datetime.time().strftime("%H:%M:%S"))
-queuedJobs = subprocess.run("squeue --me | wc -l", shell=True, capture_output=True, text=True).stdout
+#queuedJobs = subprocess.run("squeue --me | wc -l", shell=True, capture_output=True, text=True).stdout
+queuedJobs = int(arrs[2][-1])
 
 #print(remainingTime)
 #print(finishTime)
@@ -112,11 +118,11 @@ corse=max((x_max-x_min).seconds//3600, 1)
 
 #jobsPM = getJobsPerMinute(getJobsIntervals(arrs[1], n=n), getTimeIntervals(arrs[0], n=n))
 #meanJPM = np.mean(jobsPM)
-space = 5
+space, separation = 5, 30
 if time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 5:#more than 5h, spacing every 10 mins
-    space = 10
-elif time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 10:#more than 10h, spacing every 15 mins
-    space = 15
+    space, separation = 10, 60
+if time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 10:#more than 10h, spacing every 15 mins
+    space, separation = 15, 60
 xPos, nJobsMin, width = getJobsPerMinuteNew(arrs[0], arrs[1], spacing=space)
 #for x, y, z in zip(xPos, nJobsMin, width):
 #    print(x, y, z*24*60)
@@ -128,13 +134,13 @@ meanJPM2hr = (twoHourJobs[-1] - twoHourJobs[0])/(time_difference_in_seconds(twoH
 meanJPMAll = (arrs[1][-1] - arrs[1][0])/(time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60.)
 
 
-ax2.bar(xPos, nJobsMin, color="#4477ff", width=width-30/24/3600)
+ax2.bar(xPos, nJobsMin, color="#4477ff", width=width-separation/24/3600)
 ax2.axhline(y=meanJPM, color='#007700', linestyle='--', linewidth=2)
-ax2.annotate("Last 1h: {} j/m".format(round(meanJPM, 3)), xy=(0.01, meanJPM/np.max(nJobsMin) - 0.013), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
+ax2.annotate("Last 1h: {} j/m".format(round(meanJPM, 3)), xy=(0.01, meanJPM/np.max(nJobsMin)), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
 ax2.axhline(y=meanJPM2hr, color='#770000', linestyle='--', linewidth=2)
-ax2.annotate("Last 2h: {} j/m".format(round(meanJPM2hr, 3)), xy=(0.19, meanJPM2hr/np.max(nJobsMin) - 0.013), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
+ax2.annotate("Last 2h: {} j/m".format(round(meanJPM2hr, 3)), xy=(0.19, meanJPM2hr/np.max(nJobsMin)), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
 ax2.axhline(y=meanJPMAll, color='#000077', linestyle='--', linewidth=2)
-ax2.annotate("All: {} j/m".format(round(meanJPMAll, 3)), xy=(0.37, meanJPMAll/np.max(nJobsMin) - 0.00), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
+ax2.annotate("All: {} j/m".format(round(meanJPMAll, 3)), xy=(0.37, meanJPMAll/np.max(nJobsMin)), xycoords='axes fraction', fontsize=18, horizontalalignment='left', verticalalignment='center', weight="bold")
 ax2.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter(time_format_axis))
 ax2.set_xlim(x_min, x_max)
 ax2.set_ylim(0)

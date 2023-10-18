@@ -1,4 +1,0 @@
-BDTG_df15_dl3684_v0_v1_v4_v9_opt587
-BDTG_df15_dl3684_v0_v1_v9_opt594
-BDTG_df15_dl3684_v1_v4_opt159
-BDTG_df15_dl3684_v0_v1_v4_opt594

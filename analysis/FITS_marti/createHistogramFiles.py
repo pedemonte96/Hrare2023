@@ -7,7 +7,7 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.so" not 
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.cc","k")
 
 
-def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None, ditrack=False, regModelName=None):
+def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTitle=None, ditrack=False, regModelName=None, doubleFit=False):
     """Creates a histogram and saves it to a file."""
     print('\033[1;36m' + "\n[createAndSaveHistogramSIG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
     if regModelName == "RECO":
@@ -16,19 +16,30 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
     #Save histogram
     name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
     saveHistoToFile(histogram, name)
+    if doubleFit:
+        histogram = getHistoDoubleFit(200, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year)
+        #Save histogram
+        name = getFullNameOfHistFile(mesonCat, cat, year, date, doubleFit=doubleFit)
+        saveHistoToFile(histogram, name)
+
     print('\033[1;36m' + "[createAndSaveHistogramSIG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;36m' + "[createAndSaveHistogramSIG] {}".format((" " + name[34:] + " ").center(65, "-") + '\033[0m'))
 
 
-def createAndSaveHistogramBackground(tag, mesonCat, year, date, regModelName=None):
+def createAndSaveHistogramBackground(tag, mesonCat, year, date, regModelName=None, doubleFit=False):
     """Creates a histogram and saves it to a file."""
     print('\033[1;31m' + "\n[createAndSaveHistogramBKG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
     if regModelName == "RECO":
         regModelName = None
-    histogram = getHisto(200*10, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
+    histogram = getHisto(200*1, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
     #Save histogram
     name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName)
     saveHistoToFile(histogram, name)
+    if doubleFit:
+        histogram = getHistoDoubleFit(100, date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year)
+        #Save histogram
+        name = getFullNameOfHistFile(mesonCat, cat, year, date,  extraTitle="BKG", doubleFit=doubleFit)
+        saveHistoToFile(histogram, name)
     print('\033[1;31m' + "[createAndSaveHistogramBKG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;31m' + "[createAndSaveHistogramBKG] {}".format((" " + name[34:] + " ").center(65, "-")) + '\033[0m')
 
@@ -37,7 +48,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "SEP13"
+    date = "SEP25"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -77,16 +88,21 @@ if __name__ == "__main__":
     createAndSaveHistogramSignal(cat, mesonCat, year, date, filters=filters, extraTitle=extraTitle, ditrack=True)
     '''
     #Phi3------------------------------------------------------------------------------------------
+    df = True
     mesonCat = "Phi3Cat"
+    mesonCat = "OmegaCat"
+    #mesonCat = "D0StarCat"
 
-    with open('models.txt', 'r') as file:
-        for line in file:
-            regModelName = line.strip()
-            createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName)
-            createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName)
+    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat"]:
+        with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
+            for line in file:
+                regModelName = line.strip()
+                if regModelName[0] != "#":
+                    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
+                    createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
 
-    createAndSaveHistogramSignal(cat, mesonCat, year, date)
-    createAndSaveHistogramBackground(cat, mesonCat, year, date)
+    #createAndSaveHistogramSignal(cat, mesonCat, year, date)
+    #createAndSaveHistogramBackground(cat, mesonCat, year, date)
 
     '''
     filters = ["abs(goodMeson_eta) < 1.4"]

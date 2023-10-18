@@ -25,7 +25,7 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 80;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts2";
     
     // Open files
     int trainA, trainB;
@@ -45,17 +45,17 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     TFile* sgnfileA;
     TFile* sgnfileB;
     if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainB), "READ");
     }else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainB), "READ");
     }else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainB), "READ");
     }else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP13/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainB), "READ");   
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/SEP25/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainB), "READ");   
     }else
         return -1;
 

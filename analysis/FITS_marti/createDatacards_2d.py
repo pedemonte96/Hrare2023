@@ -137,6 +137,11 @@ if __name__ == "__main__":
     arglist_obs = ROOT.RooArgList(mh)
     argset_obs = ROOT.RooArgSet(mh)
 
+    w.factory("m_meson[0.71,1.21]") # RooRealVar
+    m_meson = w.var("m_meson")
+    arglist_obs = ROOT.RooArgList(m_meson)
+    argset_obs = ROOT.RooArgSet(m_meson)
+
     #################### Import SIGNAL/BKG CONTRIBUTIONS ####################
     fSigIn = ROOT.TFile.Open(opts.inputFileSIG,"READ")
     if fSigIn == None: raise FileNotFoundError("ERROR: file {} not found.".format(opts.inputFileSIG))
@@ -153,11 +158,15 @@ if __name__ == "__main__":
             else:
                 wInput = fSigIn.Get("w")
                 name = SigPdf[cat] + "_" + cat + "_" + proc
+                name = "pdf_2D_sgn"
                 nameNorm = name + "_norm"
             print("proc=", proc, " cat=", cat, " name=", name)
             func = wInput.pdf(name)
             if func == None: raise IOError("Unable to get func" + name)
             getattr(w,'import')(func)
+            print("here----------------------")
+            print(nameNorm)
+            print("here----------------------")
             funcNorm = wInput.var(nameNorm)
             if funcNorm == None: raise IOError("Unable to get func normalization " + nameNorm)
             getattr(w,'import')(funcNorm)
@@ -174,11 +183,14 @@ if __name__ == "__main__":
         wInput = fBkgIn.Get("w")
         wInput.Print()
         hist_data = wInput.data("datahist_" + opts.whichMeson + '_' + cat)
+        hist_data_doubleFit = wInput.data("datahist_" + opts.whichMeson + '_' + cat + "_doubleFit")
         print("datahist_" + opts.whichMeson + '_' + cat)
         hist_data.SetName("observed_data")
+        hist_data_doubleFit.SetName("observed_data_doubleFit")
         print(hist_data)
         #this line produces segmentation violation after closing file w
         getattr(w,'import')(hist_data)
+        getattr(w,'import')(hist_data_doubleFit)
         
         datacard.write("shapes")
         datacard.write("\tdata_obs" )

@@ -73,7 +73,7 @@ parser.add_argument("-m", "--modelName", type=str, required=True, help="Input th
 parser.add_argument("-c", "--channel", type=str, required=True, help="Channel (e.g. phi, omega, d0starrho, d0star).")
 options = parser.parse_args()
 
-date = "SEP13"
+date = "SEP25"
 mesonCat = ""
 mesonNum = 0
 if (options.channel == "omega"):
@@ -146,15 +146,15 @@ if options.modelName == "RECO":
 
 else:
     s = '''
-    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_0.weights.xml");
     computeModelScale0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale0);
     '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_1.weights.xml");
     computeModelScale1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale1);
     '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOpts2/TMVARegression_{modelName}_{channel}_2.weights.xml");
     computeModelScale2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale2);
     '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
 

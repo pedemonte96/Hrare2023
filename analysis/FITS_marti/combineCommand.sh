@@ -1,48 +1,46 @@
 #!/bin/bash
 
-cardDIR="WS_SEP13"
-resultDir="WS_SEP13"
+cardDIR="WS_SEP25"
+resultDir="WS_SEP25"
 
 cat="GFcat"
 meson="Phi3"
+#meson="Omega"
 year=2018
 regModel=""
 
-# Store the input file name
-input_file="models.txt"
+for meson in "Phi3" "Omega" "D0Star"; do
+    input_file="models_${meson}.txt"
+    # Loop through each line in the input file
+    while IFS="" read -r readLine  || [ -n "$readLine" ]; do
+        if [ "${readLine:0:1}" != "#" ]; then
+            if [ "$readLine" == "RECO" ]; then
+            regModel=""
+            else
+                regModel="_$readLine"
+            fi
 
-# Loop through each line in the input file
-while IFS="" read -r readLine  || [ -n "$readLine" ]; do
-    if [ "$readLine" == "RECO" ]; then
-    regModel=""
-    else
-        regModel="_$readLine"
-    fi
+            echo $regModel
 
-    echo $regModel
+            resultFile="results_${meson}_${cat}_${year}${regModel}.txt"
+            inputFileSIG="$cardDIR/Sgn_${meson}_${cat}_${year}${regModel}_workspace.root"
+            inputFileBKG="$cardDIR/Bkg_${meson}_${cat}_${year}${regModel}_workspace.root"
+            outWorkspace="$cardDIR/workspace_STAT_${meson}_${cat}_${year}${regModel}.root"
+            dataCardName="$cardDIR/datacard_STAT_${meson}_${cat}_${year}${regModel}.txt"
 
-    for meson in "Phi3"
-    do
+            echo -e "\033[0;33mCreating DataCard $dataCardName...\033[0m"
+            python createDatacards.py --whichMeson=${meson}Cat --whichCat=$cat --inputFileSIG=$inputFileSIG --inputFileBKG=$inputFileBKG --output=$outWorkspace --dataCardName=$dataCardName
+            echo -e "\033[0;33mDataCard created: $dataCardName\033[0m"
 
-        resultFile="results_${meson}_${cat}_${year}${regModel}.txt"
-        inputFileSIG="$cardDIR/Sgn_${meson}_${cat}_${year}${regModel}_workspace.root"
-        inputFileBKG="$cardDIR/Bkg_${meson}_${cat}_${year}${regModel}_workspace.root"
-        outWorkspace="$cardDIR/workspace_STAT_${meson}_${cat}_${year}${regModel}.root"
-        dataCardName="$cardDIR/datacard_STAT_${meson}_${cat}_${year}${regModel}.txt"
+            echo "--------------------------------------------------------------------------"
 
-        echo -e "\033[0;33mCreating DataCard $dataCardName...\033[0m"
-        python createDatacards.py --whichMeson=${meson}Cat --whichCat=$cat --inputFileSIG=$inputFileSIG --inputFileBKG=$inputFileBKG --output=$outWorkspace --dataCardName=$dataCardName
-        echo -e "\033[0;33mDataCard created: $dataCardName\033[0m"
+            echo -e "\033[0;35mCalling combine AsymptoticLimits to $resultFile...\033[0m"
+            echo "**** ${meson} ${cat} ${regModel} ****" > $resultFile
+            combine -M AsymptoticLimits -m 125 -t -1 $dataCardName -n ${meson}${cat} --run expected >> $resultFile
+            mv higgsCombine*.AsymptoticLimits.mH125.root $resultFile $resultDir
+            echo -e "\033[0;35mLimits computed from $dataCardName to $resultFile\033[0m"
 
-        echo "--------------------------------------------------------------------------"
-
-        echo -e "\033[0;35mCalling combine AsymptoticLimits to $resultFile...\033[0m"
-        echo "**** ${meson} ${cat} ${regModel} ****" > $resultFile
-        combine -M AsymptoticLimits -m 125 -t -1 $dataCardName -n ${meson}${cat} --run expected >> $resultFile
-        mv higgsCombine*.AsymptoticLimits.mH125.root $resultFile $resultDir
-        echo -e "\033[0;35mLimits computed from $dataCardName to $resultFile\033[0m"
-
-        echo -e "--------------------------------------------------------------------------\n"
-
-    done
-done < "$input_file"
+            echo -e "--------------------------------------------------------------------------\n"
+        fi
+    done < "$input_file"
+done
