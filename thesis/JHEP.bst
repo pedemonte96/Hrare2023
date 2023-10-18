@@ -462,7 +462,10 @@ FUNCTION {format.collaboration}
 
 
 FUNCTION {format.btitle}
-{ title emphasize
+{ title empty$
+    { "" }
+    { "``\emph{" title * "}''" * }
+  if$
 }
 
 FUNCTION {tie.or.space.connect}
@@ -794,12 +797,14 @@ FUNCTION {article}
         }
         { blank.sep format.report output format.eprint.paren output}
       if$
+      note output
     }
 
     {
       format.article.crossref output.nonnull
       format.pages.nopp output
       format.eprint.paren output
+      note output
     }
   if$
 
@@ -992,16 +997,17 @@ FUNCTION {misc}
     { howpublished empty$ not
       month empty$ year empty$ and
       or
-	{ format.title.p output.nonnull }
+	{ format.title "title" output.check }
 	{ format.title output.nonnull }
       if$
       blank.sep
     }
   if$
+  %format.title "title" output.check
   howpublished output
   format.date output
   new.block
-  % note output
+  note output
   doi output
   fin.entry
   empty.misc.check
@@ -1051,7 +1057,7 @@ FUNCTION {techreport}
   format.author.or.collaboration
   format.title "title" output.check
   blank.sep
-  format.tr.number output
+  %format.tr.number output
   institution "institution" output.check
   address "address" output.check
   blank.sep
@@ -1063,10 +1069,11 @@ FUNCTION {techreport}
 FUNCTION {unpublished}
 { output.bibitem
   format.author.or.collaboration
-  format.title.p "title" output.check
+  format.title "title" output.check
   blank.sep
-  % note "note" output.check
   format.date output
+  new.block
+  note output
   fin.entry
 }
 
@@ -1146,7 +1153,7 @@ FUNCTION {begin.bib}
   if$
   newline$
   "\providecommand{\href}[2]{#2}"
-  "\begingroup\raggedright\begin{thebibliography}{" * longest.label  *
+  "\begingroup\begin{thebibliography}{" * longest.label  *
   "}" * write$ newline$ }
 
 EXECUTE {begin.bib}

@@ -1,0 +1,28 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (a);
+    \vertex [below right=of a, xshift=0.5cm, yshift=-0.5cm] (cent);
+    \vertex [above right=of cent, xshift=0.5cm, yshift=0.5cm] (b);
+    \vertex [below left =of cent, xshift=-0.5cm, yshift=-0.5cm] (c);
+    \vertex [below right =of cent, xshift=0.5cm, yshift=-0.5cm] (d);
+    \node [dot] at (cent) {};
+    \diagram* {
+    (a) -- [boson, edge label'=\(W\), near start] (cent) -- [boson, edge label'=\(W|Z^{0}/\gamma\), near end] (b),
+    (c) -- [boson, edge label=\(W\), near start] (cent) -- [boson, edge label=\(W|Z^{0}/\gamma\), near end] (d),
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}

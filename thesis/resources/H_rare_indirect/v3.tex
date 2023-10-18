@@ -1,0 +1,37 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (h) {$H$};
+    \vertex [right=of h, xshift=-0.4cm, yshift=-0.0cm] (cent);
+    \vertex [right=of cent, xshift=-0.4cm, yshift=0.9cm] (b);
+    \vertex [right=of b, xshift=-0.4cm, yshift=-0.0cm] (a);
+    \vertex [right=of cent, xshift=-0.4cm, yshift=-0.9cm] (d);
+    
+    \vertex [right=of cent, xshift=-0.9cm, yshift=-1.6cm] (virt);
+    \vertex [right=of b, xshift=-0.4cm, yshift=0.5cm] (s1) {$s$};
+    \vertex [right=of b, xshift=-0.4cm, yshift=-0.5cm] (s2) {$\bar{s}$};
+    \vertex [right=of d, xshift=-0.4cm, yshift=-0.0cm] (c) {$\gamma$};
+    \vertex [right=of cent, xshift=-0.3cm, yshift=-1.5cm] (tag) {$W$};
+
+    \diagram* {
+    (h) -- [scalar] (cent),
+    (cent) -- [boson, edge label=\(Z^{0}\)] (b),
+    (cent) -- [boson, edge label'=\(Z^{0}\)] (d) -- [boson] (c),
+    (s1) -- [with reversed arrow=0.45] (b) -- [with reversed arrow=0.68] (s2),
+    (d) -- [boson, half left] (virt) -- [boson, half left] (d),
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}

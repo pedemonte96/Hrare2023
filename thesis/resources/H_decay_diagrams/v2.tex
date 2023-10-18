@@ -1,0 +1,29 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (h) {$H$};
+    \vertex [right=of h, xshift=-0.0cm, yshift=-0.0cm] (cent);
+    \vertex [right=of cent, xshift=-0.0cm, yshift=1.0cm] (b) {$f$};
+    \vertex [right=of cent, xshift=-0.0cm, yshift=-1.0cm] (d) {$f$};
+
+    \node [dot] at (cent) {};
+    \diagram* {
+    (b) -- [anti fermion] (cent),
+    (d) -- [fermion] (cent),
+    (cent) -- [scalar] (h),
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}

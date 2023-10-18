@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{book}
+\documentclass[a4paper, 11pt, oneside]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[centertags]{amsmath}
 \usepackage{amscd}
@@ -18,7 +18,9 @@
 %\usepackage{rotating}
 \usepackage{mathrsfs}%F rara
 \usepackage{color}
+\usepackage[table]{xcolor}
 \usepackage{tikz}
+\usetikzlibrary{matrix}
 \usepackage[all,cmtip]{xy}%diagrames
 %\usepackage{tabls} %per tenir més control sobre l'espai en les taules
 \usepackage{array}
@@ -29,11 +31,11 @@
 %\usepackage[oneside,bindingoffset=1cm]{geometry}
 \usepackage{AlegreyaSans}
 \usepackage{anysize}%margins
+\usepackage{graphicx}
 \usepackage[font=footnotesize,labelfont=bf]{caption}
 \usepackage{subcaption}%subfigures
 %\usepackage{dsfont}
 %\usepackage{mathtools}
-\usepackage{graphicx}
 %\usepackage{amsfonts}
 %\usepackage{float}
 %\usepackage{wrapfig}
@@ -44,20 +46,23 @@
 \usepackage{fancyvrb}%verbatim inline
 %\usepackage{upgreek}%per fer la \upvarphi
 \usepackage{titlesec}   %per modificar espai chapters
-%\usepackage{lipsum} %dummy text
+\usepackage{lipsum} %dummy text
 %\usepackage{lmodern}% http://ctan.org/pkg/lmodern
 %\usepackage{slantsc}% http://ctan.org/pkg/slantsc
-\usepackage{xcolor}
 %\usepackage{setspace}
 \usepackage[breaklinks, colorlinks=true, linkcolor=black, citecolor=blue, urlcolor=black]{hyperref}
 \usepackage{listings}%coding with color
 \usepackage{fancyhdr}
+\usepackage{slashed}
+\usepackage{arydshln}
+\usepackage{ragged2e}
+%\usepackage{cleveref}
 
 %------------------------------------
 %MARGES
 %------------------------------------------------------------------------------------------------
 \marginsize{2.5cm}{2.5cm}{2.0cm}{2.3cm}%{left}{right}{top}{bottom}
-\setlength{\parskip}{0.3em} %paragraph separation
+\setlength{\parskip}{0.3em plus 2pt} %paragraph separation
 \linespread{1.1} % Palatino needs more leading (space between lines)
 
 \addto{\captionsenglish}{\renewcommand{\bibname}{References}}
@@ -108,7 +113,7 @@
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}%abs
 \newcommand{\orbit}[1]{\langle#1\rangle}%orbit
 
-%\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}%definim nova columna per a taula
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}%definim nova columna per a taula
 
 %itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -118,6 +123,9 @@
 \renewcommand{\footnotesize}{\scriptsize}%change footnote size
 
 \counterwithout{footnote}{chapter}%no reset chapter footnote
+\counterwithout{figure}{chapter}%no reset chapter figure
+\counterwithout{table}{chapter}%no reset chapter table
+\counterwithout{equation}{chapter}%no reset chapter equation
 
 \newcommand\blankpage{%pagina en blanc
     \null
@@ -231,6 +239,11 @@
 \newcommand {\M}{\mathcal{M}}
 \newcommand{\e}{\text{e}}
 \renewcommand{\d}{\text{d}}
+\newcommand{\TeV}{\text{TeV}}
+\newcommand{\GeV}{\text{GeV}}
+\newcommand{\MeV}{\text{MeV}}
+\newcommand{\pT}{p_\text{T}}
+\newcommand{\ET}{E_\text{T}}
 \newcommand{\ann}{\operatorname{ann}}
 \newcommand{\modu}{\operatorname{mod}}
 \newcommand{\diam}{\operatorname{diam}}
@@ -246,6 +259,10 @@
 \newcommand{\Rt}{\operatorname{Rt}}
 \newcommand{\indep}{\perp \!\!\! \perp}
 \newcommand{\dashbidirectedarrow}{\ \ \dashrightarrow\!\!\!\!\!\!\!\!\!\!\!\!\dashleftarrow\ \ }
+\newcommand{\decaysto}{\hspace*{1.2mm}
+    \tikz[baseline=-0.6ex]\draw[-stealth] (0,0) -- (0.4,0);%
+    \hspace*{0.9mm}
+}
 
 %font color
 \renewcommand{\b}{\color{blue}}
@@ -253,6 +270,7 @@
 \definecolor{ForestGreen}{RGB}{10, 130, 61}
 \newcommand{\g}{\color{ForestGreen}}
 \newcommand{\todo}[1]{{\r\large[\textbf{TODO:} #1]}}
+\newcommand{\comm}[1]{{\g\large[\textbf{COMMENT:} #1]}}
 
 \definecolor{myOrange}{RGB}{200, 100, 0}
 \definecolor{myPurple}{RGB}{100, 0, 200}
@@ -377,7 +395,7 @@
 \selectlanguage{english}
 %\afterpage{\blankpage}
 \include{mainmatter/000_acknowledgements}
-\setlength{\parskip}{0.3em}
+\setlength{\parskip}{0.3em plus 2pt}
 \include{mainmatter/00_abstract}
 \setlength{\parskip}{0.0em}
 \makeatletter
@@ -388,7 +406,7 @@
 \tableofcontents
 \newpage \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setlength{\parskip}{0.3em}
+\setlength{\parskip}{0.3em plus 2.5pt}
 
 %%%%%%%%%%%%%%%%%%%%% això pels headings %%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
@@ -397,6 +415,8 @@
 \addcontentsline{toc}{chapter}{Introduction}
 \markboth{Introduction}{Introduction}%header right and left
 \setcounter{footnote}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
 \include{mainmatter/0_intro}
 \newpage \thispagestyle{empty}
 
@@ -404,7 +424,8 @@
 
 \mainmatter
 \include{mainmatter/1_motivation}
-\include{mainmatter/2_theory}
+\include{mainmatter/2_LHC_CMS}
+\include{mainmatter/3_analysis}
 
 \phantomsection
 \addcontentsline{toc}{chapter}{Conclusions}
