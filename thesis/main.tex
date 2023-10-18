@@ -57,6 +57,7 @@
 \usepackage{arydshln}
 \usepackage{ragged2e}
 %\usepackage{cleveref}
+\usepackage{enumitem}
 
 %------------------------------------
 %MARGES
@@ -290,6 +291,16 @@
 
 \DeclareMathOperator{\Hl}{H}
 \DeclareMathOperator{\h}{h}
+
+% Define a new itel list
+\newlist{myitemlist}{description}{1}
+\setlist[myitemlist]{
+    labelindent=0cm,
+    leftmargin=0.7cm,
+    labelsep=0.15cm,
+    font=\normalfont\textbf,
+    itemsep=0.0cm,
+}
 
 \makeatletter
 \newcommand{\oset}[3][0ex]{%

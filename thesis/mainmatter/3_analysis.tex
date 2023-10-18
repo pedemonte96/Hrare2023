@@ -99,57 +99,119 @@ because \todo{explain why}. The branching fractions of the meson decays used are
 
 \section{Object definitions}\label{sec:objects}
 
-This analysis primarily relies on photons and charged tracks to extract the final state signature of exclusive hadronic decays, while also making use of other physics objects such as additional leptons (or the lack thereof) and hadronic jets to suppress background. All objects, except the mesons, are discussed in this section, with the next section dedicated solely to meson reconstruction.
+This analysis primarily relies on photons and charged tracks to extract the final state signature of exclusive hadronic decays, while also making use of other physics objects such as additional leptons (or the lack thereof) and hadronic jets to suppress background. All used objects, except the mesons, are discussed in this section, with the next section dedicated solely to meson reconstruction.
+\vspace*{-6pt}
+\begin{myitemlist}
+    \item[Primary vertex (PV):] To consider an event, it must contain at least one primary vertex, which is regarded as the vertex of the hard interaction. There should be a minimum of four tracks associated with the selected primary vertex (from the Higgs boson, the photon and the ditrack system). For events with multiple selected vertices, the PV is chosen to be the vertex corresponding to the hardest scattering in the event, determined using tracking information alone, as described in Ref. \cite{Contardo:2015bmq}.
 
-\textbf{Primary vertex (PV):} To consider an event, it must contain at least one primary vertex, which is regarded as the vertex of the hard interaction. There should be a minimum of four tracks associated with the selected primary vertex (from the Higgs boson, the photon and the ditrack system). For events with multiple selected vertices, the PV is chosen to be the vertex corresponding to the hardest scattering in the event, determined using tracking information alone, as described in Ref. \cite{Contardo:2015bmq}.
+    \item[Jets:] During the reconstruction of a proton-proton (pp) collision, jets are often reconstructed with a $\pT$ that differs from that of the final-state particles within the jet. The jet energy corrections (JEC) adjust the reconstructed jet energy to match the true energy of the final-state particles. The CMS collaboration has developed a factorized approach to these JEC, consisting of multiple levels that correct various physics or detector effects. This approach provides flexibility in the corrections to suit various types of analyses. These correction levels are commonly referred to as L1FastJet, L2Relative, L3Absolute, and L2L3Residual.
 
-\textbf{Jets:} During the reconstruction of a proton-proton (pp) collision, jets are often reconstructed with a $\pT$ that differs from that of the final-state particles within the jet. The jet energy corrections (JEC) adjust the reconstructed jet energy to match the true energy of the final-state particles. The CMS collaboration has developed a factorized approach to these JEC, consisting of multiple levels that correct various physics or detector effects. This approach provides flexibility in the corrections to suit various types of analyses. These correction levels are commonly referred to as L1FastJet, L2Relative, L3Absolute, and L2L3Residual.
+    The flow of these JEC is as follows: Jets are reconstructed from particle flow (PF) candidates using the anti-$k_\text{T}$ clustering algorithm with a distance parameter of $R = 0.4$ as implemented by FastJet \cite{Cacciari:2011ma}. Jets within this small cone (referred to as AK4 jets for $R = 0.4$) are selected among those with $\pT > 25\ \GeV$ and $\abs{\eta} < 4.7$ for forward tagging. At the LHC, a significant number of pp collisions occur simultaniously during one bunch crossing, with soft ones contaminating the collision of interest. To mitigate this effect, known as \textit{pileup} (PU), charged hadrons not originating from the primary vertex are removed using the charged hadron subtraction (CHS) algorithm \cite{CMS:2014ata, Perloff:2012wpa}. The tight pileup ID criterion is applied to reduce the contamination of jets with $\pT < 50\ \GeV$ initiated by the pileup interactions. Jets are corrected for the response inside the detector, differentially in $\abs{\eta} - \abs{\phi}$, for the pileup contributions, and for data only, the residual difference observed between data and simulation.
+    
+    In the current analysis version, the \verb+Summer19UL+ jet energy corrections set is used, as well as the DeepJet tagging algorithm with the medium working point to identify $b$-jets \cite{Bols:2020bkb}.
 
-The flow of these JEC is as follows: Jets are reconstructed from particle flow (PF) candidates using the anti-$k_\text{T}$ clustering algorithm with a distance parameter of $R = 0.4$ as implemented by FastJet \cite{Cacciari:2011ma}. Jets within this small cone (referred to as AK4 jets for $R = 0.4$) are selected among those with $\pT > 25\ \GeV$ and $\abs{\eta} < 4.7$ for forward tagging. At the LHC, a significant number of pp collisions occur simultaniously during one bunch crossing, with soft ones contaminating the collision of interest. To mitigate this effect, known as \textit{pileup} (PU), charged hadrons not originating from the primary vertex are removed using the charged hadron subtraction (CHS) algorithm \cite{CMS:2014ata, Perloff:2012wpa}. The tight pileup ID criterion is applied to reduce the contamination of jets with $\pT < 50\ \GeV$ initiated by the pileup interactions. Jets are corrected for the response inside the detector, differentially in $\abs{\eta} - \abs{\phi}$, for the pileup contributions, and for data only, the residual difference observed between data and simulation.
+    \item[Missing energy:] The $\pT^{\text{miss}}$ measures the transverse momentum imbalance in the event. To estimate it, the deepMET algorithm \cite{Feng:2744871} is used, and $\pT^{\text{miss}}$ filters are then applied to account for instrumental noise in the detector and minimize the impact of the non-collisional background.
+    
+    \item[Photons:] Photon candidates are reconstructed as SuperCluster objects in the ECAL with $\ET > 38\ \GeV$ and $\abs{\eta^{\gamma}} < 2.1$ in both the barrel and endcap regions. In addition, photons have to satisfy the multivariate analysis (MVA) based selection identification (mvaID) criteria following the \verb+Fall17IsoV2+ recipe \cite{CMS:2020uim}. For the production mode used, the mvaID provides 80\% (90\%) signal selection efficiency for the endcap (barrel) region. The mvaID criteria include photon isolation, charged hadron isolation, and require photons to pass shower shape preselection cuts \cite{Rembser:2019ijh}. The photon's ECAL cluster must be inconsistent with charged particle tracks reconstructed in the silicon tracker to reject electrons faking photons, achieved using a conversion safe electron veto. Residual $\ET$ -dependent photon energy scale and smearing corrections are applied. Additional photons with looser requirements ($\ET > 20\ \GeV$ and the WP90 version of the photonID) are also vetoed to reduce the potential contribution of diphotons. Table \ref{tab:photon_selection} summarizes the criteria for photon selection.
 
-In the current analysis version, the \verb+Summer19UL+ jet energy corrections set is used, as well as the DeepJet tagging algorithm with the medium working point to identify $b$-jets \cite{Bols:2020bkb}.
-
-\textbf{Missing energy:} The $\pT^{\text{miss}}$ measures the transverse momentum imbalance in the event. To estimate it, the deepMET algorithm \cite{Feng:2744871} is used, and $\pT^{\text{miss}}$ filters are then applied to account for instrumental noise in the detector and minimize the impact of the non-collisional background.
-
-\textbf{Photons:} Photon candidates are reconstructed as SuperCluster objects in the ECAL with $\ET > 38\ \GeV$ and $\abs{\eta^{\gamma}} < 2.1$ in both the barrel and endcap regions. In addition, photons have to satisfy the multivariate analysis (MVA) based selection identification (mvaID) criteria following the \verb+Fall17IsoV2+ recipe \cite{CMS:2020uim}. For the production mode used, the mvaID provides 80\% (90\%) signal selection efficiency for the endcap (barrel) region. The mvaID criteria include photon isolation, charged hadron isolation, and require photons to pass shower shape preselection cuts \cite{Rembser:2019ijh}. The photon's ECAL cluster must be inconsistent with charged particle tracks reconstructed in the silicon tracker to reject electrons faking photons, achieved using a conversion safe electron veto. Residual $\ET$ -dependent photon energy scale and smearing corrections are applied. Additional photons with looser requirements ($\ET > 20\ \GeV$ and the WP90 version of the photonID) are also vetoed to reduce the potential contribution of diphotons. Table \ref{tab:photon_selection} summarizes the criteria for photon selection.
-
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{|l|c|}
-        \hline
-            \multicolumn{2}{|c|}{\cellcolor{lightgray}Selection criteria ($\gamma$ from PV)}\\ \hline
-            $\pT^{\gamma}$            &$>38$ GeV\\
-            $\abs{\eta^{\gamma}}$       &$<2.1$ \\
-            mvaID                       &WP90/WP80 \\
-            electron Veto               &Yes \\\hline
-        \end{tabular}
-    \caption{Selection criteria applied to the photon from the primary vertex.}
-    \label{tab:photon_selection}
-\end{table}
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|c|}
+            \hline
+                \multicolumn{2}{|c|}{\cellcolor{lightgray}Selection criteria ($\gamma$ from PV)}\\ \hline
+                $\pT^{\gamma}$            &$>38$ GeV\\
+                $\abs{\eta^{\gamma}}$       &$<2.1$ \\
+                mvaID                       &WP90/WP80 \\
+                electron Veto               &Yes \\\hline
+            \end{tabular}
+        \caption{Selection criteria applied to the photon from the primary vertex.}
+        \label{tab:photon_selection}
+    \end{table}
+\end{myitemlist}
 
 \section{Meson reconstruction \todo{ADD FOURTH D0* CHANNEL}}\label{sec:meson_reconstruction}
 
-The $\phi$, $\omega$ and $D^{*0}$ mesons decay products are reconstructed using charged particle tracks measured in the tracker, as well as energy deposited in the ECAL compatible with neutral particles coming from the PV. For the $\phi$ and $\omega$ mesons, the targeted charged ditrack is $\pi^\pm\pi^\mp$, while for the $D^{*0}$ meson the charged ditrack is $K^{\mp}\pi^{\pm}$.
+The $\phi$, $\omega$ and $D^{*0}$ mesons decay products are reconstructed using charged particle tracks measured in the tracker, as well as energy deposited in the ECAL compatible with neutral particles coming also from the PV. For the $\phi$ and $\omega$ mesons, the targeted charged ditrack is $\pi^\pm\pi^\mp$, while for the $D^{*0}$ meson the charged ditrack is $K^{\mp}\pi^{\pm}$.
 
-In the following sections, the term \textit{ditrack system} will refer to the system of the two charged tracks, and even though it is not a real particle, notions like ditrack mass will be used (understand the mass of the ditrack as the mass component of the sum of the four-momenta of both tracks). To refer to the meson originating from the PV, namely $\phi$, $\omega$ and $D^{*0}$, terms like \textit{meson} or \textit{full meson} will be used, emphasizing that the neutral particle has been accounted for. Some considerations have been made to precisely reconstruct the full meson:
+In the following sections, the term \textit{ditrack system} will refer to the system of the two charged tracks, and even though they not form a real particle, notions like ditrack mass will be used (understand the mass of the ditrack as the mass component of the sum of the four-momenta of both tracks). To refer to the meson originating from the PV, namely $\phi$, $\omega$ and $D^{*0}$, terms like \textit{meson} or \textit{full meson} will be used, emphasizing that the neutral particles have been accounted for. Some considerations have been made to precisely reconstruct the full meson:
+\vspace*{-6pt}
+\begin{myitemlist}
+    \item[Track selection:] To be selected, the tracks need to satisfy a ``high purity'' reconstruction criteria, which considers the number of tracker layers with hits, track fit quality, and the impact parameter values relative to their uncertainties. For a detailed description of the algorithm, refer to Ref. \cite{CMS:2014pgm}.
 
-\textbf{Track selection:} To be selected, the tracks need to satisfy a ``high purity'' reconstruction criteria, which considers the number of tracker layers with hits, track fit quality, and the impact parameter values relative to their uncertainties. For a detailed description of the algorithm, refer to Ref. \cite{CMS:2014pgm}.
+    \item[Meson decay vertex:] The meson decay vertex is determined using the standard CMSSW \cite{CMSSW} kinematic vertex fitting package, as described in Ref. \cite{Prokofiev:2005zz}. Using the candidate's decay vertex and its associated momentum, a newly fitted transient track is constructed to represent the meson candidate. Then, for each primary vertex, the track is extrapolated to the nearest point in 3D space. The meson vertex's longitudinal distance is required to be within 24 cm from the center of the detector.
+    
+    \item[Isolation:] To ensure good track selection, a dedicated isolation criterion of the candidate based on the tracks is used. This dimensionless isolation parameter (Iso) is determined from the meson's momentum and other tracks within a cone of radius $\Delta R = 0.3$ around the ditrack system's direction. Only tracks with $\pT > 0.9\ \GeV$ associated with the same meson vertex are considered, excluding the charged-hadron candidates that define the ditrack. The definition is as follows:
+    \begin{equation*}
+        \text{Iso} = \frac{\pT^{\text{meson}}}{\pT^{\text{meson}}+\sum_{\text{trk}}{\abs{\pT^{\text{trk}}}}}
+    \end{equation*}
+    A high isolation value will be required to consider a meson candidate (over 0.9).
 
-\textbf{Meson decay vertex:} The meson decay vertex is determined using the standard CMSSW kinematic vertex fitting package, as described in Ref. \cite{Prokofiev:2005zz}. Using the candidate's decay vertex and its associated momentum, a newly fitted transient track is constructed to represent the meson candidate. Then, for each primary vertex, the track is extrapolated to the nearest point in 3D space. The meson vertex's longitudinal distance is required to be within 24 cm from the center of the detector.
+    \item[Neutral particle photons:] For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered in a small cone of $\Delta R = 0.05$ around the ditrack direction. These photons account for the recovery of neutral particles, as $\pi^{0}\decaysto\gamma\gamma$ in $\sim 98.8\%$ \cite{PDG}. From generation-level MC we know that photons coming from neutral particle decays that in turn come from the three-body decays must be very collimated with the ditrack system. In the case of the $\phi$/$\omega$ channels and the $D^{*0}$ channel when $D^{0}$ decays into three bodies, these photons directly originate from the $\pi^0$ of the three-body decay. In the case of the $D^{*0}$ channel, the photon comes either directly from $D^{*0}\decaysto D^{0}\gamma$ or from de decay of the $\pi^0$ from $D^{*0}\decaysto D^{0}\pi^0$.
+    
+    \item[Ditrack mass hypothesis:] The invariant mass of the refitted ditrack system is also used to reduce contamination from background events. The mass of the pair, assuming the charged-pion hypothesis for the two tracks, is consistent with the charged components of the $\phi$ and $\omega$ mesons. Since the ditrack system is not a real resonance, its mass is very wide but consistent and useful for reducing background events. In the case of the $D^{*0}$ channel, two scenarios are considered. On the one hand, when $D^{0}$ decays into a pair of charged particles (kaon-pion) the ditrack system's invariant mass is a real narrow resonance (namely $D^{0}$) coherent with the mass of that meson. On the other hand, when $D^{0}$ decays into a pair of charged particles and a neutral pion, one finds the same scenario as for the $\phi$/$\omega$ decay channels.
+    
+    The exact used selection criteria will be presented at the end of this section, but it is worth noting that for the $\phi$/$\omega$ three-body decays involving a $\pi^0$, the mass of the ditrack is approximately two-thirds of the full meson's mass (each pion carries roughly a third of the energy).
 
-\textbf{Isolation:} Dedicated isolation of the candidate based on the tracks is employed. The isolation (Iso) is determined from the meson momentum and other tracks in a cone of radius $\Delta R = 0.3$ around the direction of the ditrack system as follows: \todo{Finish, define $\Delta R$ also for JEC}
+    Furthermore, instead of recovering the ditrack invariant mass by only retrieving the mass component of the sum of both four-momenta, the CMSSW kinematic fit has been employed. To study the performance of this fit, it is useful to define the \textit{residual} as the difference between the reconstructed values and the corresponding generation-level ones. Figure \ref{fig:kinematic_fit_residuals} displays the residual of the ditrack invariant mass reconstruction with and without the kinematic fits with vertex constraint for every decay mode.
+    \begin{figure}[!ht]
+        \captionsetup[subfigure]{labelformat=empty}
+        \vspace*{-0.2cm}
+        \centering
+        \setlength{\mylength}{\textwidth}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_phi.png}
+                \caption{\footnotesize (a)}
+        \end{subfigure}%
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_omega.png}
+                \caption{\footnotesize (b)}
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip    
+        \vskip\baselineskip
+        \vspace*{-0.1cm}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_d0star.png}
+                \caption{\footnotesize (c)}
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_d0starrho.png}
+                \caption{\footnotesize (d)}
+        \end{subfigure}%
+        \vspace*{-0.0cm}
+        \caption{Ditrack mass residuals for the different decay channels. (a) is for $\phi$, (b) is for $\omega$, (c) is for $D^{*0}$ 2-body and (d) is for $D^{*0}$ 3-body.}
+        \label{fig:kinematic_fit_residuals}
+        \vspace*{-0.0cm}
+    \end{figure}
+    Table \ref{tab:kinematic_fit_MSE} shows the mean squared errors with respect to generation-level, both with and without the kinematic fit for each channel. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels.
 
-\begin{equation*}
-    \text{Iso} = \frac{\pT^{\text{meson}}}{\pT^{\text{meson}}+\sum_{\text{trk}}{\abs{\pT^{\text{trk}}}}}
-\end{equation*}
+    \begin{table}[!ht]
+        \centering
+        
+        \begin{tabular}{|l|c|C{2.9cm}@{}c|}
+            \hline
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without kinematic fit & \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with kinematic fit} \\ \hline
+            $\phi$          &37.8 MeV   &34.0 MeV  & (-10\%)   \\
+            \r$\omega$        &\r ?? MeV   & .\r ?? MeV &\r (-x\%)  \\
+            $D^{*0}$ 2-body &49.7 MeV   &47.6 MeV  & (-4\%)     \\
+            $D^{*0}$ 3-body &73.3 MeV   &55.5 MeV  & (-24\%)    \\
+            \hline
+            \end{tabular}
+        \caption{Mean squared errors (MSE) with and without the kinematic fit for each decay mode.}
+        \label{tab:kinematic_fit_MSE}
+    \end{table}
+    
+    \item[Meson mass hypothesis:] The simplest way to reconstruct the four-momentum of the full meson is to sum the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. This approach was initially used forall channels. Nevertheless, for the $\phi$, $\omega$ and $D^{*0}$ 3-body decay channels, additional corrections were applied.
+    
+    If we consider that the photons in the $\Delta R$ cone come from the $\pi^{0}\decaysto\gamma\gamma$ decay, when only one photon is recovered means that either both photons ended up in the same ECAL crystal, or that one of them was too soft to be measured ($\pT < 5\ \GeV$). Following the first hypothesis, we can interpret the energy deposited in the same ECAL cell as the energy from the full pion. To account for this, whenever we
+    
+    \todo{explain invariant meson mass correction with photons}
 
-\textbf{Neutral particle photons:} \todo{}
+    \item[Meson transverse momentum correction:] \todo{explain regression BDT, long}
 
-\textbf{Ditrack mass hypothesis:} \todo{explain kinematic fit}
-
-\textbf{Meson mass hypothesis:} \todo{explain invariant meson mass correction}
-
-\textbf{Meson transverse momentum correction:} \todo{explain regression}
+\end{myitemlist}
 
 Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the meson candidate selection criteria used.
 
@@ -163,7 +225,7 @@ Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the
         $\pT^{\text{diTrk}}$                                  &$>10$ GeV          &$>15$ GeV              \\
         $\pT^{\text{leadTrk}}$                                &$>5$ GeV           &$>8$ GeV               \\
         $\#\gamma^{\text{diTrk}}$                               &$>0$               &$>0$                   \\
-        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$ rad    &$\pi\pm2.3$ rad        \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$    &$\pi\pm2.3$        \\
         $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$              \\
         Iso                                                     &$>0.95$            &$>0.95$                \\
         \hline
@@ -182,7 +244,7 @@ Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the
         $\pT^{\text{diTrk}}$                                  &$>40$ GeV          &\r $>xx$ GeV           \\
         $\pT^{\text{leadTrk}}$                                &$>21$ GeV          &\r $>xx$ GeV           \\
         $\#\gamma^{\text{diTrk}}$                               &                   &\r $>xx$               \\
-        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$ rad    &\r $\pi\pm2.3$ rad     \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$    &\r $\pi\pm2.3$     \\
         $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &\r $0\pm1.9$           \\
         Iso                                                     &$>0.91$            &\r $>  xx$             \\
         \hline
@@ -200,6 +262,8 @@ Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the
 \section{Event selection}\label{sec:event_selection}
 
 \todo{Gluon fusion selection for each channel}
+
+\todo{Explain we only pick one goodphoton/goodmeson for each event, and criteria}
 
 \section{Signal and background modelling}\label{sec:modelling}
 
