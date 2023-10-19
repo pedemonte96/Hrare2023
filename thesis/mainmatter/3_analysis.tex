@@ -127,6 +127,9 @@ This analysis primarily relies on photons and charged tracks to extract the fina
         \caption{Selection criteria applied to the photon from the primary vertex.}
         \label{tab:photon_selection}
     \end{table}
+
+    An additional correction was attempted, involving shifting the photon's origin to that of the PV of the meson. This slight adjustment to the initial coordinates led to a minor change in the four-momentum variables of the photon, but it did not consistently reduce the discrepancy with the generation-level particle values. Consequently, it was discarded and not used.
+
 \end{myitemlist}
 
 \section{Meson reconstruction \todo{ADD FOURTH D0* CHANNEL}}\label{sec:meson_reconstruction}
@@ -146,7 +149,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
     \end{equation*}
     A high isolation value will be required to consider a meson candidate (over 0.9).
 
-    \item[Neutral particle photons:] For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered in a small cone of $\Delta R = 0.05$ around the ditrack direction. These photons account for the recovery of neutral particles, as $\pi^{0}\decaysto\gamma\gamma$ in $\sim 98.8\%$ \cite{PDG}. From generation-level MC we know that photons coming from neutral particle decays that in turn come from the three-body decays must be very collimated with the ditrack system. In the case of the $\phi$/$\omega$ channels and the $D^{*0}$ channel when $D^{0}$ decays into three bodies, these photons directly originate from the $\pi^0$ of the three-body decay. In the case of the $D^{*0}$ channel, the photon comes either directly from $D^{*0}\decaysto D^{0}\gamma$ or from de decay of the $\pi^0$ from $D^{*0}\decaysto D^{0}\pi^0$.
+    \item[Neutral particle photons:] For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered in a small cone of $\Delta R = 0.05$ around the ditrack direction. These photons account for the recovery of neutral particles, as $\pi^{0}\decaysto\gamma\gamma$ in $\sim 98.8\%$ with $c\tau=25$ nm \cite{PDG}. From generation-level MC we know that photons coming from neutral particle decays that in turn come from the three-body decays must be very collimated with the ditrack system. In the case of the $\phi$/$\omega$ channels and the $D^{*0}$ channel when $D^{0}$ decays into three bodies, these photons directly originate from the $\pi^0$ of the three-body decay. In the case of the $D^{*0}$ channel, the photon comes either directly from $D^{*0}\decaysto D^{0}\gamma$ or from de decay of the $\pi^0$ from $D^{*0}\decaysto D^{0}\pi^0$.
     
     \item[Ditrack mass hypothesis:] The invariant mass of the refitted ditrack system is also used to reduce contamination from background events. The mass of the pair, assuming the charged-pion hypothesis for the two tracks, is consistent with the charged components of the $\phi$ and $\omega$ mesons. Since the ditrack system is not a real resonance, its mass is very wide but consistent and useful for reducing background events. In the case of the $D^{*0}$ channel, two scenarios are considered. On the one hand, when $D^{0}$ decays into a pair of charged particles (kaon-pion) the ditrack system's invariant mass is a real narrow resonance (namely $D^{0}$) coherent with the mass of that meson. On the other hand, when $D^{0}$ decays into a pair of charged particles and a neutral pion, one finds the same scenario as for the $\phi$/$\omega$ decay channels.
     
@@ -189,7 +192,6 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
 
     \begin{table}[!ht]
         \centering
-        
         \begin{tabular}{|l|c|C{2.9cm}@{}c|}
             \hline
             \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without kinematic fit & \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with kinematic fit} \\ \hline
@@ -203,13 +205,65 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \label{tab:kinematic_fit_MSE}
     \end{table}
     
-    \item[Meson mass hypothesis:] The simplest way to reconstruct the four-momentum of the full meson is to sum the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. This approach was initially used forall channels. Nevertheless, for the $\phi$, $\omega$ and $D^{*0}$ 3-body decay channels, additional corrections were applied.
+    \item[Meson mass hypothesis:] The simplest way to reconstruct the four-momentum of the full meson is by summing the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. This approach was initially used for all channels. Nevertheless, for the $\phi$, $\omega$ and $D^{*0}$ 3-body decay channels, additional corrections were applied.
     
-    If we consider that the photons in the $\Delta R$ cone come from the $\pi^{0}\decaysto\gamma\gamma$ decay, when only one photon is recovered means that either both photons ended up in the same ECAL crystal, or that one of them was too soft to be measured ($\pT < 5\ \GeV$). Following the first hypothesis, we can interpret the energy deposited in the same ECAL cell as the energy from the full pion. To account for this, whenever we
-    
-    \todo{explain invariant meson mass correction with photons}
+    Consider that the photons in the $\Delta R$ cone come from the $\pi^{0}\decaysto\gamma\gamma$ decay. When only one photon is recovered, it means that either both photons ended up in the same ECAL crystal, or that one of them was too soft to be measured ($\pT < 5\ \GeV$) and therefore only one is detected. Following the first hypothesis, we can interpret the energy deposited in the same ECAL cell as the energy from the full pion. To account for this, whenever only one photon is recovered, we assign this object a non-zero mass (the pion's mass) before adding the four-momenta. This correction is of very low energy, and thus the changes in $\pT$, $\eta$ or $\phi$ of the full meson are imperceptible, but its mass is visibly affected. Figure \ref{fig:full_meson_mass_residuals} and Table \ref{tab:full_meson_mass_residuals_MSE} show the residual of the full meson invariant mass reconstruction and the MSE, respectively, with and without the $\pi^0$ mass correction for the $\phi$ and $\omega$ decay modes.
+    \begin{figure}[!ht]
+        \captionsetup[subfigure]{labelformat=empty}
+        \vspace*{-0.2cm}
+        \centering
+        \setlength{\mylength}{\textwidth}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/fullmeson_mass_residual_phi.png}
+                \caption{\footnotesize (a)}
+        \end{subfigure}%
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/fullmeson_mass_residual_omega.png}
+                \caption{\footnotesize (b)}
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+        \caption{Full meson mass residuals for the different decay channels. (a) is for $\phi$, (b) is for $\omega$.}
+        \label{fig:full_meson_mass_residuals}
+        \vspace*{-0.0cm}
+    \end{figure}
 
-    \item[Meson transverse momentum correction:] \todo{explain regression BDT, long}
+    This slight improvement will enable us to narrow some selection cuts and reduce more background events, ultimately improving the final result.
+
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|c|C{3.2cm}@{}c|}
+            \hline
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without $m_{\pi^0}$ correction& \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with $m_{\pi^0}$ correction} \\ \hline
+            $\phi$          &130.2 MeV   &117.7 MeV  & (-10\%)   \\
+            $\omega$        &127.9 MeV   &113.1 MeV  & (-12\%)   \\
+            \hline
+            \end{tabular}
+        \caption{Mean squared errors (MSE) with and without the $m_{\pi^0}$ correction for the $\phi$ and $\omega$ decay modes.}
+        \label{tab:full_meson_mass_residuals_MSE}
+    \end{table}
+
+    \todo{IDEA: force always mass of the pi0 at the sum of the recovered photons (aka pi0). Make the E, eta and phi the same, but by forcing pi0's mass change a bit pT. Then add the neutral to the ditrack to compare all variables with the recovered ones and the gen level full mesons.}
+
+    \item[Meson transverse momentum correction:] To compute the upper limits of the branching ratios of the decays, the Higgs boson invariant mass is going to be calculated. To achieve an accurate value, it is crucial that the two objects involved, namely the photon and the full meson, are recovered with the utmost precision. The accuracy of the Higgs boson invariant mass mainly relies on the accuracy of the transverse momenta of both particles involved. The other five variables ($\eta$ and $\phi$ of both particles and the mass of the full meson) are either already well measured or, in the case of the mass, too low in energy to significantly impact the computation. Improving the transverse momentum of the photon is very challenging, as it already undergoes the reconstruction algorithm briefly discussed in the previous section. Therefore, the main emphasis should be on recovering the $\pT$ of the full meson as precisely as possible.
+    
+    In each decay channel, the ditrack system variables are measured with remarkable accuracy. Figure X displays the residuals of the ditrack transverse momentum, mass, $\eta$ and $\phi$ with respect to their generation-level MC value for every decay mode. All histograms are normalized to the same area for comparing the various channels.
+
+    \todo{Include residuals}
+
+    \todo{comment on errors of variables}
+
+    The initial approach to reconstruct the full meson's transverse momentum is to sum the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. The main source of discrepancy between the full meson's transverse momenta and their generation-level MC values arises from the poorly reconstructed neutral particles. Given that the pions decay into softer photons that are hard to recover, many events exhibit missing energy, resulting in the full meson's $\pT$ being generally less energetic than expected. Figure X shows the residuals of the full meson's transverse momentum with respect to their generation-level MC value for each decay mode.
+
+    \todo{Include residuals}
+
+    \todo{comment plot}
+
+    To address this issue, dedicated Boosted Decision Trees (BDTs) have been implemented for each channel using the Toolkit for Multivariate Data Analysis for root, also known as \verb+TMVA+ \cite{TMVA:2007ngy}. This machine learning (ML) technique will correct for the full meson's $\pT$. A boosted decision tree (BDT) is a ML classifier or regressor algorithm based on a flowchart-like structure in which each internal node represents a test on an attribute, each branch signifies the test's outcome, and each leaf node denotes a class level. For more detailed information, refer to Refs. \cite{TMVA:2007ngy, Coadou:2022nsh}.
+
+    \todo{Three different variable categories: dimensionless, dimensionfull and normalized. Many iterations performed. Present the models, and attatch hyperparameters in the appendix. For each channel show pt generation, reco and corrected + residuals corrected and reco. Present table with MSE improvements.}
+
+    \todo{Talk about importance of not biasing the result, not including certain variables and why a scale factor is predicted instead. Introduction of "background shaping function" to control for biasing.}
 
 \end{myitemlist}
 
