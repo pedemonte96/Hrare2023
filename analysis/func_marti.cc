@@ -75,9 +75,9 @@ float getMass(int idParticle, float defaultMass){
 }
 
 
-Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother, int idGreatGrandMother){
+PtEtaPhiMVector getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get PtEtaPhiM with idParticle, idMother, idGrandMother and idGreatGrandMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	Vec_i indexGreatGrandMother = {};
@@ -103,21 +103,18 @@ Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Ve
             	indexMother.push_back(i);
         	}
         	if(genPart_pdgId[i] == idParticle){
-            	selection.push_back(genPart_pt[i]);
-				selection.push_back(genPart_eta[i]);
-				selection.push_back(genPart_phi[i]);
-				selection.push_back(getMass(idParticle, genPart_mass[i]));
-				return selection;
+				PtEtaPhiMVector fourMomentum(genPart_pt[i], genPart_eta[i], genPart_phi[i], getMass(idParticle, genPart_mass[i]));
+				return fourMomentum;
         	}
 		}
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother){
+PtEtaPhiMVector getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother){
 	/*Get PtEtaPhiM with idParticle, idMother and idGrandMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
@@ -134,21 +131,18 @@ Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Ve
             	indexMother.push_back(i);
         	}
         	if(genPart_pdgId[i] == idParticle){
-            	selection.push_back(genPart_pt[i]);
-				selection.push_back(genPart_eta[i]);
-				selection.push_back(genPart_phi[i]);
-				selection.push_back(getMass(idParticle, genPart_mass[i]));
-				return selection;
+				PtEtaPhiMVector fourMomentum(genPart_pt[i], genPart_eta[i], genPart_phi[i], getMass(idParticle, genPart_mass[i]));
+				return fourMomentum;
         	}
 		}
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother){
+PtEtaPhiMVector getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother){
 	/*Get PtEtaPhiM with idParticle and idMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
     for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
         if(genPart_pdgId[i] == idMother){
@@ -156,24 +150,21 @@ Vec_f getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Ve
         }
 		else if(std::find(indexMother.begin(), indexMother.end(), genPart_genPartIdxMother[i]) != indexMother.end()){
         	if(genPart_pdgId[i] == idParticle){
-            	selection.push_back(genPart_pt[i]);
-				selection.push_back(genPart_eta[i]);
-				selection.push_back(genPart_phi[i]);
-				selection.push_back(getMass(idParticle, genPart_mass[i]));
-				return selection;
+            	PtEtaPhiMVector fourMomentum(genPart_pt[i], genPart_eta[i], genPart_phi[i], getMass(idParticle, genPart_mass[i]));
+				return fourMomentum;
         	}
 		}
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
 Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get Pt with idParticle, idMother, idGrandMother and idGreatGrandMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother, idGreatGrandMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother, idGreatGrandMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[0]};
+	if (ptEtaPhiM.pt() >= 0){
+		out = {ptEtaPhiM.pt()};
 	}
 	return out;
 }
@@ -181,10 +172,10 @@ Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMo
 
 Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother){
 	/*Get Pt with idParticle, idMother and idGrandMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[0]};
+	if (ptEtaPhiM.pt() >= 0){
+		out = {ptEtaPhiM.pt()};
 	}
 	return out;
 }
@@ -192,10 +183,10 @@ Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMo
 
 Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother){
 	/*Get Pt with idParticle and idMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_pt, genPart_pt, genPart_pt, genPart_pt, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[0]};
+	if (ptEtaPhiM.pt() >= 0){
+		out = {ptEtaPhiM.pt()};
 	}
 	return out;
 }
@@ -203,10 +194,10 @@ Vec_f getPt(Vec_f& genPart_pt, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMo
 
 Vec_f getEtaPhi(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get EtaPhi with idParticle, idMother, idGrandMother and idGreatGrandMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother, idGreatGrandMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother, idGreatGrandMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[1], ptEtaPhiM[2]};
+	if (ptEtaPhiM.eta() > -5. && ptEtaPhiM.phi() > -5.){
+		out = {ptEtaPhiM.eta(), ptEtaPhiM.phi()};
 	}
 	return out;
 }
@@ -214,10 +205,10 @@ Vec_f getEtaPhi(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Ve
 
 Vec_f getEtaPhi(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother){
 	/*Get EtaPhi with idParticle, idMother and idGrandMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother, idGrandMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[1], ptEtaPhiM[2]};
+	if (ptEtaPhiM.eta() > -5. && ptEtaPhiM.phi() > -5.){
+		out = {ptEtaPhiM.eta(), ptEtaPhiM.phi()};
 	}
 	return out;
 }
@@ -225,10 +216,10 @@ Vec_f getEtaPhi(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Ve
 
 Vec_f getEtaPhi(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother){
 	/*Get EtaPhi with idParticle and idMother*/
-	Vec_f ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother);
+	PtEtaPhiMVector ptEtaPhiM = getPtEtaPhiM(genPart_phi, genPart_eta, genPart_phi, genPart_phi, genPart_pdgId, genPart_genPartIdxMother, idParticle, idMother);
 	Vec_f out = {};
-	if (ptEtaPhiM.size() != 0){
-		out = {ptEtaPhiM[1], ptEtaPhiM[2]};
+	if (ptEtaPhiM.eta() > -5. && ptEtaPhiM.phi() > -5.){
+		out = {ptEtaPhiM.eta(), ptEtaPhiM.phi()};
 	}
 	return out;
 }
@@ -290,9 +281,9 @@ Vec_f getDR(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, Vec_i&
 }
 
 
-Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother, int idGreatGrandMother){
+PtEtaPhiMVector get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get PtEtaPhiM with idParticle, idMother and idGrandMother, idGreatGrandMother*/
-    Vec_f selection = {};
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	Vec_i indexGreatGrandMother = {};
@@ -346,15 +337,15 @@ Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_2Body = (p_part1 + p_part2);
-		selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), p_2Body.M()};
+		return p_2Body;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother){
+PtEtaPhiMVector get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother, int idGrandMother){
 	/*Get 2Body PtEtaPhiM with idParticle1,2, idMother and idGrandMother*/
-    Vec_f selection = {};
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	float pt1 = 0;
@@ -400,18 +391,19 @@ Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_2Body = (p_part1 + p_part2);
 		if (abs(p_2Body.M()) < 0.01){
-			selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), std::sqrt(-(p_2Body.X()*p_2Body.X() + p_2Body.Y()*p_2Body.Y() + p_2Body.Z()*p_2Body.Z()) + p_2Body.E()*p_2Body.E())};
+			PtEtaPhiMVector p_2Body_mod(p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), std::sqrt(-(p_2Body.X()*p_2Body.X() + p_2Body.Y()*p_2Body.Y() + p_2Body.Z()*p_2Body.Z()) + p_2Body.E()*p_2Body.E()));
+			return p_2Body_mod;
 		}else{
-			selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), p_2Body.M()};
+			return p_2Body;
 		}
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother){
+PtEtaPhiMVector get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idMother){
 	/*Get 2Body PtEtaPhiM with idParticle1,2, idMother*/
-    Vec_f selection = {};
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	float pt1 = 0;
 	float pt2 = 0;
@@ -447,15 +439,15 @@ Vec_f get2BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_2Body = (p_part1 + p_part2);
-		selection = {p_2Body.pt(), p_2Body.Eta(), p_2Body.Phi(), p_2Body.M()};
+		return p_2Body;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother, int idGreatGrandMother){
+PtEtaPhiMVector get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get 3Body PtEtaPhiM with idParticle1,2,3, idMother and idGrandMother, idGreatGrandMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	Vec_i indexGreatGrandMother = {};
@@ -521,15 +513,15 @@ Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_3Body = (p_part1 + p_part2 + p_part3);
-		selection = {p_3Body.pt(), p_3Body.Eta(), p_3Body.Phi(), p_3Body.M()};
+		return p_3Body;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother){
+PtEtaPhiMVector get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother, int idGrandMother){
 	/*Get 3Body PtEtaPhiM with idParticle1,2,3, idMother and idGrandMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	Vec_i indexGrandMother = {};
 	float pt1 = 0;
@@ -586,15 +578,15 @@ Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_3Body = (p_part1 + p_part2 + p_part3);
-		selection = {p_3Body.pt(), p_3Body.Eta(), p_3Body.Phi(), p_3Body.M()};
+		return p_3Body;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother){
+PtEtaPhiMVector get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idParticle2, int idParticle3, int idMother){
 	/*Get 2Body PtEtaPhiM with idParticle1,2,3, idMother*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother = {};
 	float pt1 = 0;
 	float pt2 = 0;
@@ -642,14 +634,15 @@ Vec_f get3BodyPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_3Body = (p_part1 + p_part2 + p_part3);
-		selection = {p_3Body.pt(), p_3Body.Eta(), p_3Body.Phi(), p_3Body.M()};
+		return p_3Body;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getD0StarPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+PtEtaPhiMVector getD0StarPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
 	/*This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle3=111/22, idMother3=423, idGrandMother3=25*/
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	int idParticle1 = 421;
 	int idMother1 = 423;
 	int idGrandMother1 = 25;
@@ -657,7 +650,6 @@ Vec_f getD0StarPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_p
 	int idParticle3b = 22;
 	int idMother3 = 423;
 	int idGrandMother3 = 25;
-    Vec_f selection = {};
 	Vec_i indexMother1 = {};
 	Vec_i indexMother3 = {};
 	Vec_i indexGrandMother1 = {};
@@ -720,16 +712,16 @@ Vec_f getD0StarPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_p
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_D0Star = (p_part1 + p_part3);
-		selection = {p_D0Star.pt(), p_D0Star.Eta(), p_D0Star.Phi(), p_D0Star.M()};
+		return p_D0Star;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getHiggsPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idMother1, int idParticle2, int idMother2){
+PtEtaPhiMVector getHiggsPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle1, int idMother1, int idParticle2, int idMother2){
 	/*Get Higgs variables with idParticle1, idMother1, idParticle2 and idMother2
 	This is for phi: idParticle1 = 333, idMother1=25, idParticle2=22, idMother2=25*/
-    Vec_f selection = {};
+    PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	Vec_i indexMother1 = {};
 	Vec_i indexMother2 = {};
     float pt1 = 0;
@@ -774,15 +766,16 @@ Vec_f getHiggsPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_ph
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+		return p_Higgs;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+PtEtaPhiMVector getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
 	/* Correct Higgs mass with all particles for D0*.
 	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25, idParticle3=111/22, idMother3=423, idGrandMother3=25*/
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	int idParticle1 = 421;
 	int idMother1 = 423;
 	int idGrandMother1 = 25;
@@ -792,7 +785,6 @@ Vec_f getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genP
 	int idParticle3b = 22;
 	int idMother3 = 423;
 	int idGrandMother3 = 25;
-    Vec_f selection = {};
 	Vec_i indexMother1 = {};
 	Vec_i indexMother2 = {};
 	Vec_i indexMother3 = {};
@@ -875,21 +867,21 @@ Vec_f getHiggsPtEtaPhiMD0Star(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genP
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+		return p_Higgs;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getHiggsPtEtaPhiMD0StarDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+PtEtaPhiMVector getHiggsPtEtaPhiMD0StarDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
 	/* Missing pi0/photon Higgs mass for D0*.
 	This is for D*0: idParticle1 = 421, idMother1=423, idGrandMother1=25, idParticle2=22, idMother2=25*/
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	int idParticle1 = 421;
 	int idMother1 = 423;
 	int idGrandMother1 = 25;
 	int idParticle2 = 22;
 	int idMother2 = 25;
-    Vec_f selection = {};
 	Vec_i indexMother1 = {};
 	Vec_i indexMother2 = {};
 	Vec_i indexGrandMother1 = {};
@@ -943,23 +935,24 @@ Vec_f getHiggsPtEtaPhiMD0StarDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_
     }
     if(particle1 && particle2){
 		//Get D0 from 2body:
-		Vec_f d0PtEtaPhiM = get2BodyPtEtaPhiM(genPart_pt, genPart_eta, genPart_phi, genPart_mass, genPart_pdgId, genPart_genPartIdxMother, -321, 211, 421, 423, 25);
-		pt1 = d0PtEtaPhiM[0];
-		eta1 = d0PtEtaPhiM[1];
-		phi1 = d0PtEtaPhiM[2];
-		mass1 = d0PtEtaPhiM[3];
+		PtEtaPhiMVector d0PtEtaPhiM = get2BodyPtEtaPhiM(genPart_pt, genPart_eta, genPart_phi, genPart_mass, genPart_pdgId, genPart_genPartIdxMother, -321, 211, 421, 423, 25);
+		pt1 = d0PtEtaPhiM.pt();
+		eta1 = d0PtEtaPhiM.eta();
+		phi1 = d0PtEtaPhiM.phi();
+		mass1 = d0PtEtaPhiM.M();
 		PtEtaPhiMVector p_part1(pt1, eta1, phi1, mass1);
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+		return p_Higgs;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+PtEtaPhiMVector getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
 	/* Missing pi0 Higgs mass for Phi3.
 	This is for Phi3: idParticle1 = 211, idMother1=333, idGrandMother1=25, idParticle2 = -211, idMother2=333, idGrandMother2=25, idParticle3=22, idMother3=25*/
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	int idParticle1 = 211;
 	int idMother1 = 333;
 	int idGrandMother1 = 25;
@@ -968,7 +961,6 @@ Vec_f getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f&
 	int idGrandMother2 = 25;
 	int idParticle3 = 22;
 	int idMother3 = 25;
-    Vec_f selection = {};
 	Vec_i indexMother1 = {};
 	Vec_i indexMother2 = {};
 	Vec_i indexMother3 = {};
@@ -1051,15 +1043,16 @@ Vec_f getHiggsPtEtaPhiMPhi3Ditrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f&
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+		return p_Higgs;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 
-Vec_f getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
+PtEtaPhiMVector getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother){
 	/* Missing pi0 Higgs mass for Omega.
 	This is for Omega: idParticle1 = 211, idMother1=223, idGrandMother1=25, idParticle2 = -211, idMother2=223, idGrandMother2=25, idParticle3=22, idMother3=25*/
+	PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
 	int idParticle1 = 211;
 	int idMother1 = 223;
 	int idGrandMother1 = 25;
@@ -1068,7 +1061,6 @@ Vec_f getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f
 	int idGrandMother2 = 25;
 	int idParticle3 = 22;
 	int idMother3 = 25;
-    Vec_f selection = {};
 	Vec_i indexMother1 = {};
 	Vec_i indexMother2 = {};
 	Vec_i indexMother3 = {};
@@ -1151,9 +1143,9 @@ Vec_f getHiggsPtEtaPhiMOmegaDitrack(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f
 		PtEtaPhiMVector p_part2(pt2, eta2, phi2, mass2);
 		PtEtaPhiMVector p_part3(pt3, eta3, phi3, mass3);
 		PtEtaPhiMVector p_Higgs = (p_part1 + p_part2 + p_part3);
-		selection = {p_Higgs.pt(), p_Higgs.Eta(), p_Higgs.Phi(), p_Higgs.M()};
+		return p_Higgs;
     }
-    return selection;
+    return fourMomentumDef;
 }
 
 

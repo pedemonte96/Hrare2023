@@ -125,27 +125,27 @@ def makePlots(cat, mesonCat, year, date, background):
     if (mesonCat == "D0StarCat"):
         df_SGN = (df_SGN.Define("scale", "w*lumiIntegrated")
             .Define("HCandMassFilt", "Vec_f {HCandMass}")
-            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25)[3]")
+            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25).M()")
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")
-            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]"))
+            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).M()"))
     elif (mesonCat == "Phi3Cat"):
         df_SGN = (df_SGN.Define("scale", "w*lumiIntegrated")
             .Define("HCandMassFilt", "Vec_f {HCandMass}")
-            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 333, 25, 22, 25)[3]")
+            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 333, 25, 22, 25).M()")
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")
-            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMPhi3Ditrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]"))
+            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMPhi3Ditrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).M()"))
     elif (mesonCat == "OmegaCat"):
         df_SGN = (df_SGN.Define("scale", "w*lumiIntegrated")
             .Define("HCandMassFilt", "Vec_f {HCandMass}")
-            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 223, 25, 22, 25)[3]")
+            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 223, 25, 22, 25).M()")
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")
-            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMOmegaDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]"))
+            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMOmegaDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).M()"))
     elif (mesonCat == "D0StarRhoCat"):
         df_SGN = (df_SGN.Define("scale", "w*lumiIntegrated")
             .Define("HCandMassFilt", "Vec_f {HCandMass}")
-            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25)[3]")
+            .Define("HCandMassFilt_GEN", "getHiggsPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, 423, 25, 22, 25).M()")
             .Define("HCandMassMissing", "Vec_f {compute_HiggsVars_var(goodMeson_ditrk_pt[0],goodMeson_ditrk_eta[0],goodMeson_ditrk_phi[0],goodMeson_ditrk_mass[0],photon_pt,goodPhotons_eta[index_pair[1]],goodPhotons_phi[index_pair[1]],0)}")
-            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother)[3]"))
+            .Define("HCandMassMissing_GEN", "getHiggsPtEtaPhiMD0StarDitrack(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).M()"))
 
     nbins, xlow, xhigh, variable = 200, 1.65, 2.05, "goodMeson_ditrk_mass"
     if (mesonCat == "Phi3Cat"):
@@ -490,7 +490,7 @@ def makePlots(cat, mesonCat, year, date, background):
         p.SetLogy()
         histograms[-1].Draw("hist")
 
-    cs.SaveAs("~/public_html/{}_RECO_vs_GEN.png".format(mesonCat[:-3]))
+    cs.SaveAs("~/public_html/{}_RECO_vs_GEN_refactor.png".format(mesonCat[:-3]))
     text = " Done! ".center(70, "~")
     print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"] + "\n")
     
