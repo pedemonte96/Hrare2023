@@ -172,7 +172,7 @@
 	{
             "name": "isZinv",
             "type": "isD0StarRhoCat",
-            "definition": "(d0pi0_iso > 0.90 && d0pi0_kin_pt > 13 && abs(d0pi0_kin_mass - 1.180) < 0.57 && getMaximum(d0pi0_pion_pt, d0pi0_kaon_pt) > 7 && getMinimum(d0pi0_pion_pt, d0pi0_kaon_pt) > 3)",
+            "definition": "(d0pi0_iso > 0.95 && d0pi0_kin_pt > 20 && abs(d0pi0_kin_mass - 1.180) < 0.57 && getMaximum(d0pi0_pion_pt, d0pi0_kaon_pt) > 10 && getMinimum(d0pi0_pion_pt, d0pi0_kaon_pt) > 3) && d0pi0_d0Star_Nphotons > 0",
             "notes":" used for isGF"
         },
 	{

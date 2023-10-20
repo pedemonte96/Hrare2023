@@ -51,11 +51,11 @@ def getHistogram(nbins, xlow, xhigh, df, mesonCat, variable, level):
     if (level == "RECO" or level == "BKG") and not (variable == "goodMeson_Nphotons" or variable == "delta_eta_goodMeson_ditrk_goodPhoton" or variable == "delta_phi_goodMeson_ditrk_goodPhoton"):
         h = df.Define("good", "{0}[{0}>0]".format(extendedVariable)).Histo1D(("hist", title, nbins, xlow, xhigh), "good", "scale")
     elif level == "GEN" and (variable == "goodMeson_photon1_pt" or variable == "goodMeson_photon1_DR"):
-        h = df.Filter("{0}>5".format("goodMeson_photon1_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
+        h = df.Filter("{0}>0".format("goodMeson_photon1_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
     elif level == "GEN" and (variable == "goodMeson_photon2_pt" or variable == "goodMeson_photon2_DR"):
-        h = df.Filter("{0}>5".format("goodMeson_photon2_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
+        h = df.Filter("{0}>0".format("goodMeson_photon2_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
     elif level == "GEN" and (variable == "goodMeson_photon3_pt" or variable == "goodMeson_photon3_DR"):
-        h = df.Filter("{0}>5".format("goodMeson_photon3_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
+        h = df.Filter("{0}>0".format("goodMeson_photon3_pt_GEN")).Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
     else:
         h = df.Histo1D(("hist", title, nbins, xlow, xhigh), extendedVariable, "scale")
 
@@ -490,7 +490,7 @@ def makePlots(cat, mesonCat, year, date, background):
         p.SetLogy()
         histograms[-1].Draw("hist")
 
-    cs.SaveAs("~/public_html/{}_RECO_vs_GEN_refactor.png".format(mesonCat[:-3]))
+    cs.SaveAs("~/public_html/{}_RECO_vs_GEN.png".format(mesonCat[:-3]))
     text = " Done! ".center(70, "~")
     print(colors["YELLOW"] + "[makePlots]~~~{}".format(text) + colors["NC"] + "\n")
     
@@ -506,20 +506,20 @@ if __name__ == "__main__":
     #D0Star--------------------------------------------------------------------------------------
     #background = False
     mesonCat = "D0StarCat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
     #background = False
     mesonCat = "Phi3Cat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
     #Omega---------------------------------------------------------------------------------------
     #background = False
     mesonCat = "OmegaCat"
-    makePlots(cat, mesonCat, year, date, background)
+    #makePlots(cat, mesonCat, year, date, background)
 
     #D0StarRho-----------------------------------------------------------------------------------
     #background = False
     mesonCat = "D0StarRhoCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
     

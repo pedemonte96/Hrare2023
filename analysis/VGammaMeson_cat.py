@@ -654,7 +654,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_pt", "d0pi0_d0Star_Nbody_pt[goodMeson]")
                   .Define("goodMeson_eta", "d0pi0_d0Star_Nbody_eta[goodMeson]")
                   .Define("goodMeson_phi", "d0pi0_d0Star_Nbody_phi[goodMeson]")
-                  .Define("goodMeson_mass", "d0pi0_d0Star_Nbody_mass[goodMeson]")
+                  .Define("goodMeson_mass_raw", "d0pi0_d0Star_Nbody_mass[goodMeson]")
 
                   .Define("goodMeson_iso", "d0pi0_iso[goodMeson]")
                   .Define("goodMeson_vtx_chi2dof", "d0pi0_kin_vtx_chi2dof[goodMeson]")
@@ -688,6 +688,12 @@ def dfHiggsCand(df, isData):
                   .Define("delta_phi_goodMeson_ditrk_goodPhoton", "fmod((goodMeson_ditrk_phi - goodPhotons_phi + 4*M_PI), 2*M_PI)")
                   .Define("wrongMeson", "({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt", "Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
+                  #Correct pi0 mass when Nphotons=1
+                  .Define("goodMeson_mass", "goodMeson_Nphotons[0] == 1 ? Vec_f {sum2Body(goodMeson_ditrk_pt[0], goodMeson_ditrk_eta[0], goodMeson_ditrk_phi[0], goodMeson_ditrk_mass[0], goodMeson_photon1_pt[0], goodMeson_photon1_eta[0], goodMeson_photon1_phi[0], 0.1349766).M()} : goodMeson_mass_raw")
+                  #HardCoded selection rules to move to json in future iterations
+                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
+                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
+                  .Filter("goodMeson_mass[0] > 0.90 && goodMeson_mass[0] < 2.20")
                   )
         if(isData):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).pt()")
