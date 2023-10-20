@@ -188,7 +188,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \label{fig:kinematic_fit_residuals}
         \vspace*{-0.0cm}
     \end{figure}
-    Table \ref{tab:kinematic_fit_MSE} shows the mean squared errors with respect to generation-level, both with and without the kinematic fit for each channel. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels.
+    Table \ref{tab:kinematic_fit_MSE} shows the mean squared errors with respect to generation-level, both with and without the kinematic fit, for each channel. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels.
 
     \begin{table}[!ht]
         \centering
@@ -245,30 +245,120 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
 
     \todo{IDEA: force always mass of the pi0 at the sum of the recovered photons (aka pi0). Make the E, eta and phi the same, but by forcing pi0's mass change a bit pT. Then add the neutral to the ditrack to compare all variables with the recovered ones and the gen level full mesons.}
 
-    \item[Meson transverse momentum correction:] To compute the upper limits of the branching ratios of the decays, the Higgs boson invariant mass is going to be calculated. To achieve an accurate value, it is crucial that the two objects involved, namely the photon and the full meson, are recovered with the utmost precision. The accuracy of the Higgs boson invariant mass mainly relies on the accuracy of the transverse momenta of both particles involved. The other five variables ($\eta$ and $\phi$ of both particles and the mass of the full meson) are either already well measured or, in the case of the mass, too low in energy to significantly impact the computation. Improving the transverse momentum of the photon is very challenging, as it already undergoes the reconstruction algorithm briefly discussed in the previous section. Therefore, the main emphasis should be on recovering the $\pT$ of the full meson as precisely as possible.
+    \item[Meson transverse momentum correction:] To compute the upper limits of the branching ratios of the decays, the Higgs boson invariant mass is going to be calculated. To achieve an accurate value, it is crucial to recover the two involved objects, namely the photon and the full meson, with the utmost precision. There are seven variables in play: the components of the four-momenta, four of which belong to the meson and three to the photon. The accuracy of the Higgs boson's invariant mass relies mainly on the accuracy of the transverse momenta of both particles involved. The other five variables ($\eta$ and $\phi$ of both particles and the mass of the full meson) are either already well measured or, in the case of the mass, too low in energy to significantly impact the computation. Improving the transverse momentum of the photon is very challenging, as it already undergoes the reconstruction algorithm briefly discussed in the previous section. Thus, the main emphasis should be on recovering the $\pT$ of the full meson as precisely as possible.
     
-    In each decay channel, the ditrack system variables are measured with remarkable accuracy. Figure X displays the residuals of the ditrack transverse momentum, mass, $\eta$ and $\phi$ with respect to their generation-level MC value for every decay mode. All histograms are normalized to the same area for comparing the various channels.
+    In each decay channel, the ditrack system variables are measured with remarkable accuracy. Figure \ref{fig:ditrack_residuals} displays the residuals of the ditrack transverse momentum, mass, $\eta$ and $\phi$ with respect to their generation-level MC value for every decay mode. All histograms are normalized to the same area for comparing the various channels.
+    \begin{figure}[!ht]
+        \captionsetup[subfigure]{labelformat=empty}
+        \vspace*{-0.2cm}
+        \centering
+        \setlength{\mylength}{\textwidth}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/ditrack_residuals_pt.png}
+                \caption{\footnotesize (a)}
+        \end{subfigure}%
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/ditrack_residuals_mass.png}
+                \caption{\footnotesize (b)}
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip    
+        \vskip\baselineskip
+        \vspace*{-0.1cm}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/ditrack_residuals_eta.png}
+                \caption{\footnotesize (c)}
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}
+        \begin{subfigure}[t]{0.50\mylength}
+                \centering
+                \includegraphics[width=0.45\mylength]{resources/plots/ditrack_residuals_phi.png}
+                \caption{\footnotesize (d)}
+        \end{subfigure}%
+        \vspace*{-0.0cm}
+        \caption{Ditrack residuals for the different four-momentum components of each decay channel. (a) is for $\pT$, (b) is for the mass, (c) is for $\eta$ and (d) is for $\phi$.}
+        \label{fig:ditrack_residuals}
+        \vspace*{-0.0cm}
+    \end{figure}
 
-    \todo{Include residuals}
+    Since the ditrack is a pair of charged tracks that can be very well determined, the direction and thus $\eta$ and $\phi$ are measured very accurately for all channels.
 
-    \todo{comment on errors of variables}
+    The initial approach to reconstruct the full meson's transverse momentum is to sum the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. The main source of discrepancy between the full meson's transverse momenta and their generation-level MC values arises from the poorly reconstructed neutral particles. Given that the pions decay into softer photons that are hard to recover, many events exhibit missing energy, resulting in the full meson's $\pT$ being generally less energetic than expected. Figure \ref{fig:fullmeson_residuals_pt} shows the residuals of the full meson's transverse momentum with respect to their generation-level MC value for each decay mode.
+    \begin{figure}[!ht]
+        \captionsetup[subfigure]{labelformat=empty}
+        \vspace*{-0.2cm}
+        \centering
+        \setlength{\mylength}{\textwidth}
+        \begin{subfigure}[t]{\mylength}
+                \centering
+                \includegraphics[width=0.75\mylength]{resources/plots/fullmeson_residuals_pt.png}
+                \caption{\footnotesize (a)}
+        \end{subfigure}%
+        \vspace*{-0.0cm}
+        \caption{Transverse momentum residuals for the full meson for each decay channel.}
+        \label{fig:fullmeson_residuals_pt}
+        \vspace*{-0.0cm}
+    \end{figure}
+    Both the $\phi$ and $\omega$ channels exhibit an asymmetric left shoulder, consistent with the hypothesis of missing energy from the neutral particle. The $D^{*0}$ 2-body, on the other hand, is more symmetric but displaced about 5 GeV, since the soft $\pi^{0}/\gamma$ from $D^{*0}\decaysto D^{0}\pi^{0}/\gamma$ typically carries around $\sim5$ GeV in energy. The right shoulder results from events in which we can recover one photon compatible with this missing neutral particle, which is only around $\sim 13\%$ of events. The $D^{*0}$ 3-body combines characteristics from all previous channels, and since it is missing two neutral particles it is noticeably shifted towards the lower end of the axis.
 
-    The initial approach to reconstruct the full meson's transverse momentum is to sum the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. The main source of discrepancy between the full meson's transverse momenta and their generation-level MC values arises from the poorly reconstructed neutral particles. Given that the pions decay into softer photons that are hard to recover, many events exhibit missing energy, resulting in the full meson's $\pT$ being generally less energetic than expected. Figure X shows the residuals of the full meson's transverse momentum with respect to their generation-level MC value for each decay mode.
+    To address this issue, dedicated Boosted Decision Trees (BDTs) have been implemented for each channel using the Toolkit for Multivariate Data Analysis for \verb+ROOT+ \cite{CERN:root}, also known as \verb+TMVA+ \cite{TMVA:2007ngy}. This machine learning (ML) technique will correct for the full meson's $\pT$. A boosted decision tree (BDT) is a ML binary classifier or regressor algorithm based on a flowchart-like structure in which each internal node represents a test on an attribute, each branch signifies the test's outcome, and each leaf node denotes a class level. For more detailed information, refer to Refs. \cite{TMVA:2007ngy, Coadou:2022nsh}.
 
-    \todo{Include residuals}
+    The variables used in all models are presented in Table \ref{tab:model_variables}. The variables labeled by $\gamma_1$ and $\gamma_2$ refer to the recovered photons compatible with the decay of the neutral particles, while $\gamma$ refers to the photon originating in the Higgs boson decay. The dimensionless variables $\Delta R^{\gamma_1, \text{diTrk}}$ and $\Delta R^{\gamma_2, \text{diTrk}}$ reference the angular separation between each photon and the ditrack system. $\Delta R^{\text{diTrk}}$ is the angular separation within the track pair. It is worth defining $\Delta(\eta^{\gamma}, \eta^{\text{diTrk}})$ and $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$,
+    \begin{equation*}
+        \begin{aligned}
+        \Delta(\eta^{\gamma}, \eta^{\text{diTrk}}) &= \eta^{\text{diTrk}} - \eta^{\gamma} \\
+        \Delta(\phi^{\gamma}, \phi^{\text{diTrk}}) &= (\phi^{\text{diTrk}} - \phi^{\gamma}) \modu 2\pi \in[0, 2\pi)\ .
+        \end{aligned}
+    \end{equation*}
+    This is because the angular variable $\phi$ is periodic. The asterisk ($^*$) next to the full meson's mass indicates that this variable is not included for the $D^{*0}$ 2-body or 3-body decay. This is because in these channels, $m^{\text{meson}}$ is not very precisely determined. 
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \multicolumn{3}{|c|}{\cellcolor{lightgray} Regression input variables} \\ \hline
+            \cellcolor{lightgray}Dimensionless  &\cellcolor{lightgray}Dimensionful  &\cellcolor{lightgray}Normalised            \\\hline
+            $\eta^{\text{diTrk}}$                           &$\pT^{\gamma_1}$       &$\pT^{\text{meson}}/\pT^{\gamma}$          \\
+            $\Delta R^{\gamma_1, \text{diTrk}}$             &$\pT^{\gamma_2}$       &$\pT^{\text{meson}}/\pT^{\text{diTrk}}$    \\
+            $\Delta R^{\gamma_2, \text{diTrk}}$             &$m^{\text{diTrk}}$     &           \\
+            $\Delta R^{\text{diTrk}}$                       &$m^{\text{meson}}$ ($^*$)  &       \\
+            $\Delta(\eta^{\gamma}, \eta^{\text{diTrk}})$    & & \\
+            $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$    & & \\
+            \hline
+        \end{tabular}
+        \caption{Input variables for the BDTs. $\gamma_1$ and $\gamma_2$ represent photons from neutral particle decay, $\gamma$ stands for the Higgs boson decay photon. The asterisk denotes exclusion for $D^{*0}$ 2/3-body decay.}
+        \label{tab:model_variables}
+    \end{table}
+    The variables in Table \ref{tab:model_variables} have been thoughtfully selected after many model iterations, ensuring low correlation between them and with the Higgs boson invariant mass, while maintaining reasonable predictive power.
 
-    \todo{comment plot}
+    All the models have been trained to predict not the correct value of the full meson's transverse momentum, but a scale factor $\pT^{\text{meson, GEN}}/\pT^{\text{meson, RECO}}$ instead. This scale factor represents the adjustment needed for the reconstructed $\pT$ to match its generation-level MC value. The motivation for this approach is to avoid biasing the model by predicting a dimensionless variable.
 
-    To address this issue, dedicated Boosted Decision Trees (BDTs) have been implemented for each channel using the Toolkit for Multivariate Data Analysis for root, also known as \verb+TMVA+ \cite{TMVA:2007ngy}. This machine learning (ML) technique will correct for the full meson's $\pT$. A boosted decision tree (BDT) is a ML classifier or regressor algorithm based on a flowchart-like structure in which each internal node represents a test on an attribute, each branch signifies the test's outcome, and each leaf node denotes a class level. For more detailed information, refer to Refs. \cite{TMVA:2007ngy, Coadou:2022nsh}.
+    \todo{Present the models, and attatch hyperparameters in the appendix. For each channel plot pt generation, reco and corrected + residuals corrected and reco.}
 
-    \todo{Three different variable categories: dimensionless, dimensionfull and normalized. Many iterations performed. Present the models, and attatch hyperparameters in the appendix. For each channel show pt generation, reco and corrected + residuals corrected and reco. Present table with MSE improvements.}
+    \todo{explain that to validate the model we have done cross-validation, training on AB and testing on C, rotating.}
+
+    Table \ref{tab:models_pt_MSE} shows the mean squared errors with respect to generation-level transverse momentum, both with and without the BDT regression, for each channel. Applying the transverse momenta regression noticeably improves the value and reduces the error for all channels.
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|c|C{3.1cm}@{}c|}
+            \hline
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without $\pT$ regression & \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with $\pT$ regression} \\ \hline
+            $\phi$          &37.8 MeV   &34.0 MeV  & (-10\%)   \\
+            $\omega$        &\r ?? MeV   & .\r ?? MeV &\r (-x\%)  \\
+            $D^{*0}$ 2-body &49.7 MeV   &47.6 MeV  & (-4\%)     \\
+            \r$D^{*0}$ 3-body &73.3 MeV   &55.5 MeV  & (-24\%)    \\
+            \hline
+            \end{tabular}
+        \caption{Mean squared errors of the full meson's transverse momentum with and without the BDT regression for each decay mode.}
+        \label{tab:models_pt_MSE}
+    \end{table}
+
+    \todo{Change values of MSE}
 
     \todo{Talk about importance of not biasing the result, not including certain variables and why a scale factor is predicted instead. Introduction of "background shaping function" to control for biasing.}
 
 \end{myitemlist}
 
-Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the meson candidate selection criteria used.
-
+After having presented all the techniques used to recover the meson, we are able to perform some selection cuts to maintain as much signal events as possible, while rejecting as many background events. Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the meson candidate selection criteria used.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|l|c|c|}
@@ -276,15 +366,15 @@ Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$\phi(\pi^{\pm}\pi^{\mp}\pi^{0})$ & \cellcolor{lightgray}$\omega(\pi^{\pm}\pi^{\mp}\pi^{0})$ \\ \hline
         Meson mass                                              &$0.96\pm0.26$ GeV  &$0.785\pm0.215$ GeV    \\
         Ditrack mass                                            &$0.59\pm0.25$ GeV  &$0.47\pm0.15$ GeV      \\
-        $\pT^{\text{diTrk}}$                                  &$>10$ GeV          &$>15$ GeV              \\
-        $\pT^{\text{leadTrk}}$                                &$>5$ GeV           &$>8$ GeV               \\
+        $\pT^{\text{diTrk}}$                                    &$>10$ GeV          &$>15$ GeV              \\
+        $\pT^{\text{leadTrk}}$                                  &$>5$ GeV           &$>8$ GeV               \\
         $\#\gamma^{\text{diTrk}}$                               &$>0$               &$>0$                   \\
         $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$    &$\pi\pm2.3$        \\
         $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$              \\
         Iso                                                     &$>0.95$            &$>0.95$                \\
         \hline
         \end{tabular}
-    \caption{Selection criteria applied to the $\phi$ and $\omega$ mesons used in the analysis.}
+    \caption{Selection criteria applied to the $\phi$ and $\omega$ mesons used in the analysis. $\gamma^{\text{diTrk}}$ are the photons from neutral particle decays, while $\gamma_\text{H}$ refers to the photon originating in the Higgs boson decay.}
     \label{tab:meson_selection_1}
 \end{table}
 
@@ -293,27 +383,45 @@ Tables \ref{tab:meson_selection_1} and \ref{tab:meson_selection_2} summarize the
     \begin{tabular}{|l|c|c|}
         \hline
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
-        Meson mass                                              &                   &\r $x.xx\pm x.xx$ GeV  \\
-        Ditrack mass                                            &$1.865\pm0.060$ GeV&\r $x.xx\pm x.xx$ GeV  \\
-        $\pT^{\text{diTrk}}$                                  &$>40$ GeV          &\r $>xx$ GeV           \\
-        $\pT^{\text{leadTrk}}$                                &$>21$ GeV          &\r $>xx$ GeV           \\
-        $\#\gamma^{\text{diTrk}}$                               &                   &\r $>xx$               \\
-        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$    &\r $\pi\pm2.3$     \\
-        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &\r $0\pm1.9$           \\
-        Iso                                                     &$>0.91$            &\r $>  xx$             \\
+        Meson mass                                              &                   &$1.55\pm 0.65$ GeV  \\
+        Ditrack mass                                            &$1.865\pm0.060$ GeV&$1.18\pm 0.57$ GeV  \\
+        $\pT^{\text{diTrk}}$                                    &$>40$ GeV          &$>20$ GeV           \\
+        $\pT^{\text{leadTrk}}$                                  &$>21$ GeV          &$>10$ GeV           \\
+        $\pT^{\text{subLeadTrk}}$                               &$>5$ GeV           &$>3$ GeV           \\
+        $\#\gamma^{\text{diTrk}}$                               &                   &$>0$               \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$        &$\pi\pm2.3$        \\
+        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$           \\
+        Iso                                                     &$>0.91$            &$>0.95$             \\
         \hline
         \end{tabular}
     \caption{Selection criteria applied to each channel of the $D^{*0}$ meson decay used in the analysis.}
     \label{tab:meson_selection_2}
 \end{table}
 
-\todo{Talk about the criteria used a bit}
+In most of the events the full meson and the photon are back-to-back, so $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$ is centered around $\pi$. We select highly isolated particles as this significantly reduces background contribution.
 
 %\section{Corrections to data and simulations}\label{sec:corrections}
 
 %\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction, triggers scale factors}
 
 \section{Event selection}\label{sec:event_selection}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \cellcolor{lightgray}Selection &\cellcolor{lightgray}$\text{H}\decaysto \phi\gamma$ &\cellcolor{lightgray}$\text{H}\decaysto \omega\gamma$ &\cellcolor{lightgray}$\text{H}\decaysto D^{*0}\gamma$ {\scriptsize(2-body)}&\cellcolor{lightgray}$\text{H}\decaysto D^{*0}\gamma$ {\scriptsize(3-body)}\\ \hline
+        trigger                                     & 24\%  & 23\%  & 17\%  & 19\% \\
+        1 good $\gamma$                             & 89\%  & 90\%  & 89\%  & 90\% \\
+        1 good meson                                & 42\%  & 40\%  & 64\%  & 32\% \\
+        0, 1 jet, 2 with $\abs{\Delta\eta_{jj}}$    & 94\%  & 94\%  & 94\%  & 93\% \\
+        0 leptons                                   & 99\%  & 98\%  & 99\%  & 99\% \\ \hline
+        Cumulative $\epsilon$A                      & 8.2\%  & 7.9\%  & 9.0\%  & 5.1\% \\
+        \hline
+        \end{tabular}
+    \caption{Signal selection efficiency for all decay channels.}
+    \label{tab:selection_efficiency}
+\end{table}
 
 \todo{Gluon fusion selection for each channel}
 
