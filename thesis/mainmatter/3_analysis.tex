@@ -188,26 +188,26 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \label{fig:kinematic_fit_residuals}
         \vspace*{-0.0cm}
     \end{figure}
-    Table \ref{tab:kinematic_fit_MSE} shows the mean squared errors with respect to generation-level, both with and without the kinematic fit, for each channel. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels.
+    Table \ref{tab:kinematic_fit_RMSE} shows the root mean squared errors with respect to generation-level, both with and without the kinematic fit, for each channel. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels.
 
     \begin{table}[!ht]
         \centering
         \begin{tabular}{|l|c|C{2.9cm}@{}c|}
             \hline
-            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without kinematic fit & \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with kinematic fit} \\ \hline
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without kinematic fit & \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with kinematic fit} \\ \hline
             $\phi$          &37.8 MeV   &34.0 MeV  & (-10\%)   \\
             \r$\omega$        &\r ?? MeV   & .\r ?? MeV &\r (-x\%)  \\
             $D^{*0}$ 2-body &49.7 MeV   &47.6 MeV  & (-4\%)     \\
             $D^{*0}$ 3-body &73.3 MeV   &55.5 MeV  & (-24\%)    \\
             \hline
             \end{tabular}
-        \caption{Mean squared errors (MSE) with and without the kinematic fit for each decay mode.}
-        \label{tab:kinematic_fit_MSE}
+        \caption{Root mean squared errors (RMSE) with and without the kinematic fit for each decay mode.}
+        \label{tab:kinematic_fit_RMSE}
     \end{table}
     
     \item[Meson mass hypothesis:] The simplest way to reconstruct the four-momentum of the full meson is by summing the four-momenta of the ditrack system and those from the photons compatible with the decay of neutral particles. This approach was initially used for all channels. Nevertheless, for the $\phi$, $\omega$ and $D^{*0}$ 3-body decay channels, additional corrections were applied.
     
-    Consider that the photons in the $\Delta R$ cone come from the $\pi^{0}\decaysto\gamma\gamma$ decay. When only one photon is recovered, it means that either both photons ended up in the same ECAL crystal, or that one of them was too soft to be measured ($\pT < 5\ \GeV$) and therefore only one is detected. Following the first hypothesis, we can interpret the energy deposited in the same ECAL cell as the energy from the full pion. To account for this, whenever only one photon is recovered, we assign this object a non-zero mass (the pion's mass) before adding the four-momenta. This correction is of very low energy, and thus the changes in $\pT$, $\eta$ or $\phi$ of the full meson are imperceptible, but its mass is visibly affected. Figure \ref{fig:full_meson_mass_residuals} and Table \ref{tab:full_meson_mass_residuals_MSE} show the residual of the full meson invariant mass reconstruction and the MSE, respectively, with and without the $\pi^0$ mass correction for the $\phi$ and $\omega$ decay modes.
+    Consider that the photons in the $\Delta R$ cone come from the $\pi^{0}\decaysto\gamma\gamma$ decay. When only one photon is recovered, it means that either both photons ended up in the same ECAL crystal, or that one of them was too soft to be measured ($\pT < 5\ \GeV$) and therefore only one is detected. Following the first hypothesis, we can interpret the energy deposited in the same ECAL cell as the energy from the full pion. To account for this, whenever only one photon is recovered, we assign this object a non-zero mass (the pion's mass) before adding the four-momenta. This correction is of very low energy, and thus the changes in $\pT$, $\eta$ or $\phi$ of the full meson are imperceptible, but its mass is visibly affected. Figure \ref{fig:full_meson_mass_residuals} and Table \ref{tab:full_meson_mass_residuals_RMSE} show the residual of the full meson invariant mass reconstruction and the RMSE, respectively, with and without the $\pi^0$ mass correction for the $\phi$ and $\omega$ decay modes.
     \begin{figure}[!ht]
         \captionsetup[subfigure]{labelformat=empty}
         \vspace*{-0.2cm}
@@ -234,13 +234,13 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \centering
         \begin{tabular}{|l|c|C{3.2cm}@{}c|}
             \hline
-            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without $m_{\pi^0}$ correction& \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with $m_{\pi^0}$ correction} \\ \hline
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $m_{\pi^0}$ correction& \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $m_{\pi^0}$ correction} \\ \hline
             $\phi$          &130.2 MeV   &117.7 MeV  & (-10\%)   \\
             $\omega$        &127.9 MeV   &113.1 MeV  & (-12\%)   \\
             \hline
             \end{tabular}
-        \caption{Mean squared errors (MSE) with and without the $m_{\pi^0}$ correction for the $\phi$ and $\omega$ decay modes.}
-        \label{tab:full_meson_mass_residuals_MSE}
+        \caption{Root mean squared errors with and without the $m_{\pi^0}$ correction for the $\phi$ and $\omega$ decay modes.}
+        \label{tab:full_meson_mass_residuals_RMSE}
     \end{table}
 
     \todo{IDEA: force always mass of the pi0 at the sum of the recovered photons (aka pi0). Make the E, eta and phi the same, but by forcing pi0's mass change a bit pT. Then add the neutral to the ditrack to compare all variables with the recovered ones and the gen level full mesons.}
@@ -310,7 +310,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \Delta(\phi^{\gamma}, \phi^{\text{diTrk}}) &= (\phi^{\text{diTrk}} - \phi^{\gamma}) \modu 2\pi \in[0, 2\pi)\ .
         \end{aligned}
     \end{equation*}
-    This is because the angular variable $\phi$ is periodic. The asterisk ($^*$) next to the full meson's mass indicates that this variable is not included for the $D^{*0}$ 2-body or 3-body decay. This is because in these channels, $m^{\text{meson}}$ is not very precisely determined. 
+    The $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$ definition has this form because the angular variable $\phi$ is periodic. The asterisk ($^*$) next to the full meson's mass indicates that this variable is not included for the $D^{*0}$ 2-body or 3-body decay, as in these channels, $m^{\text{meson}}$ is not very precisely determined. 
     \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|c|c|}
@@ -328,31 +328,46 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \caption{Input variables for the BDTs. $\gamma_1$ and $\gamma_2$ represent photons from neutral particle decay, $\gamma$ stands for the Higgs boson decay photon. The asterisk denotes exclusion for $D^{*0}$ 2/3-body decay.}
         \label{tab:model_variables}
     \end{table}
+
     The variables in Table \ref{tab:model_variables} have been thoughtfully selected after many model iterations, ensuring low correlation between them and with the Higgs boson invariant mass, while maintaining reasonable predictive power.
 
     All the models have been trained to predict not the correct value of the full meson's transverse momentum, but a scale factor $\pT^{\text{meson, GEN}}/\pT^{\text{meson, RECO}}$ instead. This scale factor represents the adjustment needed for the reconstructed $\pT$ to match its generation-level MC value. The motivation for this approach is to avoid biasing the model by predicting a dimensionless variable.
 
-    \todo{Present the models, and attatch hyperparameters in the appendix. For each channel plot pt generation, reco and corrected + residuals corrected and reco.}
+    We implemented the BDTs using the \verb+TMVA+ framework, specifically the
+\begin{small}
+\vspace*{-5pt}
+\begin{verbatim}
+TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>");
+\end{verbatim}
+\vspace*{-5pt}
+\end{small}
+    method, with the ML regressor \verb+TMVA::Types::kBDT+. To prevent overtraining, we employed cross-validation by rotating the training and testing samples. Specifically, the signal MC was divided into three subsets: A, B, and C. Three models with identical hyperparameters were trained on A+B (B+C / C+A) and tested on C (A / B). This approach ensures all the available data is used to train the models while testing them on signal MC that was not used for training. To recover all the signal events, these three models were then applied to their respective testing subsets. Afterward, all the subsets were combined once more, resulting in a complete set of events.
 
-    \todo{explain that to validate the model we have done cross-validation, training on AB and testing on C, rotating.}
+    The hyperparameters for each model are available in Table \ref{tab:hyperparameters_models} in Appendix \ref{sec:appendix_models}. Figures 1, 2, 3, and 4 compare the generation-level MC transverse momentum with the reconstruction values, both with and without regression, and show the residuals for each channel.
 
-    Table \ref{tab:models_pt_MSE} shows the mean squared errors with respect to generation-level transverse momentum, both with and without the BDT regression, for each channel. Applying the transverse momenta regression noticeably improves the value and reduces the error for all channels.
+    \todo{For each channel plot pt generation, reco and corrected + residuals corrected and reco.}
+
+    \todo{Comment on plots}
+
+    Table \ref{tab:models_pt_RMSE} shows the root mean squared errors with respect to generation-level transverse momentum, both with and without the BDT regression, for each channel. Applying the transverse momenta regression noticeably improves the value and reduces the error for all channels.
     \begin{table}[!ht]
         \centering
         \begin{tabular}{|l|c|C{3.1cm}@{}c|}
             \hline
-            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}MSE without $\pT$ regression & \multicolumn{2}{c|}{\cellcolor{lightgray}MSE with $\pT$ regression} \\ \hline
-            $\phi$          &37.8 MeV   &34.0 MeV  & (-10\%)   \\
-            $\omega$        &\r ?? MeV   & .\r ?? MeV &\r (-x\%)  \\
-            $D^{*0}$ 2-body &49.7 MeV   &47.6 MeV  & (-4\%)     \\
-            \r$D^{*0}$ 3-body &73.3 MeV   &55.5 MeV  & (-24\%)    \\
+            \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $\pT$ regression & \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $\pT$ regression} \\ \hline
+            \r$\phi$          &xx.x MeV   &xx.x MeV  & (-xx\%)  \\
+            \r$\omega$        &xx.x MeV   &xx.x MeV  & (-xx\%)  \\
+            \r$D^{*0}$ 2-body &xx.x MeV   &xx.x MeV  & (-xx\%)  \\
+            \r$D^{*0}$ 3-body &xx.x MeV   &xx.x MeV  & (-xx\%)  \\
             \hline
             \end{tabular}
-        \caption{Mean squared errors of the full meson's transverse momentum with and without the BDT regression for each decay mode.}
-        \label{tab:models_pt_MSE}
+        \caption{Root mean squared errors of the full meson's transverse momentum with and without the BDT regression for each decay mode.}
+        \label{tab:models_pt_RMSE}
     \end{table}
 
-    \todo{Change values of MSE}
+    \todo{Change values of RMSE}
+
+    \todo{discuss improvement of performance using the bdts}
 
     \todo{Talk about importance of not biasing the result, not including certain variables and why a scale factor is predicted instead. Introduction of "background shaping function" to control for biasing.}
 
