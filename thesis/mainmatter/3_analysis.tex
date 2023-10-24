@@ -74,11 +74,11 @@ Every event is generated at leading order (LO) precision using the MADGRAPH5 gen
 
 The only Higgs boson production mode studied, gluon fusion, is generated at next-to-leading order (NLO) using the POWHEGv2 event generator extended with the MiNLO procedure \cite{Hamilton:2012np}. The production rates and kinematic distributions for the Higgs boson with $m_H=125\ \GeV$ are assumed throughout. In particular, the cross section for gluon fusion is computed at NNLO in QCD and NLO in electroweak accuracy, resulting in 48.58 pb, as provided by the LHC Higgs Cross Section Working Group in Ref. \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}.
 
-The decay of the Higgs boson is handled by Pythia. Direct and indirect effective vertices are not simulated. The expected SM branching fractions of the Higgs rare decays are as previously shown in Table \ref{tab:Higgs_rare_decays_values}: $\mathcal{B}(\text{H}\decaysto \phi\gamma) = (2.31 \pm 0.11)\times 10^{-6}$ and $\mathcal{B}(\text{H}\decaysto \omega\gamma) = (1.48 \pm 0.08)\times 10^{-6}$, while $\mathcal{B}(\text{H}\decaysto D^{*0}\gamma)$ has not yet been computed. In the analysis, however, the branching ratios are set to
+The decay of the Higgs boson is handled by Pythia, and it does not simulate direct and indirect effective vertices. The expected SM branching fractions of the Higgs rare decays are as previously shown in Table \ref{tab:Higgs_rare_decays_values}: $\mathcal{B}(\text{H}\decaysto \phi\gamma) = (2.31 \pm 0.11)\times 10^{-6}$ and $\mathcal{B}(\text{H}\decaysto \omega\gamma) = (1.48 \pm 0.08)\times 10^{-6}$, while $\mathcal{B}(\text{H}\decaysto D^{*0}\gamma)$ has not yet been computed. In the analysis, however, the branching ratios are set to
 \begin{equation*}
-    \mathcal{B}(\text{H}\decaysto \phi\gamma) = \mathcal{B}(\text{H}\decaysto \omega\gamma) = \mathcal{B}(\text{H}\decaysto D^{*0}\gamma) = 1\ ,
+    \mathcal{B}(\text{H}\decaysto \phi\gamma) = \mathcal{B}(\text{H}\decaysto \omega\gamma) = \mathcal{B}(\text{H}\decaysto D^{*0}\gamma) = 1\ .
 \end{equation*}
-because \todo{explain why}. The branching fractions of the meson decays used are also shown in Table \ref{tab:Higgs_rare_decays}, but further detailed in Table \ref{tab:Meson_decay_br}.
+This is because then, when computing a limit, the obtained value is directly the measured upper limit of the branching ratio itself. If we were to set the branching fractions to the SM values, the measured quantities would be the signal strengths, i.e., the factors by which the observed fractions exceed the SM values. The branching fractions of the meson decays used are also shown in Table \ref{tab:Higgs_rare_decays}, but further detailed in Table \ref{tab:Meson_decay_br}.
 
 \begin{table}[!ht]
     \centering
@@ -106,7 +106,7 @@ This analysis primarily relies on photons and charged tracks to extract the fina
 
     \item[Jets:] During the reconstruction of a proton-proton (pp) collision, jets are often reconstructed with a $\pT$ that differs from that of the final-state particles within the jet. The jet energy corrections (JEC) adjust the reconstructed jet energy to match the true energy of the final-state particles. The CMS collaboration has developed a factorized approach to these JEC, consisting of multiple levels that correct various physics or detector effects. This approach provides flexibility in the corrections to suit various types of analyses. These correction levels are commonly referred to as L1FastJet, L2Relative, L3Absolute, and L2L3Residual.
 
-    The flow of these JEC is as follows: jets are reconstructed from particle flow (PF) candidates using the anti-$k_\text{T}$ clustering algorithm with a distance parameter of $R = 0.4$ as implemented by FastJet \cite{Cacciari:2011ma}. Jets within this small cone (referred to as AK4 jets for $R = 0.4$) are selected among those with $\pT > 25\ \GeV$ and $\abs{\eta} < 4.7$ for forward tagging. At the LHC, a significant number of pp collisions occur simultaniously during one bunch crossing, with soft ones contaminating the collision of interest. To mitigate this effect, known as \textit{pileup} (PU), charged hadrons not originating from the primary vertex are removed using the charged hadron subtraction (CHS) algorithm \cite{CMS:2014ata, Perloff:2012wpa}. The tight pileup ID criterion is applied to reduce the contamination of jets with $\pT < 50\ \GeV$ initiated by the pileup interactions. Jets are corrected for the response inside the detector, differentially in $\abs{\eta} - \abs{\phi}$, for the pileup contributions, and for data only, the residual difference observed between data and simulation.
+    The flow of these JEC is as follows: jets are reconstructed from particle flow (PF) candidates using the anti-$k_\text{T}$ clustering algorithm with a distance parameter of $R = 0.4$ as implemented by FastJet \cite{Cacciari:2011ma}. Jets within this small cone (referred to as AK4 jets for $R = 0.4$) are selected among those with $\pT > 20\ \GeV$ and $\abs{\eta} < 4.7$ for forward tagging. At the LHC, a significant number of pp collisions occur simultaniously during one bunch crossing, with soft ones contaminating the collision of interest. To mitigate this effect, known as \textit{pileup} (PU), charged hadrons not originating from the primary vertex are removed using the charged hadron subtraction (CHS) algorithm \cite{CMS:2014ata, Perloff:2012wpa}. The tight pileup ID criterion is applied to reduce the contamination of jets with $\pT < 50\ \GeV$ initiated by the pileup interactions. Jets are corrected for the response inside the detector, differentially in $\abs{\eta} - \abs{\phi}$, for the pileup contributions, and for data only, the residual difference observed between data and simulation.
     
     In the current analysis version, the \verb+Summer19UL+ jet energy corrections set is used, as well as the DeepJet tagging algorithm with the medium working point to identify $b$-jets \cite{Bols:2020bkb}.
 
@@ -163,28 +163,28 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \setlength{\mylength}{\textwidth}
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_phi.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/Phi3_kinematic_fit_residual.png}
                 \caption{\footnotesize (a)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_omega.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/Omega_kinematic_fit_residual.png}
                 \caption{\footnotesize (b)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip    
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_d0star.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_kinematic_fit_residual.png}
                 \caption{\footnotesize (c)}
         \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/kinematic_fit_residual_d0starrho.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_kinematic_fit_residual.png}
                 \caption{\footnotesize (d)}
         \end{subfigure}%
         \vspace*{-0.0cm}
-        \caption{Ditrack mass residuals for the different decay channels. (a) is for $\phi$, (b) is for $\omega$, (c) is for $D^{*0}$ 2-body and (d) is for $D^{*0}$ 3-body.}
+        \caption{Ditrack mass residuals for the different decay channels. (a) is for $\phi$, (b) is for $\omega$, (c) is for $D^{*0}$ 2-body, and (d) is for $D^{*0}$ 3-body.}
         \label{fig:kinematic_fit_residuals}
         \vspace*{-0.0cm}
     \end{figure}
@@ -215,14 +215,14 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \setlength{\mylength}{\textwidth}
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/fullmeson_mass_residual_phi.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fullmeson_mass_residual.png}
                 \caption{\footnotesize (a)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/fullmeson_mass_residual_omega.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/Omega_fullmeson_mass_residual.png}
                 \caption{\footnotesize (b)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineski
         \caption{Full meson mass residuals for the different decay channels. (a) is for $\phi$, (b) is for $\omega$.}
         \label{fig:full_meson_mass_residuals}
         \vspace*{-0.0cm}
@@ -243,7 +243,11 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \label{tab:full_meson_mass_residuals_RMSE}
     \end{table}
 
-    \todo{IDEA: force always mass of the pi0 at the sum of the recovered photons (aka pi0). Make the E, eta and phi the same, but by forcing pi0's mass change a bit pT. Then add the neutral to the ditrack to compare all variables with the recovered ones and the gen level full mesons.}
+    An additional correction was attempted. The idea was to reconstruct the neutral particle by summing the recovered photons, and then forcing the reconstructed neutral particle to have the $\pi^0$'s mass while maintaining the energy and direction ($\eta$ and $\phi$) unchanged. This required a slight modification of the neutral particle's transverse momenta, as given by
+    \begin{equation*}
+        \pT = \sqrt{(E^2 - m^2)(1-\tanh^2\eta)}\ .
+    \end{equation*}
+    When adding this neutral particle to the ditrack, the full meson's $\pT$ remained effectively unchanged, and the full meson's mass was very similar (and slightly worse) compared to using the previous technique. Therefore, this adjustment was not used.
 
     \item[Meson transverse momentum correction:] To compute the upper limits of the branching ratios of the decays, the Higgs boson invariant mass is going to be calculated. To achieve an accurate value, it is crucial to recover the two involved objects, namely the photon and the full meson, with the utmost precision. There are seven variables in play: the components of the four-momenta, four of which belong to the meson and three to the photon. The accuracy of the Higgs boson's invariant mass relies mainly on the accuracy of the transverse momenta of both particles involved. The other five variables ($\eta$ and $\phi$ of both particles and the mass of the full meson) are either already well measured or, in the case of the mass, too low in energy to significantly impact the computation. Improving the transverse momentum of the photon is very challenging, as it already undergoes the reconstruction algorithm briefly discussed in the previous section. Thus, the main emphasis should be on recovering the $\pT$ of the full meson as precisely as possible.
     
@@ -261,7 +265,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
                 \centering
                 \includegraphics[width=0.45\mylength]{resources/plots/ditrack_residuals_mass.png}
                 \caption{\footnotesize (b)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip    
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
@@ -275,7 +279,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
                 \caption{\footnotesize (d)}
         \end{subfigure}%
         \vspace*{-0.0cm}
-        \caption{Ditrack residuals for the different four-momentum components of each decay channel. (a) is for $\pT$, (b) is for the mass, (c) is for $\eta$ and (d) is for $\phi$.}
+        \caption{Ditrack residuals for the different four-momentum components of each decay channel. (a) is for $\pT$, (b) is for the mass, (c) is for $\eta$, and (d) is for $\phi$.}
         \label{fig:ditrack_residuals}
         \vspace*{-0.0cm}
     \end{figure}
@@ -296,14 +300,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
 
     To address this issue, dedicated Boosted Decision Trees (BDTs) have been implemented for each channel using the Toolkit for Multivariate Data Analysis for \verb+ROOT+ \cite{CERN:root}, also known as \verb+TMVA+ \cite{TMVA:2007ngy}. This machine learning (ML) technique will correct for the full meson's $\pT$. A boosted decision tree (BDT) is a ML binary classifier or regressor algorithm based on a flowchart-like structure in which each internal node represents a test on an attribute, each branch signifies the test's outcome, and each leaf node denotes a class level. For more detailed information, refer to Refs. \cite{TMVA:2007ngy, Coadou:2022nsh}.
 
-    The variables used in all models are presented in Table \ref{tab:model_variables}. The variables labeled by $\gamma_1$ and $\gamma_2$ refer to the recovered photons compatible with the decay of the neutral particles, while $\gamma$ refers to the photon originating in the Higgs boson decay. The dimensionless variables $\Delta R^{\gamma_1, \text{diTrk}}$ and $\Delta R^{\gamma_2, \text{diTrk}}$ reference the angular separation between each photon and the ditrack system. $\Delta R^{\text{diTrk}}$ is the angular separation within the track pair. It is worth defining $\Delta(\eta^{\gamma}, \eta^{\text{diTrk}})$ and $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$,
-    \begin{equation*}
-        \begin{aligned}
-        \Delta(\eta^{\gamma}, \eta^{\text{diTrk}}) &= \eta^{\text{diTrk}} - \eta^{\gamma} \\
-        \Delta(\phi^{\gamma}, \phi^{\text{diTrk}}) &= (\phi^{\text{diTrk}} - \phi^{\gamma}) \modu 2\pi \in[0, 2\pi)\ .
-        \end{aligned}
-    \end{equation*}
-    The $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$ definition has this form because the angular variable $\phi$ is periodic. The asterisk ($^*$) next to the full meson's mass indicates that this variable is not included for the $D^{*0}$ 2-body or 3-body decay, as in these channels, $m^{\text{meson}}$ is not very precisely determined. 
+    The variables used in all models are presented in Table \ref{tab:model_variables}.
     \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|c|c|}
@@ -321,6 +318,14 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \caption{Input variables for the BDTs. $\gamma_1$ and $\gamma_2$ represent photons from neutral particle decay, $\gamma$ stands for the Higgs boson decay photon. The asterisk denotes exclusion for $D^{*0}$ 2/3-body decay.}
         \label{tab:model_variables}
     \end{table}
+    The variables labeled by $\gamma_1$ and $\gamma_2$ refer to the recovered photons compatible with the decay of the neutral particles, while $\gamma$ refers to the photon originating in the Higgs boson decay. The dimensionless variables $\Delta R^{\gamma_1, \text{diTrk}}$ and $\Delta R^{\gamma_2, \text{diTrk}}$ reference the angular separation between each photon and the ditrack system. $\Delta R^{\text{diTrk}}$ is the angular separation within the track pair. It is worth defining $\Delta(\eta^{\gamma}, \eta^{\text{diTrk}})$ and $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$,
+    \begin{equation*}
+        \begin{aligned}
+        \Delta(\eta^{\gamma}, \eta^{\text{diTrk}}) &= \eta^{\text{diTrk}} - \eta^{\gamma} \\
+        \Delta(\phi^{\gamma}, \phi^{\text{diTrk}}) &= (\phi^{\text{diTrk}} - \phi^{\gamma}) \modu 2\pi \in[0, 2\pi)\ .
+        \end{aligned}
+    \end{equation*}
+    The $\Delta(\phi^{\gamma}, \phi^{\text{diTrk}})$ definition has this form because the angular variable $\phi$ is periodic. The asterisk ($^*$) next to the full meson's mass indicates that this variable is not included for the $D^{*0}$ 2-body or 3-body decay, as in these channels, $m^{\text{meson}}$ is not very precisely determined.
 
     The variables in Table \ref{tab:model_variables} have been thoughtfully selected after many model iterations, ensuring low correlation between them and with the Higgs boson invariant mass, while maintaining reasonable predictive power.
 
@@ -343,26 +348,26 @@ TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>"
         \setlength{\mylength}{\textwidth}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/pt_model_phi.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/Phi3_model_pt.png}
             \caption{\footnotesize (a)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/residuals_model_phi.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/Phi3_model_pt_residuals.png}
             \caption{\footnotesize (b)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip      
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/pt_model_omega.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/Omega_model_pt.png}
             \caption{\footnotesize (c)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/residuals_model_omega.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/Omega_model_pt_residuals.png}
             \caption{\footnotesize (d)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip    
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \caption{Transverse momentum of the $\phi$ and $\omega$ mesons. (a/c) Display the generation-level MC transverse momenta in blue, the prediction by the BDT in red, and the recovery by the initial approach in green, for the $\phi/\omega$ mesons, respectively. (b/d) Show the residuals with (red) and without (green) the BDT prediction, for the $\phi/\omega$ mesons, respectively.}
     \label{fig:pt_residuals_model_omega_phi}
         \vspace*{-0.0cm}
@@ -375,26 +380,26 @@ TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>"
         \setlength{\mylength}{\textwidth}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/pt_model_d0star2.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_model_pt.png}
             \caption{\footnotesize (a)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/residuals_model_d0star2.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_model_pt_residuals.png}
             \caption{\footnotesize (b)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip       
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/pt_model_d0star2.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt.png}
             \caption{\footnotesize (c)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/residuals_model_d0star2.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt_residuals.png}
             \caption{\footnotesize (d)}
-        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip   
+        \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \caption{Transverse momentum of the $D^{*0}$ meson in both the 2-body and 3-body decay channels. (a/c) Display the generation-level MC transverse momenta in blue, the prediction by the BDT in red, and the recovery by the initial approach in green, for the 2/3-body decay channel, respectively. (b/d) Show the residuals with (red) and without (green) the BDT prediction, for the 2/3-body decay channel, respectively.}
     \label{fig:pt_residuals_model_d0star}
         \vspace*{-0.0cm}
@@ -485,7 +490,7 @@ In most of the events the full meson and the photon are back-to-back, so $\Delta
 %\section{Corrections to data and simulations}\label{sec:corrections}
 
 %\todo{Pileup reweighting, L1 prefiring corrections, photon scale and resolution, photon mvaid efficiency, Lepton ID reconstruction efficiency and energy scale (?), meson reconstruction, triggers scale factors}
-\newpage
+%\newpage
 \section{Event selection}\label{sec:event_selection}
 
 The analysis described here searches for the Higgs boson decaying to a photon and to either a $\phi$, $\omega$ or $D^{*0}$ meson. The signal features narrow peaks in the ditrack, the full meson (M), and M + $\gamma$ distributions over the SM backgrounds. These resonances can be fully reconstructed thanks to the excellent resolution of the CMS detector in measuring of the photon energy and track momentum. Nevertheless, the accuracy of these three-body decays is not as good as in other exotic Higgs boson decays of the same type, but where the vector meson decays only into a pair of charged tracks, currently under analysis by the PPC at MIT. The presence of a third, neutral particle makes reconstructing of the full meson more intricate and reduces the precision of the recovered four-momentum.
@@ -494,21 +499,21 @@ The $\phi\gamma$, $\omega\gamma$ and $D^{*0}\gamma$ exclusive final states are v
 
 The $\phi\gamma$ and $\omega\gamma$ channels in particular closely resemble each other, both decaying into $\pi^{+}\pi^{-}\pi^0$ and having similar masses and decay widths. The $D^{*0}$ 2-body decay can effectively be treated as a three-body decay, $D^{*0}\decaysto K^{\mp}\pi^{\pm}\pi^0/\gamma$, due to its short lifetime. The main difference between this channel and the $\phi/\omega$ channel is that in the $\phi/\omega$ case, the three pions carry, on average, approximately the same energy, while for $D^{*0}$ the neutral particle is very soft, carrying only around 5 GeV. Finally, the $D^{*0}$ 3-body decay can effectively be treated as a 4-body decay for the same reason, with 2 charged tracks, one soft neutral particle, and one neutral pion. This last case shares similarities with the previous ones.
 
-This thesis exclusively targets Higgs boson production via gluon fusion (ggH). To focus on this production mode, events with additional charged leptons with $\pT$ > 10 GeV are vetoed. Events with two or more jets having $\pT$ > 20 GeV and $\abs{\eta} < 4.7$, and exhibiting a significant pseudorapidity gap ($\abs{\Delta\eta_{jj}} > 3$), are excluded from this category. Jets should not overlap with the meson and photon forming the Higgs boson candidate and must meet the criteria mentioned in Section \ref{sec:objects}. Table \ref{tab:triggers} summarizes the selection criteria for this production mode, which must additionally satisfy the selection rules of the tau-like trigger described in Section \ref{subsec:data_tau_trigger}.
+This thesis exclusively targets Higgs boson production via gluon fusion (ggH). To focus on this production mode, events with additional charged leptons with $\pT$ > 10 GeV are vetoed. Events with two or more jets having $\pT$ > 30 GeV and $\abs{\eta} < 4.7$, exhibiting a significant pseudorapidity gap ($\abs{\Delta\eta_{jj}} > 3$), and with an invariant mass $m_{jj} > 300\ \GeV$, are excluded from this category. Jets should not overlap with the meson and photon forming the Higgs boson candidate and must meet the criteria mentioned in Section \ref{sec:objects}. Table \ref{tab:triggers} summarizes the selection criteria for this production mode, which must additionally satisfy the selection rules of the tau-like trigger described in Section \ref{subsec:data_tau_trigger}.
 
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|c|c|c|c|}
     \hline
     \cellcolor{lightgray}Target signal   & \cellcolor{lightgray}Trigger & \cellcolor{lightgray}Selection & \cellcolor{lightgray}Integrated luminosity (fb$^{-1}$)\\ \hline
-    \multirow{2}{*}{ggH}&\multirow{2}{*}{tau-like}  &no e/$\mu$ with $\pT$ > 10 GeV & \multirow{2}{*}{39.54 (2018)}\\
+    \multirow{3}{*}{ggH}&\multirow{3}{*}{tau-like}  &no e/$\mu$ with $\pT$ > 10 GeV & \multirow{3}{*}{39.54 (2018)}\\
                         &                           &no dijet pair with $\abs{\Delta\eta_{jj}} > 3$ & \\
+                        &                           &and $m_{jj} > 300\ \GeV$                       & \\
     \hline
     \end{tabular}
     \caption{Selection criteria used for the ggH production mode, alongside the integrated luminosity provided by CMS compatible with these criteria.}
     \label{tab:triggers}
 \end{table}
-
 The product of signal selection efficiency and acceptance ($\epsilon$A) corresponds to the fraction of MC simulated signal events that pass the selection.
 \begin{table}[!ht]
     \centering
@@ -530,27 +535,245 @@ Table \ref{tab:selection_efficiency} reports the signal cut flow. The efficienci
 
 These strict cuts (selecting approximately only one in eleven signal events) will eliminate most of the background events, which for the ggH enriched channel, it dominantly consists of $\gamma$ + multijet process, with a smaller contribution arising from QCD multijet. The 2-body $D^{*0}$ decay is expected to have less background compared to the $\phi$, $\omega$ and 3-body $D^{*0}$ decays, as in the 2-body case the ditrack is a real resonance with a narrow width. Additionally, the $\omega$ channel is expected to have also less background than the $\phi$ and 3-body $D^{*0}$ decays due to its sharper decay width.
 
-\todo{Plot invariant ditrack mass DATA}
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_dtrk_mass.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_dtrk_mass.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_dtrk_mass.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_dtrk_mass.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Ditrack mass of the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:ditrack_mass_data}
+    \vspace*{-0.0cm}
+\end{figure}
 
-\todo{discuss plots}
+Figure \ref{fig:ditrack_mass_data} displays the invariant mass of the ditrack system. In all decay channels (and in subsequent figures showing other kinematic variables), the MC background underestimates the data as it only considers the dominant contribution at LO. The data is a factor of around 20\% larger, but the estimated limits are ultimately calculated using the data for the background fit. The MC background serves the purpose of helping us comprehend the behavior of the involved processes.
 
-\todo{Plot invariant full meson mass DATA}
+In Figure \ref{fig:ditrack_mass_data} (c), a sharper resonance is observed because, as mentioned earlier, the ditrack system is a real $D^{0}$ meson. In contrast, for the other cases (where the ditrack is not a real particle), the invariant ditrack mass is considerably wider. Across all decay modes, the MC background is consistent with the data.
 
-\todo{discuss plots}
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_mass.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_mass.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_mass.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_mass.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Full meson's mass of the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:full_mass_data}
+    \vspace*{-0.0cm}
+\end{figure}
 
-\todo{Plot full meson pt DATA}
+Figure \ref{fig:full_mass_data} displays the mass of the full meson. This variable is sharper than the ditrack system's mass in all channels because it consists of a real meson. However, for the $D^{*0}$ 2-body decay mode, it is not well reconstructed. In approximately $\sim 87\%$ of events, no photon compatible with the decay of a neutral particle is recovered, and therefore the computed full mass is the same as the ditrack system's mass. This is why this variable is not used in the BDT for regressing the transverse momentum (see Section \ref{sec:meson_reconstruction}). All decay modes exhibit missing energy, as all channels have an asymmetric left shoulder.
 
-\todo{discuss plots}
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_photon_pt.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_photon_pt.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_photon_pt.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_photon_pt.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Transverse momentum $\pT$ of the primary photon from the Higgs boson decay, for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:photon_pt_data}
+    \vspace*{-0.0cm}
+\end{figure}
 
-\todo{Plot leading and subleading pt DATA}
+Figure \ref{fig:photon_pt_data} presents the transverse momentum of the primary photon originating directly from the Higgs boson decay. The signal peaks at around 60 GeV for all channels, which is roughly half of the Higgs boson's mass. This is consistent with Figure \ref{fig:full_pt_data}, which shows the transverse momentum of each meson. In every channel, the signal also peaks around 60 GeV, which with the transverse momentum of the photon adds up to the 125 GeV of the Higgs boson's mass.
 
-\todo{discuss plots}
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_pt.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_pt.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_pt.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_pt.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Transverse momentum $\pT$ of the full meson for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:full_pt_data}
+    \vspace*{-0.0cm}
+\end{figure}
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_lead_pt.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_lead_pt.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_lead_pt.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_lead_pt.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Transverse momentum $\pT$ of the leading charged track for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:lead_pt_data}
+    \vspace*{-0.0cm}
+\end{figure}
+
+\newpage
+
+Figures \ref{fig:lead_pt_data} and \ref{fig:sublead_pt_data} illustrate the transverse momentum of the charged leading and subleading tracks for each decay mode. All channels show a similar shape for the signal. However, it is worth noting that in the $D^{*0}$ 2-body decay, both the leading and subleading tracks are more energetic, as this is the only scenario where $D^{0}$ decays into only two charged tracks (the neutral particle from $D^{*0}\decaysto D^{0}\pi^{0}/\gamma$ typically carries around $\sim5$ GeV in energy).
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_sublead_pt.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_sublead_pt.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_sublead_pt.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_sublead_pt.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Transverse momentum $\pT$ of the subleading charged track for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
+\label{fig:sublead_pt_data}
+    \vspace*{-0.0cm}
+\end{figure}
 
 \section{Signal and background modelling \todo{ADD 2D FIT}}\label{sec:modelling}
 
-The potential Higgs boson signal is obtained by fitting the invariant mass distribution $M_{\gamma, M}$ for each decay mode separately, since the signal is expected to show a peak over a monotonous background. Both the signal and background are directly estimated from MC (signal) or data (background) by fitting the photon-meson mass spectrum with analytical functions. The RooFit framework \cite{CERN:root_roofit}, a toolkit provided within the ROOT module for modeling the expected event distribution, is used for this purpose, and a binned maximum likelihood fit is conducted. Figure X displays the gamma-meson mass distribution for each channel. The data in the region of interest is not shown, it is still \textit{blinded}. Only after completing the full analysis and ensuring the consistency of the techniques used can the data be unblinded to enable actual measurements. This approach is commonly employed in high-energy physics to maintain an unbiased study.
-
-\todo{Plot Higgs invariant mass DATA}
+The potential Higgs boson signal is obtained by fitting the invariant mass distribution $M_{\gamma, M}$ for each decay mode separately, since the signal is expected to show a peak over a monotonous background. Both the signal and background are directly estimated from MC (signal) or data (background) by fitting the photon-meson mass spectrum with analytical functions. The RooFit framework \cite{CERN:root_roofit}, a toolkit provided within the ROOT module for modeling the expected event distribution, is used for this purpose, and a binned maximum likelihood fit is conducted.
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_HiggsMass.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_HiggsMass.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineski
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_HiggsMass.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_HiggsMass.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Higgs invariant mass distribution $M_{\gamma, M}$ for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in crimson, is scaled {\r to what ???} for better visualization.}
+\label{fig:Higgs_mass_data}
+    \vspace*{-0.0cm}
+\end{figure}
+Figure \ref{fig:Higgs_mass_data} displays the photon-meson invariant mass distribution for each channel. The data in the region of interest is not shown, it is still \textit{blinded}. Only after completing the full analysis and ensuring the consistency of the techniques used can the data be unblinded to enable actual measurements. This approach is commonly employed in high-energy physics to maintain an unbiased study.
 
 Based on the earlier discussed selection criteria, the shape of this background exhibits a turn-on structure in $M_{\gamma, M}$. This turn-on varies for each decay mode due to the kinematic constraints of the events and the imposed selection cuts.
 
@@ -558,11 +781,11 @@ Based on the earlier discussed selection criteria, the shape of this background 
 
 Although previously discussed, it is worth emphasizing that analysis sensitivity relies on the resolution of the photon-meson mass $M_{\gamma, M}$, which strongly depends on the kinematics, especially the transverse momentum of the photon/meson.
 
-The expected gamma-meson mass candidate distribution in signal events, for each decay mode, is modeled using a double-sided Crystal Ball. This function, named after the Crystal Ball Collaboration \cite{A2:CB}, is a probability density function (PDF) commonly employed in high-energy physics (HEP). It consists of a Gaussian center and two asymmetric tails modeled by power-law functions, and it is $\mathcal{C}^{1}$, i.e., continuous with a continuous derivative. This functional form simultaneously offers a robust description of the Higgs boson mass spectrum and a straightforward way to incorporate shape uncertainties, as it has only one parameter associated with the peak and two with the width of the lineshape. The tails are necessary to account for the non-Gaussian response of the photons and meson. Further information about this PDF and its implementation in ROOT is available in Ref. \cite{CERN:root_CB}.
+The expected photon-meson mass candidate distribution in signal events, for each decay mode, is modeled using a double-sided Crystal Ball. This function, named after the Crystal Ball Collaboration \cite{A2:CB}, is a probability density function (PDF) commonly employed in high-energy physics (HEP). It consists of a Gaussian center and two asymmetric tails modeled by power-law functions, and it is $\mathcal{C}^{1}$, i.e., continuous with a continuous derivative. This functional form simultaneously offers a robust description of the Higgs boson mass spectrum and a straightforward way to incorporate shape uncertainties, as it has only one parameter associated with the peak and two with the width of the lineshape. The tails are necessary to account for the non-Gaussian response of the photons and meson. Further information about this PDF and its implementation in ROOT is available in Ref. \cite{CERN:root_CB}.
 
 \subsection*{Background modelling}
 
-The monotonous $M_{\gamma, M}$ background distribution is estimated by fitting the gamma-meson mass spectrum in the signal fit region ($100 < M_{\gamma, M} < 160\ \GeV$) using analytic functions. Two side bands, $100 < M_{\gamma, M} < 115\ \GeV$ and $135 < M_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The set of functions consists of Bernestein and Chebychev Polynomials.
+The monotonous $M_{\gamma, M}$ background distribution is estimated by fitting the photon-meson mass spectrum in the signal fit region ($100 < M_{\gamma, M} < 160\ \GeV$) using analytic functions. Two side bands, $100 < M_{\gamma, M} < 115\ \GeV$ and $135 < M_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The set of functions consists of Bernestein and Chebychev Polynomials.
 
 No prior knowledge of the parameters of the fit functions (in both shape and normalization) is assumed, i.e. they are allowed to vary freely in the data fit. Table \ref{tab:bkg_polynomials} reports the degrees of freedom (dof) and $\chi^2$/dof for both polynomial classes and for each decay mode.
 \begin{table}[!ht]
@@ -576,18 +799,85 @@ No prior knowledge of the parameters of the fit functions (in both shape and nor
         $D^{*0}$ 3-body &\r4-dof, $\chi^2$/dof=0.75   &\r4-dof, $\chi^2$/dof=0.75   \\
         \hline
         \end{tabular}
-    \caption{Degrees of freedom and $\chi^2$/dof for each decay mode and polynomial type used to model the background gamma-meson mass spectrum $M_{\gamma, M}$.}
+    \caption{Degrees of freedom and $\chi^2$/dof for each decay mode and polynomial type used to model the background photon-meson mass spectrum $M_{\gamma, M}$.}
     \label{tab:bkg_polynomials}
 \end{table}
 
-\todo{include sig+bkg model plots}
+Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0star} show the MC signal and data (for the background estimation) for each channel, with the fitted models. \todo{Discuss plots Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0star} further when sidebands are in place.}
 
-\todo{discuss plots}
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_SGN.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_BKG.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_SGN.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_BKG.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Signal and background fits for the Higgs boson invariant mass for the $\phi$ and $\omega$ decay channels. (a) signal for $\phi$, (b) background for $\phi$, (c) signal for $\omega$, (d) background for $\omega$.}
+\label{fig:sig_bkg_modelling_phi_omega}
+    \vspace*{-0.0cm}
+\end{figure}
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_SGN.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_BKG.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_SGN.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_BKG.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Signal and background fits for the Higgs boson invariant mass for the $D^{*0}$ meson in both the 2-body and 3-body decay channels. (a) signal for $D^{*0}$ 2-body, (b) background for $D^{*0}$ 2-body, (c) signal for $D^{*0}$ 3-body, (d) background for $D^{*0}$ 3-body.}
+\label{fig:sig_bkg_modelling_d0star}
+    \vspace*{-0.0cm}
+\end{figure}
 
 \section{Estimated results}\label{sec:results}
 
-The expected upper limits on the branching fractions are set at 95\% confidence level (CL). For this computation, the Combine tool is employed with the \verb+AsymptoticLimits+ method \cite{CMS:Combine}. \todo{explain intuitively how the limit is computed: only the fitted functions are used, that is somewhat proportional to the are under the curve like s/sqrt(s+b), etc.} Table \ref{tab:results} reports the expected upper limits on the branching ratios.
+The modified frequentist construction CL$_\text{s}$ \cite{Read:2002hq, Junk:1999kv} is used with the asymptotic approximation \cite{Cowan:2010js} to compute 95\% confidence level (CL) upper limits on the branching fractions. For this computation, the Combine tool is employed with the \verb+AsymptoticLimits+ method \cite{CMS:Combine}.
 
+The upper limit is computed by performing a statistical test. Two hypotheses are defined: the null hypothesis $H_0$ describes the model with signal plus background, while the alternative hypothesis $H_1$ represents the background-only hypothesis. Maximum-likelihood fits to the photon-meson invariant mass of the signal plus background MC (or to the data, after unblinding) are done for both hypotheses. The upper limit is then defined as the value of the branching fraction at which we can reject the alternative hypothesis with a $p$-value of 0.05, i.e., at the 95\% CL. The shape of the signal model is determined beforehand, as explained in Section \ref{sec:modelling}, and in this new combined fit, only the normalization constant is allowed to vary. Intuitively, the value of the limit is related to the area under the fitted curves, making it approximately proportional to $\sqrt{S+B}/S$, where $S$ and $B$ are the areas under the signal and background modelled curves, respectively. Additional information can be found in Ref. \cite{Cowan:2010js}.
+
+\todo{How is the limit computed when using the real data for the background estimation with the sidebands?}
+
+Table \ref{tab:results} reports the expected upper limits on the branching ratios.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|l|C{3cm}|C{3cm}|c|}
@@ -607,5 +897,31 @@ The expected upper limits on the branching fractions are set at 95\% confidence 
 
 \section{Future potential improvements}\label{sec:future_improvements}
 
-\todo{talk about MVA, data-MC corrections, bias study in background polynomials, and what are next steps before unblinding data (systematics, other production modes...)}
+This analysis provides an initial estimation of the upper limits on the branching ratios of the selected Higgs boson rare decays. Before unblinding and obtaining actual measurements, several improvements, corrections, and cross-checks are necessary. This section will briefly address some of these, although the list is is not exhaustive.
+\vspace*{-6pt}
+\begin{myitemlist}
+    \item[Multivariate analysis signal/background distriminant:] The most important discriminating variable between signal and background processes in this search is the photon-meson invariant mass, which forms a sharp peak around 125 GeV for the signal, as opposed to the background in which it decreases monotonically within the same mass range. Nonetheless, additional kinematic variables can enhance the signal-to-background separation.
+    
+    To improve the sensitivity, a multivariate discriminant (using BDTs, for example) can be constructed, taking as input several variables that capture the distinct kinematic characteristics of both the signal and the background. To better isolate the Higgs boson signal from the SM background, MVA discriminants should be individually trained for each decay mode.
+
+    These MVA discriminants have shown to reduce the limits by around 44\% - 49\% in similar analyses, like the one the PPC grop is conducting.
+
+    \todo{
+        ARE THESE CORRECTIONS ALREADY IMPLEMENTED IN MY ANALYSIS?
+
+    \item[Data - MC corrections:] Simulated signal and background samples should be corrected for various effects through reweighting procedures. This is relevant because the signal is used in the final fit estimation, while the background MC can be used for the training of the MVA discriminant earlier mentioned. These might include:
+    \begin{itemize}
+        \item {\bf Pileup reweighting:} Pileup conditions in the simulated samples are not identical to the ones observed measured in data, and a reweighting should be applied to remove the difference.
+        \item {\bf Photon scale and resolution:} Photon energy scale and resolution corrections should be propagated to the photons. The photon energy scale in data and the resolution in simulation can be evaluated using the $Z^{0}\decaysto ee$ process, like in similar analysis.
+        \item {\bf Meson reconstruction:} The track reconstruction efficiency should be applied to the MC events to account for effects associated with the modelling of the tracker material and track reconstruction algorithms.
+        \item {\bf Trigger scale factors:} Triggers are applied in the MC selection, so trigger scale factors should be applied to simulation to restore the good data - MC agreement. 
+    \end{itemize}
+    }
+
+    \item[Bias study in background polynomials:] \todo{Explain}
+    \item[Additional Higgs boson production modes:] \todo{Explain}
+    \item[Systematics:] \todo{Explain}
+\end{myitemlist}
+
+\todo{Add more things?}
 
