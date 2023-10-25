@@ -16,6 +16,7 @@ parser.add_option("-c", "--whichCat",       type='string', help="Which category 
 parser.add_option("-m", "--whichMeson",     type='string', help="Which meson (Phi3Cat, OmegaCat or D0StarCat)", default="D0StarCat")
 parser.add_option("-o", "--output",         type='string', help="Output ROOT file. [%default]", default="WS_JUL06/workspace_STAT_D0StarCat_2018.root")
 parser.add_option("-d", "--dataCardName",   type='string', help="Output txt file. [%default]", default="WS_JUL06/datacard_STAT_D0StarCat_2018.txt")
+parser.add_option("", "--is2Dfit",   type='string', help="Is it a 2D fit or not", default="False")
 
 opts, args = parser.parse_args()
 
@@ -55,6 +56,16 @@ SigPdf={
     'Zinvcat': 'crystal_ball_' + opts.whichMeson,
     'VBFcatlow': 'crystal_ball_' + opts.whichMeson,
     'GFcat': 'crystal_ball_' + opts.whichMeson,
+}
+
+SigPdf2Dfit={
+    'Vcat': 'pdf_2d_signal_' + opts.whichMeson,
+    'Wcat': 'pdf_2d_signal_' + opts.whichMeson,
+    'Zcat': 'pdf_2d_signal_' + opts.whichMeson,
+    'VBFcat': 'pdf_2d_signal_' + opts.whichMeson,
+    'Zinvcat': 'pdf_2d_signal_' + opts.whichMeson,
+    'VBFcatlow': 'pdf_2d_signal_' + opts.whichMeson,
+    'GFcat': 'pdf_2d_signal_' + opts.whichMeson,
 }
 
 ENUM={
@@ -109,6 +120,7 @@ def addSystematics(systname, systtype, value, whichProc, category, mcAll, dataca
 if __name__ == "__main__":
     #################### cat and processes ####################
     #print(opts.whichCat)
+    is2Dfit = opts.is2Dfit.lower() == 'true'
 
     if opts.whichCat=='GFcat':
         sigAll = ['ggH']
@@ -132,10 +144,10 @@ if __name__ == "__main__":
     datacard.write("-------------------------------------\n")
 
     #################### IMPORT DATA ####################
-    w.factory("mh[100,150]") # RooRealVar
-    mh = w.var("mh")
-    arglist_obs = ROOT.RooArgList(mh)
-    argset_obs = ROOT.RooArgSet(mh)
+    #w.factory("mh[100,160]") # RooRealVar
+    #mh = w.var("mh")
+    #arglist_obs = ROOT.RooArgList(mh)
+    #argset_obs = ROOT.RooArgSet(mh)
 
     #################### Import SIGNAL/BKG CONTRIBUTIONS ####################
     fSigIn = ROOT.TFile.Open(opts.inputFileSIG,"READ")
@@ -152,11 +164,12 @@ if __name__ == "__main__":
                 nameNorm = name + "_norm"
             else:
                 wInput = fSigIn.Get("w")
-                name = SigPdf[cat] + "_" + cat + "_" + proc
+                name = (SigPdf2Dfit[cat] if is2Dfit else SigPdf[cat]) + "_" + cat + "_" + proc 
                 nameNorm = name + "_norm"
             print("proc=", proc, " cat=", cat, " name=", name)
+            print(name, nameNorm)
             func = wInput.pdf(name)
-            if func == None: raise IOError("Unable to get func" + name)
+            if func == None: raise IOError("Unable to get func " + name)
             getattr(w,'import')(func)
             funcNorm = wInput.var(nameNorm)
             if funcNorm == None: raise IOError("Unable to get func normalization " + nameNorm)

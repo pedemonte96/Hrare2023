@@ -12,16 +12,17 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
     print('\033[1;36m' + "\n[createAndSaveHistogramSIG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
     if regModelName == "RECO":
         regModelName = None
-    histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle, ditrack, regModelName=regModelName)
-    #Save histogram
-    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
-    saveHistoToFile(histogram, name)
-    if doubleFit:
-        histogram = getHistoDoubleFit(200, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year)
-        #Save histogram
-        name = getFullNameOfHistFile(mesonCat, cat, year, date, doubleFit=doubleFit)
-        saveHistoToFile(histogram, name)
 
+    if not doubleFit:
+        histogram = getHisto(200*10, 0., 200., date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, filters, extraTitle, ditrack, regModelName=regModelName)
+        #Save histogram
+        name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
+    else:
+        histogram = get2DHisto(200*10, 0., 200., 200*2, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle, regModelName=regModelName)
+        #Save histogram
+        name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName, doubleFit=True)
+    
+    saveHistoToFile(histogram, name)
     print('\033[1;36m' + "[createAndSaveHistogramSIG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;36m' + "[createAndSaveHistogramSIG] {}".format((" " + name[34:] + " ").center(65, "-") + '\033[0m'))
 
@@ -31,15 +32,17 @@ def createAndSaveHistogramBackground(tag, mesonCat, year, date, regModelName=Non
     print('\033[1;31m' + "\n[createAndSaveHistogramBKG] ---------------------- Creating Histogram... --------------------" + '\033[0m')
     if regModelName == "RECO":
         regModelName = None
-    histogram = getHisto(200*1, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
-    #Save histogram
-    name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName)
-    saveHistoToFile(histogram, name)
-    if doubleFit:
-        histogram = getHistoDoubleFit(100, date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year)
+
+    if not doubleFit:
+        histogram = getHisto(200*1, 0., 200., date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, regModelName=regModelName)
         #Save histogram
-        name = getFullNameOfHistFile(mesonCat, cat, year, date,  extraTitle="BKG", doubleFit=doubleFit)
-        saveHistoToFile(histogram, name)
+        name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName)
+    else:
+        histogram = get2DHisto(200*1, 0., 200., 100, date, numDict["Background"], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle="BKG", regModelName=regModelName)
+        #Save histogram
+        name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle="BKG", regModelName=regModelName, doubleFit=True)
+
+    saveHistoToFile(histogram, name)
     print('\033[1;31m' + "[createAndSaveHistogramBKG] ------------------------ Histogram saved! -----------------------" + '\033[0m')
     print('\033[1;31m' + "[createAndSaveHistogramBKG] {}".format((" " + name[34:] + " ").center(65, "-")) + '\033[0m')
 

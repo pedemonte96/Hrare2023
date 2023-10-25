@@ -5,12 +5,12 @@ ROOT.gROOT.SetBatch()
 ROOT.gSystem.Load("libHiggsAnalysisCombinedLimit.so")
 
 xlowRange = 100.
-xhighRange = 150.
+xhighRange = 160.
 
 sig = "ggH"
-workspaceName = 'WS_SEP25'
+workspaceName = 'WS_OCT25'
 
-def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None, doubleFit=False):
+def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
     if regModelName == "RECO":
         regModelName = None
@@ -188,168 +188,21 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None, double
     # Create workspace
     w = ROOT.RooWorkspace("w", "workspace")
 
-    if not doubleFit:#set workspace when not double fit
-        norm_range = data_full.Integral(data_full.FindBin(xlowRange), data_full.FindBin(xhighRange))
-        BKG_norm = ROOT.RooRealVar("multipdf_"+mesonCat+"_"+tag+"_bkg"+"_norm", model.GetName()+"_norm", norm_range, 0.5*norm_range, 2*norm_range)
+    norm_range = data_full.Integral(data_full.FindBin(xlowRange), data_full.FindBin(xhighRange))
+    BKG_norm = ROOT.RooRealVar("multipdf_"+mesonCat+"_"+tag+"_bkg"+"_norm", model.GetName()+"_norm", norm_range, 0.5*norm_range, 2*norm_range)
 
-        pdf_cat = ROOT.RooCategory("pdfindex_"+mesonCat+"_"+tag,"pdfindex"+"_"+mesonCat+"_"+tag)
-        pdf_bkg = ROOT.RooMultiPdf("multipdf_"+mesonCat+"_"+tag+"_bkg","multipdf",pdf_cat,storedPdfs)
-        getattr(w,'import')(pdf_bkg)
+    pdf_cat = ROOT.RooCategory("pdfindex_"+mesonCat+"_"+tag,"pdfindex"+"_"+mesonCat+"_"+tag)
+    pdf_bkg = ROOT.RooMultiPdf("multipdf_"+mesonCat+"_"+tag+"_bkg","multipdf",pdf_cat,storedPdfs)
+    getattr(w,'import')(pdf_bkg)
 
-        # Import model_norm
-        getattr(w,'import')(BKG_norm)
-        print("integral BKG",BKG_norm.Print())
+    # Import model_norm
+    getattr(w,'import')(BKG_norm)
+    print("integral BKG", BKG_norm.Print())
 
-        # Import data into the workspace
-        getattr(w,'import')(data)
-
-    #2Dfit---------------------------------------------------------------------------
-    else:
-        #Read Hist file saved
-        data_full_doubleFit = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle=extraTitle, doubleFit=doubleFit))
-        print("[fitBkg2D] ------------------------Histogram read!-----------------------")
-
-        xlow2D, xhigh2D = doubleFitVar[mesonCat][3]
-
-        x_doubleFit = ROOT.RooRealVar('m_meson', '{} [GeV]'.format(doubleFitVar[mesonCat][2]), xlow2D, xhigh2D)
-
-        x_doubleFit.setRange("full", xlow2D, xhigh2D)
-
-        data_doubleFit = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + "_doubleFit", 'data_doubleFit', ROOT.RooArgList(x_doubleFit), data_full_doubleFit)
-
-        #BERN law -----------------------------------------------------------------------------
-        bern_c0_doubleFit = ROOT.RooRealVar('bern_c0_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c0_doubleFit', 0.50, 0., 1.0)
-        bern_c1_doubleFit = ROOT.RooRealVar('bern_c1_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c1_doubleFit', 0.10, 0., 1.0)
-        bern_c2_doubleFit = ROOT.RooRealVar('bern_c2_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c2_doubleFit', 0.10, 0., 1.0)
-        bern_c3_doubleFit = ROOT.RooRealVar('bern_c3_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c3_doubleFit', 0.01, 0., 0.1)
-        bern_c4_doubleFit = ROOT.RooRealVar('bern_c4_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c4_doubleFit', 0.50, 0., 5.0)
-        bern_c5_doubleFit = ROOT.RooRealVar('bern_c5_' + mesonCat + "_" + tag + "_doubleFit", 'bern_c5_doubleFit', 0.01, 0., 0.1)
-
-        pdf_bern0_doubleFit = ROOT.RooBernstein('bern0_' + mesonCat + "_" + tag + "_doubleFit", 'bern0_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit))
-        pdf_bern1_doubleFit = ROOT.RooBernstein('bern1_' + mesonCat + "_" + tag + "_doubleFit", 'bern1_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit, bern_c1_doubleFit))
-        pdf_bern2_doubleFit = ROOT.RooBernstein('bern2_' + mesonCat + "_" + tag + "_doubleFit", 'bern2_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit, bern_c1_doubleFit, bern_c2_doubleFit))
-        pdf_bern3_doubleFit = ROOT.RooBernstein('bern3_' + mesonCat + "_" + tag + "_doubleFit", 'bern3_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit, bern_c1_doubleFit, bern_c2_doubleFit, bern_c3_doubleFit))
-        pdf_bern4_doubleFit = ROOT.RooBernstein('bern4_' + mesonCat + "_" + tag + "_doubleFit", 'bern4_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit, bern_c1_doubleFit, bern_c2_doubleFit, bern_c3_doubleFit, bern_c4_doubleFit))
-        pdf_bern5_doubleFit = ROOT.RooBernstein('bern5_' + mesonCat + "_" + tag + "_doubleFit", 'bern5_doubleFit', x_doubleFit, ROOT.RooArgList(bern_c0_doubleFit, bern_c1_doubleFit, bern_c2_doubleFit, bern_c3_doubleFit, bern_c4_doubleFit, bern_c5_doubleFit))
-
-        #CHEBYCHEV law ------------------------------------------------------------------------
-        chebychev_c0_doubleFit = ROOT.RooRealVar('chebychev_c0_' + mesonCat + "_" + tag + "_doubleFit", 'chebychev_c0_doubleFit', 1.08, -1.1, 10.)
-        chebychev_c1_doubleFit = ROOT.RooRealVar('chebychev_c1_' + mesonCat + "_" + tag + "_doubleFit", 'chebychev_c1_doubleFit', 0.40, -1.0, 1.0)
-        chebychev_c2_doubleFit = ROOT.RooRealVar('chebychev_c2_' + mesonCat + "_" + tag + "_doubleFit", 'chebychev_c2_doubleFit', 0.01, -0.1, 0.1)
-        chebychev_c3_doubleFit = ROOT.RooRealVar('chebychev_c3_' + mesonCat + "_" + tag + "_doubleFit", 'chebychev_c3_doubleFit', 0.00, -1.0, 1.0)
-        chebychev_c4_doubleFit = ROOT.RooRealVar('chebychev_c4_' + mesonCat + "_" + tag + "_doubleFit", 'chebychev_c4_doubleFit', 0.00, -1.0, 1.0)
-
-        pdf_chebychev1_doubleFit = ROOT.RooChebychev("chebychev1_" + mesonCat + "_" + tag + "_doubleFit", "chebychev1_doubleFit", x_doubleFit, ROOT.RooArgList(chebychev_c0_doubleFit, chebychev_c1_doubleFit))
-        pdf_chebychev2_doubleFit = ROOT.RooChebychev("chebychev2_" + mesonCat + "_" + tag + "_doubleFit", "chebychev2_doubleFit", x_doubleFit, ROOT.RooArgList(chebychev_c0_doubleFit, chebychev_c1_doubleFit, chebychev_c2_doubleFit))
-        pdf_chebychev3_doubleFit = ROOT.RooChebychev("chebychev3_" + mesonCat + "_" + tag + "_doubleFit", "chebychev3_doubleFit", x_doubleFit, ROOT.RooArgList(chebychev_c0_doubleFit, chebychev_c1_doubleFit, chebychev_c2_doubleFit, chebychev_c3_doubleFit))
-        pdf_chebychev4_doubleFit = ROOT.RooChebychev("chebychev4_" + mesonCat + "_" + tag + "_doubleFit", "chebychev4_doubleFit", x_doubleFit, ROOT.RooArgList(chebychev_c0_doubleFit, chebychev_c1_doubleFit, chebychev_c2_doubleFit, chebychev_c3_doubleFit, chebychev_c4_doubleFit))
-
-        #--------------------------------------------------------------------------------------
-
-        storedPdfs_doubleFit = ROOT.RooArgList("store_" + mesonCat + "_" + tag + "_doubleFit")
-
-        #For ggH:
-        model_doubleFit = pdf_bern4_doubleFit
-        model2_doubleFit = pdf_chebychev4_doubleFit
-
-        fitresults_doubleFit = model_doubleFit.fitTo(data_doubleFit, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
-        fitresults2_doubleFit = model2_doubleFit.fitTo(data_doubleFit, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
-        storedPdfs_doubleFit.add(model_doubleFit)
-        storedPdfs_doubleFit.add(model2_doubleFit)
-
-        # Here we will plot the results
-        canvas_doubleFit = ROOT.TCanvas("canvas", "canvas", 1600, 1600)
-
-        canvas_doubleFit.cd()
-        pad1_doubleFit = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
-        pad1_doubleFit.Draw()
-        pad1_doubleFit.cd()
-        title_doubleFit = "mMeson_" + mesonCat + "_" + tag + "_" + str(year)
-        if extraTitle is not None:
-            title_doubleFit += "_({})".format(extraTitle)
-        plotFrameWithNormRange_doubleFit = x_doubleFit.frame(ROOT.RooFit.Title(title_doubleFit))
-        data_doubleFit.plotOn(plotFrameWithNormRange_doubleFit)
-        model_doubleFit.plotOn(plotFrameWithNormRange_doubleFit, ROOT.RooFit.Components(model_doubleFit.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
-        model2_doubleFit.plotOn(plotFrameWithNormRange_doubleFit, ROOT.RooFit.Components(model2_doubleFit.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
-        name1_doubleFit = model_doubleFit.GetName() + "_Norm[m_meson]_Comp[" + model_doubleFit.GetName() + "]_Range[full]_NormRange[full]"
-        name2_doubleFit = model2_doubleFit.GetName() + "_Norm[m_meson]_Comp[" + model2_doubleFit.GetName() + "]_Range[full]_NormRange[full]"
-        chi2_1_doubleFit = plotFrameWithNormRange_doubleFit.chiSquare(name1_doubleFit, "h_" + data_doubleFit.GetName(), fitresults_doubleFit.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
-        chi2_2_doubleFit = plotFrameWithNormRange_doubleFit.chiSquare(name2_doubleFit, "h_" + data_doubleFit.GetName(), fitresults2_doubleFit.floatParsFinal().getSize())
-        print('----------------------------------------')
-        print(model2_doubleFit.GetName(), "    chi2/ndof=",round(chi2_2_doubleFit,2), " ndof", fitresults2_doubleFit.floatParsFinal().getSize())
-        print(model_doubleFit.GetName(), "    chi2/ndof=",round(chi2_1_doubleFit,2), " ndof", fitresults_doubleFit.floatParsFinal().getSize())
-        print('----------------------------------------')
-        plotFrameWithNormRange_doubleFit.Draw()
-        data_full_doubleFit.GetXaxis().SetRangeUser(xlow2D, xhigh2D)
-
-        latex_doubleFit = ROOT.TLatex()
-        latex_doubleFit.SetTextSize(0.03)
-        latex_doubleFit.SetTextColor(ROOT.kRed)
-        latex_doubleFit.SetTextAlign(12)
-        latex_doubleFit.DrawLatexNDC(0.13, 0.865, model_doubleFit.GetName())
-        latex_doubleFit.SetTextAlign(32)
-        latex_doubleFit.DrawLatexNDC(0.49, 0.865, "#chi^{{2}}/ndof: {}".format(round(chi2_1_doubleFit, 2)))
-        latex_doubleFit.SetTextColor(ROOT.kBlue)
-        latex_doubleFit.SetTextAlign(12)
-        latex_doubleFit.DrawLatexNDC(0.13, 0.825, model2_doubleFit.GetName())
-        latex_doubleFit.SetTextAlign(32)
-        latex_doubleFit.DrawLatexNDC(0.49, 0.825, "#chi^{{2}}/ndof: {}".format(round(chi2_2_doubleFit, 2)))
-        latex_doubleFit.SetTextColor(ROOT.kBlack)
-        latex_doubleFit.SetTextAlign(12)
-        latex_doubleFit.DrawLatexNDC(0.74, 0.865, "Entries:")
-        latex_doubleFit.DrawLatexNDC(0.74, 0.825, "Mean:")
-        latex_doubleFit.DrawLatexNDC(0.74, 0.785, "Std Dev:")
-        latex_doubleFit.SetTextAlign(32)
-        latex_doubleFit.DrawLatexNDC(0.89, 0.865, "{}".format(int(data_full_doubleFit.GetEntries())))
-        latex_doubleFit.DrawLatexNDC(0.89, 0.825, "{}".format(round(data_full_doubleFit.GetMean(), 2)))
-        latex_doubleFit.DrawLatexNDC(0.89, 0.785, "{}".format(round(data_full_doubleFit.GetStdDev(), 4)))
-
-        canvas_doubleFit.cd()
-        pad2_doubleFit = ROOT.TPad("Res pad", "Res pad", 0, 0.20, 1.0, 0.40)
-        pad2_doubleFit.Draw()
-        pad2_doubleFit.cd()
-        residualsFrame1_doubleFit = x_doubleFit.frame(ROOT.RooFit.Title("Residuals model 1"))
-        hresid1_doubleFit = plotFrameWithNormRange_doubleFit.residHist("h_" + data_doubleFit.GetName(), name1_doubleFit)
-        residualsFrame1_doubleFit.addPlotable(hresid1_doubleFit, "P")
-        residualsFrame1_doubleFit.Draw()
-        
-        canvas_doubleFit.cd()
-        pad3_doubleFit = ROOT.TPad("Pull pad", "Pull pad", 0, 0, 1.0, 0.20)
-        pad3_doubleFit.Draw()
-        pad3_doubleFit.cd()
-        residualsFrame2_doubleFit = x_doubleFit.frame(ROOT.RooFit.Title("Residuals model 2"))
-        hresid2_doubleFit = plotFrameWithNormRange_doubleFit.residHist("h_" + data_doubleFit.GetName(), name2_doubleFit)
-        residualsFrame2_doubleFit.addPlotable(hresid2_doubleFit, "P")
-        residualsFrame2_doubleFit.Draw()
-
-        fileName_doubleFit = "~/public_html/fits/{}/{}".format(mesonCat[:-3], mesonCat)
-        if extraTitle is not None:
-            fileName_doubleFit += "_" + extraTitle.replace(" ", "_").replace(",", "")
-        canvas_doubleFit.SaveAs(fileName_doubleFit + "_fit_2D.png")
-
-        #Create 2D model
-        storedPdfs_doubleFit_ext = ROOT.RooArgList("store_" + mesonCat + "_" + tag + "_doubleFit_ext")
-        pdf_2D = ROOT.RooProdPdf("pdf_2d", "", ROOT.RooArgList(model, model_doubleFit))
-        pdf_2D2 = ROOT.RooProdPdf("pdf_2d2", "", ROOT.RooArgList(model2, model2_doubleFit))
-        storedPdfs_doubleFit_ext.add(pdf_2D)
-        storedPdfs_doubleFit_ext.add(pdf_2D2)
-
-        norm_range = data_full.Integral(data_full.FindBin(xlowRange), data_full.FindBin(xhighRange))
-        BKG_norm = ROOT.RooRealVar("multipdf_"+mesonCat+"_"+tag+"_bkg"+"_norm", model.GetName()+"_norm", norm_range, 0.5*norm_range, 2*norm_range)
-
-        pdf_cat = ROOT.RooCategory("pdfindex_"+mesonCat+"_"+tag,"pdfindex"+"_"+mesonCat+"_"+tag)
-        pdf_bkg = ROOT.RooMultiPdf("multipdf_"+mesonCat+"_"+tag+"_bkg","multipdf",pdf_cat,storedPdfs_doubleFit_ext)
-        getattr(w,'import')(pdf_bkg)
-
-        # Import model_norm
-        getattr(w,'import')(BKG_norm)
-        print("integral BKG",BKG_norm.Print())
-
-        # Import data into the workspace
-        getattr(w,'import')(data)
-        getattr(w,'import')(data_doubleFit)
-
-    # Print workspace contents for 1D/2D
+    # Import data into the workspace
+    getattr(w,'import')(data)
+    
+    # Print workspace contents
     w.Print()
 
     # -----------------------------------------------------------------------------
@@ -361,8 +214,312 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None, double
     if regModelName is not None:
         workspaceFileName += "_" + regModelName
 
-    w.writeToFile(workspaceName + "/" + workspaceFileName + "_workspace.root")#same name as 2D
+    w.writeToFile(workspaceName + "/" + workspaceFileName + "_workspace.root")
     print('\033[1;31m' + "[fitBkg] Fit done, workspace created!" + '\033[0m')
+
+
+
+
+
+
+
+
+
+def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+
+    if regModelName == "RECO":
+        regModelName = None
+
+    verbString = "[fitBkg2D] Fitting Histogram {} {} {}".format(mesonCat, cat, date)
+    if regModelName is not None:
+        verbString += " {}".format(regModelName)
+    if extraTitle is not None:
+        verbString += " {}".format(extraTitle)
+    verbString += "..."
+    print('\033[1;31m' + verbString + '\033[0m')
+
+    if extraTitle is None:
+        extraTitle = "BKG"
+    else:
+        extraTitle = "BKG_{}".format(extraTitle)
+    
+    #Read Hist file saved
+    data_full = getHistoFromFile(getFullNameOfHistFile(mesonCat, tag, year, date, extraTitle=extraTitle, regModelName=regModelName, doubleFit=True))
+    print("[fitBkg2D] ------------------------Histogram read!-----------------------")
+
+    ylowRange, yhighRange = doubleFitVar[mesonCat][3]
+
+    x = ROOT.RooRealVar('mh', 'm_{{#gamma, {0} }} [GeV]'.format(mesonLatex[mesonCat]), xlowRange, xhighRange)
+    y = ROOT.RooRealVar('mmeson', '{0} [GeV]'.format(doubleFitVar[mesonCat][2]), ylowRange, yhighRange)
+
+    x.setRange("full", xlowRange, xhighRange)
+    y.setRange("full", ylowRange, yhighRange)
+
+    data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag, 'data', ROOT.RooArgList(x, y), data_full)
+
+    #BERN law (Higgs mass) -----------------------------------------------------------------------------
+    bern_mh_c0 = ROOT.RooRealVar('bern_mh_c0_' + mesonCat + "_" + tag, 'bern_mh_c0', 0.50, 0., 1.0)
+    bern_mh_c1 = ROOT.RooRealVar('bern_mh_c1_' + mesonCat + "_" + tag, 'bern_mh_c1', 0.10, 0., 1.0)
+    bern_mh_c2 = ROOT.RooRealVar('bern_mh_c2_' + mesonCat + "_" + tag, 'bern_mh_c2', 0.10, 0., 1.0)
+    bern_mh_c3 = ROOT.RooRealVar('bern_mh_c3_' + mesonCat + "_" + tag, 'bern_mh_c3', 0.01, 0., 0.1)
+    bern_mh_c4 = ROOT.RooRealVar('bern_mh_c4_' + mesonCat + "_" + tag, 'bern_mh_c4', 0.50, 0., 5.0)
+    bern_mh_c5 = ROOT.RooRealVar('bern_mh_c5_' + mesonCat + "_" + tag, 'bern_mh_c5', 0.01, 0., 0.1)
+
+    pdf_bern0_mh = ROOT.RooBernstein('bern0_' + mesonCat + "_" + tag + "_mh", 'bern0_mh', x, ROOT.RooArgList(bern_mh_c0))
+    pdf_bern1_mh = ROOT.RooBernstein('bern1_' + mesonCat + "_" + tag + "_mh", 'bern1_mh', x, ROOT.RooArgList(bern_mh_c0, bern_mh_c1))
+    pdf_bern2_mh = ROOT.RooBernstein('bern2_' + mesonCat + "_" + tag + "_mh", 'bern2_mh', x, ROOT.RooArgList(bern_mh_c0, bern_mh_c1, bern_mh_c2))
+    pdf_bern3_mh = ROOT.RooBernstein('bern3_' + mesonCat + "_" + tag + "_mh", 'bern3_mh', x, ROOT.RooArgList(bern_mh_c0, bern_mh_c1, bern_mh_c2, bern_mh_c3))
+    pdf_bern4_mh = ROOT.RooBernstein('bern4_' + mesonCat + "_" + tag + "_mh", 'bern4_mh', x, ROOT.RooArgList(bern_mh_c0, bern_mh_c1, bern_mh_c2, bern_mh_c3, bern_mh_c4))
+    pdf_bern5_mh = ROOT.RooBernstein('bern5_' + mesonCat + "_" + tag + "_mh", 'bern5_mh', x, ROOT.RooArgList(bern_mh_c0, bern_mh_c1, bern_mh_c2, bern_mh_c3, bern_mh_c4, bern_mh_c5))
+
+    #CHEBYCHEV law (Higgs mass) ------------------------------------------------------------------------
+    chebychev_mh_c0 = ROOT.RooRealVar('chebychev_mh_c0_' + mesonCat + "_" + tag, 'chebychev_mh_c0', 1.08, -1.1, 10.)
+    chebychev_mh_c1 = ROOT.RooRealVar('chebychev_mh_c1_' + mesonCat + "_" + tag, 'chebychev_mh_c1', 0.40, -1.0, 1.0)
+    chebychev_mh_c2 = ROOT.RooRealVar('chebychev_mh_c2_' + mesonCat + "_" + tag, 'chebychev_mh_c2', 0.01, -0.1, 0.1)
+    chebychev_mh_c3 = ROOT.RooRealVar('chebychev_mh_c3_' + mesonCat + "_" + tag, 'chebychev_mh_c3', 0.00, -1.0, 1.0)
+
+    pdf_chebychev1_mh = ROOT.RooChebychev("chebychev1_" + mesonCat + "_" + tag + "_mh", "chebychev1_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1))
+    pdf_chebychev2_mh = ROOT.RooChebychev("chebychev2_" + mesonCat + "_" + tag + "_mh", "chebychev2_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1, chebychev_mh_c2))
+    pdf_chebychev3_mh = ROOT.RooChebychev("chebychev3_" + mesonCat + "_" + tag + "_mh", "chebychev3_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1, chebychev_mh_c2, chebychev_mh_c3))
+
+    #BERN law (Meson mass) -----------------------------------------------------------------------------
+    bern_mm_c0 = ROOT.RooRealVar('bern_mm_c0_' + mesonCat + "_" + tag, 'bern_mm_c0', 0.50, 0., 1.0)
+    bern_mm_c1 = ROOT.RooRealVar('bern_mm_c1_' + mesonCat + "_" + tag, 'bern_mm_c1', 0.10, 0., 1.0)
+    bern_mm_c2 = ROOT.RooRealVar('bern_mm_c2_' + mesonCat + "_" + tag, 'bern_mm_c2', 0.10, 0., 1.0)
+    bern_mm_c3 = ROOT.RooRealVar('bern_mm_c3_' + mesonCat + "_" + tag, 'bern_mm_c3', 0.01, 0., 0.1)
+    bern_mm_c4 = ROOT.RooRealVar('bern_mm_c4_' + mesonCat + "_" + tag, 'bern_mm_c4', 0.50, 0., 5.0)
+    bern_mm_c5 = ROOT.RooRealVar('bern_mm_c5_' + mesonCat + "_" + tag, 'bern_mm_c5', 0.01, 0., 0.1)
+
+    pdf_bern0_mm = ROOT.RooBernstein('bern0_' + mesonCat + "_" + tag + "_mm", 'bern0_mm', y, ROOT.RooArgList(bern_mm_c0))
+    pdf_bern1_mm = ROOT.RooBernstein('bern1_' + mesonCat + "_" + tag + "_mm", 'bern1_mm', y, ROOT.RooArgList(bern_mm_c0, bern_mm_c1))
+    pdf_bern2_mm = ROOT.RooBernstein('bern2_' + mesonCat + "_" + tag + "_mm", 'bern2_mm', y, ROOT.RooArgList(bern_mm_c0, bern_mm_c1, bern_mm_c2))
+    pdf_bern3_mm = ROOT.RooBernstein('bern3_' + mesonCat + "_" + tag + "_mm", 'bern3_mm', y, ROOT.RooArgList(bern_mm_c0, bern_mm_c1, bern_mm_c2, bern_mm_c3))
+    pdf_bern4_mm = ROOT.RooBernstein('bern4_' + mesonCat + "_" + tag + "_mm", 'bern4_mm', y, ROOT.RooArgList(bern_mm_c0, bern_mm_c1, bern_mm_c2, bern_mm_c3, bern_mm_c4))
+    pdf_bern5_mm = ROOT.RooBernstein('bern5_' + mesonCat + "_" + tag + "_mm", 'bern5_mm', y, ROOT.RooArgList(bern_mm_c0, bern_mm_c1, bern_mm_c2, bern_mm_c3, bern_mm_c4, bern_mm_c5))
+
+    #CHEBYCHEV law (Meson mass) ------------------------------------------------------------------------
+    chebychev_mm_c0 = ROOT.RooRealVar('chebychev_mm_c0_' + mesonCat + "_" + tag, 'chebychev_mm_c0', 1.08, -1.1, 10.)
+    chebychev_mm_c1 = ROOT.RooRealVar('chebychev_mm_c1_' + mesonCat + "_" + tag, 'chebychev_mm_c1', 0.40, -1.0, 1.0)
+    chebychev_mm_c2 = ROOT.RooRealVar('chebychev_mm_c2_' + mesonCat + "_" + tag, 'chebychev_mm_c2', 0.01, -0.1, 0.1)
+    chebychev_mm_c3 = ROOT.RooRealVar('chebychev_mm_c3_' + mesonCat + "_" + tag, 'chebychev_mm_c3', 0.00, -1.0, 1.0)
+
+    pdf_chebychev1_mm = ROOT.RooChebychev("chebychev1_" + mesonCat + "_" + tag + "_mm", "chebychev1_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1))
+    pdf_chebychev2_mm = ROOT.RooChebychev("chebychev2_" + mesonCat + "_" + tag + "_mm", "chebychev2_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1, chebychev_mm_c2))
+    pdf_chebychev3_mm = ROOT.RooChebychev("chebychev3_" + mesonCat + "_" + tag + "_mm", "chebychev3_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1, chebychev_mm_c2, chebychev_mm_c3))
+
+    storedPdfs = ROOT.RooArgList("store_" + mesonCat + "_" + tag)
+
+    #For ggH:
+    model2D_bb = ROOT.RooProdPdf("pdf_2d_bkg_bern_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_bern", ROOT.RooArgList(pdf_bern3_mh, pdf_bern3_mm))
+    model2D_bc = ROOT.RooProdPdf("pdf_2d_bkg_bern_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_chev", ROOT.RooArgList(pdf_bern3_mh, pdf_chebychev3_mm))
+    model2D_cb = ROOT.RooProdPdf("pdf_2d_bkg_chev_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_bern", ROOT.RooArgList(pdf_chebychev3_mh, pdf_bern3_mm))
+    model2D_cc = ROOT.RooProdPdf("pdf_2d_bkg_chev_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_chev", ROOT.RooArgList(pdf_chebychev3_mh, pdf_chebychev3_mm))
+
+
+    fitresults_bb = model2D_bb.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
+    fitresults_bc = model2D_bc.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
+    fitresults_cb = model2D_cb.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
+    fitresults_cc = model2D_cc.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
+    storedPdfs.add(model2D_bb)
+    storedPdfs.add(model2D_bc)
+    storedPdfs.add(model2D_cb)
+    storedPdfs.add(model2D_cc)
+
+    # Here we will plot the results
+    # Projection of the HiggsCandMass
+    canvasMH = ROOT.TCanvas("canvasMH", "canvasMH", 1600, 1600)
+
+    canvasMH.cd()
+    pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
+    pad1.Draw()
+    pad1.cd()
+    titleMH = "mH_" + mesonCat + "_" + tag + "_" + str(year)
+    if regModelName is not None:
+        titleMH += "_({})".format(regModelName)
+    if extraTitle is not None:
+        titleMH += "_({})".format(extraTitle)
+    plotFrameWithNormRangeMH = x.frame(ROOT.RooFit.Title(titleMH))
+    data.plotOn(plotFrameWithNormRangeMH)
+    model2D_bb.plotOn(plotFrameWithNormRangeMH, ROOT.RooFit.Components(model2D_bb.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
+    model2D_cc.plotOn(plotFrameWithNormRangeMH, ROOT.RooFit.Components(model2D_cc.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
+    print(plotFrameWithNormRangeMH.Print("V"))
+    name_bb = model2D_bb.GetName() + "_Int[mmeson]_Norm[mh,mmeson]_Comp[" + model2D_bb.GetName() + "]_Range[full]_NormRange[full]"
+    name_cc = model2D_cc.GetName() + "_Int[mmeson]_Norm[mh,mmeson]_Comp[" + model2D_cc.GetName() + "]_Range[full]_NormRange[full]"
+    chi2_bb = plotFrameWithNormRangeMH.chiSquare(name_bb, "h_" + data.GetName(), fitresults_bb.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
+    chi2_cc = plotFrameWithNormRangeMH.chiSquare(name_cc, "h_" + data.GetName(), fitresults_cc.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
+    
+    print('----------------------------------------')
+    print(model2D_bb.GetName(), "    chi2/ndof=",round(chi2_bb,2), " ndof", fitresults_bb.floatParsFinal().getSize())
+    print(model2D_cc.GetName(), "    chi2/ndof=",round(chi2_cc,2), " ndof", fitresults_cc.floatParsFinal().getSize())
+    print('----------------------------------------')
+    plotFrameWithNormRangeMH.Draw()
+    data_full.GetXaxis().SetRangeUser(xlowRange, xhighRange)
+
+    latexMH = ROOT.TLatex()
+    latexMH.SetTextSize(0.03)
+    latexMH.SetTextColor(ROOT.kRed)
+    latexMH.SetTextAlign(12)
+    latexMH.DrawLatexNDC(0.13, 0.865, model2D_bb.GetName())
+    latexMH.SetTextAlign(32)
+    latexMH.DrawLatexNDC(0.49, 0.865, "#chi^{{2}}/ndof: {}".format(round(chi2_bb, 2)))
+    latexMH.SetTextColor(ROOT.kBlue)
+    latexMH.SetTextAlign(12)
+    latexMH.DrawLatexNDC(0.13, 0.825, model2D_cc.GetName())
+    latexMH.SetTextAlign(32)
+    latexMH.DrawLatexNDC(0.49, 0.825, "#chi^{{2}}/ndof: {}".format(round(chi2_cc, 2)))
+    latexMH.SetTextColor(ROOT.kBlack)
+    latexMH.SetTextAlign(12)
+    latexMH.DrawLatexNDC(0.74, 0.865, "Entries:")
+    latexMH.DrawLatexNDC(0.74, 0.825, "Mean:")
+    latexMH.DrawLatexNDC(0.74, 0.785, "Std Dev:")
+    latexMH.SetTextAlign(32)
+    latexMH.DrawLatexNDC(0.89, 0.865, "{}".format(int(data_full.GetEntries())))
+    latexMH.DrawLatexNDC(0.89, 0.825, "{}".format(round(data_full.GetMean(1), 2)))
+    latexMH.DrawLatexNDC(0.89, 0.785, "{}".format(round(data_full.GetStdDev(1), 4)))
+
+    canvasMH.cd()
+    pad2 = ROOT.TPad("Res pad", "Res pad", 0, 0.20, 1.0, 0.40)
+    pad2.Draw()
+    pad2.cd()
+    residualsFrame1 = x.frame(ROOT.RooFit.Title("Residuals model 1"))
+    hresid1 = plotFrameWithNormRangeMH.residHist("h_" + data.GetName(), name_bb)
+    residualsFrame1.addPlotable(hresid1, "P")
+    residualsFrame1.Draw()
+    
+    canvasMH.cd()
+    pad3 = ROOT.TPad("Pull pad", "Pull pad", 0, 0, 1.0, 0.20)
+    pad3.Draw()
+    pad3.cd()
+    residualsFrame2 = x.frame(ROOT.RooFit.Title("Residuals model 2"))
+    hresid2 = plotFrameWithNormRangeMH.residHist("h_" + data.GetName(), name_cc)
+    residualsFrame2.addPlotable(hresid2, "P")
+    residualsFrame2.Draw()
+
+    fileName = "~/public_html/fits/{}/{}".format(mesonCat[:-3], mesonCat)
+    if regModelName is not None:
+        fileName += "_" + regModelName
+    if extraTitle is not None:
+        fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    canvasMH.SaveAs(fileName + "_2Dfit_MH.png")
+
+
+    # Projection of the HiggsCandMass
+    canvasMM = ROOT.TCanvas("canvasMM", "canvasMM", 1600, 1600)
+
+    canvasMM.cd()
+    pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
+    pad1.Draw()
+    pad1.cd()
+    titleMM = "mM_" + mesonCat + "_" + tag + "_" + str(year)
+    if regModelName is not None:
+        titleMM += "_({})".format(regModelName)
+    if extraTitle is not None:
+        titleMM += "_({})".format(extraTitle)
+    plotFrameWithNormRangeMM = y.frame(ROOT.RooFit.Title(titleMM))
+    data.plotOn(plotFrameWithNormRangeMM)
+    model2D_bb.plotOn(plotFrameWithNormRangeMM, ROOT.RooFit.Components(model2D_bb.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
+    model2D_cc.plotOn(plotFrameWithNormRangeMM, ROOT.RooFit.Components(model2D_cc.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
+    print(plotFrameWithNormRangeMM.Print("V"))
+    name_bb = model2D_bb.GetName() + "_Int[mh]_Norm[mh,mmeson]_Comp[" + model2D_bb.GetName() + "]_Range[full]_NormRange[full]"
+    name_cc = model2D_cc.GetName() + "_Int[mh]_Norm[mh,mmeson]_Comp[" + model2D_cc.GetName() + "]_Range[full]_NormRange[full]"
+    chi2_bb = plotFrameWithNormRangeMM.chiSquare(name_bb, "h_" + data.GetName(), fitresults_bb.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
+    chi2_cc = plotFrameWithNormRangeMM.chiSquare(name_cc, "h_" + data.GetName(), fitresults_cc.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
+    
+    print('----------------------------------------')
+    print(model2D_bb.GetName(), "    chi2/ndof=",round(chi2_bb,2), " ndof", fitresults_bb.floatParsFinal().getSize())
+    print(model2D_cc.GetName(), "    chi2/ndof=",round(chi2_cc,2), " ndof", fitresults_cc.floatParsFinal().getSize())
+    print('----------------------------------------')
+    plotFrameWithNormRangeMM.Draw()
+    data_full.GetYaxis().SetRangeUser(ylowRange, yhighRange)
+
+    latexMM = ROOT.TLatex()
+    latexMM.SetTextSize(0.03)
+    latexMM.SetTextColor(ROOT.kRed)
+    latexMM.SetTextAlign(12)
+    latexMM.DrawLatexNDC(0.13, 0.865, model2D_bb.GetName())
+    latexMM.SetTextAlign(32)
+    latexMM.DrawLatexNDC(0.49, 0.865, "#chi^{{2}}/ndof: {}".format(round(chi2_bb, 2)))
+    latexMM.SetTextColor(ROOT.kBlue)
+    latexMM.SetTextAlign(12)
+    latexMM.DrawLatexNDC(0.13, 0.825, model2D_cc.GetName())
+    latexMM.SetTextAlign(32)
+    latexMM.DrawLatexNDC(0.49, 0.825, "#chi^{{2}}/ndof: {}".format(round(chi2_cc, 2)))
+    latexMM.SetTextColor(ROOT.kBlack)
+    latexMM.SetTextAlign(12)
+    latexMM.DrawLatexNDC(0.74, 0.865, "Entries:")
+    latexMM.DrawLatexNDC(0.74, 0.825, "Mean:")
+    latexMM.DrawLatexNDC(0.74, 0.785, "Std Dev:")
+    latexMM.SetTextAlign(32)
+    latexMM.DrawLatexNDC(0.89, 0.865, "{}".format(int(data_full.GetEntries())))
+    latexMM.DrawLatexNDC(0.89, 0.825, "{}".format(round(data_full.GetMean(2), 2)))
+    latexMM.DrawLatexNDC(0.89, 0.785, "{}".format(round(data_full.GetStdDev(2), 4)))
+
+    canvasMM.cd()
+    pad2 = ROOT.TPad("Res pad", "Res pad", 0, 0.20, 1.0, 0.40)
+    pad2.Draw()
+    pad2.cd()
+    residualsFrame1 = y.frame(ROOT.RooFit.Title("Residuals model 1"))
+    hresid1 = plotFrameWithNormRangeMM.residHist("h_" + data.GetName(), name_bb)
+    residualsFrame1.addPlotable(hresid1, "P")
+    residualsFrame1.Draw()
+    
+    canvasMM.cd()
+    pad3 = ROOT.TPad("Pull pad", "Pull pad", 0, 0, 1.0, 0.20)
+    pad3.Draw()
+    pad3.cd()
+    residualsFrame2 = y.frame(ROOT.RooFit.Title("Residuals model 2"))
+    hresid2 = plotFrameWithNormRangeMM.residHist("h_" + data.GetName(), name_cc)
+    residualsFrame2.addPlotable(hresid2, "P")
+    residualsFrame2.Draw()
+
+    fileName = "~/public_html/fits/{}/{}".format(mesonCat[:-3], mesonCat)
+    if regModelName is not None:
+        fileName += "_" + regModelName
+    if extraTitle is not None:
+        fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    canvasMM.SaveAs(fileName + "_2Dfit_MM.png")
+
+
+    # Create workspace
+    w = ROOT.RooWorkspace("w", "workspace")
+    
+    norm_range = data_full.Integral(data_full.GetXaxis().FindBin(xlowRange), data_full.GetXaxis().FindBin(xhighRange), data_full.GetYaxis().FindBin(ylowRange), data_full.GetYaxis().FindBin(yhighRange))
+    BKG_norm = ROOT.RooRealVar("multipdf_"+mesonCat+"_"+tag+"_bkg"+"_norm", model2D_bb.GetName()+"_norm", norm_range, 0.5*norm_range, 2*norm_range)
+
+    pdf_cat = ROOT.RooCategory("pdfindex_"+mesonCat+"_"+tag,"pdfindex"+"_"+mesonCat+"_"+tag)
+    pdf_bkg = ROOT.RooMultiPdf("multipdf_"+mesonCat+"_"+tag+"_bkg","multipdf",pdf_cat,storedPdfs)
+    getattr(w,'import')(pdf_bkg)
+
+    # Import model_norm
+    getattr(w,'import')(BKG_norm)
+    print("integral BKG", BKG_norm.Print())
+
+    # Import data into the workspace
+    getattr(w,'import')(data)
+    
+    # Print workspace contents
+    w.Print()
+
+    # -----------------------------------------------------------------------------
+    # Save workspace in file, create folder if it does not exist
+    if not os.path.exists(workspaceName):
+        os.mkdir(workspaceName)
+
+    workspaceFileName = "Bkg_" + mesonCat[:-3] + "_" + tag + "_" + str(year)
+    if regModelName is not None:
+        workspaceFileName += "_" + regModelName
+
+    w.writeToFile(workspaceName + "/" + workspaceFileName + "_2D_workspace.root")
+    print('\033[1;31m' + "[fitBkg2D] Fit done, workspace created!" + '\033[0m')
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
@@ -380,9 +537,11 @@ if __name__ == "__main__":
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
     for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat"]:
+    #for mesonCat in ["Phi3Cat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    fitBkg(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
+                    fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)
