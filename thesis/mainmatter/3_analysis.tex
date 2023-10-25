@@ -769,10 +769,11 @@ The potential Higgs boson signal is obtained by fitting the invariant mass distr
         \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_HiggsMass.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
-\caption{Higgs invariant mass distribution $M_{\gamma, M}$ for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in crimson, is scaled {\r to what ???} for better visualization.}
+\caption{Higgs invariant mass distribution $M_{\gamma, M}$ for the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal in crimson is scaled so that $\mathcal{B}(\text{H}\protect\decaysto \phi\gamma)$, $\mathcal{B}(\text{H}\protect\decaysto \omega\gamma)$ or $\mathcal{B}(\text{H}\protect\decaysto D^{*0}\gamma)$ is set to 1 for better visualization. The data is blinded in the region of interest.}
 \label{fig:Higgs_mass_data}
     \vspace*{-0.0cm}
 \end{figure}
+
 Figure \ref{fig:Higgs_mass_data} displays the photon-meson invariant mass distribution for each channel. The data in the region of interest is not shown, it is still \textit{blinded}. Only after completing the full analysis and ensuring the consistency of the techniques used can the data be unblinded to enable actual measurements. This approach is commonly employed in high-energy physics to maintain an unbiased study.
 
 Based on the earlier discussed selection criteria, the shape of this background exhibits a turn-on structure in $M_{\gamma, M}$. This turn-on varies for each decay mode due to the kinematic constraints of the events and the imposed selection cuts.
@@ -873,7 +874,7 @@ Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0s
 
 The modified frequentist construction CL$_\text{s}$ \cite{Read:2002hq, Junk:1999kv} is used with the asymptotic approximation \cite{Cowan:2010js} to compute 95\% confidence level (CL) upper limits on the branching fractions. For this computation, the Combine tool is employed with the \verb+AsymptoticLimits+ method \cite{CMS:Combine}.
 
-The upper limit is computed by performing a statistical test. Two hypotheses are defined: the null hypothesis $H_0$ describes the model with signal plus background, while the alternative hypothesis $H_1$ represents the background-only hypothesis. Maximum-likelihood fits to the photon-meson invariant mass of the signal plus background MC (or to the data, after unblinding) are done for both hypotheses. The upper limit is then defined as the value of the branching fraction at which we can reject the alternative hypothesis with a $p$-value of 0.05, i.e., at the 95\% CL. The shape of the signal model is determined beforehand, as explained in Section \ref{sec:modelling}, and in this new combined fit, only the normalization constant is allowed to vary. Intuitively, the value of the limit is related to the area under the fitted curves, making it approximately proportional to $\sqrt{S+B}/S$, where $S$ and $B$ are the areas under the signal and background modelled curves, respectively. Additional information can be found in Ref. \cite{Cowan:2010js}.
+The upper limit is computed by performing a statistical test. Two hypotheses are defined: the null hypothesis $H_0$ describes the model with signal plus background, while the alternative hypothesis $H_1$ represents the background-only hypothesis. Maximum-likelihood fits to the photon-meson invariant mass $M_{\gamma, M}$ of the signal plus background MC (or to the data, after unblinding) are done for both hypotheses. The upper limit is then defined as the value of the branching fraction at which we can reject the alternative hypothesis with a $p$-value of 0.05, i.e., at the 95\% CL. The shape of the signal model is determined beforehand, as explained in Section \ref{sec:modelling}, and in this new combined fit, only the normalization constant is allowed to vary. Intuitively, the value of the limit is related to the area under the fitted curves, making it approximately proportional to $\sqrt{S+B}/S$, where $S$ and $B$ are the areas under the signal and background modelled curves, respectively. Additional information can be found in Ref. \cite{Cowan:2010js}.
 
 \todo{How is the limit computed when using the real data for the background estimation with the sidebands?}
 
@@ -906,6 +907,8 @@ This analysis provides an initial estimation of the upper limits on the branchin
 
     These MVA discriminants have shown to reduce the limits by around 44\% - 49\% in similar analyses, like the one the PPC grop is conducting.
 
+    \item[Data - MC corrections:] Simulated signal and background samples should be corrected for various effects through reweighting procedures. This is relevant because the signal is used in the final fit estimation, while the background MC can be used for the training of the MVA discriminant earlier mentioned.
+\iffalse
     \todo{
         ARE THESE CORRECTIONS ALREADY IMPLEMENTED IN MY ANALYSIS?
 
@@ -917,10 +920,14 @@ This analysis provides an initial estimation of the upper limits on the branchin
         \item {\bf Trigger scale factors:} Triggers are applied in the MC selection, so trigger scale factors should be applied to simulation to restore the good data - MC agreement. 
     \end{itemize}
     }
+\fi
+    \item[Bias study of the background polynomials:] The potential bias arising from the background parametrization choice can be estimated by fitting alternative functions to the $M_{\gamma, M}$ sidebands and analysing the differences between them. The resulting uncertainties from this study must be included as systematic uncertainties.
 
-    \item[Bias study in background polynomials:] \todo{Explain}
-    \item[Additional Higgs boson production modes:] \todo{Explain}
-    \item[Systematics:] \todo{Explain}
+    \item[Systematics:] Every analysis must consider uncertainties, such as those arising from incomplete knowledge of the models or experimental resolutions. In this analysis, the true model of the QCD background is unknown, representing one of the main sources of systematic uncertainties. Additionally, the low number of background events in the signal regions implies that a small fluctuation can lead to a significant variation in the upper limit computation. Both of these aspects need to be accounted for.
+    
+    There are also theoretical and experimental uncertainties related to the signal. The theoretical uncertainties include the QCD scale and PDF variations (which can be taken from Ref. \cite{LHCHiggsCrossSectionWorkingGroup:2016ypw}). Experimental uncertainties, on the other hand, may include photon energy scale, jet energy scale, tracking efficiency, luminosity uncertainty and pileup uncertainty, among others.
+    
+    \item[Additional Higgs boson production modes:] The Higgs boson is produced through various processes, as discussed in Section \ref{subsec:higgs_production}. In this analysis, only the primary production mode, gluon fusion, has been considered, as it constitutes nearly 87\% of Higgs boson generation at the LHC with $\sqrt{s} = 13\ \TeV$. However, it may be interesting to include other production channels such as VBF, WH, ZH, or even associated production with heavy quarks. While some of these channels may be more pure than ggH due to the presence of leptons, they would be less restrictive in the upper limit of the branching fraction due to lower cross sections. A non-trivial combination of results from all production modes could further reduce the branching fraction's upper limit.
 \end{myitemlist}
 
 \todo{Add more things?}
