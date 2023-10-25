@@ -266,7 +266,7 @@ def selectionTAG(df):
                  .Define("goodJets", "{}".format(GOODJETS))
                  .Define("nGoodJets", "Sum(goodJets)*1.0f")
                  .Define("SoftActivityJetNjets5F", "SoftActivityJetNjets5*1.0f")
-                 .Filter("Sum(goodJets)<2 or (Sum(goodJets)>=2 and Jet_pt[goodJets][0]<30) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]>0) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]<0 and abs(Jet_eta[goodJets][0] - Jet_eta[goodJets][1])<3 )", "0 or 1 jets (pt20, |eta|<4.7) or >=2 with dEta<3")
+                 .Filter("Sum(goodJets)<2 or (Sum(goodJets)>=2 and Jet_pt[goodJets][0]<30) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]>0) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]<0 and abs(Jet_eta[goodJets][0] - Jet_eta[goodJets][1])<3 ) or (Sum(goodJets)>=2 and mJJ<300) ","0 or 1 jets (pt30, |eta|<4.7) or >=2 with dEta<3 or >=2 with mJJ<300")
                  )
     printTime(verbose, t1)
     
@@ -442,8 +442,8 @@ def dfHiggsCand(df, isData):
         printWithTimestamp("----------------------\nGood Omega:\n{}".format(GOODOMEGA), verbose)
 
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld", "({}".format(GOODOMEGA)+" && {}".format(isOmegaCat)+")")
-                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
-                  #.Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, omega_kin_pt, omega_Nphotons, omega_Nbody_mass, 0) : getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
+                  #.Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
+                  .Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, omega_kin_pt, omega_Nphotons, omega_Nbody_mass, 0) : getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good Omega (ptPhi, validfit, ptTracks)")
 					#Ditrack
                   .Define("goodMeson_ditrk_pt", "omega_kin_pt[goodMeson]")
@@ -542,8 +542,8 @@ def dfHiggsCand(df, isData):
         printWithTimestamp("----------------------\nGood Phi3:\n{}".format(GOODPHI3), verbose)
 
         dfbase = (df.Filter("nomega>0", "nomega>0").Define("goodMesonOld", "({}".format(GOODPHI3)+" && {}".format(isPhi3Cat)+")")
-                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
-                  #.Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, omega_kin_pt, omega_Nphotons, omega_Nbody_mass, 1) : getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
+                  #.Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
+                  .Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, omega_kin_pt, omega_Nphotons, omega_Nbody_mass, 1) : getFilteredGoodParticleMaxPt(goodMesonOld, omega_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good Phi3 (ptPhi, validfit, ptTracks)")
 					#Ditrack
                   .Define("goodMeson_ditrk_pt", "omega_kin_pt[goodMeson]")
@@ -642,8 +642,8 @@ def dfHiggsCand(df, isData):
         printWithTimestamp("----------------------\nGood D0Star (Rho):\n{}".format(GOODD0STARRHO), verbose)
 
         dfbase = (df.Filter("nd0pi0>0", "nd0pi0>0").Define("goodMesonOld", "({}".format(GOODD0STARRHO)+" && {}".format(isD0StarRhoCat)+")")
-                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, d0pi0_kin_pt)")
-                  #.Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, d0pi0_kin_pt, d0pi0_d0Star_Nphotons, d0pi0_d0Star_Nbody_mass, 2) : getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
+                  #.Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, d0pi0_kin_pt)")
+                  .Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, d0pi0_kin_pt, d0pi0_d0Star_Nphotons, d0pi0_d0Star_Nbody_mass, 2) : getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good D0Star (Rho) (ptPhi, validfit, ptTracks)")
                     #Ditrack
                   .Define("goodMeson_ditrk_pt", "d0pi0_kin_pt[goodMeson]")
@@ -748,8 +748,8 @@ def dfHiggsCand(df, isData):
         printWithTimestamp("----------------------\nGood D0Star:\n{}".format(GOODD0STAR), verbose)
 
         dfbase = (df.Filter("nd0>0", "nd0>0").Define("goodMesonOld", "({}".format(GOODD0STAR)+" && {}".format(isD0StarCat)+")")
-                  .Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
-                  #.Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, d0_kin_pt, d0_d0Star_Nphotons, d0_d0Star_Nbody_mass, 2) : getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
+                  #.Define("goodMeson", "getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
+                  .Define("goodMeson", "mc>1000 ? getFilteredGoodParticleMaxPtMass(goodMesonOld, d0_kin_pt, d0_d0Star_Nphotons, d0_d0Star_Nbody_mass, 2) : getFilteredGoodParticleMaxPt(goodMesonOld, d0_kin_pt)")
                   .Filter("Sum(goodMeson)>0", "one good D0Star (ptPhi, validfit, ptTracks)")
                     #Ditrack
                   .Define("goodMeson_ditrk_pt", "d0_kin_pt[goodMeson]")
