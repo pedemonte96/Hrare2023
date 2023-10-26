@@ -1,4 +1,5 @@
 import ROOT
+import math
 import os
 #ROOT.ROOT.EnableImplicitMT()
 
@@ -159,6 +160,7 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
 
     yAxisVariable = doubleFitVar[mesonCat][1]
     ylow, yhigh = doubleFitVar[mesonCat][3]
+    nbinMeson = int(math.ceil((yhigh - ylow)/0.005)) if len(nums) > 1 else int(math.ceil((yhigh - ylow)/0.001))
 
     if regModelName is None:
         #No regression model
@@ -295,6 +297,11 @@ def plotHist(nameRootFile, nameOutDraw, is2D=False, xAxisRange=None, yAxisRange=
     if is2D:
         h.SetContour(100)
         h.Draw("colz")
+        latexMM = ROOT.TLatex()
+        latexMM.SetTextSize(0.10)
+        latexMM.SetTextColor(ROOT.kRed)
+        latexMM.SetTextAlign(12)
+        latexMM.DrawLatexNDC(0.13, 0.5, "PLACEHODLER")
         cs.SaveAs("~/public_html/fits/testing/{}.png".format(nameOutDraw))
         csX = ROOT.TCanvas("canvas", "canvas", 800, 800)
         h.ProjectionX().Draw("hist")

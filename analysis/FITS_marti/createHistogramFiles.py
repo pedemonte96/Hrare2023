@@ -18,7 +18,7 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
         #Save histogram
         name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
     else:
-        histogram = get2DHisto(200*10, 0., 200., 200*2, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle, regModelName=regModelName)
+        histogram = get2DHisto(200*10, 0., 200., 300, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle, regModelName=regModelName)
         #Save histogram
         name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName, doubleFit=True)
     
