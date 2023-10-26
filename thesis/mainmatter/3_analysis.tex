@@ -11,8 +11,8 @@ This analysis uses data from proton-proton collisions corresponding to an integr
     \begin{tabular}{ll}
         $\text{H}\decaysto \phi\gamma$ ,& $\phi\decaysto \pi^+\pi^-\pi^0$ \\
         $\text{H}\decaysto \omega\gamma$ ,& $\omega\decaysto \pi^+\pi^-\pi^0$\\
-        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{\mp}\pi^{\pm}$\\
-        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{\mp}\pi^{\pm}\pi^{0}$
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}$\\
+        $\text{H}\decaysto D^{*0}\gamma$ ,& $D^{*0}\decaysto D^{0}\pi^{0}/\gamma,\ D^{0}\decaysto K^{-}\pi^{+}\pi^{0}$
     \end{tabular}
     \caption{Higgs rare decays under study in this analysis.}
     \label{tab:Higgs_rare_decays_three}
@@ -89,8 +89,8 @@ This is because then, when computing a limit, the obtained value is directly the
         $\omega\decaysto \pi^+\pi^-\pi^0$   & $89.2 \pm 0.7$   \\
         $D^{*0}\decaysto D^{0}\pi^0$        & $64.7 \pm 0.9$   \\
         $D^{*0}\decaysto D^{0}\gamma$       & $35.3 \pm 0.9$   \\
-        $D^{0}\decaysto K^{\mp}\pi^{\pm}$           & $3.962 \pm 0.031$   \\
-        $D^{0}\decaysto K^{\mp}\pi^{\pm}\pi^0$      & $14.43 \pm 0.50$   \\
+        $D^{0}\decaysto K^{-}\pi^{+}$           & $3.947 \pm 0.030$   \\
+        $D^{0}\decaysto K^{-}\pi^{+}\pi^0$      & $14.4 \pm 0.5$   \\
         \hline
     \end{tabular}
     \caption{Meson decay branching ratios used throughout the analysis, from the PDG \cite{PDG}.}
@@ -134,7 +134,7 @@ This analysis primarily relies on photons and charged tracks to extract the fina
 
 \section{Meson reconstruction \todo{ADD FOURTH D0* CHANNEL}}\label{sec:meson_reconstruction}
 
-The $\phi$, $\omega$ and $D^{*0}$ mesons decay products are reconstructed using charged particle tracks measured in the tracker, as well as energy deposited in the ECAL compatible with neutral particles coming also from the PV. For the $\phi$ and $\omega$ mesons, the targeted charged ditrack is $\pi^\pm\pi^\mp$, while for the $D^{*0}$ meson the charged ditrack is $K^{\mp}\pi^{\pm}$.
+The $\phi$, $\omega$ and $D^{*0}$ mesons decay products are reconstructed using charged particle tracks measured in the tracker, as well as energy deposited in the ECAL compatible with neutral particles coming also from the PV. For the $\phi$ and $\omega$ mesons, the targeted charged ditrack is $\pi^\pm\pi^\mp$, while for the $D^{*0}$ meson the charged ditrack is $K^{-}\pi^{+}$.
 
 In the following sections, the term \textit{ditrack system} will refer to the system of the two charged tracks, and even though they not form a real particle, notions like ditrack mass will be used (understand the mass of the ditrack as the mass component of the sum of the four-momenta of both tracks). To refer to the meson originating from the PV, namely $\phi$, $\omega$ and $D^{*0}$, terms like \textit{meson} or \textit{full meson} will be used, emphasizing that the neutral particles have been accounted for. Some considerations have been made to precisely reconstruct the full meson:
 \vspace*{-6pt}
@@ -168,7 +168,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/Omega_kinematic_fit_residual.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
                 \caption{\footnotesize (b)}
         \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
@@ -392,12 +392,12 @@ TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>"
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
             \caption{\footnotesize (c)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt_residuals.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
             \caption{\footnotesize (d)}
         \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \caption{Transverse momentum of the $D^{*0}$ meson in both the 2-body and 3-body decay channels. (a/c) Display the generation-level MC transverse momenta in blue, the prediction by the BDT in red, and the recovery by the initial approach in green, for the 2/3-body decay channel, respectively. (b/d) Show the residuals with (red) and without (green) the BDT prediction, for the 2/3-body decay channel, respectively.}
@@ -469,7 +469,7 @@ After having presented all the techniques used to recover the meson, we are able
     \centering
     \begin{tabular}{|l|c|c|}
         \hline
-        \cellcolor{lightgray}Variable & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$D^{*0}(K^{\mp}\pi^{\pm}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
+        \cellcolor{lightgray}Variable & \cellcolor{lightgray}$D^{*0}(K^{-}\pi^{+}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$D^{*0}(K^{-}\pi^{+}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
         Meson mass                                              &                   &$1.55\pm 0.65$ GeV  \\
         Ditrack mass                                            &$1.865\pm0.060$ GeV&$1.18\pm 0.57$ GeV  \\
         $\pT^{\text{diTrk}}$                                    &$>40$ GeV          &$>20$ GeV           \\
@@ -497,7 +497,7 @@ The analysis described here searches for the Higgs boson decaying to a photon an
 
 The $\phi\gamma$, $\omega\gamma$ and $D^{*0}\gamma$ exclusive final states are very similar. Meson candidates are paired with photon candidates to form M$\gamma$ candidates. When multiple photon candidates meeting the selection criteria outlined in Section \ref{sec:objects} are present, the one with the highest transverse momentum is chosen. Similarly, when multiple meson candidates satisfying the selection criteria described in Section \ref{sec:meson_reconstruction} are found, the one with a mass closest to the theoretical mass value of the meson is chosen.
 
-The $\phi\gamma$ and $\omega\gamma$ channels in particular closely resemble each other, both decaying into $\pi^{+}\pi^{-}\pi^0$ and having similar masses and decay widths. The $D^{*0}$ 2-body decay can effectively be treated as a three-body decay, $D^{*0}\decaysto K^{\mp}\pi^{\pm}\pi^0/\gamma$, due to its short lifetime. The main difference between this channel and the $\phi/\omega$ channel is that in the $\phi/\omega$ case, the three pions carry, on average, approximately the same energy, while for $D^{*0}$ the neutral particle is very soft, carrying only around 5 GeV. Finally, the $D^{*0}$ 3-body decay can effectively be treated as a 4-body decay for the same reason, with 2 charged tracks, one soft neutral particle, and one neutral pion. This last case shares similarities with the previous ones.
+The $\phi\gamma$ and $\omega\gamma$ channels in particular closely resemble each other, both decaying into $\pi^{+}\pi^{-}\pi^0$ and having similar masses and decay widths. The $D^{*0}$ 2-body decay can effectively be treated as a three-body decay, $D^{*0}\decaysto K^{-}\pi^{+}\pi^0/\gamma$, due to its short lifetime. The main difference between this channel and the $\phi/\omega$ channel is that in the $\phi/\omega$ case, the three pions carry, on average, approximately the same energy, while for $D^{*0}$ the neutral particle is very soft, carrying only around 5 GeV. Finally, the $D^{*0}$ 3-body decay can effectively be treated as a 4-body decay for the same reason, with 2 charged tracks, one soft neutral particle, and one neutral pion. This last case shares similarities with the previous ones.
 
 This thesis exclusively targets Higgs boson production via gluon fusion (ggH). To focus on this production mode, events with additional charged leptons with $\pT$ > 10 GeV are vetoed. Events with two or more jets having $\pT$ > 30 GeV and $\abs{\eta} < 4.7$, exhibiting a significant pseudorapidity gap ($\abs{\Delta\eta_{jj}} > 3$), and with an invariant mass $m_{jj} > 300\ \GeV$, are excluded from this category. Jets should not overlap with the meson and photon forming the Higgs boson candidate and must meet the criteria mentioned in Section \ref{sec:objects}. Table \ref{tab:triggers} summarizes the selection criteria for this production mode, which must additionally satisfy the selection rules of the tau-like trigger described in Section \ref{subsec:data_tau_trigger}.
 
@@ -739,9 +739,9 @@ Figures \ref{fig:lead_pt_data} and \ref{fig:sublead_pt_data} illustrate the tran
     \vspace*{-0.0cm}
 \end{figure}
 
-\section{Signal and background modelling \todo{ADD 2D FIT}}\label{sec:modelling}
+\section{Signal and background modelling \todo{ADD FOURTH D0* CHANNEL}}\label{sec:modelling}
 
-The potential Higgs boson signal is obtained by fitting the invariant mass distribution $M_{\gamma, M}$ for each decay mode separately, since the signal is expected to show a peak over a monotonous background. Both the signal and background are directly estimated from MC (signal) or data (background) by fitting the photon-meson mass spectrum with analytical functions. The RooFit framework \cite{CERN:root_roofit}, a toolkit provided within the ROOT module for modeling the expected event distribution, is used for this purpose, and a binned maximum likelihood fit is conducted.
+The first approach to obtain the potential Higgs boson signal is done by fitting the invariant mass distribution $M_{\gamma, M}$ for each decay mode separately, since the signal is expected to show a peak over a monotonous background. Both the signal and background are directly estimated from MC (signal) or data (background) by fitting the photon-meson mass spectrum with analytical functions. The RooFit framework \cite{CERN:root_roofit}, a toolkit provided within the ROOT module for modeling the expected event distribution, is used for this purpose, and a binned maximum likelihood fit is conducted.
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
     \vspace*{-0.2cm}
@@ -778,33 +778,52 @@ Figure \ref{fig:Higgs_mass_data} displays the photon-meson invariant mass distri
 
 Based on the earlier discussed selection criteria, the shape of this background exhibits a turn-on structure in $M_{\gamma, M}$. This turn-on varies for each decay mode due to the kinematic constraints of the events and the imposed selection cuts.
 
+After performing this one-dimensional fit to $M_{\gamma, M}$, we considered the possibility of conducting a two-dimensional fit to both the photon-meson invariant mass $M_{\gamma, M}$ and the full meson mass $m_{M}$ (the ditrack mass $m^{\text{diTrk}}_{M}$ for the $D^{*0}$ 2-body case due to the incomplete recovery of the full meson's mass in that specific scenario). This is the strategy that was ultimately adopted.
+
 \subsection*{Signal modelling}
 
 Although previously discussed, it is worth emphasizing that analysis sensitivity relies on the resolution of the photon-meson mass $M_{\gamma, M}$, which strongly depends on the kinematics, especially the transverse momentum of the photon/meson.
 
-The expected photon-meson mass candidate distribution in signal events, for each decay mode, is modeled using a double-sided Crystal Ball. This function, named after the Crystal Ball Collaboration \cite{A2:CB}, is a probability density function (PDF) commonly employed in high-energy physics (HEP). It consists of a Gaussian center and two asymmetric tails modeled by power-law functions, and it is $\mathcal{C}^{1}$, i.e., continuous with a continuous derivative. This functional form simultaneously offers a robust description of the Higgs boson mass spectrum and a straightforward way to incorporate shape uncertainties, as it has only one parameter associated with the peak and two with the width of the lineshape. The tails are necessary to account for the non-Gaussian response of the photons and meson. Further information about this PDF and its implementation in ROOT is available in Ref. \cite{CERN:root_CB}.
+The first natural iteration of the two-dimensional fit is to consider the two variables as uncorrelated and independent. Under this assumption, the two-dimensional PDF becomes the product of two one-dimensional PDFs. Figure \ref{fig:sig_modelling_sliced} shows the Higgs boson invariant mass for four different intervals of the meson mass for each decay mode. Each slice includes events where the recovered meson mass is within a certain interval, normalized to the same area. It can be observed that this approximation is reasonably good, especially for the $D^{*0}$ 2-decay mode. For each channel, every slice has the same shape and the same maximum position, with only slight differences in width. To address this, in further iterations, one should either consider this as an uncertainty of the used model or account for this variation by modifying the 2D function, possibly by adding a correction factor. The 2D-PDF is then fitted to the MC signal, instead of doing two one-dimensional fits.
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_SGN_MH_sliced.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_SGN_MH_sliced.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_SGN_MH_sliced.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{MC signal $M_{\gamma, M}$ projections for each decay channel, sliced for different meson mass intervals. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel.}
+\label{fig:sig_modelling_sliced}
+    \vspace*{-0.0cm}
+\end{figure}
+
+The expected photon-meson mass candidate distribution in signal events, for each decay mode, is modeled using a double-sided Crystal Ball. This function, named after the Crystal Ball Collaboration \cite{A2:CB}, is a probability density function (PDF) commonly employed in high-energy physics (HEP). It consists of a Gaussian center and two asymmetric tails modeled by power-law functions, and it is $\mathcal{C}^{1}$, i.e., continuous with a continuous derivative. This functional form simultaneously offers a robust description of the Higgs boson mass spectrum and a straightforward way to incorporate shape uncertainties, as it has only one parameter associated with the peak and two with the width of the lineshape. The tails are necessary to account for the non-Gaussian response of the photons and meson. Further information about this PDF and its implementation in ROOT is available in Ref. \cite{CERN:root_CB}. The full (ditrack) meson's mass is also modelled with a double-sided Crystal Ball for the same reasons.
 
 \subsection*{Background modelling}
 
-The monotonous $M_{\gamma, M}$ background distribution is estimated by fitting the photon-meson mass spectrum in the signal fit region ($100 < M_{\gamma, M} < 160\ \GeV$) using analytic functions. Two side bands, $100 < M_{\gamma, M} < 115\ \GeV$ and $135 < M_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The set of functions consists of Bernestein and Chebychev Polynomials.
+The same independence assumption for the two variables has been applied to background modeling. Figure \ref{fig:bkg_modelling_sliced} displays the sliced Higgs invariant mass variables for the MC background for each decay channel. In this case, it is safe to conclude that the variables are entirely independent, and the assumption is well-founded.
 
-No prior knowledge of the parameters of the fit functions (in both shape and normalization) is assumed, i.e. they are allowed to vary freely in the data fit. Table \ref{tab:bkg_polynomials} reports the degrees of freedom (dof) and $\chi^2$/dof for both polynomial classes and for each decay mode.
-\begin{table}[!ht]
-    \centering
-    \begin{tabular}{|l|c|c|}
-        \hline
-        \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}Bernestein & \cellcolor{lightgray}Chebychev \\ \hline
-        $\phi$          &\r4-dof, $\chi^2$/dof=0.75   &\r4-dof, $\chi^2$/dof=0.75   \\
-        $\omega$        &\r4-dof, $\chi^2$/dof=0.75   &\r4-dof, $\chi^2$/dof=0.75   \\
-        $D^{*0}$ 2-body &\r4-dof, $\chi^2$/dof=0.75   &\r4-dof, $\chi^2$/dof=0.75   \\
-        $D^{*0}$ 3-body &\r4-dof, $\chi^2$/dof=0.75   &\r4-dof, $\chi^2$/dof=0.75   \\
-        \hline
-        \end{tabular}
-    \caption{Degrees of freedom and $\chi^2$/dof for each decay mode and polynomial type used to model the background photon-meson mass spectrum $M_{\gamma, M}$.}
-    \label{tab:bkg_polynomials}
-\end{table}
-
-Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0star} show the MC signal and data (for the background estimation) for each channel, with the fitted models. \todo{Discuss plots Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0star} further when sidebands are in place.}
+The monotonous $M_{\gamma, M}$ background distribution is estimated by fitting the photon-meson mass spectrum in the signal fit region ($100 < M_{\gamma, M} < 160\ \GeV$) using analytic functions. Two side bands, $100 < M_{\gamma, M} < 115\ \GeV$ and $135 < M_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The same functions are used to also model the full (ditrack) meson's mass. The set of functions consists of degree 3 Bernstein and Chebyshev Polynomials, resulting in four different combinations.
 
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
@@ -813,28 +832,81 @@ Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0s
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_SGN.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_BKG_MH_sliced.png}
         \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_BKG.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_BKG_MH_sliced.png}
         \caption{\footnotesize (b)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \vskip\baselineskip
     \vspace*{-0.1cm}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_SGN.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_BKG_MH_sliced.png}
         \caption{\footnotesize (c)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_BKG.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
-\caption{Signal and background fits for the Higgs boson invariant mass for the $\phi$ and $\omega$ decay channels. (a) signal for $\phi$, (b) background for $\phi$, (c) signal for $\omega$, (d) background for $\omega$.}
-\label{fig:sig_bkg_modelling_phi_omega}
+\caption{MC background $M_{\gamma, M}$ projections for each decay channel, sliced for different meson mass intervals. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel.}
+\label{fig:bkg_modelling_sliced}
+    \vspace*{-0.0cm}
+\end{figure}
+
+No prior knowledge of the parameters of the fit functions (in both shape and normalization) is assumed, i.e. they are allowed to vary freely in the data fit. Table \ref{tab:bkg_polynomials} reports the $\chi^2$/dof for each decay mode and for both polynomial classes and variable modelled (integrated over the other variable). All used polynomials are third-degree, meaning that each of them has four degrees of freedom (dof).
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \cellcolor{lightgray}Decay mode & \cellcolor{lightgray}Bernstein ($M_{\gamma, M}$) & \cellcolor{lightgray}Chebyshev ($M_{\gamma, M}$)   & \cellcolor{lightgray}Bernstein ($m_{M}$) & \cellcolor{lightgray}Chebyshev ($m_{M}$)\\ \hline
+        $\phi$          &$\chi^2$/dof=1.41   &$\chi^2$/dof=1.93 &$\chi^2$/dof=1.33   &$\chi^2$/dof=1.33   \\
+        $\omega$        &$\chi^2$/dof=1.84   &$\chi^2$/dof=3.10 &$\chi^2$/dof=2.07   &$\chi^2$/dof=1.49   \\
+        $D^{*0}$ 2-body &$\chi^2$/dof=1.16   &$\chi^2$/dof=1.11 &$\chi^2$/dof=9.96   &$\chi^2$/dof=6.52   \\
+        \r$D^{*0}$ 3-body &\r$\chi^2$/dof=0.75   &\r$\chi^2$/dof=0.75 &\r$\chi^2$/dof=0.75   &\r$\chi^2$/dof=0.75   \\
+        \hline
+        \end{tabular}
+    \caption{Quality of the background fit in terms of $\chi^2$/dof for each decay mode and polynomial type used for each of the two variables modelled ($M_{\gamma, M}$ and $m_{M}$). When reporting the $\chi^2$/dof of a polynomial used to model a variable, the other has been integrated out.}
+    \label{tab:bkg_polynomials}
+\end{table}
+It is worth noting that, for instance, a model Bernstein-Bernstein and a model Bernstein-Chebyshev (where the first polynomial models $M_{\gamma, M}$ and the second models $m_{M}$) have the same $\chi^2$/dof for the first variable since integrating out the second variable projects the model to one dimension.
+
+Figures \ref{fig:sig_bkg_modelling_phi}, \ref{fig:sig_bkg_modelling_omega}, \ref{fig:sig_bkg_modelling_d0star_2body} and \ref{fig:sig_bkg_modelling_d0star_3body} show the invariant photon-meson mass and the meson mass, for both MC signal and data (for the background estimation) for each channel, with the projection of the fitted models.
+
+\todo{Discuss Figures \ref{fig:sig_bkg_modelling_phi}, \ref{fig:sig_bkg_modelling_omega}, \ref{fig:sig_bkg_modelling_d0star_2body}, \ref{fig:sig_bkg_modelling_d0star_3body} further when sidebands are in place.}
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_SGN_MH.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_SGN_MM.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_BKG_MH.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_fit_BKG_MM.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Signal and background fit projections for the $\phi$ decay channel. (a) signal, $M_{\gamma, \phi}$ projection, (b) signal, $m_{\phi}$ projection, (c) background, $M_{\gamma, \phi}$ projection, (d) background, $m_{\phi}$ projection.}
+\label{fig:sig_bkg_modelling_phi}
     \vspace*{-0.0cm}
 \end{figure}
 
@@ -845,28 +917,92 @@ Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0s
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_SGN.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_SGN_MH.png}
         \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_BKG.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_SGN_MM.png}
         \caption{\footnotesize (b)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \vskip\baselineskip
     \vspace*{-0.1cm}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_SGN.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_BKG_MH.png}
         \caption{\footnotesize (c)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_BKG.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_fit_BKG_MM.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
-\caption{Signal and background fits for the Higgs boson invariant mass for the $D^{*0}$ meson in both the 2-body and 3-body decay channels. (a) signal for $D^{*0}$ 2-body, (b) background for $D^{*0}$ 2-body, (c) signal for $D^{*0}$ 3-body, (d) background for $D^{*0}$ 3-body.}
-\label{fig:sig_bkg_modelling_d0star}
+\caption{Signal and background fit projections for the $\omega$ decay channel. (a) signal, $M_{\gamma, \omega}$ projection, (b) signal, $m_{\omega}$ projection, (c) background, $M_{\gamma, \omega}$ projection, (d) background, $m_{\omega}$ projection.}
+\label{fig:sig_bkg_modelling_omega}
+    \vspace*{-0.0cm}
+\end{figure}
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_SGN_MH.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_SGN_MM.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_BKG_MH.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_fit_BKG_MM.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Signal and background fit projections for the $D^{*0}$ 2-body decay channel. (a) signal, $M_{\gamma, D^{*0}}$ projection, (b) signal, $m_{D^{0}}$ projection, (c) background, $M_{\gamma, D^{*0}}$ projection, (d) background, $m_{D^{0}}$ projection.}
+\label{fig:sig_bkg_modelling_d0star_2body}
+    \vspace*{-0.0cm}
+\end{figure}
+
+\begin{figure}[!ht]
+    \captionsetup[subfigure]{labelformat=empty}
+    \vspace*{-0.2cm}
+    \centering
+    \setlength{\mylength}{\textwidth}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \caption{\footnotesize (a)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \caption{\footnotesize (b)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+    \vskip\baselineskip
+    \vspace*{-0.1cm}
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \caption{\footnotesize (c)}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.50\mylength}
+        \centering
+        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \caption{\footnotesize (d)}
+    \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
+\caption{Signal and background fit projections for the $D^{*0}$ 3-body decay channel. (a) signal, $M_{\gamma, D^{*0}}$ projection, (b) signal, $m_{D^{*0}}$ projection, (c) background, $M_{\gamma, D^{*0}}$ projection, (d) background, $m_{D^{*0}}$ projection.}
+\label{fig:sig_bkg_modelling_d0star_3body}
     \vspace*{-0.0cm}
 \end{figure}
 
@@ -874,7 +1010,7 @@ Figures \ref{fig:sig_bkg_modelling_phi_omega} and \ref{fig:sig_bkg_modelling_d0s
 
 The modified frequentist construction CL$_\text{s}$ \cite{Read:2002hq, Junk:1999kv} is used with the asymptotic approximation \cite{Cowan:2010js} to compute 95\% confidence level (CL) upper limits on the branching fractions. For this computation, the Combine tool is employed with the \verb+AsymptoticLimits+ method \cite{CMS:Combine}.
 
-The upper limit is computed by performing a statistical test. Two hypotheses are defined: the null hypothesis $H_0$ describes the model with signal plus background, while the alternative hypothesis $H_1$ represents the background-only hypothesis. Maximum-likelihood fits to the photon-meson invariant mass $M_{\gamma, M}$ of the signal plus background MC (or to the data, after unblinding) are done for both hypotheses. The upper limit is then defined as the value of the branching fraction at which we can reject the alternative hypothesis with a $p$-value of 0.05, i.e., at the 95\% CL. The shape of the signal model is determined beforehand, as explained in Section \ref{sec:modelling}, and in this new combined fit, only the normalization constant is allowed to vary. Intuitively, the value of the limit is related to the area under the fitted curves, making it approximately proportional to $\sqrt{S+B}/S$, where $S$ and $B$ are the areas under the signal and background modelled curves, respectively. Additional information can be found in Ref. \cite{Cowan:2010js}.
+The upper limit is computed by performing a statistical test. Two hypotheses are defined: the null hypothesis $H_0$ describes the model with signal plus background, while the alternative hypothesis $H_1$ represents the background-only hypothesis. Maximum-likelihood 2D-fits to the photon-meson invariant mass $M_{\gamma, M}$ and the meson mass $m_{M}$ of the signal plus background MC (or to the data, after unblinding) are done for both hypotheses. The upper limit is then defined as the value of the branching fraction at which we can reject the alternative hypothesis with a $p$-value of 0.05, i.e., at the 95\% CL. The shape of the signal model is determined beforehand, as explained in Section \ref{sec:modelling}, and in this new combined fit, only the normalization constant is allowed to vary. Intuitively, the value of the limit is related to the area under the fitted curves, making it approximately proportional to $\sqrt{S+B}/S$, where $S$ and $B$ are the areas under the signal and background modelled curves, respectively. Additional information can be found in Ref. \cite{Cowan:2010js}.
 
 \todo{How is the limit computed when using the real data for the background estimation with the sidebands?}
 
@@ -884,9 +1020,9 @@ Table \ref{tab:results} reports the expected upper limits on the branching ratio
     \begin{tabular}{|l|C{3cm}|C{3cm}|c|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \cellcolor{lightgray} Measured $\mathcal{B}$ & \cellcolor{lightgray} ATLAS $\mathcal{B}$ & \cellcolor{lightgray} SM $\mathcal{B}$ \\ \hline
-        $\text{H}\decaysto \phi\gamma$          &.\r$x.xx \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
-        $\text{H}\decaysto \omega\gamma$        &.\r$x.xx \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
-        $\text{H}\decaysto D^{*0}\gamma$ 2-body &.\r$x.xx \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
+        $\text{H}\decaysto \phi\gamma$          &.\r$20.0 \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
+        $\text{H}\decaysto \omega\gamma$        &.\r$2.54 \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
+        $\text{H}\decaysto D^{*0}\gamma$ 2-body &.\r$10.8 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
         $\text{H}\decaysto D^{*0}\gamma$ 3-body &.\r$x.xx \times 10^{-3}$ &                         &  \\
         \hline
     \end{tabular}
@@ -905,7 +1041,7 @@ This analysis provides an initial estimation of the upper limits on the branchin
     
     To improve the sensitivity, a multivariate discriminant (using BDTs, for example) can be constructed, taking as input several variables that capture the distinct kinematic characteristics of both the signal and the background. To better isolate the Higgs boson signal from the SM background, MVA discriminants should be individually trained for each decay mode.
 
-    These MVA discriminants have shown to reduce the limits by around 44\% - 49\% in similar analyses, like the one the PPC grop is conducting.
+    These MVA discriminants have shown to reduce the limits by around 44\% - 49\% in similar analyses, like the one the PPC group is currently conducting on other Higgs rare decays.
 
     \item[Data - MC corrections:] Simulated signal and background samples should be corrected for various effects through reweighting procedures. This is relevant because the signal is used in the final fit estimation, while the background MC can be used for the training of the MVA discriminant earlier mentioned.
 \iffalse
