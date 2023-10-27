@@ -10,6 +10,7 @@ slurm_script_template = '''#!/bin/bash
 #SBATCH --time=15:00:00
 #SBATCH --mem=2GB
 #SBATCH --partition=submit
+#SBATCH --oversubscribe
 
 source ~/.bashrc
 conda activate myenv

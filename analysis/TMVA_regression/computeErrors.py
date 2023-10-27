@@ -65,7 +65,8 @@ def sigmoid(x, a=0.4, b=113):
 
 
 def getLoss(mu, N=4000, integral=180000):
-    return -np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5
+    fact = 1 if mu < 115 else 10
+    return (-np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5)*fact
 
 
 parser = argparse.ArgumentParser(description="Famous Submitter")
@@ -73,7 +74,7 @@ parser.add_argument("-m", "--modelName", type=str, required=True, help="Input th
 parser.add_argument("-c", "--channel", type=str, required=True, help="Channel (e.g. phi, omega, d0starrho, d0star).")
 options = parser.parse_args()
 
-date = "SEP25"
+date = "OCT27"
 mesonCat = ""
 mesonNum = 0
 if (options.channel == "omega"):

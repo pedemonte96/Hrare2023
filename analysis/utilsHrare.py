@@ -390,13 +390,13 @@ def SwitchSample(argument,year):
         # Good ones
         1038: (dirLocalNEW2+"ggh-homegagamma-powheg"+"/NANOAOD_03_test5", 48580*0.892), 
         1039: (dirLocalNEW2+"ggh-hphipipipi0gamma-powheg"+"/NANOAOD_03_test5", 48580*0.154),
-        1040: (dirLocalNEW2+"ggh-hD0StarKmPiPPi0gamma-powheg"+"/NANOAOD_03_test5", 48580*0.144),
+        1040: (dirLocalNEW2+"ggh-hD0StarKmPiPPi0gamma-powheg"+"/NANOAOD_03_test6", 48580*0.144),
         1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test5", 48580*0.03947),
         # Split into 3 samples
-        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample2", 48580*0.892), 
-        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample2", 48580*0.153),
-        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample2", 48580*0.14),
-        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample2", 48580*0.0389),
+        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample0", 48580*0.892), 
+        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample0", 48580*0.154),
+        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample0", 48580*0.144),
+        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample0", 48580*0.03947),
 
         #
         1019: (dirLocalNEW+"vbf-hphiKLKSgamma-powheg"+"/NANOAOD_01",3781.7*0.24), # xsec = 4pb * BR(Hphigamma)=1 BR(phi->kLkS)=0.24

@@ -501,25 +501,25 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "SEP25"
+    date = "OCT27"
 
     #D0Star--------------------------------------------------------------------------------------
     #background = False
     mesonCat = "D0StarCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #Phi3----------------------------------------------------------------------------------------
     #background = False
     mesonCat = "Phi3Cat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #Omega---------------------------------------------------------------------------------------
     #background = False
     mesonCat = "OmegaCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
 
     #D0StarRho-----------------------------------------------------------------------------------
     #background = False
     mesonCat = "D0StarRhoCat"
-    #makePlots(cat, mesonCat, year, date, background)
+    makePlots(cat, mesonCat, year, date, background)
     

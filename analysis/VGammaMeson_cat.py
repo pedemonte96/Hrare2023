@@ -266,6 +266,7 @@ def selectionTAG(df):
                  .Define("goodJets", "{}".format(GOODJETS))
                  .Define("nGoodJets", "Sum(goodJets)*1.0f")
                  .Define("SoftActivityJetNjets5F", "SoftActivityJetNjets5*1.0f")
+                 .Define("mJJ", "Minv(Jet_pt[goodJets], Jet_eta[goodJets], Jet_phi[goodJets], Jet_mass[goodJets])")
                  .Filter("Sum(goodJets)<2 or (Sum(goodJets)>=2 and Jet_pt[goodJets][0]<30) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]>0) or (Sum(goodJets)>=2 and Jet_eta[goodJets][0]*Jet_eta[goodJets][1]<0 and abs(Jet_eta[goodJets][0] - Jet_eta[goodJets][1])<3 ) or (Sum(goodJets)>=2 and mJJ<300) ","0 or 1 jets (pt30, |eta|<4.7) or >=2 with dEta<3 or >=2 with mJJ<300")
                  )
     printTime(verbose, t1)
@@ -493,7 +494,7 @@ def dfHiggsCand(df, isData):
                   #HardCoded selection rules to move to json in future iterations
                   .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
                   .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 0.57 && goodMeson_mass[0] < 1.00")
+                  .Filter("goodMeson_mass[0] > 0.60 && goodMeson_mass[0] < 0.96")
                   )
         if(isData):
             dfbase = (dfbase
@@ -593,7 +594,7 @@ def dfHiggsCand(df, isData):
                   #HardCoded selection rules to move to json in future iterations
                   .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
                   .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 0.70 && goodMeson_mass[0] < 1.22")
+                  .Filter("goodMeson_mass[0] > 0.80 && goodMeson_mass[0] < 1.20")
                   )
         if(isData):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "get3BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -211, 211, 111, 333, 25).pt()")
@@ -693,7 +694,7 @@ def dfHiggsCand(df, isData):
                   #HardCoded selection rules to move to json in future iterations
                   .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
                   .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 0.90 && goodMeson_mass[0] < 2.20")
+                  .Filter("goodMeson_mass[0] > 1.40 && goodMeson_mass[0] < 2.20")
                   )
         if(isData):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).pt()")
@@ -1707,7 +1708,7 @@ def analysis(df,year,mc,sumw,isData,PDType):
     if isGF: catTag = "GFcat"
 
     if True:
-        outputFile = "/data/submit/pdmonte/outputs/SEP25/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
+        outputFile = "/data/submit/pdmonte/outputs/OCT27/{0}/outname_mc{1}_{2}_{3}_{0}.root".format(year,mc,catTag,catM)
         printWithTimestamp(outputFile, verbose)
         snapshotOptions = ROOT.RDF.RSnapshotOptions()
         snapshotOptions.fCompressionAlgorithm = ROOT.kLZ4
