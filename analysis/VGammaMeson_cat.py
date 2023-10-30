@@ -762,6 +762,7 @@ def dfHiggsCand(df, isData):
                   .Define("goodMeson_eta", "d0_d0Star_Nbody_eta[goodMeson]")
                   .Define("goodMeson_phi", "d0_d0Star_Nbody_phi[goodMeson]")
                   .Define("goodMeson_mass", "d0_d0Star_Nbody_mass[goodMeson]")
+                  .Define("goodMeson_mass_raw", "d0_d0Star_Nbody_mass[goodMeson]")
 
                   .Define("goodMeson_iso", "d0_iso[goodMeson]")
                   .Define("goodMeson_vtx_chi2dof", "d0_kin_vtx_chi2dof[goodMeson]")
@@ -1393,6 +1394,7 @@ def DefineContent(branchList,isData):
                 "goodMeson_ditrk_eta",
                 "goodMeson_ditrk_phi",
                 "goodMeson_ditrk_mass",
+                "goodMeson_mass_raw",
                 "goodMeson_bestVtx_idx",
                 "goodMeson_bestVtx_X",
                 "goodMeson_bestVtx_Y",

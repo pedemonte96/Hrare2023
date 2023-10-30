@@ -25,7 +25,7 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 80;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts2";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts";
     
     // Open files
     int trainA, trainB;

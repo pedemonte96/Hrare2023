@@ -1,6 +1,6 @@
 #!/bin/bash
 
-resultDir="WS_SEP25"
+resultDir="WS_OCT25"
 
 cat="GFcat"
 meson="Phi3"
