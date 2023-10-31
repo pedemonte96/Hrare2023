@@ -1,6 +1,6 @@
 \chapter[Analysis]{Analysis}\label{chap:analysis}
 
-This chapter constitutes the core of this dissertation. Here, we will discuss the analysis conducted, starting with a general overview, followed by an explanation of the samples, triggers, and object definitions. We will then talk about the corrections applied to the data and simulations to enhance the analysis results. Additionally, we will cover the criteria used in event selection and how the signal and background have been modeled. Finally, we will present the expected upper limits of the branching ratio for each channel, as this analysis will only be working with simulated signal, alongside simulated and real background data. The chapter concludes by addressing the subsequent steps required before data unblinding and the attainment of the final experimental measurement, as well as suggesting other ideas to improve the results.
+This chapter constitutes the core of this dissertation. Here, we will discuss the analysis, beginning with a general overview, followed by an explanation of the samples, triggers, and object definitions. An entire section will be devoted to discussing the meson reconstruction techniques, which are crucial to the analysis. Additionally, we will cover the criteria used in event selection and how the signal and background have been modeled. Finally, we will present the expected upper limits of the branching ratio for each channel, as this analysis will work only with simulated signal, along with simulated and real background data. The chapter concludes by addressing the subsequent steps required before data unblinding and the attainment of the final experimental measurement, as well as suggesting other ideas to improve the results.
 
 \section{Analysis overview}\label{sec:analysis_overview}
 
@@ -451,11 +451,11 @@ After having presented all the techniques used to recover the meson, we are able
     \begin{tabular}{|l|c|c|}
         \hline
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$\phi(\pi^{\pm}\pi^{\mp}\pi^{0})$ & \cellcolor{lightgray}$\omega(\pi^{\pm}\pi^{\mp}\pi^{0})$ \\ \hline
-        Meson mass                                              &$0.96\pm0.26$ GeV  &$0.785\pm0.215$ GeV    \\
+        Meson mass                                              &$1.00\pm0.20$ GeV  &$0.78\pm0.18$ GeV    \\
         Ditrack mass                                            &$0.59\pm0.25$ GeV  &$0.47\pm0.15$ GeV      \\
         $\pT^{\text{diTrk}}$                                    &$>10$ GeV          &$>15$ GeV              \\
-        $\pT^{\text{leadTrk}}$                                  &$>5$ GeV           &$>8$ GeV               \\
-        $\#\gamma^{\text{diTrk}}$                               &$>0$               &$>0$                   \\
+        $\pT^{\text{leadTrk}}$                                  &$>8$ GeV           &$>10$ GeV               \\
+        $\#\gamma^{\text{diTrk}}$                               &$1$                &$1$                   \\
         $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$    &$\pi\pm2.3$        \\
         $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$              \\
         Iso                                                     &$>0.95$            &$>0.95$                \\
@@ -470,11 +470,11 @@ After having presented all the techniques used to recover the meson, we are able
     \begin{tabular}{|l|c|c|}
         \hline
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$D^{*0}(K^{-}\pi^{+}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$D^{*0}(K^{-}\pi^{+}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
-        Meson mass                                              &                   &$1.55\pm 0.65$ GeV  \\
-        Ditrack mass                                            &$1.865\pm0.060$ GeV&$1.18\pm 0.57$ GeV  \\
-        $\pT^{\text{diTrk}}$                                    &$>40$ GeV          &$>20$ GeV           \\
-        $\pT^{\text{leadTrk}}$                                  &$>21$ GeV          &$>10$ GeV           \\
-        $\pT^{\text{subLeadTrk}}$                               &$>5$ GeV           &$>3$ GeV           \\
+        Meson mass                                              &                   &$1.80\pm 0.40$ GeV  \\
+        Ditrack mass                                            &$1.865\pm0.060$ GeV&$1.175\pm 0.525$ GeV  \\
+        $\pT^{\text{diTrk}}$                                    &$>42$ GeV          &$>20$ GeV           \\
+        $\pT^{\text{leadTrk}}$                                  &$>22$ GeV          &$>12$ GeV           \\
+        $\pT^{\text{subLeadTrk}}$                               &$>7$ GeV           &$>3$ GeV           \\
         $\#\gamma^{\text{diTrk}}$                               &                   &$>0$               \\
         $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$        &$\pi\pm2.3$        \\
         $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$           \\
@@ -542,24 +542,24 @@ These strict cuts (selecting approximately only one in eleven signal events) wil
     \setlength{\mylength}{\textwidth}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_dtrk_mass.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Phi3_ditrk_mass.png}
         \caption{\footnotesize (a)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/Omega_dtrk_mass.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/Omega_ditrk_mass.png}
         \caption{\footnotesize (b)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \vskip\baselineskip
     \vspace*{-0.1cm}
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_dtrk_mass.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_2body_ditrk_mass.png}
         \caption{\footnotesize (c)}
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_dtrk_mass.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_ditrk_mass.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
 \caption{Ditrack mass of the different studied decay modes. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel. The MC background is shown in orange, scatter points represent real data, and the signal, in red, is normalized to the data for better visualization.}
@@ -738,6 +738,8 @@ Figures \ref{fig:lead_pt_data} and \ref{fig:sublead_pt_data} illustrate the tran
 \label{fig:sublead_pt_data}
     \vspace*{-0.0cm}
 \end{figure}
+
+\clearpage
 
 \section{Signal and background modelling \todo{ADD FOURTH D0* CHANNEL}}\label{sec:modelling}
 
@@ -1020,10 +1022,10 @@ Table \ref{tab:results} reports the expected upper limits on the branching ratio
     \begin{tabular}{|l|C{3cm}|C{3cm}|c|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \cellcolor{lightgray} Measured $\mathcal{B}$ & \cellcolor{lightgray} ATLAS $\mathcal{B}$ & \cellcolor{lightgray} SM $\mathcal{B}$ \\ \hline
-        $\text{H}\decaysto \phi\gamma$          &.\r$20.0 \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
-        $\text{H}\decaysto \omega\gamma$        &.\r$2.54 \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
-        $\text{H}\decaysto D^{*0}\gamma$ 2-body &.\r$10.8 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
-        $\text{H}\decaysto D^{*0}\gamma$ 3-body &.\r$x.xx \times 10^{-3}$ &                         &  \\
+        $\text{H}\decaysto \phi\gamma$          &$18.6 \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
+        $\text{H}\decaysto \omega\gamma$        &$2.58 \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
+        $\text{H}\decaysto D^{*0}\gamma$ 2-body &$10.6 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
+        $\text{H}\decaysto D^{*0}\gamma$ 3-body &$14.9 \times 10^{-3}$ &                         &  \\
         \hline
     \end{tabular}
     \caption{The expected upper limit on the branching fractions for the four studied decay channels is shown in the first column. The second column presents the corresponding upper limits measured by the ATLAS collaboration, when available \cite{ATLAS:2017gko, ATLAS:2023alf}. The third column displays the Standard Model predictions of the branching fractions, when available \cite{Konig:2015qat}.}

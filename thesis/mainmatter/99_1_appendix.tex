@@ -13,20 +13,20 @@ In Section \ref{sec:meson_reconstruction} the Boosted Decision Trees used to imp
     \begin{tabular}{|l|C{2.45cm}|C{2.45cm}|C{2.45cm}|C{2.45cm}|}
         \hline
         \cellcolor{lightgray}Hyperparameter & \cellcolor{lightgray}$\phi$ & \cellcolor{lightgray}$\omega$ & \cellcolor{lightgray}$D^{*0}$ 2-body & \cellcolor{lightgray}$D^{*0}$ 3-body \\ \hline
-        \verb+VarTransform+         &G, P, D&G, N, P&D, G   &    \\
-        \verb+NTrees+               &2393   &1139   &1933   &    \\
+        \verb+VarTransform+         &G, N, P&G, P, D&D, G   &    \\
+        \verb+NTrees+               &1000   &1500   &1400   &    \\
         \verb+BoostType+            &Grad   &Grad   &Grad   &    \\
-        \verb+Shrinkage+            &0.0500 &0.1006 &0.0507 &    \\
-        \verb+MaxDepth+             &4      &4      &5      &    \\
+        \verb+Shrinkage+            &0.045  &0.066  &0.044  &    \\
+        \verb+MaxDepth+             &6      &4      &6      &    \\
         %\verb+SeparationType+       &RegressionVariance&RegressionVariance&RegressionVariance&    \\
-        \verb+nCuts+                &28     &47     &25     &    \\
-        \verb+UseRandomisedTrees+   &True   &True   &True   &    \\
-        \verb+UseNvars+             &30     &81     &52     &    \\
-        \verb+UseBaggedBoost+       &True   &False  &True   &    \\
-        \verb+BaggedSampleFraction+ &0.8677 &1.0686 &1.4387 &    \\
+        \verb+nCuts+                &38     &25     &19     &    \\
+        \verb+UseRandomisedTrees+   &True   &True   &False   &    \\
+        \verb+UseNvars+             &76     &28     &57     &    \\
+        \verb+UseBaggedBoost+       &False  &False  &False   &    \\
+        \verb+BaggedSampleFraction+ &1.203  &0.880  &1.464 &    \\
         \verb+PruneMethod+          &NoPruning&NoPruning&ExpectedError&    \\
-        \verb+PruneStrength+        &-      &-      &27     &    \\
-        \verb+PruningValFraction+   &-      &-      &0.4729 &    \\
+        \verb+PruneStrength+        &-      &-      &26     &    \\
+        \verb+PruningValFraction+   &-      &-      &0.689 &    \\
         \hline
         \end{tabular}
     \caption{Hyperparameters of the BDTs regressing the transverse momentum of each meson. These parameters are available options for the \usebox{\verbbox} regressor. Each option is described in detail in Ref. \cite{TMVA:2007ngy}.}
