@@ -7,7 +7,7 @@ meson="Phi3"
 #meson="Omega"
 year=2018
 
-for meson in "Phi3" "Omega" "D0Star"; do
+for meson in "Phi3" "Omega" "D0Star" "D0StarRho"; do
     outputFile="limits_${meson}.out"
     > "$outputFile"
     # Loop through all files in the directory

@@ -91,12 +91,12 @@ if __name__ == "__main__":
     createAndSaveHistogramSignal(cat, mesonCat, year, date, filters=filters, extraTitle=extraTitle, ditrack=True)
     '''
     #Phi3------------------------------------------------------------------------------------------
-    df = True
+    df = False
     mesonCat = "Phi3Cat"
     mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
 
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat"]:
+    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for meson in "Phi" "Omega" "D0Star"; do
+for meson in "Phi" "Omega" "D0Star" "D0StarRho"; do
     echo -e "${meson} channel:"
-    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFiles${meson}/eval_run2.out"
+    outputFile="/data/submit/pdmonte/TMVA_models/finalEvalFiles${meson}/eval_run3.out"
     inputFiles="/data/submit/pdmonte/TMVA_models/evalFiles"
     echo $inputFiles
     echo $outputFile

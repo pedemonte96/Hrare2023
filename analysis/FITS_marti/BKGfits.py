@@ -536,12 +536,12 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat"]:
+    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
     #for mesonCat in ["Phi3Cat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
-                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)
