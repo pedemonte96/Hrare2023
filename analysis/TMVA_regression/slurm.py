@@ -9,7 +9,7 @@ slurm_script_template = '''#!/bin/bash
 #SBATCH --error={log_dir}{sample}.err
 #SBATCH --time=15:00:00
 #SBATCH --mem=2GB
-#SBATCH --partition=submit-alma9
+#SBATCH --partition=submit
 #SBATCH --oversubscribe
 
 source ~/.bashrc

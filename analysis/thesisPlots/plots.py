@@ -40,6 +40,8 @@ if __name__ == "__main__":
 
     date = "OCT27"
 
+    # READ FILES --------------------------------------------------------------------------------------------------------------------------
+    #ggH ----------------------------------------------------------------------------------------------------------------------------------
     chainSGN_Phi3 = ROOT.TChain("events")
     chainSGN_Omega = ROOT.TChain("events")
     chainSGN_D0Star2 = ROOT.TChain("events")
@@ -48,7 +50,12 @@ if __name__ == "__main__":
     chainSGN_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1038, "OmegaCat"))
     chainSGN_D0Star2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1041, "D0StarCat"))
     chainSGN_D0Star3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1040, "D0StarRhoCat"))
+    dfSGN_Phi3 = ROOT.RDataFrame(chainSGN_Phi3)
+    dfSGN_Omega = ROOT.RDataFrame(chainSGN_Omega)
+    dfSGN_D0Star2 = ROOT.RDataFrame(chainSGN_D0Star2)
+    dfSGN_D0Star3 = ROOT.RDataFrame(chainSGN_D0Star3)
 
+    #ggH REGRESSION -----------------------------------------------------------------------------------------------------------------------
     chainSGN_Omega_0 = ROOT.TChain("events")
     chainSGN_Omega_1 = ROOT.TChain("events")
     chainSGN_Omega_2 = ROOT.TChain("events")
@@ -89,6 +96,23 @@ if __name__ == "__main__":
     dfSGN_D0Star3_1 = ROOT.RDataFrame(chainSGN_D0Star3_1)
     dfSGN_D0Star3_2 = ROOT.RDataFrame(chainSGN_D0Star3_2)
 
+    #VBF ----------------------------------------------------------------------------------------------------------------------------------
+    chainSGN_Phi3_VBF = ROOT.TChain("events")
+    chainSGN_Omega_VBF = ROOT.TChain("events")
+    chainSGN_D0Star2_VBF = ROOT.TChain("events")
+    chainSGN_D0Star3_VBF = ROOT.TChain("events")
+    chainSGN_Phi3_VBF.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1069, "Phi3Cat"))
+    chainSGN_Omega_VBF.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1068, "OmegaCat"))
+    chainSGN_D0Star2_VBF.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1071, "D0StarCat"))
+    chainSGN_D0Star3_VBF.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, 1070, "D0StarRhoCat"))
+    dfSGN_Phi3_VBF = ROOT.RDataFrame(chainSGN_Phi3_VBF)
+    dfSGN_Omega_VBF = ROOT.RDataFrame(chainSGN_Omega_VBF)
+    dfSGN_D0Star2_VBF = ROOT.RDataFrame(chainSGN_D0Star2_VBF)
+    dfSGN_D0Star3_VBF = ROOT.RDataFrame(chainSGN_D0Star3_VBF)
+
+    #VBF REGRESSION (TODO) ----------------------------------------------------------------------------------------------------------------
+
+    #BKG ----------------------------------------------------------------------------------------------------------------------------------
     chainBKG_Omega = ROOT.TChain("events")
     chainBKG_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc10_GFcat_{1}_2018.root".format(date, "OmegaCat"))
     chainBKG_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc11_GFcat_{1}_2018.root".format(date, "OmegaCat"))
@@ -121,7 +145,33 @@ if __name__ == "__main__":
     chainBKG_D0Star3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc14_GFcat_{1}_2018.root".format(date, "D0StarRhoCat"))
     dfBKG_D0Star3 = ROOT.RDataFrame(chainBKG_D0Star3)
 
-    dfSGN_Phi3 = ROOT.RDataFrame(chainSGN_Phi3)
+    #DATA ---------------------------------------------------------------------------------------------------------------------------------
+    chainDATA_Omega = ROOT.TChain("events")
+    chainDATA_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-62_GFcat_{1}_2018.root".format(date, "OmegaCat"))
+    chainDATA_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-63_GFcat_{1}_2018.root".format(date, "OmegaCat"))
+    chainDATA_Omega.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-64_GFcat_{1}_2018.root".format(date, "OmegaCat"))
+    dfDATA_Omega = ROOT.RDataFrame(chainDATA_Omega)
+
+    chainDATA_Phi3 = ROOT.TChain("events")
+    chainDATA_Phi3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-62_GFcat_{1}_2018.root".format(date, "Phi3Cat"))
+    chainDATA_Phi3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-63_GFcat_{1}_2018.root".format(date, "Phi3Cat"))
+    chainDATA_Phi3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-64_GFcat_{1}_2018.root".format(date, "Phi3Cat"))
+    dfDATA_Phi3 = ROOT.RDataFrame(chainDATA_Phi3)
+
+    chainDATA_D0Star2 = ROOT.TChain("events")
+    chainDATA_D0Star2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-62_GFcat_{1}_2018.root".format(date, "D0StarCat"))
+    chainDATA_D0Star2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-63_GFcat_{1}_2018.root".format(date, "D0StarCat"))
+    chainDATA_D0Star2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-64_GFcat_{1}_2018.root".format(date, "D0StarCat"))
+    dfDATA_D0Star2 = ROOT.RDataFrame(chainDATA_D0Star2)
+
+    chainDATA_D0Star3 = ROOT.TChain("events")
+    chainDATA_D0Star3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-62_GFcat_{1}_2018.root".format(date, "D0StarRhoCat"))
+    chainDATA_D0Star3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-63_GFcat_{1}_2018.root".format(date, "D0StarRhoCat"))
+    chainDATA_D0Star3.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc-64_GFcat_{1}_2018.root".format(date, "D0StarRhoCat"))
+    dfDATA_D0Star3 = ROOT.RDataFrame(chainDATA_D0Star3)
+
+    # DEFINE NEW COLUMNS ------------------------------------------------------------------------------------------------------------------
+    #ggH ----------------------------------------------------------------------------------------------------------------------------------
     dfSGN_Phi3 = (dfSGN_Phi3.Define("scale", "w*lumiIntegrated")
                     .Define("newDitrackMass", "sum2Body(goodMeson_trk1_pt[0], goodMeson_trk1_eta[0], goodMeson_trk1_phi[0], {}, goodMeson_trk2_pt[0], goodMeson_trk2_eta[0], goodMeson_trk2_phi[0], {}).M()".format(pi1Mass, pi1Mass))
                     .Define("DiffFittedMass", "goodMeson_ditrk_mass - goodMeson_ditrk_mass_GEN")
@@ -134,7 +184,6 @@ if __name__ == "__main__":
                     .Define("Residual_ditrk_eta", "goodMeson_ditrk_eta - goodMeson_ditrk_eta_GEN")
                     .Define("Residual_ditrk_phi", "goodMeson_ditrk_phi - goodMeson_ditrk_phi_GEN"))
     
-    dfSGN_Omega = ROOT.RDataFrame(chainSGN_Omega)
     dfSGN_Omega = (dfSGN_Omega.Define("scale", "w*lumiIntegrated")
                     .Define("newDitrackMass", "sum2Body(goodMeson_trk1_pt[0], goodMeson_trk1_eta[0], goodMeson_trk1_phi[0], {}, goodMeson_trk2_pt[0], goodMeson_trk2_eta[0], goodMeson_trk2_phi[0], {}).M()".format(pi1Mass, pi1Mass))
                     .Define("DiffFittedMass", "goodMeson_ditrk_mass - goodMeson_ditrk_mass_GEN")
@@ -147,7 +196,6 @@ if __name__ == "__main__":
                     .Define("Residual_ditrk_eta", "goodMeson_ditrk_eta - goodMeson_ditrk_eta_GEN")
                     .Define("Residual_ditrk_phi", "goodMeson_ditrk_phi - goodMeson_ditrk_phi_GEN"))
     
-    dfSGN_D0Star2 = ROOT.RDataFrame(chainSGN_D0Star2)
     dfSGN_D0Star2 = (dfSGN_D0Star2.Define("scale", "w*lumiIntegrated")
                     .Define("newDitrackMass", "sum2Body(goodMeson_trk1_pt[0], goodMeson_trk1_eta[0], goodMeson_trk1_phi[0], {}, goodMeson_trk2_pt[0], goodMeson_trk2_eta[0], goodMeson_trk2_phi[0], {}).M()".format(pi1Mass, k1Mass))
                     .Define("DiffFittedMass", "goodMeson_ditrk_mass - goodMeson_ditrk_mass_GEN")
@@ -160,7 +208,6 @@ if __name__ == "__main__":
                     .Define("Residual_ditrk_eta", "goodMeson_ditrk_eta - goodMeson_ditrk_eta_GEN")
                     .Define("Residual_ditrk_phi", "goodMeson_ditrk_phi - goodMeson_ditrk_phi_GEN"))
     
-    dfSGN_D0Star3 = ROOT.RDataFrame(chainSGN_D0Star3)
     dfSGN_D0Star3 = (dfSGN_D0Star3.Define("scale", "w*lumiIntegrated")
                     .Define("newDitrackMass", "sum2Body(goodMeson_trk1_pt[0], goodMeson_trk1_eta[0], goodMeson_trk1_phi[0], {}, goodMeson_trk2_pt[0], goodMeson_trk2_eta[0], goodMeson_trk2_phi[0], {}).M()".format(pi1Mass, k1Mass))
                     .Define("DiffFittedMass", "goodMeson_ditrk_mass - goodMeson_ditrk_mass_GEN")
@@ -173,6 +220,7 @@ if __name__ == "__main__":
                     .Define("Residual_ditrk_eta", "goodMeson_ditrk_eta - goodMeson_ditrk_eta_GEN")
                     .Define("Residual_ditrk_phi", "goodMeson_ditrk_phi - goodMeson_ditrk_phi_GEN"))
     
+    #ggH REGRESSION -----------------------------------------------------------------------------------------------------------------------
     s = '''
     TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
     computeModelScaleOmega0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega0);
@@ -287,6 +335,15 @@ if __name__ == "__main__":
         .Define("Residual_new_pt", "goodMeson_pt_PRED - goodMeson_pt_GEN")
         .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
     
+    #VBF (TODO) ---------------------------------------------------------------------------------------------------------------------------
+    dfSGN_Phi3_VBF = (dfSGN_Phi3_VBF.Define("scale", "w*lumiIntegrated"))
+    dfSGN_Omega_VBF = (dfSGN_Omega_VBF.Define("scale", "w*lumiIntegrated"))
+    dfSGN_D0Star2_VBF = (dfSGN_D0Star2_VBF.Define("scale", "w*lumiIntegrated"))
+    dfSGN_D0Star3_VBF = (dfSGN_D0Star3_VBF.Define("scale", "w*lumiIntegrated"))
+                  
+    #VBF REGRESSION (TODO) ----------------------------------------------------------------------------------------------------------------
+    
+    #BKG ----------------------------------------------------------------------------------------------------------------------------------
     dfBKG_Omega = (dfBKG_Omega.Define("scale", "w*lumiIntegrated")
                     .Define("scaleFactor0", ROOT.computeModelScaleOmega0, variablesOmega)
                     .Define("scaleFactor1", ROOT.computeModelScaleOmega1, variablesOmega)
@@ -312,13 +369,52 @@ if __name__ == "__main__":
                     .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
                     .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
    
+    #DATA ---------------------------------------------------------------------------------------------------------------------------------
+    dfDATA_Omega = (dfDATA_Omega.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleOmega0, variablesOmega)
+                    .Define("scaleFactor1", ROOT.computeModelScaleOmega1, variablesOmega)
+                    .Define("scaleFactor2", ROOT.computeModelScaleOmega2, variablesOmega)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfDATA_Phi3 = (dfDATA_Phi3.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScalePhi0, variablesPhi)
+                    .Define("scaleFactor1", ROOT.computeModelScalePhi1, variablesPhi)
+                    .Define("scaleFactor2", ROOT.computeModelScalePhi2, variablesPhi)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfDATA_D0Star2 = (dfDATA_D0Star2.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleD0Star0, variablesD0Star)
+                    .Define("scaleFactor1", ROOT.computeModelScaleD0Star1, variablesD0Star)
+                    .Define("scaleFactor2", ROOT.computeModelScaleD0Star2, variablesD0Star)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfDATA_D0Star3 = (dfDATA_D0Star3.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleD0StarRho0, variablesD0StarRho)
+                    .Define("scaleFactor1", ROOT.computeModelScaleD0StarRho1, variablesD0StarRho)
+                    .Define("scaleFactor2", ROOT.computeModelScaleD0StarRho2, variablesD0StarRho)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    
+    #Define useful lists ------------------------------------------------------------------------------------------------------------------
     channels = ["Phi3", "Omega", "D0Star_2body", "D0Star_3body"]
-    channels_latex = ["#phi", "#omega", "D^{*0} 2-body", "D^{*0} 3-body"]
+    channels_latex = ["#phi", "#omega", "D^{*0}", "D^{*0}"]
+    channels_latex_titles = ["#phi", "#omega", "D^{*0} 2-body", "D^{*0} 3-body"]
     dfsSGN = [dfSGN_Phi3, dfSGN_Omega, dfSGN_D0Star2, dfSGN_D0Star3]
+    dfsSGN_VBF = [dfSGN_Phi3_VBF, dfSGN_Omega_VBF, dfSGN_D0Star2_VBF, dfSGN_D0Star3_VBF]
     dfsBKG = [dfBKG_Phi3, dfBKG_Omega, dfBKG_D0Star2, dfBKG_D0Star3]
+    dfsDATA = [dfDATA_Phi3, dfDATA_Omega, dfDATA_D0Star2, dfDATA_D0Star3]
     dfsSGN_0 = [dfSGN_Phi3_0, dfSGN_Omega_0, dfSGN_D0Star2_0, dfSGN_D0Star3_0]
     dfsSGN_1 = [dfSGN_Phi3_1, dfSGN_Omega_1, dfSGN_D0Star2_1, dfSGN_D0Star3_1]
     dfsSGN_2 = [dfSGN_Phi3_2, dfSGN_Omega_2, dfSGN_D0Star2_2, dfSGN_D0Star3_2]
+
+    massRanges = {"Phi3": (0.80, 1.20), "Omega": (0.60, 0.96), "D0Star_2body": (1.80, 1.93), "D0Star_3body": (1.40, 2.20)}
+    slicingVals = {}
+    for k in massRanges:
+        width = massRanges[k][1] - massRanges[k][0]
+        slicingVals[k] = [massRanges[k][0] + width/4., massRanges[k][0] + width/2., massRanges[k][0] + width*3/4.,]
+    print(slicingVals)
+    slicingVals = {"Phi3": [0.9174, 0.9875, 1.032], "Omega": [0.725, 0.77, 0.81], "D0Star_2body": [1.854, 1.865, 1.876], "D0Star_3body": [1.780, 1.850, 1.920]}
+    cutVariables = {"Phi3": "goodMeson_mass", "Omega": "goodMeson_mass", "D0Star_2body": "goodMeson_ditrk_mass", "D0Star_3body": "goodMeson_mass"}
 
     plotKinematicFitResidual = False
     plotFullMesonMassResidual = False
@@ -326,25 +422,29 @@ if __name__ == "__main__":
     plotFullMesonPtResiduals = False
     plotModelsPt = False
     plotModelsPtResiduals = False
-    plotGeneralData = False
-    plotFullMesonPtData = False
+    plotGeneralData = True
+    plotFullMesonPtData = True
     plotHCandMass = True
-    plotSlicesSignal = True
-    plotSlicesBackground = True
-    plotFits = True
+    plotSlicesSignal = False
+    plotSlicesBackground = False
+    plotFits = False
+
+    # -------------------------------------------------------------------------------------------------------------------------------------
+    # START PLOTTING ----------------------------------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------------------------------------------------
 
     if plotKinematicFitResidual:
         # Kinematic fit comparison --------------------------------------------------------------------------------------------
-        xLabels = ["m_{#phi}^{diTrk, RECO} - m_{#phi}^{diTrk, GEN}", "m_{#omega}^{diTrk, RECO} - m_{#omega}^{diTrk, GEN}", "m_{D^{0}}^{RECO} - m_{D^{0}}^{GEN}", "m_{D^{0}}^{RECO} - m_{D^{0}}^{GEN}"]
+        xLabels = ["m_{#phi}^{diTrk, RECO} - m_{#phi}^{diTrk, GEN} [GeV]", "m_{#omega}^{diTrk, RECO} - m_{#omega}^{diTrk, GEN} [GeV]", "m_{D^{*0}}^{diTrk, RECO} - m_{D^{*0}}^{diTrk, GEN} [GeV]", "m_{D^{*0}}^{diTrk, RECO} - m_{D^{*0}}^{diTrk, GEN} [GeV]"]
         for i, c in enumerate(channels):
             fileName = "{}_kinematic_fit_residual.png".format(c)
             df = dfsSGN[i]
             options = {"labelXAxis": xLabels[i], "labelYAxis": "Events", "xRange": (-0.1, 0.1), "data": False}
             nbins, xlow, xhigh = 500, -0.5, 0.5
             histograms = []
-            name1 = "w/ kinematic fit"
+            name1 = "w/ kin. fit"
             h1 = df.Histo1D(("hist", name1, nbins, xlow, xhigh), "DiffFittedMass", "scale").GetValue()
-            name2 = "w/o kinematic fit"
+            name2 = "w/o kin. fit"
             h2 = df.Histo1D(("hist", name2, nbins, xlow, xhigh), "DiffSumMass", "scale").GetValue()
             histograms.append((name1, h1))
             histograms.append((name2, h2))
@@ -354,18 +454,18 @@ if __name__ == "__main__":
 
     if plotFullMesonMassResidual:
         # New full meson mass comparison --------------------------------------------------------------------------------------------
-        xLabels = ["m_{#phi}^{RECO} - m_{#phi}^{GEN}", "m_{#omega}^{RECO} - m_{#omega}^{GEN}", "m_{D^{*0}}^{RECO} - m_{D^{*0}}^{GEN}"]
+        xLabels = ["m_{#phi}^{RECO} - m_{#phi}^{GEN} [GeV]", "m_{#omega}^{RECO} - m_{#omega}^{GEN} [GeV]", "m_{D^{*0}}^{RECO} - m_{D^{*0}}^{GEN} [GeV]"]
         channels_latex_bis = ["#phi", "#omega", "D^{*0} 3-body"]
         dfsSGN_bis = [dfSGN_Phi3, dfSGN_Omega, dfSGN_D0Star3]
         for i, c, in enumerate(["Phi3", "Omega", "D0Star_3body"]):
             fileName = "{}_fullmeson_mass_residual.png".format(c)
             df = dfsSGN_bis[i]
-            options = {"labelXAxis": xLabels[i], "labelYAxis": "Events", "xRange": (-0.6, 0.6), "data": False}
-            nbins, xlow, xhigh = 100, -0.6, 0.6
+            options = {"labelXAxis": xLabels[i], "labelYAxis": "Events", "xRange": (-0.5, 0.5), "data": False}
+            nbins, xlow, xhigh = 120, -0.6, 0.6
             histograms = []
-            name1 = "w/ pi0 mass"
+            name1 = "w/ #pi^{0} mass"
             h1 = df.Histo1D(("hist", name1, nbins, xlow, xhigh), "DiffModifiedMass", "scale").GetValue()
-            name2 = "w/o pi0 mass"
+            name2 = "w/o #pi^{0} mass"
             h2 = df.Histo1D(("hist", name2, nbins, xlow, xhigh), "DiffRawMass", "scale").GetValue()
             histograms.append((name1, h1))
             histograms.append((name2, h2))
@@ -377,7 +477,7 @@ if __name__ == "__main__":
         # Ditrack PT residuals --------------------------------------------------------------------------------------------
         fileName = "ditrack_residuals_pt.png"
         nbins, xlow, xhigh = 100, -3., 3.
-        options = {"labelXAxis": "p_{T}^{dtk}(reco) - p_{T}^{dtk}(gen) [GeV]", "labelYAxis": "Events", "data": False}
+        options = {"labelXAxis": "p_{T}^{diTrk, RECO} - p_{T}^{diTrk, GEN} [GeV]", "labelYAxis": "Frequency", "data": False}
         histograms = []
         name1 = "#phi"
         h1 = dfSGN_Phi3.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_ditrk_pt").GetValue()
@@ -401,7 +501,7 @@ if __name__ == "__main__":
         # Ditrack Mass residuals --------------------------------------------------------------------------------------------
         fileName = "ditrack_residuals_mass.png"
         nbins, xlow, xhigh = 100, -0.2, 0.2
-        options = {"labelXAxis": "m^{dtk}(reco) - m^{dtk}(gen) [GeV]", "labelYAxis": "Events", "data": False}
+        options = {"labelXAxis": "m^{diTrk, RECO} - m^{diTrk, GEN} [GeV]", "labelYAxis": "Frequency", "data": False}
         histograms = []
         name1 = "#phi"
         h1 = dfSGN_Phi3.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_ditrk_mass").GetValue()
@@ -425,7 +525,7 @@ if __name__ == "__main__":
         # Ditrack Eta residuals --------------------------------------------------------------------------------------------
         fileName = "ditrack_residuals_eta.png"
         nbins, xlow, xhigh = 100, -0.004, 0.004
-        options = {"labelXAxis": "#eta^{dtk}(reco) - #eta^{dtk}(gen)", "labelYAxis": "Events", "data": False}
+        options = {"labelXAxis": "#eta^{diTrk, RECO} - #eta^{diTrk, GEN}", "labelYAxis": "Frequency", "data": False}
         histograms = []
         name1 = "#phi"
         h1 = dfSGN_Phi3.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_ditrk_eta").GetValue()
@@ -449,7 +549,7 @@ if __name__ == "__main__":
         # Ditrack Phi residuals --------------------------------------------------------------------------------------------
         fileName = "ditrack_residuals_phi.png"
         nbins, xlow, xhigh = 100, -0.004, 0.004
-        options = {"labelXAxis": "#phi^{dtk}(reco) - #phi^{dtk}(gen)", "labelYAxis": "Events", "data": False}
+        options = {"labelXAxis": "#phi^{diTrk, RECO} - #phi^{diTrk, GEN}", "labelYAxis": "Frequency", "data": False}
         histograms = []
         name1 = "#phi"
         h1 = dfSGN_Phi3.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_ditrk_phi").GetValue()
@@ -474,7 +574,7 @@ if __name__ == "__main__":
         # Full meson PT residuals --------------------------------------------------------------------------------------------
         fileName = "fullmeson_residuals_pt.png"
         nbins, xlow, xhigh = 100, -30., 30.
-        options = {"labelXAxis": "p_{T}(reco) - p_{T}(gen) [GeV]", "labelYAxis": "Events", "data": False}
+        options = {"labelXAxis": "p_{T}^{RECO} - p_{T}^{GEN} [GeV]", "labelYAxis": "Frequency", "data": False}
         histograms = []
         name1 = "#phi"
         h1 = dfSGN_Phi3.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_old_pt").GetValue()
@@ -501,7 +601,7 @@ if __name__ == "__main__":
             fileName = "{}_model_pt.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             nbins, xlow, xhigh = 100, 0., 150.
-            options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "style": ["f", "l", "l"], "colors": [ROOT.kSpring + 6, ROOT.kRed + 1, ROOT.kBlue], "data": False}
+            options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "style": ["f", "l", "l"], "colors": [ROOT.kSpring + 1, ROOT.kRed + 1, ROOT.kBlue], "data": False}
             histograms = []
             name1 = "Generation"
             h1 = df_0.Histo1D(("hist", name1, nbins, xlow, xhigh), "goodMeson_pt_GEN", "scale").GetValue()
@@ -527,7 +627,7 @@ if __name__ == "__main__":
             fileName = "{}_model_pt_residuals.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             nbins, xlow, xhigh = 100, -20., 20.
-            options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "data": False}
+            options = {"labelXAxis": "p_{T} - p_{T}^{GEN} [GeV]", "labelYAxis": "Events", "data": False}
             histograms = []
             name1 = "Predicted"
             h1 = df_0.Histo1D(("hist", name1, nbins, xlow, xhigh), "Residual_new_pt", "scale").GetValue()
@@ -546,29 +646,31 @@ if __name__ == "__main__":
         variables = ["goodMeson_ditrk_mass", "goodMeson_mass", "goodPhotons_pt", "goodMeson_leadtrk_pt", "goodMeson_subleadtrk_pt"]
         variablesTitle = ["Ditrack mass", "Mass", "Photon from PV", "Leading track p_{T}", "Subleading track p_{T}"]
         variablesFileName = ["ditrk_mass", "mass", "photon_pt", "lead_pt", "sublead_pt"]
-        variablesXRange = {"Phi3": [(0.2, 1.0), (0.6, 1.4), (0, 150), (0, 80), (0, 40)],
-                            "Omega": [(0.2, 1.0), (0.4, 1.2), (0, 150), (0, 80), (0, 40)],
-                            "D0Star_2body": [(1.60, 2.0), (1.20, 2.30), (0, 150), (0, 80), (0, 40)],
-                            "D0Star_3body": [(0.5, 2.0), (1.20, 2.30), (0, 150), (0, 80), (0, 40)]}
+        variablesXRange = {"Phi3": [(0.2, 1.0), (0.6, 1.4), (0, 160), (0, 80), (0, 50)],
+                            "Omega": [(0.2, 1.0), (0.4, 1.2), (0, 160), (0, 80), (0, 50)],
+                            "D0Star_2body": [(1.70, 2.10), (1.30, 2.50), (0, 160), (0, 80), (0, 50)],
+                            "D0Star_3body": [(0.40, 2.00), (1.30, 2.50), (0, 160), (0, 80), (0, 50)]}
         
         for j, c in enumerate(channels):
             dfSGN = dfsSGN[j]
+            dfSGN_VBF = dfsSGN_VBF[j]
             dfBKG = dfsBKG[j]
-            variablesXLabel = ["m^{{diTrk}}_{} [GeV]".format(channels_latex[j]), "m_{} [GeV]".format(channels_latex[j]), "p_{{T}}^{#gamma} [GeV]", "p_{{T}}^{{lead}}_{} [GeV]".format(channels_latex[j]), "p_{{T}}^{{subLead}}_{} [GeV]".format(channels_latex[j])]
+            dfDATA = dfsDATA[j]
+            variablesXLabel = ["m^{{diTrk}}_{{{meson}}} [GeV]".format(meson=channels_latex[j]), "m_{{{meson}}} [GeV]".format(meson=channels_latex[j]), "p_{T}^{#gamma} [GeV]", "p_{{T, {meson}}}^{{lead}} [GeV]".format(meson=channels_latex[j]), "p_{{T, {meson}}}^{{subLead}} [GeV]".format(meson=channels_latex[j])]
             print(variablesXLabel)
             for i, var in enumerate(variables):
                 fileName = "{}_{}.png".format(c, variablesFileName[i])
                 options = {"labelXAxis": variablesXLabel[i], "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True}
                 nbins, xlow, xhigh = 100, variablesXRange[c][i][0], variablesXRange[c][i][1]
                 histograms = []
-                name1 = "background"
+                name1 = "#gamma + jets"
                 h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), var, "scale").GetValue()
-                name2 = "signal"
+                name2 = "ggH MC ({})".format(channels_latex_titles[j])
                 h2 = dfSGN.Histo1D(("hist", name2, nbins, xlow, xhigh), var, "scale").GetValue()
+                h2.Add(dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), var, "scale").GetValue())
 
-                name3 = "data"# change with actual data
-                h3 = dfBKG.Histo1D(("hist", name3, nbins, xlow, xhigh), var, "scale").GetValue()
-                h3.Scale(1.2)
+                name3 = "Data"
+                h3 = dfDATA.Histo1D(("hist", name3, nbins, xlow, xhigh), var, "scale").GetValue()
 
                 integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
                 integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
@@ -586,19 +688,25 @@ if __name__ == "__main__":
             fileName = "{}_pt.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             dfBKG = dfsBKG[i]
-            nbins, xlow, xhigh = 100, 0., 150.
+            dfDATA = dfsDATA[i]
+            nbins, xlow, xhigh = 100, 0., 160.
             options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True}
             histograms = []
-            name1 = "background"
+            name1 = "#gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
-            name2 = "signal"
+            name2 = "ggH MC ({})".format(channels_latex_titles[i])
             h2 = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
             h2.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
             h2.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
+            # todo change with real VBF
+            h2_vbf = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
+            h2_vbf.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
+            h2_vbf.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
+            h2_vbf.Scale(1/13.)
+            h2.Add(h2_vbf)
 
-            name3 = "data"# change with actual data
-            h3 = dfBKG.Histo1D(("hist", name3, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
-            h3.Scale(1.2)
+            name3 = "Data"
+            h3 = dfDATA.Histo1D(("hist", name3, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
 
             integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
@@ -615,18 +723,24 @@ if __name__ == "__main__":
             fileName = "{}_HiggsMass.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             dfBKG = dfsBKG[i]
+            dfDATA = dfsDATA[i]
             nbins, xlow, xhigh = 100, 0., 180.
-            options = {"labelXAxis": "m_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True}
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed - 7, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True}
             histograms = []
-            name1 = "background"
+            name1 = "#gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            name2 = "signal"
+            name2 = "qqH MC ({})".format(channels_latex_titles[i])#VBF
             h2 = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h2.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h2.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            name3 = "data"
-            h3 = dfBKG.Filter("HCandMass_varPRED < 115 || HCandMass_varPRED > 135").Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            h3.Scale(1.2)
+            h2.Scale(1/13.)
+            name3 = "ggH MC ({})".format(channels_latex_titles[i])
+            h3 = df_0.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h3.Add(df_1.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
+            h3.Add(df_2.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
+            
+            name4 = "Data"
+            h4 = dfDATA.Filter("HCandMass_varPRED < 115 || HCandMass_varPRED > 135").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
 
             #integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             #integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
@@ -635,41 +749,34 @@ if __name__ == "__main__":
             histograms.append((name1, h1))
             histograms.append((name2, h2))
             histograms.append((name3, h3))
+            histograms.append((name4, h4))
             savePlot(histograms, fileName, options=options)
 
     if plotSlicesSignal:
         # Slices of HCandVar Signal --------------------------------------------------------------------------------------------
-        slicingVals = {"Phi3": [0.9174, 0.9875, 1.032],
-                        "Omega": [0.725, 0.77, 0.81],
-                        "D0Star_2body": [1.854, 1.865, 1.876],
-                        "D0Star_3body": [1.854, 1.865, 1.876]}
-        cutVariables = {"Phi3": "goodMeson_mass",
-                        "Omega": "goodMeson_mass",
-                        "D0Star_2body": "goodMeson_ditrk_mass",
-                        "D0Star_3body": "goodMeson_mass"}
         for i, c in enumerate(channels):
             fileName = "{}_fit_SGN_MH_sliced.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
-            nbins, xlow, xhigh = 100, 110., 140.
-            options = {"labelXAxis": "m_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kMagenta - 4], "data": False}
+            nbins, xlow, xhigh = 60, 110., 140.
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kRed - 10, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kOrange + 9], "data": False}
             histograms = []
-            name1 = "total"
+            name1 = "Total ggH MC ({})".format(channels_latex_titles[i])
             h1 = df_0.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h1.Add(df_1.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h1.Add(df_2.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            name2 = "slice1"
+            name2 = "Slice 1"
             h2 = df_0.Filter("{var}[0] < {val1}".format(var=cutVariables[c], val1=slicingVals[c][0])).Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h2.Add(df_1.Filter("{var}[0] < {val1}".format(var=cutVariables[c], val1=slicingVals[c][0])).Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h2.Add(df_2.Filter("{var}[0] < {val1}".format(var=cutVariables[c], val1=slicingVals[c][0])).Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            name3 = "slice2"
+            name3 = "Slice 2"
             h3 = df_0.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][0], val2=slicingVals[c][1])).Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h3.Add(df_1.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][0], val2=slicingVals[c][1])).Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h3.Add(df_2.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][0], val2=slicingVals[c][1])).Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            name4 = "slice3"
+            name4 = "Slice 3"
             h4 = df_0.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][1], val2=slicingVals[c][2])).Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h4.Add(df_1.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][1], val2=slicingVals[c][2])).Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h4.Add(df_2.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][1], val2=slicingVals[c][2])).Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            name5 = "slice4"
+            name5 = "Slice 4"
             h5 = df_0.Filter("{var}[0] > {val1}".format(var=cutVariables[c], val1=slicingVals[c][2])).Histo1D(("hist", name5, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h5.Add(df_1.Filter("{var}[0] > {val1}".format(var=cutVariables[c], val1=slicingVals[c][2])).Histo1D(("hist", name5, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h5.Add(df_2.Filter("{var}[0] > {val1}".format(var=cutVariables[c], val1=slicingVals[c][2])).Histo1D(("hist", name5, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
@@ -694,29 +801,21 @@ if __name__ == "__main__":
 
     if plotSlicesBackground:
         # Slices of HCandVar Background --------------------------------------------------------------------------------------------
-        slicingVals = {"Phi3": [0.9174, 0.9875, 1.032],
-                        "Omega": [0.725, 0.77, 0.81],
-                        "D0Star_2body": [1.854, 1.865, 1.876],
-                        "D0Star_3body": [1.854, 1.865, 1.876]}
-        cutVariables = {"Phi3": "goodMeson_mass",
-                        "Omega": "goodMeson_mass",
-                        "D0Star_2body": "goodMeson_ditrk_mass",
-                        "D0Star_3body": "goodMeson_mass"}
         for i, c in enumerate(channels):
             fileName = "{}_fit_BKG_MH_sliced.png".format(c)
             dfBKG = dfsBKG[i]
-            nbins, xlow, xhigh = 30, 100., 160.
-            options = {"labelXAxis": "m_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kMagenta - 4], "data": False}
+            nbins, xlow, xhigh = 20, 100., 160.
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kOrange + 9], "data": False}
             histograms = []
-            name1 = "total"
+            name1 = "Total #gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            name2 = "slice1"
+            name2 = "Slice 1"
             h2 = dfBKG.Filter("{var}[0] < {val1}".format(var=cutVariables[c], val1=slicingVals[c][0])).Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            name3 = "slice2"
+            name3 = "Slice 2"
             h3 = dfBKG.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][0], val2=slicingVals[c][1])).Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            name4 = "slice3"
+            name4 = "Slice 3"
             h4 = dfBKG.Filter("{var}[0] > {val1} && {var}[0] < {val2}".format(var=cutVariables[c], val1=slicingVals[c][1], val2=slicingVals[c][2])).Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            name5 = "slice4"
+            name5 = "Slice 4"
             h5 = dfBKG.Filter("{var}[0] > {val1}".format(var=cutVariables[c], val1=slicingVals[c][2])).Histo1D(("hist", name5, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             
             h2.Scale(h1.Integral()/h2.Integral())

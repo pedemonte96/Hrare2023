@@ -5,6 +5,8 @@ NC='\033[0m' # No Color
 year="2018"
 cat="isGFtag"
 
+isVBF=1
+
 if [[ $# == 0 ]]; then
 	#Signal------------------------------------------------
 	#Signal Omega
@@ -29,16 +31,16 @@ else
 	#Select meson
 	if [[ ${1,,} == "omega" || ${1,,} == "o" ]]; then
 		mesonCat="isOmegaCat"
-		numSignal=1038
+		numSignal=$((1038 + 30 * isVBF))
 	elif [[ ${1,,} == "phi" || ${1,,} == "phi3" || ${1,,} == "p" ]]; then
 		mesonCat="isPhi3Cat"
-		numSignal=1039
+		numSignal=$((1039 + 30 * isVBF))
 	elif [[ ${1,,} == "d0starrho" || ${1,,} == "dr" ]]; then
 		mesonCat="isD0StarRhoCat"
-		numSignal=1040
+		numSignal=$((1040 + 30 * isVBF))
 	elif [[ ${1,,} == "d0star" || ${1,,} == "d" ]]; then
 		mesonCat="isD0StarCat"
-		numSignal=1041
+		numSignal=$((1041 + 30 * isVBF))
 	else
 		echo -e "${RED}ERROR: No matching meson category.${NC}"
 		return 1
@@ -50,7 +52,7 @@ else
 		bash runVGM.sh $cat $mesonCat 12 $year
 		bash runVGM.sh $cat $mesonCat 13 $year
 		bash runVGM.sh $cat $mesonCat 14 $year
-	elif [[ $# == 2 ]]; then #choose signal, background, or combination 1/2/3
+	elif [[ $# == 2 ]]; then #choose signal, background, or combination 1/2/3/4 is data
 		if [[ ${2,,} == "s" || ${2,,} == "sgn" || ${2,,} == "sig" || ${2,,} == "signal" ]]; then
 			bash runVGM.sh $cat $mesonCat $numSignal $year
 		elif [[ ${2,,} == "b" || ${2,,} == "bkg" || ${2,,} == "background" ]]; then
@@ -68,6 +70,10 @@ else
 			bash runVGM.sh $cat $mesonCat 14 $year
 		elif [[ ${2,,} == 3 ]]; then
 			bash runVGM.sh $cat $mesonCat 12 $year
+		elif [[ ${2,,} == "d" || ${2,,} == "data" || ${2,,} == 4 ]]; then
+			bash runVGM.sh $cat $mesonCat -62 $year
+			bash runVGM.sh $cat $mesonCat -63 $year
+			bash runVGM.sh $cat $mesonCat -64 $year
 		else #2nd argument invalid
 			echo -e "${RED}ERROR: Second argument invalid.${NC}"
 			return 1

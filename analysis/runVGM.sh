@@ -30,6 +30,8 @@ echo -ne "${BLU}│${ORG}│${NC}"
 now1=$(date +'%H:%M:%S')
 if [[ $num -ge "1037" ]]; then
     text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} signal ${num}...${NC}                       "
+elif [[ $num -le "0" ]]; then
+    text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} data ${num}...${NC}                          "
 else
     text="$CYAN[$now1]${ORG} Creating ${part:2:-3} ${cat:2:-3} background ${num}...${NC}                     "
 fi

@@ -123,6 +123,8 @@ if time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 5:#more than 5h
     space, separation = 10, 60
 if time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 10:#more than 10h, spacing every 15 mins
     space, separation = 15, 60
+if time_difference_in_seconds(arrs[0][0], arrs[0][-1])/60./60. > 24:#more than 24h, spacing every 30 mins
+    space, separation = 30, 120
 xPos, nJobsMin, width = getJobsPerMinuteNew(arrs[0], arrs[1], spacing=space)
 #for x, y, z in zip(xPos, nJobsMin, width):
 #    print(x, y, z*24*60)

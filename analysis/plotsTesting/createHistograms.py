@@ -8,6 +8,7 @@ if "/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.so" not 
     ROOT.gSystem.CompileMacro("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/functions.cc","k")
 
 numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarRhoCat": [1040], "D0StarCat": [1041]}
+#numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1068], "Phi3Cat": [1069], "D0StarRhoCat": [1070], "D0StarCat": [1071]}#VBF
 
 mesonLatex = {"OmegaCat": "#omega", "Phi3Cat": "#phi", "D0StarRhoCat": "D^{0*} (#rho)", "D0StarCat": "D^{0*}"}
 
