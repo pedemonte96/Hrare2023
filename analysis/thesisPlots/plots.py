@@ -422,8 +422,8 @@ if __name__ == "__main__":
     plotFullMesonPtResiduals = False
     plotModelsPt = False
     plotModelsPtResiduals = False
-    plotGeneralData = True
-    plotFullMesonPtData = True
+    plotGeneralData = False
+    plotFullMesonPtData = False
     plotHCandMass = True
     plotSlicesSignal = False
     plotSlicesBackground = False
