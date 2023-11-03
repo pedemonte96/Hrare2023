@@ -149,7 +149,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
     \end{equation*}
     A high isolation value will be required to consider a meson candidate (over 0.9).
 
-    \item[Neutral particle photons:] For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered in a small cone of $\Delta R = 0.05$ around the ditrack direction. These photons account for the recovery of neutral particles, as $\pi^{0}\decaysto\gamma\gamma$ in $\sim 98.8\%$ with $c\tau=25$ nm \cite{PDG}. From generation-level MC we know that photons coming from neutral particle decays that in turn come from the three-body decays must be very collimated with the ditrack system. In the case of the $\phi$/$\omega$ channels and the $D^{*0}$ channel when $D^{0}$ decays into three bodies, these photons directly originate from the $\pi^0$ of the three-body decay. In the case of the $D^{*0}$ channel, the photon comes either directly from $D^{*0}\decaysto D^{0}\gamma$ or from de decay of the $\pi^0$ from $D^{*0}\decaysto D^{0}\pi^0$.\todo{criteria of D0 3-body}
+    \item[Neutral particle photons:] For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered in a small cone of $\Delta R = 0.05$ around the ditrack direction. These photons account for the recovery of neutral particles, as $\pi^{0}\decaysto\gamma\gamma$ in $\sim 98.8\%$ with $c\tau=25$ nm \cite{PDG}. From generation-level MC we know that photons coming from neutral particle decays that in turn come from the three-body decays must be very collimated with the ditrack system. In the case of the $\phi$/$\omega$ channels and the $D^{*0}$ channel when $D^{0}$ decays into three bodies, these photons directly originate from the $\pi^0$ of the three-body decay. In the case of the $D^{*0}$ channel, the photon comes either directly from $D^{*0}\decaysto D^{0}\gamma$ or from de decay of the $\pi^0$ from $D^{*0}\decaysto D^{0}\pi^0$.\todo{criteria of D0 3-body} \todo{correct for data-MC}
     
     \item[Ditrack mass hypothesis:] The invariant mass of the refitted ditrack system is also used to reduce contamination from background events. The mass of the pair, assuming the charged-pion hypothesis for the two tracks, is consistent with the charged components of the $\phi$ and $\omega$ mesons. Since the ditrack system is not a real resonance, its mass is very wide but consistent and useful for reducing background events. In the case of the $D^{*0}$ channel, two scenarios are considered. On the one hand, when $D^{0}$ decays into a pair of charged particles (kaon-pion) the ditrack system's invariant mass is a real narrow resonance (namely $D^{0}$) coherent with the mass of that meson. On the other hand, when $D^{0}$ decays into a pair of charged particles and a neutral pion, one finds the same scenario as for the $\phi$/$\omega$ decay channels.
     
@@ -168,7 +168,7 @@ In the following sections, the term \textit{ditrack system} will refer to the sy
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
                 \centering
-                \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+                \includegraphics[width=0.45\mylength]{resources/plots/Omega_kinematic_fit_residual.png}
                 \caption{\footnotesize (b)}
         \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
         \vskip\baselineskip
@@ -392,12 +392,12 @@ TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>"
         \vspace*{-0.1cm}
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt.png}
             \caption{\footnotesize (c)}
         \end{subfigure}%
         \begin{subfigure}[t]{0.50\mylength}
             \centering
-            \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+            \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_model_pt_residuals.png}
             \caption{\footnotesize (d)}
         \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
     \caption{Transverse momentum of the $D^{*0}$ meson in both the 2-body and 3-body decay channels. (a/c) Display the generation-level MC transverse momenta in blue, the prediction by the BDT in red, and the recovery by the initial approach in green, for the 2/3-body decay channel, respectively. (b/d) Show the residuals with (red) and without (green) the BDT prediction, for the 2/3-body decay channel, respectively.}
@@ -811,7 +811,7 @@ The first natural iteration of the two-dimensional fit is to consider the two va
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_SGN_MH_sliced.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
 \caption{MC signal $M_{\gamma, M}$ projections for each decay channel, sliced for different meson mass intervals. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel.}
@@ -851,7 +851,7 @@ The monotonous $M_{\gamma, M}$ background distribution is estimated by fitting t
     \end{subfigure}%
     \begin{subfigure}[t]{0.50\mylength}
         \centering
-        \includegraphics[width=0.45\mylength]{resources/plots/PLACEHOLDER.png}
+        \includegraphics[width=0.45\mylength]{resources/plots/D0Star_3body_fit_BKG_MH_sliced.png}
         \caption{\footnotesize (d)}
     \end{subfigure}%\begin{subfigure}[t]{0.50\mylength}\baselineskip
 \caption{MC background $M_{\gamma, M}$ projections for each decay channel, sliced for different meson mass intervals. (a) $\phi$ channel, (b) $\omega$ channel, (c) $D^{*0}$ 2-body channel, and (d) $D^{*0}$ 3-body channel.}
@@ -1022,17 +1022,17 @@ Table \ref{tab:results} reports the expected upper limits on the branching ratio
     \begin{tabular}{|l|C{3cm}|C{3cm}|c|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \cellcolor{lightgray} Measured $\mathcal{B}$ & \cellcolor{lightgray} ATLAS $\mathcal{B}$ & \cellcolor{lightgray} SM $\mathcal{B}$ \\ \hline
-        $\text{H}\decaysto \phi\gamma$          &$18.6 \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
-        $\text{H}\decaysto \omega\gamma$        &$2.58 \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
-        $\text{H}\decaysto D^{*0}\gamma$ 2-body &$10.6 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
-        $\text{H}\decaysto D^{*0}\gamma$ 3-body &$14.9 \times 10^{-3}$ &                         &  \\
+        $\text{H}\decaysto \phi\gamma$          &$20.75 \times 10^{-3}$ &$4.8 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
+        $\text{H}\decaysto \omega\gamma$        &$2.836 \times 10^{-3}$ &$1.5 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
+        $\text{H}\decaysto D^{*0}\gamma$ 2-body &$11.19 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
+        $\text{H}\decaysto D^{*0}\gamma$ 3-body &$14.00 \times 10^{-3}$ &                         &  \\
         \hline
     \end{tabular}
     \caption{The expected upper limit on the branching fractions for the four studied decay channels is shown in the first column. The second column presents the corresponding upper limits measured by the ATLAS collaboration, when available \cite{ATLAS:2017gko, ATLAS:2023alf}. The third column displays the Standard Model predictions of the branching fractions, when available \cite{Konig:2015qat}.}
     \label{tab:results}
 \end{table}
 
-\todo{Comment results}
+\todo{Comment results. luminosity atlas, phi channel of atlas is the 2body decay. remove of the table but talk about it.}
 
 \section{Future potential improvements}\label{sec:future_improvements}
 
@@ -1045,7 +1045,7 @@ This analysis provides an initial estimation of the upper limits on the branchin
 
     These MVA discriminants have shown to reduce the limits by around 44\% - 49\% in similar analyses, like the one the PPC group is currently conducting on other Higgs rare decays.
 
-    \item[Data - MC corrections:] Simulated signal and background samples should be corrected for various effects through reweighting procedures. This is relevant because the signal is used in the final fit estimation, while the background MC can be used for the training of the MVA discriminant earlier mentioned.
+    \item[Data - MC corrections:] Simulated signal and background samples should be corrected for various effects through reweighting procedures. This is relevant because the signal is used in the final fit estimation, while the background MC can be used for the training of the MVA discriminant earlier mentioned. \todo{explain better}
 \iffalse
     \todo{
         ARE THESE CORRECTIONS ALREADY IMPLEMENTED IN MY ANALYSIS?
