@@ -28,5 +28,5 @@ cp /home/submit/pdmonte/public_html/thesisPlots/*Higgs* /home/submit/pdmonte/CMS
 # 8
 cp /home/submit/pdmonte/public_html/thesisPlots/*sliced.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
 # 16 TODO fits
-#cp /home/submit/pdmonte/public_html/thesisPlots/*fit_SGN*.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
-#cp /home/submit/pdmonte/public_html/thesisPlots/*fit_BKG*.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
+cp /home/submit/pdmonte/public_html/thesisPlots/*fit_SGN*.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
+cp /home/submit/pdmonte/public_html/thesisPlots/*fit_BKG*.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
