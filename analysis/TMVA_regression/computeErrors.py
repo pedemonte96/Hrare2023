@@ -65,8 +65,7 @@ def sigmoid(x, a=0.4, b=113):
 
 
 def getLoss(mu, N=4000, integral=180000):
-    fact = 1 if mu < 115 else 10
-    return (-np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5)*fact
+    return (-np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5)
 
 
 parser = argparse.ArgumentParser(description="Famous Submitter")
@@ -155,15 +154,15 @@ if options.modelName == "RECO":
 
 else:
     s = '''
-    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
+    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
     computeModelScale0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale0);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
+    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
     computeModelScale1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale1);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
+    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
     computeModelScale2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale2);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
 

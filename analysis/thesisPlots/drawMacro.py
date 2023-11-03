@@ -44,6 +44,9 @@ def savePlot(histograms, imageName, options=None):
             legend4.AddEntry(gr, h[0], "p")
             stack4.Add(gr)
             #    mgr.Draw("ap")
+    elif "fit" in options:
+        stack4 = histograms[0][1]
+        stack4.SetTitle("")
     else:
         stack4 = ROOT.THStack()
         markers = []
@@ -73,6 +76,31 @@ def savePlot(histograms, imageName, options=None):
     pad1.cd()# Draw onto main plot
     if "scatter" in options:
         stack4.Draw("ap")
+    elif "fit" in options:
+        for i, h in enumerate(histograms):
+            if i == 0:#sgn/bkg
+                legend4.AddEntry(h[1], h[0], "lep")
+                h[1].SetMarkerStyle(20)
+                h[1].SetMarkerSize(1.3)
+                h[1].SetLineWidth(3)
+                h[1].SetMarkerColor(usedColors[i])
+                h[1].SetLineColor(usedColors[i])
+                maxHeight = h[1].GetMaximum()
+                h[1].GetYaxis().SetRangeUser(0, maxHeight*1.2)
+                h[1].Draw("EP SAME")
+                #blind
+                if "blind" in options:
+                    box=ROOT.TBox(115., 0., 135., maxHeight*1.15)
+                    box.SetFillColor(ROOT.kRed-6)
+                    box.Draw()
+
+            else:#fits
+                legend4.AddEntry(h[1], h[0], "l")
+                h[1].SetLineWidth(3)
+                h[1].SetLineStyle(0)
+                h[1].SetMarkerColor(usedColors[i])
+                h[1].SetLineColor(usedColors[i])
+                h[1].Draw("c SAME")
     else:
         if "HCandMass" in options:
             hStack = histograms[0][1].Clone("allstack")
@@ -198,6 +226,8 @@ def savePlot(histograms, imageName, options=None):
         lineZero = ROOT.TLine(mcBKG.GetXaxis().GetXmin(), 1.,  mcBKG.GetXaxis().GetXmax(), 1.)
         lineZero.SetLineColor(11)
         lineZero.Draw("same")
+
+    ROOT.gPad.RedrawAxis()
     
     cs.SaveAs("{}/{}".format(imagePath, imageName))
 

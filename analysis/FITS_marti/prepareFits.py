@@ -77,11 +77,11 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
@@ -177,7 +177,7 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
 
     yAxisVariable = doubleFitVar[mesonCat][1]
     ylow, yhigh = doubleFitVar[mesonCat][3]
-    nbinMeson = int(math.ceil((yhigh - ylow)/0.005)) if len(nums) > 1 else int(math.ceil((yhigh - ylow)/0.001))
+    #nbinMeson = int(math.ceil((yhigh - ylow)/0.005)) if len(nums) > 1 else int(math.ceil((yhigh - ylow)/0.001))
 
     if regModelName is None:
         #No regression model
@@ -196,11 +196,11 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
@@ -313,6 +313,18 @@ def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelNa
     if doubleFit:
         fileName += "_2D"
     return "/data/submit/pdmonte/outHistsFits/" + fileName + ".root"
+
+
+def getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=None, regModelName=None, doubleFit=False):
+    """Generates the full file name for a histogram file based on the provided parameters."""
+    fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date
+    if regModelName is not None:
+        fileName += "_" + regModelName
+    if extraTitle is not None:
+        fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
+    if doubleFit:
+        fileName += "_2D"
+    return fileName
 
 
 def plotHist(nameRootFile, nameOutDraw, is2D=False, xAxisRange=None, yAxisRange=None):

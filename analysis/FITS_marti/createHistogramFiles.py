@@ -91,7 +91,7 @@ if __name__ == "__main__":
     createAndSaveHistogramSignal(cat, mesonCat, year, date, filters=filters, extraTitle=extraTitle, ditrack=True)
     '''
     #Phi3------------------------------------------------------------------------------------------
-    df = True
+    df = False
     mesonCat = "Phi3Cat"
     mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
+                    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
                     createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
 
     #createAndSaveHistogramSignal(cat, mesonCat, year, date)

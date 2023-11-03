@@ -38,6 +38,8 @@ if __name__ == "__main__":
     modelNameD0Star2 =  "BDTG_df7_dl3684_v0_v1_opt30002"
     modelNameD0Star3 =  "BDTG_df15_dl3684_v0_v1_opt30003"
 
+    modelNames = {"Phi3": modelNamePhi3, "Omega": modelNameOmega, "D0Star_2body": modelNameD0Star2, "D0Star_3body": modelNameD0Star3}
+
     date = "OCT27"
 
     # READ FILES --------------------------------------------------------------------------------------------------------------------------
@@ -423,7 +425,7 @@ if __name__ == "__main__":
     dfsSGN_1 = [dfSGN_Phi3_1, dfSGN_Omega_1, dfSGN_D0Star2_1, dfSGN_D0Star3_1]
     dfsSGN_2 = [dfSGN_Phi3_2, dfSGN_Omega_2, dfSGN_D0Star2_2, dfSGN_D0Star3_2]
 
-    massRanges = {"Phi3": (0.80, 1.20), "Omega": (0.60, 0.96), "D0Star_2body": (1.80, 1.93), "D0Star_3body": (1.40, 2.20)}
+    massRanges = {"Phi3": (0.81, 1.19), "Omega": (0.601, 0.959), "D0Star_2body": (1.805, 1.925), "D0Star_3body": (1.401, 2.199)}
     slicingVals = {}
     for k in massRanges:
         width = massRanges[k][1] - massRanges[k][0]
@@ -431,20 +433,22 @@ if __name__ == "__main__":
     print(slicingVals)
     slicingVals = {"Phi3": [0.9174, 0.9875, 1.032], "Omega": [0.725, 0.77, 0.81], "D0Star_2body": [1.854, 1.865, 1.876], "D0Star_3body": [1.780, 1.850, 1.920]}
     cutVariables = {"Phi3": "goodMeson_mass", "Omega": "goodMeson_mass", "D0Star_2body": "goodMeson_ditrk_mass", "D0Star_3body": "goodMeson_mass"}
+    nameFilesChannels = {"Phi3": "Phi3", "Omega": "Omega", "D0Star_2body": "D0Star", "D0Star_3body": "D0StarRho"}
 
-    plotKinematicFitResidual = True
-    plotFullMesonMassResidual = True
-    plotDitrackResiduals = True
-    plotFullMesonPtResiduals = True
-    plotModelsPt = True
-    plotModelsPtResiduals = True
-    plotGeneralData = True
-    plotFullMesonPtData = True
-    plotHCandMass = True
-    plotSlicesSignal = True
-    plotSlicesBackground = True
-    plotModelsBSF = True
-    plotFits = True
+    plotKinematicFitResidual = False
+    plotFullMesonMassResidual = False
+    plotDitrackResiduals = False
+    plotFullMesonPtResiduals = False
+    plotModelsPt = False
+    plotModelsPtResiduals = False
+    plotGeneralData = False
+    plotFullMesonPtData = False
+    plotHCandMass = False
+    plotSlicesSignal = False
+    plotSlicesBackground = False
+    plotModelsBSF = False
+    plotFitsSGN = True
+    plotFitsBKG = True
 
     # -------------------------------------------------------------------------------------------------------------------------------------
     # START PLOTTING ----------------------------------------------------------------------------------------------------------------------
@@ -656,6 +660,8 @@ if __name__ == "__main__":
             h2.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "Residual_old_pt", "scale").GetValue())
             histograms.append((name1, h1))
             histograms.append((name2, h2))
+            print("{} Model:\t".format(c), h2.GetStdDev()*1000)
+            print("{} Reco:\t".format(c), h1.GetStdDev()*1000, h1.GetStdDev()/h2.GetStdDev()-1)
             savePlot(histograms, fileName, options=options)
 
     if plotGeneralData:
@@ -853,5 +859,75 @@ if __name__ == "__main__":
     if plotModelsBSF:
         saveBSFPythonPlot()
 
+    if plotFitsSGN:
+        for i, c in enumerate(channels):
+            fileNameMH = "{}_fit_SGN_MH.png".format(c)
+            fileNameMM = "{}_fit_SGN_MM.png".format(c)
+            fileNameSGN = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_hist.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            fileNameFITMH = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_MH_curve.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            fileNameFITMM = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_MM_curve.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            infileSGN = ROOT.TFile.Open(fileNameSGN, "read")
+            infileFITMH = ROOT.TFile.Open(fileNameFITMH, "read")
+            infileFITMM = ROOT.TFile.Open(fileNameFITMM, "read")
+
+            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True}
+            name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
+            hSGNMH = (infileSGN.Get("hist")).createHistogram('mh', 600)
+            name2 = "Fit"
+            hFITMH = infileFITMH.Get("curve")
+            histograms = []
+            histograms.append((name1, hSGNMH))
+            histograms.append((name2, hFITMH))
+            savePlot(histograms, fileNameMH, options=optionsMH)
+
+            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True}
+            name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
+            #numBins
+            nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.001))
+            hSGNMM = (infileSGN.Get("hist")).createHistogram('mmeson', nbinMeson)
+            name2 = "Fit"
+            hFITMM = infileFITMM.Get("curve")
+            histograms = []
+            histograms.append((name1, hSGNMM))
+            histograms.append((name2, hFITMM))
+            savePlot(histograms, fileNameMM, options=optionsMM)
+
+    if plotFitsBKG:
+        for i, c in enumerate(channels):
+            fileNameMH = "{}_fit_BKG_MH.png".format(c)
+            fileNameMM = "{}_fit_BKG_MM.png".format(c)
+            fileNameBKG = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_BKG_hist.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            fileNameFITMH = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_BKG_MH_curve.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            fileNameFITMM = "/data/submit/pdmonte/thesisFitRootFiles/HCandMassHist_{ch}_GF_2018_OCT27_{modelName}_BKG_MM_curve.root".format(ch=nameFilesChannels[c], modelName=modelNames[c])
+            infileBKG = ROOT.TFile.Open(fileNameBKG, "read")
+            infileFITMH = ROOT.TFile.Open(fileNameFITMH, "read")
+            infileFITMM = ROOT.TFile.Open(fileNameFITMM, "read")
+
+            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": False, "fit": True, "blind": True}
+            name1 = "Data"
+            hBKGMH = (infileBKG.Get("hist")).createHistogram('mh', 60)
+            name2 = "Fit 1"
+            name3 = "Fit 2"
+            hFITMH_1 = infileFITMH.Get("curve1")
+            hFITMH_2 = infileFITMH.Get("curve2")
+            histograms = []
+            histograms.append((name1, hBKGMH))
+            histograms.append((name2, hFITMH_1))
+            histograms.append((name3, hFITMH_2))
+            savePlot(histograms, fileNameMH, options=optionsMH)
+
+            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": False, "fit": True}
+            name1 = "Data"
+            nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.005))
+            hBKGMM = (infileBKG.Get("hist")).createHistogram('mmeson', nbinMeson)
+            name2 = "Fit 1"
+            name3 = "Fit 2"
+            hFITMM_1 = infileFITMM.Get("curve1")
+            hFITMM_2 = infileFITMM.Get("curve2")
+            histograms = []
+            histograms.append((name1, hBKGMM))
+            histograms.append((name2, hFITMM_1))
+            histograms.append((name3, hFITMM_2))
+            savePlot(histograms, fileNameMM, options=optionsMM)
 
     print("Done!")

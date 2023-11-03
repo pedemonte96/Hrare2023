@@ -68,6 +68,18 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model.plotOn(plotFrameWithNormRange, ROOT.RooFit.LineColor(2), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineStyle(10))
     model.paramOn(plotFrameWithNormRange, ROOT.RooFit.Layout(0.65, 0.99, 0.75))
     name = model.GetName() + "_Norm[mh]_Range[full]_NormRange[full]"
+
+    #hist1 = model.createHistogram("fitCurve", x, ROOT.RooFit.IntrinsicBinning())
+    hist1 = plotFrameWithNormRange.getCurve(name)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve")
+    f.Close()
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(data, "hist")
+    f.Close()
+
     chi2 = plotFrameWithNormRange.chiSquare(name, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     plotFrameWithNormRange.getAttText().SetTextSize(0.02)
     plotFrameWithNormRange.Draw()
@@ -226,6 +238,18 @@ def fitSig2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model2D.paramOn(plotFrameWithNormRangeMH, ROOT.RooFit.Layout(0.65, 0.99, 0.75))
     print(plotFrameWithNormRangeMH.Print("V"))
     name = model2D.GetName() + "_Int[mmeson]_Norm[mh,mmeson]_Range[full]_NormRange[full]"
+
+    #hist1 = model.createHistogram("fitCurve", x, ROOT.RooFit.IntrinsicBinning())
+    hist1 = plotFrameWithNormRangeMH.getCurve(name)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_MH_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve")
+    f.Close()
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(data, "hist")
+    f.Close()
+
     chi2 = plotFrameWithNormRangeMH.chiSquare(name, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     plotFrameWithNormRangeMH.getAttText().SetTextSize(0.02)
     plotFrameWithNormRangeMH.Draw()
@@ -293,6 +317,14 @@ def fitSig2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model2D.paramOn(plotFrameWithNormRangeMM, ROOT.RooFit.Layout(0.65, 0.99, 0.75))
     print(plotFrameWithNormRangeMM.Print("V"))
     name = model2D.GetName() + "_Int[mh]_Norm[mh,mmeson]_Range[full]_NormRange[full]"
+
+    hist1 = plotFrameWithNormRangeMM.getCurve(name)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_MM_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve")
+    f.Close()
+
     chi2 = plotFrameWithNormRangeMM.chiSquare(name, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     plotFrameWithNormRangeMM.getAttText().SetTextSize(0.02)
     plotFrameWithNormRangeMM.Draw()
@@ -428,8 +460,8 @@ if __name__ == "__main__":
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-                    fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitSig(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
         #fitSig(cat, mesonCat, year, date)
 
     '''

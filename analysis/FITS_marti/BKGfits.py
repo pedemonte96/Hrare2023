@@ -129,6 +129,19 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model2.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model2.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
     name1 = model.GetName() + "_Norm[mh]_Comp[" + model.GetName() + "]_Range[full]_NormRange[full]"
     name2 = model2.GetName() + "_Norm[mh]_Comp[" + model2.GetName() + "]_Range[full]_NormRange[full]"
+
+    hist1 = plotFrameWithNormRange.getCurve(name1)
+    hist2 = plotFrameWithNormRange.getCurve(name2)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve1")
+    f.WriteObject(hist2, "curve2")
+    f.Close()
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(data, "hist")
+    f.Close()
+
     chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     chi2_2 = plotFrameWithNormRange.chiSquare(name2, "h_" + data.GetName(), fitresults2.floatParsFinal().getSize())
     print('----------------------------------------')
@@ -345,6 +358,19 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     print(plotFrameWithNormRangeMH.Print("V"))
     name_bb = model2D_bb.GetName() + "_Int[mmeson]_Norm[mh,mmeson]_Comp[" + model2D_bb.GetName() + "]_Range[full]_NormRange[full]"
     name_cc = model2D_cc.GetName() + "_Int[mmeson]_Norm[mh,mmeson]_Comp[" + model2D_cc.GetName() + "]_Range[full]_NormRange[full]"
+
+    hist1 = plotFrameWithNormRangeMH.getCurve(name_bb)
+    hist2 = plotFrameWithNormRangeMH.getCurve(name_cc)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_MH_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve1")
+    f.WriteObject(hist2, "curve2")
+    f.Close()
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(data, "hist")
+    f.Close()
+
     chi2_bb = plotFrameWithNormRangeMH.chiSquare(name_bb, "h_" + data.GetName(), fitresults_bb.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     chi2_cc = plotFrameWithNormRangeMH.chiSquare(name_cc, "h_" + data.GetName(), fitresults_cc.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     
@@ -422,6 +448,15 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     print(plotFrameWithNormRangeMM.Print("V"))
     name_bb = model2D_bb.GetName() + "_Int[mh]_Norm[mh,mmeson]_Comp[" + model2D_bb.GetName() + "]_Range[full]_NormRange[full]"
     name_cc = model2D_cc.GetName() + "_Int[mh]_Norm[mh,mmeson]_Comp[" + model2D_cc.GetName() + "]_Range[full]_NormRange[full]"
+
+    hist1 = plotFrameWithNormRangeMM.getCurve(name_bb)
+    hist2 = plotFrameWithNormRangeMM.getCurve(name_cc)
+    hist1.Print()
+    print(type(hist1))
+    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_MM_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    f.WriteObject(hist1, "curve1")
+    f.WriteObject(hist2, "curve2")
+
     chi2_bb = plotFrameWithNormRangeMM.chiSquare(name_bb, "h_" + data.GetName(), fitresults_bb.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     chi2_cc = plotFrameWithNormRangeMM.chiSquare(name_cc, "h_" + data.GetName(), fitresults_cc.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     
@@ -542,6 +577,6 @@ if __name__ == "__main__":
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
-                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)
