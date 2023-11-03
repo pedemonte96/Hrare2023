@@ -11,7 +11,7 @@ cp /home/submit/pdmonte/public_html/thesisPlots/fullmeson_residuals_pt.png /home
 # 8
 cp /home/submit/pdmonte/public_html/thesisPlots/*model_pt* /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
 # 1 PYPLOT
-# TODO
+cp /home/submit/pdmonte/public_html/thesisPlots/BSF_vs_RMSE_phi.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
 # 4+4+1(residuals)
 cp /home/submit/pdmonte/public_html/thesisPlots/*mass.png /home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/thesis/resources/plots/
 # 4

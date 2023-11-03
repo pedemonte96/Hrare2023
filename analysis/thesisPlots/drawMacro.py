@@ -1,4 +1,5 @@
 import ROOT
+from array import array
 
 ROOT.gStyle.SetOptStat(0)
 ROOT.gStyle.SetPadTickX(1)
@@ -31,72 +32,89 @@ def savePlot(histograms, imageName, options=None):
         xlow, xup = 0.13, 0.40
     legend4 = ROOT.TLegend(xlow, ylow, xup, yup)
 
-    stack4 = ROOT.THStack()
-
     usedColors = options["colors"] if "colors" in options else defaultHistColors
 
-    markers = []
-    maxHeight = 0
-    for i, h in enumerate(histograms):
-        maxHeight = max(maxHeight, h[1].GetMaximum())
-        if "style" in options:
-            if options["style"][i] == "l":
+    if "scatter" in options:
+        stack4 = ROOT.TMultiGraph()
+        for i, h in enumerate(histograms):
+            gr = ROOT.TGraph(len(h[1][0]), array('d', h[1][0]), array('d', h[1][1]))
+            gr.SetMarkerStyle(ROOT.kFullCircle)
+            gr.SetMarkerSize(1)
+            gr.SetMarkerColor(usedColors[i])
+            legend4.AddEntry(gr, h[0], "p")
+            stack4.Add(gr)
+            #    mgr.Draw("ap")
+    else:
+        stack4 = ROOT.THStack()
+        markers = []
+        maxHeight = 0
+        for i, h in enumerate(histograms):
+            maxHeight = max(maxHeight, h[1].GetMaximum())
+            if "style" in options:
+                if options["style"][i] == "l":
+                    stack4.Add(h[1])
+                    legend4.AddEntry(h[1], h[0], "l")
+                    h[1].SetLineWidth(3)
+                    h[1].SetLineColor(usedColors[i])
+                elif options["style"][i] == "f":
+                    legend4.AddEntry(h[1], h[0], "f")
+                    stack4.Add(h[1])
+                    h[1].SetLineWidth(0)
+                    h[1].SetFillColor(usedColors[i])
+                elif options["style"][i] == "p":
+                    legend4.AddEntry(h[1], h[0], "lep")
+                    markers.append((h[1], usedColors[i]))
+            else:
                 stack4.Add(h[1])
                 legend4.AddEntry(h[1], h[0], "l")
                 h[1].SetLineWidth(3)
                 h[1].SetLineColor(usedColors[i])
-            elif options["style"][i] == "f":
-                legend4.AddEntry(h[1], h[0], "f")
-                stack4.Add(h[1])
-                h[1].SetLineWidth(0)
-                h[1].SetFillColor(usedColors[i])
-            elif options["style"][i] == "p":
-                legend4.AddEntry(h[1], h[0], "lep")
-                markers.append((h[1], usedColors[i]))
-        else:
-            stack4.Add(h[1])
-            legend4.AddEntry(h[1], h[0], "l")
-            h[1].SetLineWidth(3)
-            h[1].SetLineColor(usedColors[i])
 
     pad1.cd()# Draw onto main plot
-
-    if "HCandMass" in options:
-        hStack = histograms[0][1].Clone("allstack")
-        hStack.Add(histograms[1][1])
-        hStack.Add(histograms[2][1])
-        maxHeight = max(maxHeight, hStack.GetMaximum())
-        print(maxHeight)
-        stack4.Draw("hist")
-        line1 = ROOT.TLine(115., 0., 115., maxHeight*10)
-        line1.SetLineColor(11)
-        line1.Draw()
-        line2 = ROOT.TLine(135., 0., 135., maxHeight*10)
-        line2.SetLineColor(11)
-        line2.Draw()
+    if "scatter" in options:
+        stack4.Draw("ap")
     else:
-        stack4.Draw("hist nostack")
+        if "HCandMass" in options:
+            hStack = histograms[0][1].Clone("allstack")
+            hStack.Add(histograms[1][1])
+            hStack.Add(histograms[2][1])
+            maxHeight = max(maxHeight, hStack.GetMaximum())
+            print(maxHeight)
+            stack4.Draw("hist")
+            line1 = ROOT.TLine(115., 0., 115., maxHeight*10)
+            line1.SetLineColor(11)
+            line1.Draw()
+            line2 = ROOT.TLine(135., 0., 135., maxHeight*10)
+            line2.SetLineColor(11)
+            line2.Draw()
+        else:
+            stack4.Draw("hist nostack")
 
-    for h, col in markers:
-        h.SetMarkerStyle(20)
-        h.SetMarkerSize(1.3)
-        h.SetLineWidth(3)
-        h.SetMarkerColor(col)
-        h.SetLineColor(col)
-        h.Draw("EP SAME")
-        
-    stack4.SetMaximum(1.2*maxHeight)
+        for h, col in markers:
+            h.SetMarkerStyle(20)
+            h.SetMarkerSize(1.3)
+            h.SetLineWidth(3)
+            h.SetMarkerColor(col)
+            h.SetLineColor(col)
+            h.Draw("EP SAME")
+            
+        stack4.SetMaximum(1.2*maxHeight)
 
     if "labelXAxis" in options:
         stack4.GetXaxis().SetTitle(options["labelXAxis"])
     if "labelYAxis" in options:
         stack4.GetYaxis().SetTitle(options["labelYAxis"])
     if "xRange" in options:
-        stack4.GetXaxis().SetRangeUser(options["xRange"][0], options["xRange"][1])
+        if "scatter" in options:
+            stack4.GetXaxis().SetLimits(options["xRange"][0], options["xRange"][1])
+        else:
+            stack4.GetXaxis().SetRangeUser(options["xRange"][0], options["xRange"][1])
+    if "yRange" in options:
+        stack4.GetYaxis().SetRangeUser(options["yRange"][0], options["yRange"][1])
     if "logScale" in options:
         if options["logScale"]:
             stack4.SetMaximum(10*maxHeight)
-            stack4.SetMinimum(1)
+            stack4.SetMinimum(50)
             pad1.SetLogy(1)
             
     
@@ -104,7 +122,7 @@ def savePlot(histograms, imageName, options=None):
         legend4.SetTextFont(42)
         legend4.SetFillStyle(0)
         legend4.SetBorderSize(0)
-        legend4.SetTextSize(0.035)
+        legend4.SetTextSize(0.030)
         legend4.SetTextAlign(12)
         legend4.Draw("same")
 
@@ -128,7 +146,7 @@ def savePlot(histograms, imageName, options=None):
         legend4.SetTextFont(42)
         legend4.SetFillStyle(0)
         legend4.SetBorderSize(0)
-        legend4.SetTextSize(0.035*fact)
+        legend4.SetTextSize(0.030*fact)
         legend4.SetTextAlign(12)
         legend4.Draw("same")
 
@@ -185,3 +203,38 @@ def savePlot(histograms, imageName, options=None):
 
     text = " Done! ".center(70, "~")
     print(colors["YELLOW"] + "[savePlot]~~~{}".format(text) + colors["NC"] + "\n")
+
+
+def readBSFFile(filename):
+    names, errors, shape, loss = [], [], [], []
+    with open(filename, 'r') as file:
+        for line in file:
+            parts = line.strip().split()
+            names.append(parts[0])
+            errors.append(float(parts[1]))
+            shape.append(float(parts[2]))
+            loss.append(float(parts[3]))
+    return names, errors, shape, loss
+
+
+def saveBSFPythonPlot():
+    fileName = "BSF_vs_RMSE_phi.png"
+    options = {"labelXAxis": "RMSE (predicted - gen) [GeV]", "labelYAxis": "BSF", "scatter": True, "data": False, "xRange": (2.5, 5.5), "yRange": (0, 40)}
+    graphs = []
+    names, errors, shapes, bsf = readBSFFile("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/TMVA_regression/evalPhi.out")
+    bsf = [l/10. if l > 60 else l for l in bsf]
+    bsfOther, bsfReco, bsfUsed, errorsOther, errorsReco, errorsUsed = [], [], [], [], [], []
+    for i, n in enumerate(names):
+        if n == "RECO":
+            bsfReco.append(bsf[i])
+            errorsReco.append(errors[i])
+        elif n == "BDTG_df13_dl3620_v0_v1_opt13545":
+            bsfUsed.append(bsf[i])
+            errorsUsed.append(errors[i])
+        else:
+            bsfOther.append(bsf[i])
+            errorsOther.append(errors[i])
+    graphs.append(("Models", (errorsOther, bsfOther)))
+    graphs.append(("Used Model", (errorsUsed, bsfUsed)))
+    graphs.append(("No Model", (errorsReco, bsfReco)))
+    savePlot(graphs, fileName, options=options)

@@ -3,7 +3,9 @@ import math
 import os
 #ROOT.ROOT.EnableImplicitMT()
 
-numDict = {"Background": [10, 11, 12, 13, 14], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarRhoCat": [1040], "D0StarCat": [1041]}
+numDict = {"Background": [10, 11, 12, 13, 14], "Data": [-62, -63, -64], "OmegaCat": [1038], "Phi3Cat": [1039], "D0StarRhoCat": [1040], "D0StarCat": [1041]}
+
+numVBFDict = {"OmegaCat": 1068, "Phi3Cat": 1069, "D0StarRhoCat": 1070, "D0StarCat": 1071}
 
 mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi", "D0StarRhoCat": "D^{0*}"}
 
@@ -12,7 +14,10 @@ mesonChannel = {"OmegaCat": "omega", "D0StarCat": "d0star", "Phi3Cat": "phi", "D
 #title, variable, xaxis label, range, peak
 doubleFitVar = {"OmegaCat": ["Full meson mass", "goodMeson_mass", "m_{#omega}", (0.601, 0.959), 0.7873],
                 "Phi3Cat": ["Full meson mass", "goodMeson_mass", "m_{#phi}", (0.81, 1.19), 1.023],
-                 "D0StarCat": ["Ditrack mass", "goodMeson_ditrk_mass", "m_{D^{0}}", (1.805, 1.925), 1.865]}
+                "D0StarCat": ["Ditrack mass", "goodMeson_ditrk_mass", "m_{D^{0}}", (1.805, 1.925), 1.865],
+                "D0StarRhoCat": ["Full meson mass", "goodMeson_mass", "m_{D^{*0}}", (1.401, 2.199), 1.865]}
+
+prodCat = "ggh"
 
 
 def getNumVarsFromCode(code):
@@ -72,19 +77,20 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
-        '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
+        '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
         ROOT.gInterpreter.ProcessLine(s)
         variables = list(getattr(ROOT, variableName + "Reader0").GetVariableNames())
         #print(variables)
         
         if len(nums) > 1:#BKG
+            nums = numDict["Data"]
             chainBKG = ROOT.TChain("events")
             for num in nums:
                 chainBKG.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
@@ -130,6 +136,17 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
             h = dfSGN0.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h.Add(dfSGN1.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h.Add(dfSGN2.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
+            #VBF
+            chainSGN_VBF = ROOT.TChain("events")
+            chainSGN_VBF.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, numVBFDict[mesonCat], cat, mesonCat, year))
+            dfSGN_VBF = ROOT.RDataFrame(chainSGN_VBF)
+            dfSGN_VBF = (dfSGN_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", getattr(ROOT, variableName + "0"), variables)
+                    .Define("scaleFactor1", getattr(ROOT, variableName + "1"), variables)
+                    .Define("scaleFactor2", getattr(ROOT, variableName + "2"), variables)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            h.Add(dfSGN_VBF.Histo1D(("m_{H}", title, nbin, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
     h.GetYaxis().SetTitle("Events")
@@ -179,19 +196,20 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
-        '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
+        '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
         ROOT.gInterpreter.ProcessLine(s)
         variables = list(getattr(ROOT, variableName + "Reader0").GetVariableNames())
         #print(variables)
         
         if len(nums) > 1:#BKG
+            nums = numDict["Data"]
             chainBKG = ROOT.TChain("events")
             for num in nums:
                 chainBKG.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, num, cat, mesonCat, year))
@@ -238,6 +256,18 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
             h = dfSGN0.Histo2D(("m_{H}_vs_m_{M}", title, nbinHiggs, xlow, xhigh, nbinMeson, ylow, yhigh), "HCandMass_varPRED", yAxisVariable, "scale").GetValue()
             h.Add(dfSGN1.Histo2D(("m_{H}_vs_m_{M}", title, nbinHiggs, xlow, xhigh, nbinMeson, ylow, yhigh), "HCandMass_varPRED", yAxisVariable, "scale").GetValue())
             h.Add(dfSGN2.Histo2D(("m_{H}_vs_m_{M}", title, nbinHiggs, xlow, xhigh, nbinMeson, ylow, yhigh), "HCandMass_varPRED", yAxisVariable, "scale").GetValue())
+
+            #VBF
+            chainSGN_VBF = ROOT.TChain("events")
+            chainSGN_VBF.Add("/data/submit/pdmonte/outputs/{}/{}/outname_mc{}_{}_{}_{}.root".format(date, year, numVBFDict[mesonCat], cat, mesonCat, year))
+            dfSGN_VBF = ROOT.RDataFrame(chainSGN_VBF)
+            dfSGN_VBF = (dfSGN_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", getattr(ROOT, variableName + "0"), variables)
+                    .Define("scaleFactor1", getattr(ROOT, variableName + "1"), variables)
+                    .Define("scaleFactor2", getattr(ROOT, variableName + "2"), variables)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+            h.Add(dfSGN_VBF.Histo2D(("m_{H}_vs_m_{M}", title, nbinHiggs, xlow, xhigh, nbinMeson, ylow, yhigh), "HCandMass_varPRED", yAxisVariable, "scale").GetValue())
 
     h.GetXaxis().SetTitle('m_{{#gamma, {0} }} [GeV]'.format(mesonLatex))
     h.GetYaxis().SetTitle('{0} [GeV]'.format(doubleFitVar[mesonCat][2]))

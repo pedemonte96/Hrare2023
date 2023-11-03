@@ -72,11 +72,12 @@ def getLoss(mu, N=4000, integral=180000):
 parser = argparse.ArgumentParser(description="Famous Submitter")
 parser.add_argument("-m", "--modelName", type=str, required=True, help="Input the model name (e.g. BDTG_df55_dl12_v1_v13).")
 parser.add_argument("-c", "--channel", type=str, required=True, help="Channel (e.g. phi, omega, d0starrho, d0star).")
+parser.add_argument("-p", "--prodCat", type=str, required=True, help="Production category (e.g. ggh, vbf).")
 options = parser.parse_args()
 
 date = "OCT27"
 mesonCat = ""
-mesonNum = 0
+mesonNum, delta = 0, 0
 if (options.channel == "omega"):
     mesonCat = "OmegaCat"
     mesonNum = 1038
@@ -92,15 +93,22 @@ elif (options.channel == "d0star"):
 else:
     raise Exception("Wrong channel.")
 
+if (options.prodCat == "ggh"):
+    delta = 0
+elif (options.prodCat == "vbf"):
+    delta = 30
+else:
+    raise Exception("Wrong production mode.")
+
 chainSGN = ROOT.TChain("events")
-chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, mesonNum, mesonCat))
+chainSGN.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018.root".format(date, mesonNum + delta, mesonCat))
 
 chainSGN0 = ROOT.TChain("events")
 chainSGN1 = ROOT.TChain("events")
 chainSGN2 = ROOT.TChain("events")
-chainSGN0.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample0.root".format(date, mesonNum, mesonCat))
-chainSGN1.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample1.root".format(date, mesonNum, mesonCat))
-chainSGN2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample2.root".format(date, mesonNum, mesonCat))
+chainSGN0.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample0.root".format(date, mesonNum + delta, mesonCat))
+chainSGN1.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample1.root".format(date, mesonNum + delta, mesonCat))
+chainSGN2.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc{1}_GFcat_{2}_2018_sample2.root".format(date, mesonNum + delta, mesonCat))#HERE-----------------
 
 chainBKG = ROOT.TChain("events")
 chainBKG.Add("/data/submit/pdmonte/outputs/{0}/2018/outname_mc10_GFcat_{1}_2018.root".format(date, mesonCat))
@@ -147,17 +155,17 @@ if options.modelName == "RECO":
 
 else:
     s = '''
-    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
     computeModelScale0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale0);
-    '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
+    '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
     computeModelScale1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale1);
-    '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
+    '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
     computeModelScale2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale2);
-    '''.format(modelName=options.modelName, channel=options.channel, numVarsTotal=getTotalNumVars(options.modelName))
+    '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
 
     ROOT.gInterpreter.ProcessLine(s)
     variables = list(ROOT.modelScale0.GetVariableNames())
@@ -252,7 +260,7 @@ if not os.path.isdir(save_dir):
     os.mkdir(save_dir)
 
 # Write the evaluation to a file
-evalFile = f'{save_dir}eval_{options.modelName}_{options.channel}.out'
+evalFile = f'{save_dir}eval_{options.modelName}_{options.channel}_{options.prodCat}.out'
 with open(evalFile, 'w') as f:
     f.write("{}\t{}\t{}\t{}".format(options.modelName, errorMeson, eff, loss))
 

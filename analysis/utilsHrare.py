@@ -403,6 +403,11 @@ def SwitchSample(argument,year):
         1069: (dirLocalNEW2+"vbf-hphipipipi0gamma-powheg"+"/NANOAOD_03_test5", 3781.7*0.154),
         1070: (dirLocalNEW2+"vbf-hD0StarKmRhoPgamma-powheg"+"/NANOAOD_03_test5", 3781.7*0.144),
         1071: (dirLocalNEW2+"vbf-hD0Stargamma-powheg"+"/NANOAOD_03_test5", 3781.7*0.03947),
+        # Split into 3 samples
+        #1068: ("/data/submit/pdmonte/signalSplit/vbf-homegagamma-powheg/sample2", 3781.7*0.892), 
+        #1069: ("/data/submit/pdmonte/signalSplit/vbf-hphipipipi0gamma-powheg/sample2", 3781.7*0.154),
+        #1070: ("/data/submit/pdmonte/signalSplit/vbf-hD0StarKmRhoPgamma-powheg/sample2", 3781.7*0.144),
+        #1071: ("/data/submit/pdmonte/signalSplit/vbf-hD0Stargamma-powheg/sample2", 3781.7*0.03947),
 
         #
         1019: (dirLocalNEW+"vbf-hphiKLKSgamma-powheg"+"/NANOAOD_01",3781.7*0.24), # xsec = 4pb * BR(Hphigamma)=1 BR(phi->kLkS)=0.24

@@ -1,10 +1,11 @@
 #!/bin/bash
 
 #for dir in "ggh-hD0StarKmPiPPi0gamma-powheg" "ggh-homegagamma-powheg" "ggh-hphipipipi0gamma-powheg"
-for dir in "ggh-hD0StarKmPiPPi0gamma-powheg"
+#for dir in "ggh-hD0StarKmPiPPi0gamma-powheg"
+for dir in "vbf-hD0Stargamma-powheg" "vbf-hD0StarKmRhoPgamma-powheg" "vbf-homegagamma-powheg" "vbf-hphipipipi0gamma-powheg"
 #for dir in "ggh-hD0Stargamma-powheg"
 do
-    source_dir="/work/submit/mariadlf/Hrare/D02/2018/${dir}/NANOAOD_03_test6"
+    source_dir="/work/submit/mariadlf/Hrare/D02/2018/${dir}/NANOAOD_03_test5"
     destination_dir="/data/submit/pdmonte/signalSplit/${dir}"
     if [[ ! -d "${destination_dir}" ]]; then
         mkdir "${destination_dir}"

@@ -16,7 +16,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=0, const std::vector<int>& variables={}, int codeDF=127, int codeDL=4095, const char* options = ""){
+void TMVA_GF_regression(const char* nameModel, const char* channel, const char* prodCat="ggH", int testSet=0, const std::vector<int>& variables={}, int codeDF=127, int codeDL=4095, const char* options = ""){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -25,7 +25,7 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     printf("Staring: %s", asctime(timeinfo));
 
     (TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = 80;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOpts";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = "../../../../../../../../../data/submit/pdmonte/TMVA_models/weightsOptsFinal";
     
     // Open files
     int trainA, trainB;
@@ -40,27 +40,36 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
         trainB = 1;
     }
 
+    int delta = 0;
+    if(std::strcmp(prodCat, "ggH") == 0 || std::strcmp(prodCat, "ggh") == 0 || std::strcmp(prodCat, "GGH") == 0){
+        delta = 0;
+    }else if(std::strcmp(prodCat, "vbf") == 0 || std::strcmp(prodCat, "VBF") == 0){
+        delta = 30;
+    }
+
+    cout << prodCat << endl;
+
     cout << "Train on sets " << trainA << " and " << trainB << endl;
 
     TFile* sgnfileA;
     TFile* sgnfileB;
     if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1038_GFcat_OmegaCat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_OmegaCat_2018_sample%d.root", 1038 + delta, trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_OmegaCat_2018_sample%d.root", 1038 + delta, trainB), "READ");
     }else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1039_GFcat_Phi3Cat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_Phi3Cat_2018_sample%d.root", 1039 + delta, trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_Phi3Cat_2018_sample%d.root", 1039 + delta, trainB), "READ");
     }else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1040_GFcat_D0StarRhoCat_2018_sample%d.root", trainB), "READ");
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_D0StarRhoCat_2018_sample%d.root", 1040 + delta, trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_D0StarRhoCat_2018_sample%d.root", 1040 + delta, trainB), "READ");
     }else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0){
-        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainA), "READ");
-        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc1041_GFcat_D0StarCat_2018_sample%d.root", trainB), "READ");   
+        sgnfileA = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_D0StarCat_2018_sample%d.root", 1041 + delta, trainA), "READ");
+        sgnfileB = TFile::Open(Form("/data/submit/pdmonte/outputs/OCT27/2018/outname_mc%d_GFcat_D0StarCat_2018_sample%d.root", 1041 + delta, trainB), "READ");   
     }else
         return -1;
 
     // Initialize the dataset
-    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/rootVars/%s", Form("%s_%s_%d.root", nameModel, channel, testSet)), "RECREATE");    
+    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_models/rootVars/%s", Form("%s_%s_%s_%d.root", nameModel, channel, prodCat, testSet)), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset
@@ -132,7 +141,7 @@ void TMVA_GF_regression(const char* nameModel, const char* channel, int testSet=
     if(std::strcmp(options, "") != 0){
         modelOptions = options;
     }
-    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%s_%d", nameModel, channel, testSet), modelOptions);
+    factory.BookMethod(dataloader, TMVA::Types::kBDT, Form("%s_%s_%s_%d", nameModel, channel, prodCat, testSet), modelOptions);
     
 	// Train Methods: Here we train all the previously booked methods.
     cout << "\033[1;36m-------------------------------------------- TRAINING... --------------------------------------------\033[0m" << endl;

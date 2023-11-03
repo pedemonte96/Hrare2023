@@ -33,10 +33,10 @@ if __name__ == "__main__":
     k1Mass = 0.493677
     mass1, mass2 = 0, 0
 
-    modelNameOmega = "BDTG_df13_dl3620_v0_v1_opt14816"
-    modelNamePhi3 = "BDTG_df13_dl3620_v0_v1_opt13545"
-    modelNameD0Star2 = "BDTG_df7_dl3684_v0_v1_opt15136"
-    modelNameD0Star3 = "BDTG_df15_dl3684_v0_v1_opt18920"
+    modelNamePhi3 =     "BDTG_df13_dl3620_v0_v1_opt30000"
+    modelNameOmega =    "BDTG_df13_dl3620_v0_v1_opt30001"    
+    modelNameD0Star2 =  "BDTG_df7_dl3684_v0_v1_opt30002"
+    modelNameD0Star3 =  "BDTG_df15_dl3684_v0_v1_opt30003"
 
     date = "OCT27"
 
@@ -109,8 +109,6 @@ if __name__ == "__main__":
     dfSGN_Omega_VBF = ROOT.RDataFrame(chainSGN_Omega_VBF)
     dfSGN_D0Star2_VBF = ROOT.RDataFrame(chainSGN_D0Star2_VBF)
     dfSGN_D0Star3_VBF = ROOT.RDataFrame(chainSGN_D0Star3_VBF)
-
-    #VBF REGRESSION (TODO) ----------------------------------------------------------------------------------------------------------------
 
     #BKG ----------------------------------------------------------------------------------------------------------------------------------
     chainBKG_Omega = ROOT.TChain("events")
@@ -222,35 +220,35 @@ if __name__ == "__main__":
     
     #ggH REGRESSION -----------------------------------------------------------------------------------------------------------------------
     s = '''
-    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleOmega0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega0);
-    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleOmega1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega1);
-    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleOmega2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega2);
     '''.format(modelName=modelNameOmega, channel="omega", numVarsTotal=getTotalNumVars(modelNameOmega))
     s += '''
-    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScalePhi0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi0);
-    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScalePhi1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi1);
-    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScalePhi2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi2);
     '''.format(modelName=modelNamePhi3, channel="phi", numVarsTotal=getTotalNumVars(modelNamePhi3))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0Star0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star0);
-    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0Star1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star1);
-    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0Star2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star2);
     '''.format(modelName=modelNameD0Star2, channel="d0star", numVarsTotal=getTotalNumVars(modelNameD0Star2))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0StarRho0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho0);
-    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0StarRho1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho1);
-    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0StarRho2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho2);
     '''.format(modelName=modelNameD0Star3, channel="d0starrho", numVarsTotal=getTotalNumVars(modelNameD0Star3))
     ROOT.gInterpreter.ProcessLine(s)
@@ -335,14 +333,32 @@ if __name__ == "__main__":
         .Define("Residual_new_pt", "goodMeson_pt_PRED - goodMeson_pt_GEN")
         .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
     
-    #VBF (TODO) ---------------------------------------------------------------------------------------------------------------------------
-    dfSGN_Phi3_VBF = (dfSGN_Phi3_VBF.Define("scale", "w*lumiIntegrated"))
-    dfSGN_Omega_VBF = (dfSGN_Omega_VBF.Define("scale", "w*lumiIntegrated"))
-    dfSGN_D0Star2_VBF = (dfSGN_D0Star2_VBF.Define("scale", "w*lumiIntegrated"))
-    dfSGN_D0Star3_VBF = (dfSGN_D0Star3_VBF.Define("scale", "w*lumiIntegrated"))
+    #VBF ----------------------------------------------------------------------------------------------------------------------------------
+    dfSGN_Phi3_VBF = (dfSGN_Phi3_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScalePhi0, variablesPhi)
+                    .Define("scaleFactor1", ROOT.computeModelScalePhi1, variablesPhi)
+                    .Define("scaleFactor2", ROOT.computeModelScalePhi2, variablesPhi)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfSGN_Omega_VBF = (dfSGN_Omega_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleOmega0, variablesOmega)
+                    .Define("scaleFactor1", ROOT.computeModelScaleOmega1, variablesOmega)
+                    .Define("scaleFactor2", ROOT.computeModelScaleOmega2, variablesOmega)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfSGN_D0Star2_VBF = (dfSGN_D0Star2_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleD0Star0, variablesD0Star)
+                    .Define("scaleFactor1", ROOT.computeModelScaleD0Star1, variablesD0Star)
+                    .Define("scaleFactor2", ROOT.computeModelScaleD0Star2, variablesD0Star)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
+    dfSGN_D0Star3_VBF = (dfSGN_D0Star3_VBF.Define("scale", "w*lumiIntegrated")
+                    .Define("scaleFactor0", ROOT.computeModelScaleD0StarRho0, variablesD0StarRho)
+                    .Define("scaleFactor1", ROOT.computeModelScaleD0StarRho1, variablesD0StarRho)
+                    .Define("scaleFactor2", ROOT.computeModelScaleD0StarRho2, variablesD0StarRho)
+                    .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
+                    .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
                   
-    #VBF REGRESSION (TODO) ----------------------------------------------------------------------------------------------------------------
-    
     #BKG ----------------------------------------------------------------------------------------------------------------------------------
     dfBKG_Omega = (dfBKG_Omega.Define("scale", "w*lumiIntegrated")
                     .Define("scaleFactor0", ROOT.computeModelScaleOmega0, variablesOmega)
@@ -416,18 +432,19 @@ if __name__ == "__main__":
     slicingVals = {"Phi3": [0.9174, 0.9875, 1.032], "Omega": [0.725, 0.77, 0.81], "D0Star_2body": [1.854, 1.865, 1.876], "D0Star_3body": [1.780, 1.850, 1.920]}
     cutVariables = {"Phi3": "goodMeson_mass", "Omega": "goodMeson_mass", "D0Star_2body": "goodMeson_ditrk_mass", "D0Star_3body": "goodMeson_mass"}
 
-    plotKinematicFitResidual = False
-    plotFullMesonMassResidual = False
-    plotDitrackResiduals = False
-    plotFullMesonPtResiduals = False
-    plotModelsPt = False
-    plotModelsPtResiduals = False
-    plotGeneralData = False
-    plotFullMesonPtData = False
+    plotKinematicFitResidual = True
+    plotFullMesonMassResidual = True
+    plotDitrackResiduals = True
+    plotFullMesonPtResiduals = True
+    plotModelsPt = True
+    plotModelsPtResiduals = True
+    plotGeneralData = True
+    plotFullMesonPtData = True
     plotHCandMass = True
-    plotSlicesSignal = False
-    plotSlicesBackground = False
-    plotFits = False
+    plotSlicesSignal = True
+    plotSlicesBackground = True
+    plotModelsBSF = True
+    plotFits = True
 
     # -------------------------------------------------------------------------------------------------------------------------------------
     # START PLOTTING ----------------------------------------------------------------------------------------------------------------------
@@ -667,7 +684,8 @@ if __name__ == "__main__":
                 h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), var, "scale").GetValue()
                 name2 = "ggH MC ({})".format(channels_latex_titles[j])
                 h2 = dfSGN.Histo1D(("hist", name2, nbins, xlow, xhigh), var, "scale").GetValue()
-                h2.Add(dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), var, "scale").GetValue())
+                h2_vbf = dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), var, "scale").GetValue()
+                h2.Add(h2_vbf)
 
                 name3 = "Data"
                 h3 = dfDATA.Histo1D(("hist", name3, nbins, xlow, xhigh), var, "scale").GetValue()
@@ -687,6 +705,7 @@ if __name__ == "__main__":
         for i, c in enumerate(channels):
             fileName = "{}_pt.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
+            dfSGN_VBF = dfsSGN_VBF[i]
             dfBKG = dfsBKG[i]
             dfDATA = dfsDATA[i]
             nbins, xlow, xhigh = 100, 0., 160.
@@ -698,11 +717,7 @@ if __name__ == "__main__":
             h2 = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
             h2.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
             h2.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
-            # todo change with real VBF
-            h2_vbf = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
-            h2_vbf.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
-            h2_vbf.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue())
-            h2_vbf.Scale(1/13.)
+            h2_vbf = dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
             h2.Add(h2_vbf)
 
             name3 = "Data"
@@ -710,8 +725,9 @@ if __name__ == "__main__":
 
             integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
-            h2.Scale(integralBKG/integralSGN)
-            #add data
+            integralDAT = h3.Integral(h3.FindBin(xlow), h3.FindBin(xhigh))
+            h2.Scale(integralDAT/integralSGN)
+
             histograms.append((name1, h1))
             histograms.append((name2, h2))
             histograms.append((name3, h3))
@@ -722,25 +738,23 @@ if __name__ == "__main__":
         for i, c in enumerate(channels):
             fileName = "{}_HiggsMass.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
+            dfSGN_VBF = dfsSGN_VBF[i]
             dfBKG = dfsBKG[i]
             dfDATA = dfsDATA[i]
-            nbins, xlow, xhigh = 100, 0., 180.
+            nbins, xlow, xhigh = 90, 0., 180.
             options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed - 7, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True}
             histograms = []
             name1 = "#gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             name2 = "qqH MC ({})".format(channels_latex_titles[i])#VBF
-            h2 = df_0.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            h2.Add(df_1.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            h2.Add(df_2.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            h2.Scale(1/13.)
+            h2 = dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             name3 = "ggH MC ({})".format(channels_latex_titles[i])
             h3 = df_0.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
             h3.Add(df_1.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             h3.Add(df_2.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             
             name4 = "Data"
-            h4 = dfDATA.Filter("HCandMass_varPRED < 115 || HCandMass_varPRED > 135").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h4 = dfDATA.Filter("HCandMass_varPRED < 114 || HCandMass_varPRED > 136").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
 
             #integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             #integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
@@ -835,5 +849,9 @@ if __name__ == "__main__":
             histograms.append((name4, h4))
             histograms.append((name5, h5))
             savePlot(histograms, fileName, options=options)
+
+    if plotModelsBSF:
+        saveBSFPythonPlot()
+
 
     print("Done!")
