@@ -8,7 +8,7 @@ xlowRange = 100.
 xhighRange = 160.
 
 sig = "ggH"
-workspaceName = 'WS_OCT25'
+workspaceName = 'WS_NOV03'
 
 def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
@@ -39,7 +39,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
 
     #Crystal ball definition --------------------------------------------------------------
-    cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 124.7, 125-10., 125+10.)
+    cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 124.6, 125-10., 125+10.)
     cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 1.5, 0., 5.)
     cb_alphaL = ROOT.RooRealVar('cb_alphaL_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaL', 0., 5.)
     cb_alphaR = ROOT.RooRealVar('cb_alphaR_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaR', 0., 5.)
@@ -70,15 +70,15 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     name = model.GetName() + "_Norm[mh]_Range[full]_NormRange[full]"
 
     #hist1 = model.createHistogram("fitCurve", x, ROOT.RooFit.IntrinsicBinning())
-    hist1 = plotFrameWithNormRange.getCurve(name)
-    hist1.Print()
-    print(type(hist1))
-    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
-    f.WriteObject(hist1, "curve")
-    f.Close()
-    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
-    f.WriteObject(data, "hist")
-    f.Close()
+    #hist1 = plotFrameWithNormRange.getCurve(name)
+    #hist1.Print()
+    #print(type(hist1))
+    #f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    #f.WriteObject(hist1, "curve")
+    #f.Close()
+    #f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    #f.WriteObject(data, "hist")
+    #f.Close()
 
     chi2 = plotFrameWithNormRange.chiSquare(name, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     plotFrameWithNormRange.getAttText().SetTextSize(0.02)
@@ -425,7 +425,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "OCT27"
+    date = "NOV05"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -454,14 +454,14 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    #for mesonCat in ["Phi3Cat"]:
+    #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+    for mesonCat in ["Phi3Cat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-                    #fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitSig(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
         #fitSig(cat, mesonCat, year, date)
 
     '''

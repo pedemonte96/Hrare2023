@@ -74,7 +74,7 @@ parser.add_argument("-c", "--channel", type=str, required=True, help="Channel (e
 parser.add_argument("-p", "--prodCat", type=str, required=True, help="Production category (e.g. ggh, vbf).")
 options = parser.parse_args()
 
-date = "OCT27"
+date = "NOV05"
 mesonCat = ""
 mesonNum, delta = 0, 0
 if (options.channel == "omega"):
@@ -154,15 +154,15 @@ if options.modelName == "RECO":
 
 else:
     s = '''
-    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
+    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
     computeModelScale0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale0);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
+    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
     computeModelScale1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale1);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOpts/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
+    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
     computeModelScale2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale2);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
 

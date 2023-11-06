@@ -18,7 +18,7 @@ def createAndSaveHistogramSignal(tag, mesonCat, year, date, filters=[], extraTit
         #Save histogram
         name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)
     else:
-        histogram = get2DHisto(200*10, 0., 200., 300, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle, regModelName=regModelName)
+        histogram = get2DHisto(200*10, 0., 200., 100, date, numDict[mesonCat], tag, mesonCat, mesonLatex[mesonCat], year, extraTitle, regModelName=regModelName)
         #Save histogram
         name = getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName, doubleFit=True)
     
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "OCT27"
+    date = "NOV05"
 
 
     #D0Star----------------------------------------------------------------------------------------
@@ -95,14 +95,14 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-        with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
-            for line in file:
-                regModelName = line.strip()
-                if regModelName[0] != "#":
-                    createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
-                    createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
+    for df in [True]:
+        for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+            with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
+                for line in file:
+                    regModelName = line.strip()
+                    if regModelName[0] != "#":
+                        createAndSaveHistogramSignal(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
+                        createAndSaveHistogramBackground(cat, mesonCat, year, date, regModelName=regModelName, doubleFit=df)
 
     #createAndSaveHistogramSignal(cat, mesonCat, year, date)
     #createAndSaveHistogramBackground(cat, mesonCat, year, date)

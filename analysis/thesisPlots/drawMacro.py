@@ -90,8 +90,8 @@ def savePlot(histograms, imageName, options=None):
                 h[1].Draw("EP SAME")
                 #blind
                 if "blind" in options:
-                    box=ROOT.TBox(115., 0., 135., maxHeight*1.15)
-                    box.SetFillColor(ROOT.kRed-6)
+                    box=ROOT.TBox(115., 0., 135., maxHeight*1.2)
+                    box.SetFillColor(ROOT.kWhite)
                     box.Draw()
 
             else:#fits

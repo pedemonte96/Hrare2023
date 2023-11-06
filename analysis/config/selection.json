@@ -154,13 +154,15 @@
 	{
             "name": "isZinv",
             "type": "isOmegaCat",
-            "definition": "(omega_iso > 0.95 && omega_kin_pt > 15 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 10 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 0 && omega_Nphotons > 0 && omega_Nphotons < 2 && abs(omega_kin_mass - 0.47) < 0.15)",
+            "definition": "(omega_iso > 0.95 && omega_kin_pt > 20 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 12 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.47) < 0.15)",
+			"definition_g": "omega_iso > 0.0",
             "notes":" used for isGF"
         },
 	{
             "name": "isZinv",
             "type": "isPhi3Cat",
-            "definition": "(omega_iso > 0.95 && omega_kin_pt > 10 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 8 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 0 && omega_Nphotons > 0 && omega_Nphotons < 2 && abs(omega_kin_mass - 0.59) < 0.25)",
+            "definition": "(omega_iso > 0.95 && omega_kin_pt > 15 && getMaximum(omega_trk1_pt, omega_trk2_pt) > 12 && getMinimum(omega_trk1_pt, omega_trk2_pt) > 3 && omega_Nphotons > 0 && abs(omega_kin_mass - 0.59) < 0.25)",
+			"definition_g": "omega_iso > 0.0",
             "notes":" used for isGF"
         },
 	{
@@ -173,12 +175,14 @@
             "name": "isZinv",
             "type": "isD0StarRhoCat",
             "definition": "(d0pi0_iso > 0.95 && d0pi0_kin_pt > 20 && abs(d0pi0_kin_mass - 1.175) < 0.525 && getMaximum(d0pi0_pion_pt, d0pi0_kaon_pt) > 12 && getMinimum(d0pi0_pion_pt, d0pi0_kaon_pt) > 3) && d0pi0_d0Star_Nphotons > 0",
+			"definition_g": "(d0pi0_iso > 0.8 && d0pi0_kin_pt > 15 && d0pi0_d0Star_Nphotons > 0)",
             "notes":" used for isGF"
         },
 	{
             "name": "isZinv",
             "type": "isD0StarCat",
-            "definition": "(d0_iso > 0.91 && d0_kin_pt > 42 && abs(d0_kin_mass - 1.865) < 0.060 && getMaximum(d0_pion_pt, d0_kaon_pt) > 22 && getMinimum(d0_pion_pt, d0_kaon_pt) > 7)",
+            "definition": "(d0_iso > 0.90 && d0_kin_pt > 42 && abs(d0_kin_mass - 1.865) < 0.060 && getMaximum(d0_pion_pt, d0_kaon_pt) > 22 && getMinimum(d0_pion_pt, d0_kaon_pt) > 10)",
+			"definition_g": "d0_iso > 0.5",
             "notes":" used for isGF"
 	}
     ],

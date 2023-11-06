@@ -8,7 +8,7 @@ xlowRange = 100.
 xhighRange = 160.
 
 sig = "ggH"
-workspaceName = 'WS_OCT25'
+workspaceName = 'WS_NOV03'
 
 def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
@@ -130,17 +130,17 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     name1 = model.GetName() + "_Norm[mh]_Comp[" + model.GetName() + "]_Range[full]_NormRange[full]"
     name2 = model2.GetName() + "_Norm[mh]_Comp[" + model2.GetName() + "]_Range[full]_NormRange[full]"
 
-    hist1 = plotFrameWithNormRange.getCurve(name1)
-    hist2 = plotFrameWithNormRange.getCurve(name2)
-    hist1.Print()
-    print(type(hist1))
-    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
-    f.WriteObject(hist1, "curve1")
-    f.WriteObject(hist2, "curve2")
-    f.Close()
-    f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
-    f.WriteObject(data, "hist")
-    f.Close()
+    #hist1 = plotFrameWithNormRange.getCurve(name1)
+    #hist2 = plotFrameWithNormRange.getCurve(name2)
+    #hist1.Print()
+    #print(type(hist1))
+    #f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_curve.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    #f.WriteObject(hist1, "curve1")
+    #f.WriteObject(hist2, "curve2")
+    #f.Close()
+    #f = ROOT.TFile("/data/submit/pdmonte/thesisFitRootFiles/{}_hist.root".format(getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=extraTitle, regModelName=regModelName)),"RECREATE")
+    #f.WriteObject(data, "hist")
+    #f.Close()
 
     chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
     chi2_2 = plotFrameWithNormRange.chiSquare(name2, "h_" + data.GetName(), fitresults2.floatParsFinal().getSize())
@@ -561,7 +561,7 @@ if __name__ == "__main__":
 
     cat = "GFcat"
     year = 2018
-    date = "OCT27"
+    date = "NOV05"
 
 
     #BACKGROUND D0Star-----------------------------------------------------------------------------
@@ -578,5 +578,5 @@ if __name__ == "__main__":
                 regModelName = line.strip()
                 if regModelName[0] != "#":
                     fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
-                    #fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)
