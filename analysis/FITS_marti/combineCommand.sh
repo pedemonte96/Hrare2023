@@ -11,7 +11,7 @@ regModel=""
 
 for meson in "Phi3" "Omega" "D0Star" "D0StarRho"; do
 #for meson in "Phi3"; do
-    for is2Dfit in "False"; do
+    for is2Dfit in "True" "False"; do
         input_file="models_${meson}.txt"
         if [ "$is2Dfit" == "True" ]; then
             label2D="_2D"

@@ -461,7 +461,7 @@ if __name__ == "__main__":
                 regModelName = line.strip()
                 if regModelName[0] != "#":
                     fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-                    #fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
         #fitSig(cat, mesonCat, year, date)
 
     '''

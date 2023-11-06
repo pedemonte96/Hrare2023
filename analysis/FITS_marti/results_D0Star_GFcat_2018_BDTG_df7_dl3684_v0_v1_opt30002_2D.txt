@@ -1,0 +1,4 @@
+**** D0Star GFcat _BDTG_df7_dl3684_v0_v1_opt30002 ****
+ <<< Combine >>> 
+>>> method used is AsymptoticLimits
+>>> random number generator seed is 123456

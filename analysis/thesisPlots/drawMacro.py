@@ -265,7 +265,7 @@ def readBSFFile(filename):
 
 def saveBSFPythonPlot():
     fileName = "BSF_vs_RMSE_phi.png"
-    options = {"labelXAxis": "RMSE (predicted - gen) [GeV]", "labelYAxis": "BSF", "scatter": True, "data": False, "xRange": (2.5, 5.5), "yRange": (0, 40)}
+    options = {"labelXAxis": "RMSE (predicted - gen) [GeV]", "labelYAxis": "BSF", "scatter": True, "data": False, "xRange": (3.0, 5.5), "yRange": (0, 40)}
     graphs = []
     names, errors, shapes, bsf = readBSFFile("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/TMVA_regression/evalPhi.out")
     bsf = [l/10. if l > 60 else l for l in bsf]

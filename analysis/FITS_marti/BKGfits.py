@@ -327,10 +327,10 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     storedPdfs = ROOT.RooArgList("store_" + mesonCat + "_" + tag)
 
     #For ggH:
-    model2D_bb = ROOT.RooProdPdf("pdf_2d_bkg_bern_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_bern", ROOT.RooArgList(pdf_bern4_mh, pdf_bern4_mm))
-    model2D_bc = ROOT.RooProdPdf("pdf_2d_bkg_bern_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_chev", ROOT.RooArgList(pdf_bern4_mh, pdf_chebychev4_mm))
-    model2D_cb = ROOT.RooProdPdf("pdf_2d_bkg_chev_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_bern", ROOT.RooArgList(pdf_chebychev4_mh, pdf_bern4_mm))
-    model2D_cc = ROOT.RooProdPdf("pdf_2d_bkg_chev_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_chev", ROOT.RooArgList(pdf_chebychev4_mh, pdf_chebychev4_mm))
+    model2D_bb = ROOT.RooProdPdf("pdf_2d_bkg_bern_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_bern", ROOT.RooArgList(pdf_bern3_mh, pdf_bern3_mm))
+    model2D_bc = ROOT.RooProdPdf("pdf_2d_bkg_bern_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_chev", ROOT.RooArgList(pdf_bern3_mh, pdf_chebychev3_mm))
+    model2D_cb = ROOT.RooProdPdf("pdf_2d_bkg_chev_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_bern", ROOT.RooArgList(pdf_chebychev3_mh, pdf_bern3_mm))
+    model2D_cc = ROOT.RooProdPdf("pdf_2d_bkg_chev_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_chev", ROOT.RooArgList(pdf_chebychev3_mh, pdf_chebychev3_mm))
 
 
     fitresults_bb = model2D_bb.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
@@ -575,12 +575,12 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+    for mesonCat in ["D0StarCat", "D0StarRhoCat"]:
     #for mesonCat in ["Phi3Cat", "OmegaCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
                     fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
-                    #fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)

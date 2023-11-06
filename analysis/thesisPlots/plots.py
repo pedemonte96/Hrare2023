@@ -436,15 +436,15 @@ if __name__ == "__main__":
     cutVariables = {"Phi3": "goodMeson_mass", "Omega": "goodMeson_mass", "D0Star_2body": "goodMeson_ditrk_mass", "D0Star_3body": "goodMeson_mass"}
     nameFilesChannels = {"Phi3": "Phi3", "Omega": "Omega", "D0Star_2body": "D0Star", "D0Star_3body": "D0StarRho"}
 
-    plotKinematicFitResidual = False
-    plotFullMesonMassResidual = False
-    plotDitrackResiduals = False
-    plotFullMesonPtResiduals = False
-    plotModelsPt = False
-    plotModelsPtResiduals = False
-    plotGeneralData = False
-    plotFullMesonPtData = False
-    plotHCandMass = False
+    plotKinematicFitResidual = True
+    plotFullMesonMassResidual = True
+    plotDitrackResiduals = True
+    plotFullMesonPtResiduals = True
+    plotModelsPt = True
+    plotModelsPtResiduals = True
+    plotGeneralData = True
+    plotFullMesonPtData = True
+    plotHCandMass = True
     plotSlicesSignal = True
     plotSlicesBackground = True
     plotModelsBSF = True
