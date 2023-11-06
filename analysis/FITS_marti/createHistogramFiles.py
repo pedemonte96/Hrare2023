@@ -95,8 +95,9 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for df in [True]:
-        for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+    for df in [False]:
+        #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+        for mesonCat in ["D0StarRhoCat"]:
             with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
                 for line in file:
                     regModelName = line.strip()

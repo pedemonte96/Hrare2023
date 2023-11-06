@@ -290,10 +290,12 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     chebychev_mh_c1 = ROOT.RooRealVar('chebychev_mh_c1_' + mesonCat + "_" + tag, 'chebychev_mh_c1', 0.40, -1.0, 1.0)
     chebychev_mh_c2 = ROOT.RooRealVar('chebychev_mh_c2_' + mesonCat + "_" + tag, 'chebychev_mh_c2', 0.01, -0.1, 0.1)
     chebychev_mh_c3 = ROOT.RooRealVar('chebychev_mh_c3_' + mesonCat + "_" + tag, 'chebychev_mh_c3', 0.00, -1.0, 1.0)
+    chebychev_mh_c4 = ROOT.RooRealVar('chebychev_mh_c4_' + mesonCat + "_" + tag, 'chebychev_mh_c4', 0.00, -1.0, 1.0)
 
     pdf_chebychev1_mh = ROOT.RooChebychev("chebychev1_" + mesonCat + "_" + tag + "_mh", "chebychev1_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1))
     pdf_chebychev2_mh = ROOT.RooChebychev("chebychev2_" + mesonCat + "_" + tag + "_mh", "chebychev2_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1, chebychev_mh_c2))
     pdf_chebychev3_mh = ROOT.RooChebychev("chebychev3_" + mesonCat + "_" + tag + "_mh", "chebychev3_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1, chebychev_mh_c2, chebychev_mh_c3))
+    pdf_chebychev4_mh = ROOT.RooChebychev("chebychev4_" + mesonCat + "_" + tag + "_mh", "chebychev4_mh", x, ROOT.RooArgList(chebychev_mh_c0, chebychev_mh_c1, chebychev_mh_c2, chebychev_mh_c3, chebychev_mh_c4))
 
     #BERN law (Meson mass) -----------------------------------------------------------------------------
     bern_mm_c0 = ROOT.RooRealVar('bern_mm_c0_' + mesonCat + "_" + tag, 'bern_mm_c0', 0.50, 0., 1.0)
@@ -315,18 +317,20 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     chebychev_mm_c1 = ROOT.RooRealVar('chebychev_mm_c1_' + mesonCat + "_" + tag, 'chebychev_mm_c1', 0.40, -1.0, 1.0)
     chebychev_mm_c2 = ROOT.RooRealVar('chebychev_mm_c2_' + mesonCat + "_" + tag, 'chebychev_mm_c2', 0.01, -0.1, 0.1)
     chebychev_mm_c3 = ROOT.RooRealVar('chebychev_mm_c3_' + mesonCat + "_" + tag, 'chebychev_mm_c3', 0.00, -1.0, 1.0)
+    chebychev_mm_c4 = ROOT.RooRealVar('chebychev_mm_c4_' + mesonCat + "_" + tag, 'chebychev_mm_c4', 0.00, -1.0, 1.0)
 
     pdf_chebychev1_mm = ROOT.RooChebychev("chebychev1_" + mesonCat + "_" + tag + "_mm", "chebychev1_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1))
     pdf_chebychev2_mm = ROOT.RooChebychev("chebychev2_" + mesonCat + "_" + tag + "_mm", "chebychev2_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1, chebychev_mm_c2))
     pdf_chebychev3_mm = ROOT.RooChebychev("chebychev3_" + mesonCat + "_" + tag + "_mm", "chebychev3_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1, chebychev_mm_c2, chebychev_mm_c3))
+    pdf_chebychev4_mm = ROOT.RooChebychev("chebychev4_" + mesonCat + "_" + tag + "_mm", "chebychev4_mm", y, ROOT.RooArgList(chebychev_mm_c0, chebychev_mm_c1, chebychev_mm_c2, chebychev_mm_c3, chebychev_mm_c4))
 
     storedPdfs = ROOT.RooArgList("store_" + mesonCat + "_" + tag)
 
     #For ggH:
-    model2D_bb = ROOT.RooProdPdf("pdf_2d_bkg_bern_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_bern", ROOT.RooArgList(pdf_bern3_mh, pdf_bern3_mm))
-    model2D_bc = ROOT.RooProdPdf("pdf_2d_bkg_bern_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_chev", ROOT.RooArgList(pdf_bern3_mh, pdf_chebychev3_mm))
-    model2D_cb = ROOT.RooProdPdf("pdf_2d_bkg_chev_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_bern", ROOT.RooArgList(pdf_chebychev3_mh, pdf_bern3_mm))
-    model2D_cc = ROOT.RooProdPdf("pdf_2d_bkg_chev_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_chev", ROOT.RooArgList(pdf_chebychev3_mh, pdf_chebychev3_mm))
+    model2D_bb = ROOT.RooProdPdf("pdf_2d_bkg_bern_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_bern", ROOT.RooArgList(pdf_bern4_mh, pdf_bern4_mm))
+    model2D_bc = ROOT.RooProdPdf("pdf_2d_bkg_bern_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_bern_chev", ROOT.RooArgList(pdf_bern4_mh, pdf_chebychev4_mm))
+    model2D_cb = ROOT.RooProdPdf("pdf_2d_bkg_chev_bern_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_bern", ROOT.RooArgList(pdf_chebychev4_mh, pdf_bern4_mm))
+    model2D_cc = ROOT.RooProdPdf("pdf_2d_bkg_chev_chev_" + mesonCat + "_" + tag, "pdf_2d_bkg_chev_chev", ROOT.RooArgList(pdf_chebychev4_mh, pdf_chebychev4_mm))
 
 
     fitresults_bb = model2D_bb.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
@@ -572,11 +576,11 @@ if __name__ == "__main__":
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
     for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    #for mesonCat in ["Phi3Cat"]:
+    #for mesonCat in ["Phi3Cat", "OmegaCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
                     fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
-                    fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
     #fitBkg(cat, mesonCat, year, date)

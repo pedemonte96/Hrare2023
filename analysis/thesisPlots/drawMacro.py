@@ -5,6 +5,8 @@ ROOT.gStyle.SetOptStat(0)
 ROOT.gStyle.SetPadTickX(1)
 ROOT.gStyle.SetPadTickY(1)
 
+marginL, marginR, marginT = 0.13, 0.07, 0.06
+
 colors = {"RECO": "\033[1;36m", "GEN": "\033[1;34m", "BKG": "\033[1;31m", "NC": "\033[0m", "YELLOW": "\033[1;33m"}
 
 defaultHistColors = [ROOT.kRed + 1, ROOT.kBlue, ROOT.kGreen + 2, ROOT.kYellow + 1, ROOT.kOrange + 8]
@@ -16,7 +18,12 @@ def savePlot(histograms, imageName, options=None):
     imagePath = "/home/submit/pdmonte/public_html/thesisPlots"
     cs = ROOT.TCanvas("canvas", "canvas", 900, 900)
     xlow, ylow, xup, yup = 0.60, 0.70, 0.87, 0.87
-    if options["data"]:
+    legendFontSize = 0.035
+    if "legendFontSize" in options:
+        legendFontSize = options["legendFontSize"]
+    if "moveLegend" in options:
+        xlow, xup = options["moveLegend"], options["moveLegend"] + 0.27
+    if options["data"] and not "fit" in options:
         ydiv = 0.20
         deltadiv = 0.05
         pad1 = ROOT.TPad("upper_pad", "", 0., ydiv, 1., 1.)#xlow, ylow, xup, yup
@@ -24,13 +31,18 @@ def savePlot(histograms, imageName, options=None):
         pad1.Draw()
         pad2 = ROOT.TPad("lower_pad", "", 0., 0., 1., ydiv + deltadiv)
         pad2.Draw()
+        pad2.SetLeftMargin(marginL)
+        pad2.SetRightMargin(marginR)
         ylow, yup = 0.625, 0.8375
+        #xlow, xup = 0.65, 0.92
     else:
         pad1 = ROOT.TPad("upper_pad", "", 0., 0., 1., 1.)#xlow, ylow, xup, yup
         pad1.Draw()
     if "HCandMass" in options:
-        xlow, xup = 0.13, 0.40
+        xlow, xup = 0.162, 0.162 + 0.27
     legend4 = ROOT.TLegend(xlow, ylow, xup, yup)
+    pad1.SetLeftMargin(marginL)
+    pad1.SetRightMargin(marginR)
 
     usedColors = options["colors"] if "colors" in options else defaultHistColors
 
@@ -39,7 +51,7 @@ def savePlot(histograms, imageName, options=None):
         for i, h in enumerate(histograms):
             gr = ROOT.TGraph(len(h[1][0]), array('d', h[1][0]), array('d', h[1][1]))
             gr.SetMarkerStyle(ROOT.kFullCircle)
-            gr.SetMarkerSize(1)
+            gr.SetMarkerSize(1 if i == 0 else 3)
             gr.SetMarkerColor(usedColors[i])
             legend4.AddEntry(gr, h[0], "p")
             stack4.Add(gr)
@@ -109,10 +121,10 @@ def savePlot(histograms, imageName, options=None):
             maxHeight = max(maxHeight, hStack.GetMaximum())
             print(maxHeight)
             stack4.Draw("hist")
-            line1 = ROOT.TLine(115., 0., 115., maxHeight*10)
+            line1 = ROOT.TLine(115., 0., 115., maxHeight*1)
             line1.SetLineColor(11)
             line1.Draw()
-            line2 = ROOT.TLine(135., 0., 135., maxHeight*10)
+            line2 = ROOT.TLine(135., 0., 135., maxHeight*1)
             line2.SetLineColor(11)
             line2.Draw()
         else:
@@ -130,8 +142,12 @@ def savePlot(histograms, imageName, options=None):
 
     if "labelXAxis" in options:
         stack4.GetXaxis().SetTitle(options["labelXAxis"])
+        #stack4.GetYaxis().SetNdivisions(5, 2, 0)
     if "labelYAxis" in options:
         stack4.GetYaxis().SetTitle(options["labelYAxis"])
+        stack4.GetYaxis().SetDecimals()
+        stack4.GetYaxis().ChangeLabel(1, -1, 0)
+        print("I am here")
     if "xRange" in options:
         if "scatter" in options:
             stack4.GetXaxis().SetLimits(options["xRange"][0], options["xRange"][1])
@@ -141,16 +157,16 @@ def savePlot(histograms, imageName, options=None):
         stack4.GetYaxis().SetRangeUser(options["yRange"][0], options["yRange"][1])
     if "logScale" in options:
         if options["logScale"]:
-            stack4.SetMaximum(10*maxHeight)
-            stack4.SetMinimum(50)
+            stack4.SetMaximum(7*maxHeight)
+            stack4.SetMinimum(100)
             pad1.SetLogy(1)
             
     
-    if not options["data"]:
+    if not options["data"] or "fit" in options:
         legend4.SetTextFont(42)
         legend4.SetFillStyle(0)
         legend4.SetBorderSize(0)
-        legend4.SetTextSize(0.030)
+        legend4.SetTextSize(legendFontSize)
         legend4.SetTextAlign(12)
         legend4.Draw("same")
 
@@ -158,23 +174,23 @@ def savePlot(histograms, imageName, options=None):
         text.SetNDC()
         text.SetTextFont(72)
         text.SetTextSize(0.045)
-        text.DrawLatex(0.105, 0.913, "CMS")
+        text.DrawLatex(0.135, 0.913, "CMS")
         text.SetTextFont(42)
-        text.DrawLatex(0.105 + 0.12, 0.913, "Internal" if options["data"] else "Simulation")
+        text.DrawLatex(0.135 + 0.12, 0.913, "Internal" if options["data"] else "Simulation")
         text.SetTextSize(0.035)
-        text.DrawLatex(0.59, 0.913, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.8 if options["data"] else -0.1))
+        text.DrawLatex(0.62, 0.913, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.8 if options["data"] else -0.1))
         stack4.GetXaxis().SetTitleSize(0.040)
         stack4.GetXaxis().SetLabelSize(0.035)
         stack4.GetYaxis().SetTitleSize(0.040)
         stack4.GetYaxis().SetLabelSize(0.035)
-        stack4.GetYaxis().SetTitleOffset(1.35)
+        stack4.GetYaxis().SetTitleOffset(1.75)
 
     else:
         fact = 1.25
         legend4.SetTextFont(42)
         legend4.SetFillStyle(0)
         legend4.SetBorderSize(0)
-        legend4.SetTextSize(0.030*fact)
+        legend4.SetTextSize(legendFontSize*fact)
         legend4.SetTextAlign(12)
         legend4.Draw("same")
 
@@ -182,11 +198,11 @@ def savePlot(histograms, imageName, options=None):
         text.SetNDC()
         text.SetTextFont(72)
         text.SetTextSize(0.045*fact)
-        text.DrawLatex(0.105, 0.89125, "CMS")
+        text.DrawLatex(0.135, 0.89125, "CMS")
         text.SetTextFont(42)
-        text.DrawLatex(0.105 + 0.12, 0.89125, "Internal" if options["data"] else "Simulation")
+        text.DrawLatex(0.135 + 0.12, 0.89125, "Internal" if options["data"] else "Simulation")
         text.SetTextSize(0.035*fact)
-        text.DrawLatex(0.59, 0.89125, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.1 if options["data"] else -0.1))
+        text.DrawLatex(0.62, 0.89125, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.1 if options["data"] else -0.1))
         
         stack4.GetXaxis().SetLabelOffset(99)#0.005 default
         stack4.GetXaxis().SetTitleOffset(99)#1 is default
@@ -194,7 +210,7 @@ def savePlot(histograms, imageName, options=None):
         stack4.GetXaxis().SetLabelSize(0.035*fact)
         stack4.GetYaxis().SetTitleSize(0.040*fact)
         stack4.GetYaxis().SetLabelSize(0.035*fact)
-        stack4.GetYaxis().SetTitleOffset(1.08)
+        stack4.GetYaxis().SetTitleOffset(1.45)
         #draw ratio
         pad2.cd()
         pad2.SetTopMargin(0.0)
@@ -254,11 +270,12 @@ def saveBSFPythonPlot():
     names, errors, shapes, bsf = readBSFFile("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/TMVA_regression/evalPhi.out")
     bsf = [l/10. if l > 60 else l for l in bsf]
     bsfOther, bsfReco, bsfUsed, errorsOther, errorsReco, errorsUsed = [], [], [], [], [], []
+    print(len(names))
     for i, n in enumerate(names):
         if n == "RECO":
             bsfReco.append(bsf[i])
             errorsReco.append(errors[i])
-        elif n == "BDTG_df13_dl3620_v0_v1_opt13545":
+        elif n == "BDTG_df13_dl3620_v0_v1_opt50098":
             bsfUsed.append(bsf[i])
             errorsUsed.append(errors[i])
         else:

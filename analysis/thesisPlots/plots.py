@@ -446,10 +446,10 @@ if __name__ == "__main__":
     plotFullMesonPtData = False
     plotHCandMass = False
     plotSlicesSignal = True
-    plotSlicesBackground = False
-    plotModelsBSF = False
-    plotFitsSGN = False
-    plotFitsBKG = False
+    plotSlicesBackground = True
+    plotModelsBSF = True
+    plotFitsSGN = True
+    plotFitsBKG = True
 
     # -------------------------------------------------------------------------------------------------------------------------------------
     # START PLOTTING ----------------------------------------------------------------------------------------------------------------------
@@ -674,6 +674,10 @@ if __name__ == "__main__":
                             "Omega": [(0.2, 1.0), (0.4, 1.2), (0, 160), (0, 80), (0, 50)],
                             "D0Star_2body": [(1.70, 2.10), (1.30, 2.50), (0, 160), (0, 80), (0, 50)],
                             "D0Star_3body": [(0.40, 2.00), (1.30, 2.50), (0, 160), (0, 80), (0, 50)]}
+        posXLegend = {"Phi3":           [0.162, 0.162, 0.60, 0.60, 0.60],
+                        "Omega":        [0.60, 0.60, 0.60, 0.60, 0.60],
+                        "D0Star_2body": [0.55, 0.55, 0.55, 0.55, 0.55],
+                        "D0Star_3body": [0.162, 0.55, 0.55, 0.55, 0.55]}
         
         for j, c in enumerate(channels):
             dfSGN = dfsSGN[j]
@@ -684,8 +688,8 @@ if __name__ == "__main__":
             print(variablesXLabel)
             for i, var in enumerate(variables):
                 fileName = "{}_{}.png".format(c, variablesFileName[i])
-                options = {"labelXAxis": variablesXLabel[i], "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True}
-                nbins, xlow, xhigh = 100, variablesXRange[c][i][0], variablesXRange[c][i][1]
+                options = {"labelXAxis": variablesXLabel[i], "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True, "moveLegend": posXLegend[c][i], "legendFontSize": 0.030}
+                nbins, xlow, xhigh = 50, variablesXRange[c][i][0], variablesXRange[c][i][1]
                 histograms = []
                 name1 = "#gamma + jets"
                 h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), var, "scale").GetValue()
@@ -708,6 +712,10 @@ if __name__ == "__main__":
                 savePlot(histograms, fileName, options=options)
 
     if plotFullMesonPtData:
+        posXLegend = {"Phi3":           0.55,
+                        "Omega":        0.55,
+                        "D0Star_2body": 0.55,
+                        "D0Star_3body": 0.55}
         # Good Meson PT with regression --------------------------------------------------------------------------------------------
         for i, c in enumerate(channels):
             fileName = "{}_pt.png".format(c)
@@ -715,8 +723,8 @@ if __name__ == "__main__":
             dfSGN_VBF = dfsSGN_VBF[i]
             dfBKG = dfsBKG[i]
             dfDATA = dfsDATA[i]
-            nbins, xlow, xhigh = 100, 0., 160.
-            options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True}
+            nbins, xlow, xhigh = 50, 0., 160.
+            options = {"labelXAxis": "p_{T} [GeV]", "labelYAxis": "Events", "style": ["f", "l", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 1, ROOT.kBlack], "data": True, "moveLegend": posXLegend[c], "legendFontSize": 0.030}
             histograms = []
             name1 = "#gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "goodMeson_pt_PRED", "scale").GetValue()
@@ -748,8 +756,8 @@ if __name__ == "__main__":
             dfSGN_VBF = dfsSGN_VBF[i]
             dfBKG = dfsBKG[i]
             dfDATA = dfsDATA[i]
-            nbins, xlow, xhigh = 90, 0., 180.
-            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed - 7, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True}
+            nbins, xlow, xhigh = 40, 80., 180.
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed - 7, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True, "legendFontSize": 0.030}
             histograms = []
             name1 = "#gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
@@ -761,7 +769,7 @@ if __name__ == "__main__":
             h3.Add(df_2.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
             
             name4 = "Data"
-            h4 = dfDATA.Filter("HCandMass_varPRED < 114 || HCandMass_varPRED > 136").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h4 = dfDATA.Filter("HCandMass_varPRED < 115 || HCandMass_varPRED > 135").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
 
             #integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             #integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
@@ -775,11 +783,12 @@ if __name__ == "__main__":
 
     if plotSlicesSignal:
         # Slices of HCandVar Signal --------------------------------------------------------------------------------------------
+        posXLegend = 0.162
         for i, c in enumerate(channels):
             fileName = "{}_fit_SGN_MH_sliced.png".format(c)
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             nbins, xlow, xhigh = 60, 110., 140.
-            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kRed - 10, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kOrange + 9], "data": False}
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kRed - 10, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kYellow + 1], "data": False, "legendFontSize": 0.030, "moveLegend": posXLegend}
             histograms = []
             name1 = "Total ggH MC ({})".format(channels_latex_titles[i])
             h1 = df_0.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
@@ -822,11 +831,12 @@ if __name__ == "__main__":
 
     if plotSlicesBackground:
         # Slices of HCandVar Background --------------------------------------------------------------------------------------------
+        posXLegend = 0.63
         for i, c in enumerate(channels):
             fileName = "{}_fit_BKG_MH_sliced.png".format(c)
             dfBKG = dfsBKG[i]
             nbins, xlow, xhigh = 20, 100., 160.
-            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kOrange + 9], "data": False}
+            options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "l", "l", "l", "l"], "colors": [ROOT.kOrange - 9, ROOT.kRed + 2, ROOT.kBlue, ROOT.kGreen + 3, ROOT.kYellow + 1], "data": False, "legendFontSize": 0.030, "moveLegend": posXLegend}
             histograms = []
             name1 = "Total #gamma + jets"
             h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
@@ -871,7 +881,8 @@ if __name__ == "__main__":
             infileFITMH = ROOT.TFile.Open(fileNameFITMH, "read")
             infileFITMM = ROOT.TFile.Open(fileNameFITMM, "read")
 
-            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True}
+            posXLegend = 0.52
+            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True, "moveLegend": posXLegend, "legendFontSize": 0.030}
             name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
             hSGNMH = (infileSGN.Get("hist")).createHistogram('mh', 600)
             name2 = "Crystal Ball fit"
@@ -881,7 +892,8 @@ if __name__ == "__main__":
             histograms.append((name2, hFITMH))
             savePlot(histograms, fileNameMH, options=optionsMH)
 
-            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True}
+            posXLegend = 0.162
+            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True, "moveLegend": posXLegend, "legendFontSize": 0.030}
             name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
             #numBins
             nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.001))#200 for signal
@@ -895,6 +907,10 @@ if __name__ == "__main__":
             savePlot(histograms, fileNameMM, options=optionsMM)
 
     if plotFitsBKG:
+        posXLegendL = {"Phi3":           0.63,
+                        "Omega":        0.162,
+                        "D0Star_2body": 0.60,
+                        "D0Star_3body": 0.60}
         for i, c in enumerate(channels):
             fileNameMH = "{}_fit_BKG_MH.png".format(c)
             fileNameMM = "{}_fit_BKG_MM.png".format(c)
@@ -905,7 +921,8 @@ if __name__ == "__main__":
             infileFITMH = ROOT.TFile.Open(fileNameFITMH, "read")
             infileFITMM = ROOT.TFile.Open(fileNameFITMM, "read")
 
-            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": False, "fit": True, "blind": True}
+            posXLegend = 0.60
+            optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": True, "fit": True, "blind": True, "moveLegend": posXLegend, "legendFontSize": 0.030}
             name1 = "Data"
             hBKGMH = (infileBKG.Get("hist")).createHistogram('mh', 60)
             name2 = "Bernstein Pol."
@@ -918,7 +935,8 @@ if __name__ == "__main__":
             histograms.append((name3, hFITMH_2))
             savePlot(histograms, fileNameMH, options=optionsMH)
 
-            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": False, "fit": True}
+            posXLegend = 0.60
+            optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": True, "fit": True, "moveLegend": posXLegendL[c], "legendFontSize": 0.030}
             name1 = "Data"
             nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.005))#100 for bkg
             nbinMeson = 100
