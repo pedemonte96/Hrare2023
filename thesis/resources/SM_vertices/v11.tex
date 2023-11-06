@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -19,8 +20,8 @@
     \vertex [below right =of cent, xshift=0.5cm, yshift=-0.5cm] (d);
     \node [dot] at (cent) {};
     \diagram* {
-    (a) -- [scalar, edge label'=\(H\), near start] (cent) -- [boson, edge label'=\(m_{B}\), near end] (b),
-    (c) -- [scalar, edge label=\(H\), near start] (cent) -- [boson, edge label=\(m_{B}\), near end] (d),
+    (a) -- [scalar, edge label'=\(\text{H}\), near start] (cent) -- [boson, edge label'=\(m_{B}\), near end] (b),
+    (c) -- [scalar, edge label=\(\text{H}\), near start] (cent) -- [boson, edge label=\(m_{B}\), near end] (d),
     };
     \end{feynman}
 \end{tikzpicture}

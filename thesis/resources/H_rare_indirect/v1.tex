@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -12,20 +13,20 @@
 
 \begin{tikzpicture}[]
     \begin{feynman}
-    \vertex (h) {$H$};
+    \vertex (h) {H};
     \vertex [right=of h, xshift=-0.4cm, yshift=-0.0cm] (cent);
     \vertex [right=of cent, xshift=-0.4cm, yshift=0.9cm] (b);
     \vertex [right=of b, xshift=-0.4cm, yshift=-0.0cm] (a);
     \vertex [right=of cent, xshift=-0.4cm, yshift=-0.9cm] (d);
     \vertex [right=of d, xshift=0.5cm, yshift=-0.0cm] (c) {$\gamma$};
-    \vertex [right=of b, xshift=0.5cm, yshift=0.5cm] (s1) {$s$};
-    \vertex [right=of b, xshift=0.5cm, yshift=-0.5cm] (s2) {$\bar{s}$};
+    \vertex [right=of b, xshift=0.5cm, yshift=0.5cm] (s1) {$q$};
+    \vertex [right=of b, xshift=0.5cm, yshift=-0.5cm] (s2) {$\bar{q}$};
 
     \diagram* {
     (h) -- [scalar] (cent),
-    (cent) -- [blue, very thick] (b) -- [boson, edge label=\(\gamma/Z^{0}\)] (a),
-    (cent) -- [blue, very thick] (d) -- [boson] (c),
-    (b) -- [blue, very thick] (d),
+    (cent) -- [ghost] (b) -- [boson, edge label=\(\gamma/\text{Z}^{0}\)] (a),
+    (cent) -- [ghost] (d) -- [boson] (c),
+    (b) -- [ghost] (d),
     (s1) -- [with reversed arrow=0.45] (a) -- [with reversed arrow=0.68] (s2),
     };
     \end{feynman}

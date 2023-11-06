@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -19,8 +20,8 @@
     \vertex [below right =of cent, xshift=0.5cm, yshift=-0.5cm] (d);
     \node [dot] at (cent) {};
     \diagram* {
-    (a) -- [boson, edge label'=\(W\), near start] (cent) -- [boson, edge label'=\(W|Z^{0}/\gamma\), near end] (b),
-    (c) -- [boson, edge label=\(W\), near start] (cent) -- [boson, edge label=\(W|Z^{0}/\gamma\), near end] (d),
+    (a) -- [boson, edge label'=\(W\), near start] (cent) -- [boson, edge label'=\(W|\text{Z}^{0}/\gamma\), near end] (b),
+    (c) -- [boson, edge label=\(W\), near start] (cent) -- [boson, edge label=\(W|\text{Z}^{0}/\gamma\), near end] (d),
     };
     \end{feynman}
 \end{tikzpicture}

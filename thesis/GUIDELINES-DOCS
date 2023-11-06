@@ -1,0 +1,109 @@
+# Simple Guidelines to Write a Scientific Document
+
+## Complexity
+
+ In a scientific text your aim is to describe a possibly complex
+ analysis or experiment to a reader that is not necessarly immersed in
+ your particular experiment. Avoid terms that are slang. If you want
+ to use expression not commonly known introduce them before using them.
+ We tend to use inaccurate expressions when we speak among each other
+ because we know what we are talking about the reader often does not
+ have that context.
+
+ Do not try to go for the nobel price in literature by making complex
+ textual constructions. Keep the contents of a sentence simple to make
+ sure the reader can follow without going back and forth through your
+ sentence. Often it is better to use two phrases rather than
+ overloading your sentences. The contents is usually complex enough
+ that the additional textual art work does not help. In longer review
+ articles it can be appropriate as the reader should also enjoy the
+ reading and usually the sentences have simpler messages.
+
+## Choosing the tense
+
+ When describing an analysis it is difficult to keep track of what
+ happened when. There is usually no timeline what is done first, next
+ and last, and even if there is such a thing it is rarely of relevance
+ to the analysis.
+
+ Therefore choose one tense and use it consistently throughout the
+ document. The choice is either past tense or present tense. It turns
+ out that present tense is usually simpler to use and I prefer it. As
+ usual there are exception to the rules. Example: when writing up a
+ Run II analysis it is appropriate to refer to the actions performed
+ in a similar Run I analysis in past tense, or historic events that
+ are refered to need proper use of tenses
+
+## Conditional terms
+
+ The idea of a scientific publication is to describe facts and
+ conclude as logical and coherently as possible.
+
+ Therefore the use of conditional clauses should be avoided at all
+ cost. Words like may, can, would, could, should, might etc. are to be
+ avoided. Usually an analysis follows a strategy and does not need to
+ discuss what can, should or would happen if.
+
+## Slang / Colloquial
+
+ dunno, don't and can't          are NOT appropriate for scientific
+                                 texts. 
+ do not know, do not and cannot  are the correct terms
+
+## Abbreviations
+
+ Before using technical abbreviations introduce them. Abbreviations are
+ nice as they can make your text more compact but they can also make
+ it unreadable. It is very important to ensure the reader can follow
+ and does not need to go back to find out what the abbreviations
+ mean. Therefore you might want to introduce abbreviations which you
+ use rarely several times in the text. Then you might on the otherhand
+ be better off not to use this particular abbreviation.
+
+ Keep in mind: it is bad style to start a phrase with an abbreviation
+ or with a number or symbol.
+
+## Figures / Tables / References / Equations
+
+ If you want to refer to figures, tables, references or equations
+ which have a number attached to them use capitalized terms like Table
+ 1 or Equation 2.5 etc. The object should in the text appear on the
+ same page as the reference in the text or on the next page, not
+ before, as the reeader will wonder what the object refers to.
+
+ Some people like to use abbreviations like: Tab. 1. In case you want
+ to use those do it consistently throughout your text. In my mind the
+ text is more readable if you write the full word.
+
+ For references there is one additional rule. In case you do not
+ explicitely use the reference as part of your text just use the
+ number otherwise you have to add the term Reference explicitely.
+
+ Example: The GEANT simulation package [1] is great.
+          The GEANT simulation package described in Reference [1] is
+          great.
+
+ Every figure/table/reference has to be refered to in the text
+ otherwise it is not useful to keep it in the document. It is a good
+ policy to make the caption of the figure/table as detailed as it is
+ needed for the reader to understand the figure/table without reading
+ the complete text. This is very useful as people want to grab figures
+ for conferences and need to know all detail about the figure but they
+ do not need to go through the text to understand the figure. Typically
+ special cut values used to produce the figure should be quoted
+ explicitely.
+
+## Sections / Subsections and so on
+
+ Choose a title which is short and characterizes what the section is
+ supposed to describe. A section marks the beginning of a new unit and
+ it is therefore important that the text without having read the title
+ of the section makes sense. As a rule of thumb the contents of the
+ section title is usually repeated in some sort in the first sentence.
+
+## Quoting results
+
+ When quoting a measurement please always attach an uncertainty and
+ explain what it means. Choose the right number of digits: this means
+ an uncertainty should generally have two significant digits and the
+ mean value should have the equivalent number of digits.

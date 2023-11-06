@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -12,8 +13,8 @@
 
 \feynmandiagram [horizontal=a to b] {
     
-    i1 -- [fermion, edge label=\(e|\mu|\tau\)] a [dot] -- [fermion, edge label=\(\nu_{e}|\nu_{\mu}|\nu_{\tau}\)] i2,
-    a -- [boson, edge label=\(W^{\pm}\)] b,
+    i1 -- [fermion, edge label=\(\text{e}|\mu|\tau\)] a [dot] -- [fermion, edge label=\(\nu_{\text{e}}|\nu_{\mu}|\nu_{\tau}\)] i2,
+    a -- [boson, edge label=\(\text{W}^{\pm}\)] b,
 };
 
 \end{document}
