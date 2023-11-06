@@ -541,14 +541,22 @@ Initial experimental upper limits on hadronic two-body Higgs decays have been es
 
 This analysis focuses on decays of the form H$\decaysto M\gamma$, where $M$ represents a light vector meson with a mass of approximately 1-2 GeV. It is important to note that, given that the Higgs boson has spin 0 and the photon has spin 1, the meson $M$ must be a \textit{vector} meson to conserve total angular momentum.
 
-Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first three rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons. These processes are currently under analysis by the CMS collaboration as of the writing of this document. However, our specific focus within this analysis lies in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons along with neutral particles, specifically either pions or photons.
-
+Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first four rows involve similar processes in which the vector meson decays into a pair of lighter, charged scalar mesons.
 \begin{table}[!ht]
     \centering
     \begin{tabular}[t]{|l|C{6.5cm}|}
     \hline
     \multicolumn{1}{|c|}{\cellcolor{lightgray}Higgs boson rare decay} & \cellcolor{lightgray} Coupling \\ \hline &\\[-19pt]
         %$\text{H}\decaysto \rho^{0}_{\pi\pi}\gamma$& up/down quark                      & ??\%\\[-6.4pt]
+        \hspace*{-3.75mm}
+        \begin{tikzpicture}
+            \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
+            \text{H}\decaysto \text{J}/\psi\gamma&\\
+                &[-0mm] \mu^+\mu^- \ {\scriptstyle(5.961\pm0.033\%)}\\
+            };
+            \draw[-stealth]([xshift=3.1mm, yshift=0.7mm]decay-1-1.south)|-(decay-2-2);
+        \end{tikzpicture} & \vspace*{-1.3cm} charm quark \\[-16pt]
+        %$\text{H}\decaysto \phi_{KK}\gamma$&  strange quark                             & ??\%\\[-6.4pt]
         \hspace*{-3.75mm}
         \begin{tikzpicture}
             \matrix(decay)[matrix of math nodes, nodes={anchor=west}, row sep=-2]{
@@ -615,6 +623,7 @@ Table \ref{tab:Higgs_rare_decays} presents exotic decays of this form. The first
     \caption{Higgs rare decays of the form H$\protect\decaysto M\gamma$, where $M$ is a vector meson containing light quarks. The top half of the table focuses on decays where the light neutral vector meson decays into a pair of charged mesons. The bottom half of the table focuses on similar decays, but where there are also one or two neutral particles involved in the decay of the primary meson. All these decays are currently being analysed by the CMS collaboration. The branching ratios of meson decays are shown in parenthesis, from the PDG \cite{PDG}.}
     \label{tab:Higgs_rare_decays}
 \end{table}
+The processes involving a $\rho^0$, $\phi$ and K$^{*0}$ meson are currently under analysis by the CMS collaboration as of the writing of this document. However, this analysis focus specifically in the lower half of the table, where the vector meson decay involves a pair of charged scalar mesons along with neutral particles, specifically either pions or photons.
 
 The current branching ratio information of these decays, both theoretical and experimental, is shown in Table \ref{tab:Higgs_rare_decays_values}.
 \begin{table}[!ht]
@@ -622,6 +631,7 @@ The current branching ratio information of these decays, both theoretical and ex
     \begin{tabular}{|l|cc|cc|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \multicolumn{2}{c|}{\cellcolor{lightgray} SM $\mathcal{B}$} & \multicolumn{2}{c|}{\cellcolor{lightgray} Measured $\mathcal{B}$} \\ \hline
+        $\text{H}\decaysto \text{J}/\psi\gamma$    & $(2.99 \pm 0.16)\times 10^{-6}$    & \cite{Bodwin:2017wdu} & $< 2.0 \times 10^{-4}$ & \cite{ATLAS:2022rej}  \\
         $\text{H}\decaysto \rho^0\gamma$    & $(1.68 \pm 0.08)\times 10^{-5}$    & \cite{Konig:2015qat} & $< 8.8 \times 10^{-4}$ & \cite{ATLAS:2017gko}  \\
         $\text{H}\decaysto \phi\gamma$      & $(2.31 \pm 0.11)\times 10^{-6}$    & \cite{Konig:2015qat} & $< 4.8 \times 10^{-4}$ & \cite{ATLAS:2017gko}  \\
         $\text{H}\decaysto \omega\gamma$    & $(1.48 \pm 0.08)\times 10^{-6}$    & \cite{Konig:2015qat} & $< 1.5 \times 10^{-4}$ & \cite{ATLAS:2023alf}  \\
@@ -631,7 +641,7 @@ The current branching ratio information of these decays, both theoretical and ex
     \caption{Higgs rare decay branching fractions. Because of the very large hadronic background at the LHC, only upper limits on the branching ratios have been computed so far, which are around two orders of magnitude bigger than the SM prediction. The $\text{H}\protect\decaysto \text{D}^{*0}\gamma$ channel has not been measured yet.}
     \label{tab:Higgs_rare_decays_values}
 \end{table}
-For the first three decays in Table \ref{tab:Higgs_rare_decays_values}, the measured upper limits are 52, 208 and 95 times the expected SM values, respectively. For the $\text{H}\decaysto \text{K}^{*0}\gamma$ decay, only $\mathcal{B}(\text{H}\decaysto \text{d}\bar{\text{s}} + \bar{\text{d}}\text{s})$ is available, with a value of $\mathcal{B}(\text{H}\decaysto \text{d}\bar{\text{s}} + \bar{\text{d}}\text{s}) = 1.19\times 10^{-11}$ \cite{Aranda:2020tqw}. However, $\mathcal{B}(\text{H}\decaysto \text{K}^{*0}\gamma)$ is expected to be much smaller \cite{ATLAS:2023alf}. A similar situation occurs for the last decay, where only $\mathcal{B}(\text{H}\decaysto \text{c}\bar{\text{u}} + \bar{\text{c}}\text{u})$ is available, with a value of $\mathcal{B}(\text{H}\decaysto \text{c}\bar{\text{u}} + \bar{\text{c}}\text{u}) = 5.00\times 10^{-20}$ \cite{Aranda:2020tqw}.
+For the first four decays in Table \ref{tab:Higgs_rare_decays_values}, the measured upper limits are 67, 52, 208 and 95 times the expected SM values, respectively. For the $\text{H}\decaysto \text{K}^{*0}\gamma$ decay, only $\mathcal{B}(\text{H}\decaysto \text{d}\bar{\text{s}} + \bar{\text{d}}\text{s})$ is available, with a value of $\mathcal{B}(\text{H}\decaysto \text{d}\bar{\text{s}} + \bar{\text{d}}\text{s}) = 1.19\times 10^{-11}$ \cite{Aranda:2020tqw}. However, $\mathcal{B}(\text{H}\decaysto \text{K}^{*0}\gamma)$ is expected to be much smaller \cite{ATLAS:2023alf}. A similar situation occurs for the last decay, where only $\mathcal{B}(\text{H}\decaysto \text{c}\bar{\text{u}} + \bar{\text{c}}\text{u})$ is available, with a value of $\mathcal{B}(\text{H}\decaysto \text{c}\bar{\text{u}} + \bar{\text{c}}\text{u}) = 5.00\times 10^{-20}$ \cite{Aranda:2020tqw}.
 
 When studying Higgs boson decays of the form H$\decaysto M\gamma$, which in essence are H$\decaysto q\bar{q}\gamma$, there are different Feynman diagrams that contribute to the width. We can distinguish the contributions into two different vertices. On the one hand, we have the tree-level diagram, which provides the direct contribution and is shown in diagram (a) of Figure \ref{fig:Higgs_rare_decay_veritces}. On the other hand, we have all other higher-order diagrams joined as an effective indirect vertex, represented in diagram (b) of Figure \ref{fig:Higgs_rare_decay_veritces}.
 
@@ -715,7 +725,7 @@ To ultimately compute the Yukawa couplings to the lighter families of quarks, on
 
 The decays studied in this thesis (bottom half part of Table \ref{tab:Higgs_rare_decays}) share many similarities. In particular, the decays $\text{H}\decaysto \phi\gamma$ and $\text{H}\decaysto \omega\gamma$ will have many common features in the framework, as both further decay into three pions $\phi/\omega\decaysto \pi^+\pi^-\pi^0$. Similarly, the decays involving a $\text{D}^{*0}$ meson, $\text{H}\decaysto \text{D}^{*0}\gamma$, also display many similarities. It is worth mentioning that although the analysis explicitly targets only $\text{H}\decaysto \text{D}^{*0}\gamma$, the charge conjugate decay $\text{H}\decaysto \overline{\text{D}^{*0}}\gamma$ is implicit, as the analysis is entirely symmetric under charge conjugation. This will be considered when computing the final results.
 
-The main difference between this analysis and the one studying the three decays presented in the top half of Table \ref{tab:Higgs_rare_decays} lies in the fact that we are dealing with 3-body decays involving neutral particles, which are more challenging to reconstruct compared to charged ones. That is why we will focus most of our attention on accurately reconstructing the neutral particles.
+The main difference between this analysis and the one studying the four decays presented in the top half of Table \ref{tab:Higgs_rare_decays} lies in the fact that we are dealing with 3-body decays involving neutral particles, which are more challenging to reconstruct compared to charged ones. That is why we will focus most of our attention on accurately reconstructing the neutral particles.
 
 The goal of this Master's Thesis is to compute an expected upper limit for the branching ratio of the aforementioned Higgs boson decays. Table \ref{tab:Higgs_rare_decays_values} shows the order of magnitude of the branching fractions one would ultimately like to measure. Nevertheless, due to the large hadronic background at the LHC, analyses of this kind are targeting an upper limit rather than a precise measurement at this stage.
 
