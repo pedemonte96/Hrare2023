@@ -1,4 +1,4 @@
-\chapter[Analysis]{\r Analysis (rethink title)}\label{chap:analysis}
+\chapter[Search for exclusive hadronic decays of the Higgs boson]{Search for exclusive hadronic decays of the Higgs boson}\label{chap:analysis}
 
 This chapter constitutes the core of this dissertation. It explains the conducted analysis, beginning with a general overview, followed by an explanation of the samples, triggers, and object definitions. An entire section discusses the meson reconstruction techniques used, which are crucial to the analysis. Subsequently, it covers the criteria applied in event selection and describes how the signal and background have been modelled. Finally, it presents the expected upper limits of the branching ratio for each decay channel. These are $\text{H}\decaysto \phi\gamma$ with further $\phi\decaysto \pi^+\pi^-\pi^0$, $\text{H}\decaysto \omega\gamma$ with further $\omega\decaysto \pi^+\pi^-\pi^0$, $\text{H}\decaysto \text{D}^{*0}\gamma$ with further $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$, $\text{D}^{0}\decaysto K^{-}\pi^{+}$ and $\text{H}\decaysto \text{D}^{*0}\gamma$ with further $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$, $\text{D}^{0}\decaysto K^{-}\pi^{+}\pi^{0}$.
 
@@ -114,7 +114,7 @@ To consider an event, it must contain at least one primary vertex (PV), which is
 %In the current analysis version, the \verb+Summer19UL+ jet energy corrections set is used-%, as well as the DeepJet tagging algorithm with the medium working point to identify b-jets \cite{Bols:2020bkb}.
 
 \subsection{Photons}\label{subsec:photons}
-Photon candidates are reconstructed as SuperCluster objects in the ECAL with $\ET > 38\ \GeV$ and $\abs{\eta^{\gamma}} < 2.1$ in both the barrel and endcap regions. In addition, photons have to satisfy the multivariate analysis (MVA) based selection identification (mvaID) criteria following the \verb+Fall17IsoV2+ recipe \cite{CMS:2020uim}. For the production mode used, the mvaID provides 80\% (90\%) signal selection efficiency for the endcap (barrel) region. The mvaID criteria include photon isolation, charged hadron isolation, and require photons to pass shower shape preselection cuts \cite{Rembser:2019ijh}. The photon's ECAL cluster must be inconsistent with charged particle tracks reconstructed in the silicon tracker to reject electrons faking photons, achieved using a conversion safe electron veto. Residual $\ET$ -dependent photon energy scale and smearing corrections are applied. Additional photons with looser requirements ($\ET > 20\ \GeV$ and the WP90 version of the photonID) are also vetoed to reduce the potential contribution of diphotons. Table \ref{tab:photon_selection} summarizes the criteria for photon selection.
+Photon candidates are reconstructed as SuperCluster objects in the ECAL with $\ET > 38\ \GeV$ and $\abs{\eta^{\gamma}} < 2.1$ in both the barrel and endcap regions. In addition, photons have to satisfy the multivariate analysis (MVA) based selection identification (mvaID) criteria following the \verb+Fall17IsoV2+ recipe \cite{CMS:2020uim}. For the production mode used, the mvaID provides 80\% (90\%) signal selection efficiency for the endcap (barrel) region. The mvaID criteria include photon isolation, charged hadron isolation, and requires photons to pass shower shape preselection cuts \cite{Rembser:2019ijh}. The photon's ECAL cluster must be inconsistent with charged particle tracks reconstructed in the silicon tracker to reject electrons faking photons, achieved using a conversion safe electron veto. Residual $\ET$ -dependent photon energy scale and smearing corrections are applied. Additional photons with looser requirements ($\ET > 20\ \GeV$ and the WP90 version of the photonID) are also vetoed to reduce the potential contribution of diphotons. Table \ref{tab:photon_selection} summarizes the criteria for photon selection.
 
 \begin{table}[!ht]
     \centering
@@ -157,9 +157,6 @@ For each selected ditrack, up to two photons with $\pT > 5 \ \GeV$ are recovered
 \subsection{Ditrack mass hypothesis}
 The invariant mass of the refitted ditrack system is also used to reduce contamination from background events. The mass of the pair, assuming the charged-pion hypothesis for the two tracks, is coherent with the charged components of the $\phi$ and $\omega$ mesons. Since the ditrack system is not a real resonance, its mass is very wide but consistent and useful for reducing background events. In the case of the $\text{D}^{*0}$ channel, two scenarios are considered. On the one hand, when $\text{D}^{0}$ decays into a pair of charged particles (kaon-pion) the ditrack system's invariant mass is a real narrow resonance (i.e., $\text{D}^{0}$) consistent with the mass of that meson. On the other hand, when $\text{D}^{0}$ decays into a pair of charged particles and a neutral pion, one finds the same scenario as for the $\phi$/$\omega$ decay channels.
 
-The exact used selection criteria will be presented at the end of this section, but it is worth noting that for the $\phi$/$\omega$ three-body decays involving a $\pi^0$, the mass of the ditrack is approximately two-thirds of the full meson's mass (each pion carries roughly a third of the energy).
-
-Furthermore, instead of recovering the ditrack invariant mass by only retrieving the mass component of the sum of both four-momenta, the CMSSW \cite{CMSSW} kinematic fit has been employed. To study the performance of this fit, it is useful to define the \textit{residual} as the difference between the reconstructed values and the corresponding generation-level ones. Figure \ref{fig:kinematic_fit_residuals} displays the residual of the ditrack invariant mass reconstruction with (red) and without (blue) the kinematic fits with vertex constraint for the decay modes involving $ \phi$ or D$^{*0}$ mesons.
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
     \vspace*{-0.2cm}
@@ -196,7 +193,9 @@ Furthermore, instead of recovering the ditrack invariant mass by only retrieving
     \label{fig:kinematic_fit_residuals}
     \vspace*{-0.0cm}
 \end{figure}
-Table \ref{tab:kinematic_fit_RMSE} shows the root mean squared errors (RMSE) with respect to generation-level, both with and without the kinematic fit, for each channel involving $ \phi$ or D$^{*0}$ mesons. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels. The $\omega$ decay channel behaves identically to the $\phi$ channel.
+The exact used selection criteria will be presented at the end of this section, but it is worth noting that for the $\phi$/$\omega$ three-body decays involving a $\pi^0$, the mass of the ditrack is approximately two-thirds of the full meson's mass (each pion carries roughly a third of the energy).
+
+Furthermore, instead of recovering the ditrack invariant mass by only retrieving the mass component of the sum of both four-momenta, the CMSSW \cite{CMSSW} kinematic fit has been employed. To study the performance of this fit, it is useful to define the \textit{residual} as the difference between the reconstructed values and the corresponding generation-level ones. Figure \ref{fig:kinematic_fit_residuals} displays the residual of the ditrack invariant mass reconstruction with (red) and without (blue) the kinematic fits with vertex constraint for the decay modes involving $ \phi$ or D$^{*0}$ mesons. Table \ref{tab:kinematic_fit_RMSE} shows the root mean squared errors (RMSE) with respect to generation-level, both with and without the kinematic fit, for each channel involving $ \phi$ or D$^{*0}$ mesons. Applying the kinematic fit improves the reconstructed ditrack invariant mass values for all channels. The $\omega$ decay channel behaves identically to the $\phi$ channel.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|l|c|C{2.9cm}@{}c|}
@@ -246,7 +245,7 @@ This slight improvement will enable us to narrow the selection cuts and reduce m
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $m_{\pi^0}$ correction& \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $m_{\pi^0}$ correction} \\ \hline
         $\phi$          &98.7 MeV   &84.3 MeV  & (-15\%)   \\
         $\omega$        &100.7 MeV   &63.3 MeV  & (-37\%)   \\
-        $\text{D}^{*0}$ 3-body &147.7 MeV   &127.8 MeV  & (-14\%)    \\
+        $\text{D}^{*0}$ 3-body &147.7 MeV   &127.8 MeV  & (-13\%)    \\
         \hline
         \end{tabular}
     \caption{Root mean squared errors with and without the $m_{\pi^0}$ correction for the $\phi$ and $\omega$ decay modes.}
@@ -318,7 +317,7 @@ The initial approach to reconstruct the full meson's transverse momentum is to s
 \end{figure}
 Both the $\phi$ and $\omega$ channels exhibit an asymmetric left shoulder, consistent with the hypothesis of missing energy from the neutral particle. The $\text{D}^{*0}$ 2-body, on the other hand, is more symmetric but displaced about 5 GeV, since the soft $\pi^{0}/\gamma$ from $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$ typically carries around $\sim5$ GeV in energy. The right shoulder results from events in which one photon compatible with this missing neutral particle is reconstructed, which is only around $\sim 13\%$ of events. The $\text{D}^{*0}$ 3-body combines characteristics from all previous channels, and since it is missing two neutral particles, it is noticeably shifted towards the lower end of the axis.
 
-\subsection{\r BDTs to correct the full meson's momentum}
+\subsection{Meson momentum regression}
 
 To address this issue, dedicated Boosted Decision Trees (BDTs) have been implemented for each channel using the Toolkit for Multivariate Data Analysis for \verb+ROOT+ \cite{CERN:root}, also known as \verb+TMVA+ \cite{TMVA:2007ngy}. This machine learning (ML) technique will correct for the full meson's $\pT$. A boosted decision tree is a ML binary classifier or regressor algorithm based on a flowchart-like structure in which each internal node represents a test on an attribute, each branch signifies the test's outcome, and each leaf node denotes a class level. For more detailed information, refer to Refs. \cite{TMVA:2007ngy, Coadou:2022nsh}.
 
@@ -361,6 +360,7 @@ TMVA::Factory.BookMethod(dataloader, TMVA::Types::kBDT, "modelName", "<options>"
 \end{small}
 method, with the ML regressor \verb+TMVA::Types::kBDT+. To prevent overtraining, we employed cross-validation by rotating the training and testing samples. Specifically, the signal MC was divided into three subsets: A, B, and C. Three models with identical hyperparameters were trained on A+B (B+C / C+A) and tested on C (A / B). This approach ensures all the available data is used to train the models, while testing them on signal MC that was not used for training. To recover all the signal events, these three models were then applied to their respective testing subsets. Afterward, all the subsets were combined once more, resulting in a complete set of events.
 
+The hyperparameters for each model are available in Table \ref{tab:hyperparameters_models} in the Appendix. Figures \ref{fig:pt_residuals_model_omega_phi} and \ref{fig:pt_residuals_model_d0star} compare the generation-level MC transverse momentum with the reconstruction values, both with and without regression, and show the residuals for each channel.
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
     \vspace*{-0.2cm}
@@ -397,7 +397,6 @@ method, with the ML regressor \verb+TMVA::Types::kBDT+. To prevent overtraining,
     \vspace*{-0.0cm}
 \end{figure}
 
-The hyperparameters for each model are available in Table \ref{tab:hyperparameters_models} in the Appendix. Figures \ref{fig:pt_residuals_model_omega_phi} and \ref{fig:pt_residuals_model_d0star} compare the generation-level MC transverse momentum with the reconstruction values, both with and without regression, and show the residuals for each channel.
 \begin{figure}[!ht]
     \captionsetup[subfigure]{labelformat=empty}
     \vspace*{-0.2cm}
@@ -442,10 +441,10 @@ Table \ref{tab:models_pt_RMSE} quantifies these improvements and shows the root 
     \begin{tabular}{|l|c|C{3.1cm}@{}c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $\pT$ regression & \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $\pT$ regression} \\ \hline
-        $\phi$          &4.900 GeV   &3.580 GeV  & (-27\%)  \\
-        $\omega$        &5.029 GeV   &4.038 GeV  & (-20\%)  \\
-        $\text{D}^{*0}$ 2-body &3.170 GeV   &1.897 GeV  & (-40\%)  \\
-        $\text{D}^{*0}$ 3-body &5.126 GeV   &3.711 GeV  & (-28\%)  \\
+        $\phi$          &4.900 GeV   &3.560 GeV  & (-27\%)  \\
+        $\omega$        &5.029 GeV   &3.719 GeV  & (-26\%)  \\
+        $\text{D}^{*0}$ 2-body &3.170 GeV   &1.895 GeV  & (-40\%)  \\
+        $\text{D}^{*0}$ 3-body &5.126 GeV   &3.646 GeV  & (-29\%)  \\
         \hline
         \end{tabular}
     \caption{Root mean squared errors of the full meson's transverse momentum with and without the BDT regression for each decay mode.}
