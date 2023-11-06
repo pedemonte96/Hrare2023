@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -22,7 +23,7 @@
 
     \vertex [below=of b, xshift=0.5cm, yshift=0.7cm] (cent);
 
-    \vertex [right=of cent, xshift=-0.1cm, yshift=-0.0cm] (h) {$H$};
+    \vertex [right=of cent, xshift=-0.1cm, yshift=-0.0cm] (h) {$\text{H}$};
     \node [dot] at (cent) {};
     \diagram* {
     (a) -- [fermion] (b) -- [fermion] (c),

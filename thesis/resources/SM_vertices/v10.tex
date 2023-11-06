@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -13,7 +14,7 @@
 \feynmandiagram [horizontal=a to b] {
     
     i1 -- [fermion, edge label=\(m\)] a [dot] -- [fermion, edge label=\(m\)] i2,
-    a -- [scalar, edge label=\(H\)] b,
+    a -- [scalar, edge label=\(\text{H}\)] b,
 };
 
 \end{document}

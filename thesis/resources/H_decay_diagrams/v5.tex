@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -12,7 +13,7 @@
 
 \begin{tikzpicture}[]
     \begin{feynman}
-    \vertex (h) {$H$};
+    \vertex (h) {H};
     \vertex [right=of h, xshift=-0.0cm, yshift=-0.0cm] (cent);
     \vertex [right=of cent, xshift=-0.3cm, yshift=1.0cm] (b);
     \vertex [right=of b, xshift=-0.0cm, yshift=-0.0cm] (a) {$g$};
@@ -21,9 +22,9 @@
 
     \node [dot] at (cent) {};
     \diagram* {
-    (a) -- [gluon] (b) -- [edge label'=\({t,b}\)] (cent),
-    (c) -- [gluon] (d) -- [edge label=\({t,b}\)] (cent),
-    (b) -- [edge label=\({t,b}\)] (d),
+    (a) -- [gluon] (b) -- [edge label'=\({\text{t/b}}\)] (cent),
+    (c) -- [gluon] (d) -- [edge label=\({\text{t/b}}\)] (cent),
+    (b) -- [edge label=\({\text{t/b}}\)] (d),
     (cent) -- [scalar] (h),
     };
     \end{feynman}

@@ -5,7 +5,9 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
+
 
 
 \begin{document}
@@ -13,7 +15,7 @@
 \feynmandiagram [horizontal=a to b] {
     
     i1 -- [fermion, edge label=\(f\)] a [dot] -- [fermion, edge label=\(f\)] i2,
-    a -- [boson, edge label=\(Z^{0}\)] b,
+    a -- [boson, edge label=\(\text{Z}^{0}\)] b,
 };
 
 \end{document}

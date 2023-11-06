@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -19,7 +20,7 @@
     \vertex [right=of a, xshift=0.0cm, yshift=0.0cm] (b);
     \node [dot] at (a) {};
     \diagram* {
-    (f1) -- [boson] (a) -- [scalar, edge label=\(H\)] (b),
+    (f1) -- [boson] (a) -- [scalar, edge label=\(\text{H}\)] (b),
     (f2) -- [boson] (a),
     };
     \end{feynman}

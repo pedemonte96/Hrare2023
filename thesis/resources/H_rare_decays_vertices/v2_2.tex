@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
 \usepackage{tikz-feynman}
+\usepackage{amsmath}
 \tikzfeynmanset{compat=1.1.0}
 
 
@@ -12,10 +13,10 @@
 
 \begin{tikzpicture}[]
     \begin{feynman}[every blob={/tikz/fill=gray!80,/tikz/inner sep=0pt}]
-    \vertex (h) {$H$};
+    \vertex (h) {H};
     \vertex [right=of h, xshift=0.0cm, yshift=-0.0cm] (cent);
-    \vertex [right=of h, xshift=2.0cm, yshift=1.5cm] (b) {$s$};
-    \vertex [right=of h, xshift=2.0cm, yshift=1.1cm] (e) {$\bar{s}$};
+    \vertex [right=of h, xshift=2.0cm, yshift=1.5cm] (b) {$q$};
+    \vertex [right=of h, xshift=2.0cm, yshift=1.1cm] (e) {$\bar{q}$};
     \vertex [right=of h, xshift=0.266666667cm, yshift=-0.2cm] (middle);
     \vertex [right=of h, xshift=2.0cm, yshift=-1.5cm] (f) {$\gamma$}; 
     \vertex [right=of h, xshift=0.0cm, yshift=0.2cm] (cent_s1);
