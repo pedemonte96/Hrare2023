@@ -1,0 +1,37 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\usepackage{amsmath}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (a) {$q$};
+    \vertex [right=of a, xshift=0.0cm, yshift=-0.2cm] (b);
+    \vertex [right=of b, xshift=0.0cm, yshift=0.2cm] (c) {$q$};
+
+    \vertex [below=of a, xshift=0.0cm, yshift=-0.5cm] (d) {$q'$};
+    \vertex [right=of d, xshift=0.0cm, yshift=0.2cm] (e);
+    \vertex [right=of e, xshift=0.0cm, yshift=-0.2cm] (f) {$q'$};
+
+    \vertex [below=of b, xshift=0.5cm, yshift=0.7cm] (cent);
+
+    \vertex [right=of cent, xshift=-0.1cm, yshift=-0.0cm] (h) {$\text{H}$};
+    \node [dot] at (cent) {};
+    \diagram* {
+    (a) -- [fermion] (b) -- [fermion] (c),
+    (d) -- [fermion] (e) -- [fermion] (f),
+    (b) -- [boson, edge label'=\(V\), near start] (cent) -- [boson, edge label'=\(V\), near end] (e),
+    (cent) -- [scalar,] (h),
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}

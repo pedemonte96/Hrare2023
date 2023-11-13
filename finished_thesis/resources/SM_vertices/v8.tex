@@ -1,0 +1,20 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\usepackage{amsmath}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\feynmandiagram [horizontal=a to b] {
+    
+    i1 -- [boson, edge label=\(\text{W}^{\pm}\)] a [dot] -- [boson, edge label=\(\text{Z}^{0}/\gamma\)] i2,
+    a -- [boson, edge label=\(\text{W}^{\pm}\)] b,
+};
+
+\end{document}

@@ -1,0 +1,467 @@
+\documentclass[a4paper, 11pt, oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[centertags]{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{relsize}%relative size font
+\usepackage{enumerate}
+%\usepackage{xypic}
+%\usepackage[dvips]{graphics}
+%\usepackage{moreverb}
+\usepackage{multicol}
+\usepackage{multirow}
+%\usepackage{ textcomp }%textsection
+\usepackage[english,catalan]{babel}
+%\usepackage{epsfig}
+%\usepackage{rotating}
+\usepackage{mathrsfs}%F rara
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usepackage[all,cmtip]{xy}%diagrames
+%\usepackage{tabls} %per tenir més control sobre l'espai en les taules
+\usepackage{array}
+\usepackage{indentfirst} %per començar primer parragraf de seccio o capitol amb indent
+\usepackage{inconsolata}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+%\usepackage[oneside,bindingoffset=1cm]{geometry}
+\usepackage{AlegreyaSans}
+\usepackage{anysize}%margins
+\usepackage{graphicx}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage{subcaption}%subfigures
+%\usepackage{dsfont}
+%\usepackage{mathtools}
+%\usepackage{amsfonts}
+%\usepackage{float}
+%\usepackage{wrapfig}
+%\usepackage{commath}
+\usepackage{afterpage}
+%\usepackage[official]{eurosym}
+%\usepackage[bottom]{footmisc}%fixar notes de peu de pagina al final
+\usepackage{fancyvrb}%verbatim inline
+%\usepackage{upgreek}%per fer la \upvarphi
+\usepackage{titlesec}   %per modificar espai chapters
+\usepackage{lipsum} %dummy text
+%\usepackage{lmodern}% http://ctan.org/pkg/lmodern
+%\usepackage{slantsc}% http://ctan.org/pkg/slantsc
+%\usepackage{setspace}
+\usepackage[breaklinks, colorlinks=true, linkcolor=black, citecolor=blue, urlcolor=black]{hyperref}
+\usepackage{listings}%coding with color
+\usepackage{fancyhdr}
+\usepackage{slashed}
+\usepackage{arydshln}
+\usepackage{ragged2e}
+%\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage[section]{placeins}%places figures before new section
+\usepackage{cite}% cite with hyphen
+\VerbatimFootnotes
+
+%------------------------------------
+%MARGES
+%------------------------------------------------------------------------------------------------
+\marginsize{2.5cm}{2.5cm}{2.0cm}{2.3cm}%{left}{right}{top}{bottom}
+\setlength{\parskip}{0.3em plus 2pt} %paragraph separation
+\linespread{1.1} % Palatino needs more leading (space between lines)
+
+\addto{\captionsenglish}{\renewcommand{\bibname}{References}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% theorem environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{defn0}{Definition}[chapter]%section o chapter
+\newtheorem{prop0}[defn0]{Proposition}
+\newtheorem{thm0}[defn0]{Theorem}
+\newtheorem{lemma0}[defn0]{Lemma}
+\newtheorem{corollary0}[defn0]{Corollary}
+\newtheorem{example0}[defn0]{Example}
+\newtheorem{remark0}[defn0]{Remark}
+\newtheorem{conjecture0}[defn0]{Conjecture}
+\newtheorem*{notation0}{Notation}
+
+%theorem without name
+\newtheorem{manualtheoreminner}{}
+\newenvironment{manualtheorem}[1]{%
+  \renewcommand\themanualtheoreminner{#1}%
+  \manualtheoreminner
+}{\endmanualtheoreminner}
+
+\newenvironment{definition}{ \begin{defn0}\rm}{\end{defn0}}
+\newenvironment{proposition}{\begin{prop0}}{\end{prop0}}
+\newenvironment{theorem}{\begin{thm0}}{\end{thm0}}
+\newenvironment{lemma}{\begin{lemma0}}{\end{lemma0}}
+\newenvironment{corollary}{\begin{corollary0}}{\end{corollary0}}
+\newenvironment{example}{ \begin{example0}\rm}{\end{example0}}
+\newenvironment{remark}{ \begin{remark0}\rm}{\end{remark0}}
+\newenvironment{conjecture}{\begin{conjecture0}}{\end{conjecture0}}
+\newenvironment{notation}{\begin{notation0}\rm}{\end{notation0}}
+
+\newcommand{\defref}[1]{Definition~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\exref}[1]{Example~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+\newcommand{\conjref}[1]{Conjecture~\ref{#1}}
+\newcommand{\notref}[1]{Notation~\ref{#1}}
+
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.}%fraccions amb slash
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}%abs
+\newcommand{\orbit}[1]{\langle#1\rangle}%orbit
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}%definim nova columna per a taula
+
+%itemize
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$-$}
+
+\newlength{\mylength}%figures
+\renewcommand{\footnotesize}{\scriptsize}%change footnote size
+
+\counterwithout{footnote}{chapter}%no reset chapter footnote
+\counterwithout{figure}{chapter}%no reset chapter figure
+\counterwithout{table}{chapter}%no reset chapter table
+\counterwithout{equation}{chapter}%no reset chapter equation
+
+\newcommand\blankpage{%pagina en blanc
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{1}%
+    \newpage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% environments per la intro i pel resum en català %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%intro
+\newtheorem{th1}{Theorem}
+\newtheorem{prop1}[th1]{Proposition}
+\newtheorem{cor1}[th1]{Corollary}
+\newtheorem{lem1}[th1]{Lemma}
+\newtheorem{de1}[th1]{Definition}
+
+%catala
+\newtheorem{th2}{Teorema}
+\newtheorem{prop2}[th2]{Proposici{\'o}}
+\newtheorem{cor2}[th2]{Corol{\cdot}lari}
+\newtheorem{lem2}[th2]{Lema}
+
+%%%%%%%%%%%%%%%%%%%%%% headings %%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{} \fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark} \fancyhead[RE]{\bfseries\leftmark}
+\setlength{\headheight}{13.6pt}
+
+\def\paginaenblanc{\newpage%
+\thispagestyle{empty}%
+\vspace*{2cm}%
+\newpage%
+\thispagestyle{empty}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% aux commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%==========================================================================
+% macros to support private authors' notes
+%==========================================================================
+\newif\ifprivate
+\privatetrue
+\def\xbar{\vskip0.09in\hrule\vskip0.06in}
+\def\private#1{\ifprivate \xbar {\em #1} \xbar
+\else \fi}
+\def\huh{\ifprivate ??? \marginpar{\Huge ???}
+\else \fi}
+\def\???{\ifprivate {\bf {???}} \marginpar{\begin{center}{\Huge {\bf ?}}\end{center}}
+\else \fi}
+%\def\???{\ifprivate {\bf {???}} \marginpar{{\Huge {\bf ?}}}
+%\else \fi}
+\marginparsep1mm
+\def\nota#1{\ifprivate  $\clubsuit$ \marginpar{\parbox[t]{2.4cm}{\begin{center}\tiny #1\end{center}}}
+\else \fi}
+\def\comment#1{\ifprivate \marginpar{\parbox[t]{2.4cm}{\begin{center}\tiny #1\end{center}}}
+\else \fi}
+%\def\nota#1{\ifprivate  $\clubsuit$ \marginpar{\parbox[t]{1.8cm}{\tiny #1}}
+%\else \fi}
+\def\privateeject{\ifprivate\eject\fi}
+%\def\???{{\bf {???}} \marginpar{{\Huge {\bf ?}}} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% definicions capitol %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\av{\underline{a}}
+
+\def\Zr{\mathbb Z^r} \def\Nr{\mathbb N^r}
+\def\xv{\underline{x}}
+\def\yv{\underline{y}}
+\def\zv{\underline{z}}
+
+\newcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\Spec}{\operatorname{Spec}}
+
+
+\def\HiRIM#1{H^i_{\mathcal M}(#1)}
+
+\newcommand{\im}{\operatorname{Im}}
+\renewcommand{\ker}{\operatorname{Ker}}
+\newcommand{\grade}{\operatorname{grade}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\interior}{\operatorname{int}}
+\newcommand{\ext}{\operatorname{ext}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\m}{\mathfrak m}
+\newcommand{\n}{\mathfrak n}
+%\newcommand{\M}{\mathfrak m}
+%\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand {\ZZ}{\mathbb{Z}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand {\PP}{\mathbb{P}}
+\newcommand {\Ce}{\widehat{\mathbb{C}}}
+\newcommand {\C}{\mathbb{C}}
+\newcommand {\D}{\mathbb{D}}
+\newcommand {\R}{\mathbb{R}}
+\newcommand {\Z}{\mathbb{Z}}
+\newcommand {\A}{\mathbb{A}}
+\newcommand {\Q}{\mathbb{Q}}
+\newcommand {\F}{\mathcal{F}}
+\newcommand {\J}{\mathcal{J}}
+\newcommand {\K}{\mathcal{K}}
+\newcommand {\M}{\mathcal{M}}
+\newcommand{\e}{\text{e}}
+\renewcommand{\d}{\text{d}}
+\newcommand{\TeV}{\text{TeV}}
+\newcommand{\GeV}{\text{GeV}}
+\newcommand{\MeV}{\text{MeV}}
+\newcommand{\pT}{p_\text{T}}
+\newcommand{\ET}{E_\text{T}}
+\newcommand{\ann}{\operatorname{ann}}
+\newcommand{\modu}{\operatorname{mod}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\wind}{\operatorname{wind}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\newcommand{\Pa}{\operatorname{Pa}}
+\newcommand{\Ch}{\operatorname{Ch}}
+\newcommand{\An}{\operatorname{An}}
+\newcommand{\De}{\operatorname{De}}
+\newcommand{\Rt}{\operatorname{Rt}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\dashbidirectedarrow}{\ \ \dashrightarrow\!\!\!\!\!\!\!\!\!\!\!\!\dashleftarrow\ \ }
+\newcommand{\decaysto}{\hspace*{1.2mm}
+    \tikz[baseline=-0.6ex]\draw[-stealth] (0,0) -- (0.4,0);%
+    \hspace*{0.9mm}
+}
+
+%font color
+\renewcommand{\b}{\color{blue}}
+\renewcommand{\r}{\color{red}}
+\definecolor{ForestGreen}{RGB}{10, 130, 61}
+\newcommand{\g}{\color{ForestGreen}}
+\newcommand{\todo}[1]{{\r\large[\textbf{TODO:} #1]}}
+\newcommand{\comm}[1]{{\g\large[\textbf{COMMENT:} #1]}}
+
+\definecolor{myOrange}{RGB}{200, 100, 0}
+\definecolor{myPurple}{RGB}{100, 0, 200}
+\definecolor{myDarkGreen}{RGB}{0, 128, 50}
+\definecolor{myGray}{RGB}{50, 50, 90}
+
+\newcommand{\define}[2]{\textbf{\texttt{{\color{myDarkGreen}def} {\color{myPurple}#1}(#2):}}}
+\newcommand{\class}[1]{\textbf{\texttt{{\color{myOrange}#1}}}}
+\newcommand{\params}[1]{\textbf{\color{myGray}\texttt{#1}}}
+\newcommand{\false}{\textbf{\texttt{{\color{myDarkGreen}False}}}}
+\newcommand{\true}{\textbf{\texttt{{\color{myDarkGreen}True}}}}
+\newcommand{\none}{\textbf{\texttt{{\color{myDarkGreen}None}}}}
+
+\def\p{\mathfrak{p}}
+\def\q{\mathfrak{q}}
+\DeclareMathOperator{\de}{deg}
+
+\DeclareMathOperator{\Hl}{H}
+\DeclareMathOperator{\h}{h}
+
+% Define a new itel list
+\newlist{myitemlist}{description}{1}
+\setlist[myitemlist]{
+    labelindent=0cm,
+    leftmargin=0.7cm,
+    labelsep=0.15cm,
+    font=\normalfont\textbf,
+    itemsep=0.0cm,
+}
+
+\makeatletter
+\newcommand{\oset}[3][0ex]{%
+  \mathrel{\mathop{#3}\limits^{
+    \vbox to#1{\kern-2\ex@
+    \hbox{$\scriptstyle#2$}\vss}}}}
+\makeatother
+
+\newcommand*\obar[1]{%
+   \hbox{%
+	 \kern0.15em%  
+     \vbox{%
+			 \kern-0.2092ex
+       \hrule height 0.3pt % The actual bar
+       \kern0.15ex%         % Distance between bar and symbol
+       \hbox{%
+         \kern-0.15em%      % Shortening on the left side
+         \ensuremath{\scriptstyle#1}%
+         \kern-0.05em%      % Shortening on the right side
+       }%
+     }%
+   }%
+}
+
+\newcommand*\ubar[1]{%
+   \hbox{%
+     \vbox{%
+       \hbox{%
+         \kern-0.0em%      % Shortening on the left side
+         \ensuremath{\scriptstyle#1}%
+         \kern-0.10em%      % Shortening on the right side
+       }%
+			 \kern0.15ex%    			% Distance between bar and symbol
+			 \hrule height 0.3pt 	% The actual bar
+     }%
+   }%
+}
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.8]{%
+    \sbox{\myboxA}{$\scriptstyle\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+\makeatletter
+%\newsavebox\myboxA
+%\newsavebox\myboxB
+%\newlength\mylenA
+
+\newcommand*\xunderline[2][0.8]{%
+    \sbox{\myboxA}{$\scriptstyle\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\underline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+\newsavebox\verbbox
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pdfsuppresswarningpagegroup=1
+\begin{document}
+\pagenumbering{Alph}
+%\pagenumbering{gobble}
+\pagestyle{empty}
+\include{mainmatter/0000_frontpage}
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage\thispagestyle{empty}
+\selectlanguage{english}
+%\afterpage{\blankpage}
+\include{mainmatter/000_acknowledgements}
+\setlength{\parskip}{0.3em plus 2pt}
+\include{mainmatter/00_abstract}
+\setlength{\parskip}{0.0em}
+\makeatletter
+\@openrighttrue
+\makeatother
+\pagenumbering{roman} \setcounter{page}{1}
+\phantomsection\pdfbookmark{Contents}{contents}%per hyperlink
+\tableofcontents
+\newpage \thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parskip}{0.3em plus 2.5pt}
+
+%%%%%%%%%%%%%%%%%%%%% això pels headings %%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Introduction}
+\markboth{Introduction}{Introduction}%header right and left
+\setcounter{footnote}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\include{mainmatter/0_intro}
+\newpage \thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+\include{mainmatter/1_motivation}
+\include{mainmatter/2_LHC_CMS}
+\include{mainmatter/3_analysis}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Conclusions}
+\include{mainmatter/9_conclusions}
+
+
+\appendix
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix}
+\include{mainmatter/99_1_appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+\phantomsection
+%\include{mainmatter/999_biblio}
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{JHEP}
+\bibliography{mainmatter/999_citations}
+
+
+
+\end{document}

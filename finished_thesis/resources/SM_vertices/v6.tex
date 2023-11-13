@@ -1,0 +1,20 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\usepackage{amsmath}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\feynmandiagram [horizontal=a to b] {
+    
+    i1 -- [fermion, edge label=\(\text{u/c/t}\)] a [dot] -- [fermion, edge label=\(\text{d/s/b}\)] i2,
+    a -- [boson, edge label=\(\text{W}^{\pm}\)] b,
+};
+
+\end{document}

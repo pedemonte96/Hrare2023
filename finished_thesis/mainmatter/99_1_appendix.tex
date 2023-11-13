@@ -1,0 +1,34 @@
+\chapter*{Appendix}\label{chap:appendix}
+
+\section*{BDT regression models}\label{sec:appendix_models}
+
+In Section \ref{sec:meson_reconstruction} the Boosted Decision Trees used to improve the reconstruction of each full meson's transverse momentum were introduced. The hyperparemeters for these models are shown in Table \ref{tab:hyperparameters_models}, for each channel.
+
+\begin{table}[!ht]
+    \begin{lrbox}{\verbbox}
+        \footnotesize
+        \verb+TMVA::Types::kBDT+
+    \end{lrbox}
+    \centering
+    \begin{tabular}{|l|C{2.45cm}|C{2.45cm}|C{2.45cm}|C{2.45cm}|}
+        \hline
+        \cellcolor{lightgray}Hyperparameter & \cellcolor{lightgray}$\phi$ & \cellcolor{lightgray}$\omega$ & \cellcolor{lightgray}$D^{*0}$ 2-body & \cellcolor{lightgray}$D^{*0}$ 3-body \\ \hline
+        \verb+VarTransform+         &G, N, P&G, P, D&D, G   &-    \\
+        \verb+NTrees+               &1300   &1500   &1500   &2200    \\
+        \verb+BoostType+            &Grad   &Grad   &Grad   &Grad    \\
+        \verb+Shrinkage+            &0.055  &0.095  &0.043  &0.094    \\
+        \verb+MaxDepth+             &5      &4      &7      &5    \\
+        %\verb+SeparationType+       &RegressionVariance&RegressionVariance&RegressionVariance&    \\
+        \verb+nCuts+                &35     &37     &28     &36    \\
+        \verb+UseRandomisedTrees+   &False   &True   &False   &False    \\
+        \verb+UseNvars+             &73     &23     &55     &64    \\
+        \verb+UseBaggedBoost+       &False  &True  &False   &True    \\
+        \verb+BaggedSampleFraction+ &1.056  &1.080  &1.365 &1.414    \\
+        \verb+PruneMethod+          &NoPruning&NoPruning&ExpectedError&NoPruning    \\
+        \verb+PruneStrength+        &-      &-      &17     &-    \\
+        \verb+PruningValFraction+   &-      &-      &0.705 &-    \\
+        \hline
+        \end{tabular}
+    \caption{Hyperparameters of the BDTs regressing the transverse momentum of each meson. These parameters are available options for the \usebox{\verbbox} regressor. Each option is described in detail in Ref. \cite{TMVA:2007ngy}.}
+    \label{tab:hyperparameters_models}
+\end{table}

@@ -1,0 +1,32 @@
+%!TEX program = lualatex
+\documentclass[border=0mm,11pt]{standalone}
+%\usepackage{color}
+%\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{tikz-feynman}
+\usepackage{amsmath}
+\tikzfeynmanset{compat=1.1.0}
+
+
+\begin{document}
+
+\begin{tikzpicture}[]
+    \begin{feynman}
+    \vertex (a) {$g$};
+    \vertex [right=of a, xshift=0.0cm, yshift=-0.0cm] (b);
+    \vertex [below=of a, xshift=0.0cm, yshift=-0.5cm] (c) {$g$};
+    \vertex [right=of c, xshift=0.0cm, yshift=-0.0cm] (d);
+    \vertex [right=of b, xshift=-0.3cm, yshift=-1.0cm] (cent);
+    \vertex [right=of cent, xshift=-0.1cm, yshift=-0.0cm] (h) {$\text{H}$};
+    \node [dot] at (cent) {};
+    \diagram* {
+    (a) -- [gluon] (b) -- [edge label=\({\text{t/b}}\)] (cent),
+    (c) -- [gluon] (d) -- [edge label'=\({\text{t/b}}\)] (cent),
+    (b) -- [edge label'=\({\text{t/b}}\)] (d),
+    (cent) -- [scalar,] (h),
+    };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}
