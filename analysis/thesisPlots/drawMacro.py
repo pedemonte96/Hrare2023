@@ -178,7 +178,7 @@ def savePlot(histograms, imageName, options=None):
         text.SetTextFont(42)
         text.DrawLatex(0.135 + 0.12, 0.913, "Internal" if options["data"] else "Simulation")
         text.SetTextSize(0.035)
-        text.DrawLatex(0.62, 0.913, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.8 if options["data"] else -0.1))
+        text.DrawLatex(0.62, 0.913, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.1))
         stack4.GetXaxis().SetTitleSize(0.040)
         stack4.GetXaxis().SetLabelSize(0.035)
         stack4.GetYaxis().SetTitleSize(0.040)
@@ -202,7 +202,7 @@ def savePlot(histograms, imageName, options=None):
         text.SetTextFont(42)
         text.DrawLatex(0.135 + 0.12, 0.89125, "Internal" if options["data"] else "Simulation")
         text.SetTextSize(0.035*fact)
-        text.DrawLatex(0.62, 0.89125, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.1 if options["data"] else -0.1))
+        text.DrawLatex(0.62, 0.89125, "#sqrt{{s}} = 13 TeV, {lumi} fb#kern[{space}]{{^{{-1}}}}".format(lumi=39.54, space=-0.1))
         
         stack4.GetXaxis().SetLabelOffset(99)#0.005 default
         stack4.GetXaxis().SetTitleOffset(99)#1 is default

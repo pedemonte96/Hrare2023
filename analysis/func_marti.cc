@@ -75,6 +75,49 @@ float getMass(int idParticle, float defaultMass){
 }
 
 
+std::vector<PtEtaPhiMVector> getAllPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, int idParticle){
+	/*Get All 4-vectors PtEtaPhiM with idParticle*/
+    std::vector<PtEtaPhiMVector> vectorOf4Momenta;
+	for(unsigned int i = 0; i < genPart_pdgId.size(); i++){
+		if(genPart_pdgId[i] == idParticle){
+            //Particle found
+			PtEtaPhiMVector fourMomentum(genPart_pt[i], genPart_eta[i], genPart_phi[i], getMass(idParticle, genPart_mass[i]));
+			vectorOf4Momenta.push_back(fourMomentum);
+        }
+    }
+    return vectorOf4Momenta;
+}
+
+
+Vec_f getAllDRs(Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, int idParticle, float eta, float phi){
+	/*Get All DRs between idParticle and direction*/
+    Vec_f outDRs = {};
+	std::vector<PtEtaPhiMVector> vectorOf4Momenta = getAllPtEtaPhiM(genPart_eta, genPart_eta, genPart_phi, genPart_eta, genPart_pdgId, idParticle);
+	for(unsigned int i = 0; i < vectorOf4Momenta.size(); i++){
+		outDRs.push_back(ROOT::VecOps::DeltaR(vectorOf4Momenta[i].Eta(), eta, vectorOf4Momenta[i].Phi(), phi));
+    }
+    return outDRs;
+}
+
+
+Vec_f getValuesIdParticleDR(Vec_f values, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_i& genPart_pdgId, int idParticle, float eta, float phi, float threshold = 0.04, int equal = 1){
+	/*Equal == 1: return values if I find the particle*/
+    Vec_f outValues = {};
+	bool reconstructed = false;
+	Vec_f allDRs = getAllDRs(genPart_eta, genPart_phi, genPart_pdgId, idParticle, eta, phi);
+	for(unsigned int i = 0; i < allDRs.size(); i++){
+		if (allDRs[i] < threshold){
+			reconstructed = true;
+			break;
+		}
+    }
+	if ((reconstructed && equal != 0) || (!reconstructed && equal == 0)) {
+		return values;
+	}
+    return outValues;
+}
+
+
 PtEtaPhiMVector getPtEtaPhiM(Vec_f& genPart_pt, Vec_f& genPart_eta, Vec_f& genPart_phi, Vec_f& genPart_mass, Vec_i& genPart_pdgId, Vec_i& genPart_genPartIdxMother, int idParticle, int idMother, int idGrandMother, int idGreatGrandMother){
 	/*Get PtEtaPhiM with idParticle, idMother, idGrandMother and idGreatGrandMother*/
     PtEtaPhiMVector fourMomentumDef(-1., -10., -10., -1.);
