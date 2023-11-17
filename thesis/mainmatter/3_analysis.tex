@@ -201,10 +201,10 @@ Furthermore, instead of recovering the ditrack invariant mass by only retrieving
     \begin{tabular}{|l|c|C{2.9cm}@{}c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without kinematic fit & \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with kinematic fit} \\ \hline
-        $\phi$          &36.7 MeV   &33.4 MeV  & (-9\%)   \\
+        $\phi$          &37.4 MeV   &33.3 MeV  & (-11\%)   \\
         %\r$\omega$        &\r xx.x MeV   & x\r x.x MeV &\r (-x\%)  \\
-        $\text{D}^{*0}$ 2-body &52.0 MeV   &50.1 MeV  & (-4\%)     \\
-        $\text{D}^{*0}$ 3-body &51.7 MeV   &42.1 MeV  & (-19\%)    \\
+        $\text{D}^{*0}$ 2-body &51.7 MeV   &49.8 MeV  & (-4\%)     \\
+        $\text{D}^{*0}$ 3-body &50.3 MeV   &40.8 MeV  & (-19\%)    \\
         \hline
         \end{tabular}
     \caption{Root mean squared errors (RMSE) with and without the kinematic fit for each decay mode. In all decay modes the kinematic fit improves the reconstructed ditrack mass value.}
@@ -243,9 +243,9 @@ This slight improvement will enable us to narrow the selection cuts and reduce m
     \begin{tabular}{|l|c|C{3.2cm}@{}c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $m_{\pi^0}$ correction& \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $m_{\pi^0}$ correction} \\ \hline
-        $\phi$          &98.7 MeV   &84.3 MeV  & (-15\%)   \\
-        $\omega$        &100.7 MeV   &63.3 MeV  & (-37\%)   \\
-        $\text{D}^{*0}$ 3-body &147.7 MeV   &127.8 MeV  & (-13\%)    \\
+        $\phi$          &95.4 MeV   &78.7 MeV  & (-17\%)   \\
+        $\omega$        &95.2 MeV   &55.7 MeV  & (-42\%)   \\
+        $\text{D}^{*0}$ 3-body &120.4 MeV   &97.2 MeV  & (-19\%)    \\
         \hline
         \end{tabular}
     \caption{Root mean squared errors with and without the $m_{\pi^0}$ correction for the $\phi$ and $\omega$ decay modes.}
@@ -441,10 +441,10 @@ Table \ref{tab:models_pt_RMSE} quantifies these improvements and shows the root 
     \begin{tabular}{|l|c|C{3.1cm}@{}c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}RMSE without $\pT$ regression & \multicolumn{2}{c|}{\cellcolor{lightgray}RMSE with $\pT$ regression} \\ \hline
-        $\phi$          &4.900 GeV   &3.560 GeV  & (-27\%)  \\
-        $\omega$        &5.029 GeV   &3.719 GeV  & (-26\%)  \\
-        $\text{D}^{*0}$ 2-body &3.170 GeV   &1.895 GeV  & (-40\%)  \\
-        $\text{D}^{*0}$ 3-body &5.126 GeV   &3.646 GeV  & (-29\%)  \\
+        $\phi$          &4.908 GeV   &3.641 GeV  & (-26\%)  \\
+        $\omega$        &5.014 GeV   &3.890 GeV  & (-22\%)  \\
+        $\text{D}^{*0}$ 2-body &3.216 GeV   &1.927 GeV  & (-40\%)  \\
+        $\text{D}^{*0}$ 3-body &4.846 GeV   &3.769 GeV  & (-22\%)  \\
         \hline
         \end{tabular}
     \caption{Root mean squared errors of the full meson's transverse momentum with and without the BDT regression for each decay mode.}
@@ -479,14 +479,14 @@ After having presented all the techniques for reconstructing the meson, some sel
     \begin{tabular}{|l|c|c|}
         \hline
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$\phi(\pi^{\pm}\pi^{\mp}\pi^{0})$ & \cellcolor{lightgray}$\omega(\pi^{\pm}\pi^{\mp}\pi^{0})$ \\ \hline
-        Meson mass                                              &$0.80-1.15$ GeV  &$0.60-0.90$ GeV    \\
-        Ditrack mass                                            &$0.34-0.84$ GeV  &$0.32-0.62$ GeV      \\
-        $\pT^{\text{diTrk}}$                                    &$>15$ GeV        &$>20$ GeV              \\
-        $\pT^{\text{leadTrk}}$                                  &$>12$ GeV        &$>12$ GeV               \\
-        $\pT^{\text{subLeadTrk}}$                               &$>3$ GeV         &$>3$ GeV           \\
+        Meson mass                                              &$0.80-1.08$ GeV  &$0.60-0.84$ GeV    \\
+        Ditrack mass                                            &$0.37-0.82$ GeV  &$0.33-0.62$ GeV      \\
+        $\pT^{\text{diTrk}}$                                    &$>25$ GeV        &$>25$ GeV              \\
+        $\pT^{\text{leadTrk}}$                                  &         &               \\
+        $\pT^{\text{subLeadTrk}}$                               &         &           \\
         $\#\gamma^{\text{diTrk}}$                               &$>0$             &$>0$                   \\
-        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$      &$\pi\pm2.3$        \\
-        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$        &$0\pm1.9$              \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.44$     &$\pi\pm2.44$        \\
+        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.8$        &$0\pm1.8$              \\
         Iso                                                     &$>0.95$          &$>0.95$                \\
         \hline
         \end{tabular}
@@ -499,15 +499,15 @@ After having presented all the techniques for reconstructing the meson, some sel
     \begin{tabular}{|l|c|c|}
         \hline
         \cellcolor{lightgray}Variable & \cellcolor{lightgray}$\text{D}^{*0}(\text{K}^{-}\pi^{+}{\scriptstyle(\pi^{0}/\gamma)})$ & \cellcolor{lightgray}$\text{D}^{*0}(\text{K}^{-}\pi^{+}\pi^{0}{\scriptstyle(\pi^{0}/\gamma)})$ \\ \hline
-        Meson mass                                              &                   &$1.50-2.10$ GeV  \\
-        Ditrack mass                                            &$1.805-1.925$ GeV  &$0.65-1.70$ GeV  \\
-        $\pT^{\text{diTrk}}$                                    &$>42$ GeV          &$>20$ GeV           \\
-        $\pT^{\text{leadTrk}}$                                  &$>22$ GeV          &$>12$ GeV           \\
-        $\pT^{\text{subLeadTrk}}$                               &$>10$ GeV          &$>3$ GeV           \\
+        Meson mass                                              &                   &$1.60-2.00$ GeV  \\
+        Ditrack mass                                            &$1.82-1.91$ GeV    &$0.60-1.75$ GeV  \\
+        $\pT^{\text{diTrk}}$                                    &$>45$ GeV          &$>25$ GeV           \\
+        $\pT^{\text{leadTrk}}$                                  &           &           \\
+        $\pT^{\text{subLeadTrk}}$                               &$>10$ GeV          &$>6$ GeV           \\
         $\#\gamma^{\text{diTrk}}$                               &                   &$>0$               \\
-        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.3$        &$\pi\pm2.3$        \\
-        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.9$          &$0\pm1.9$           \\
-        Iso                                                     &$>0.90$            &$>0.95$             \\
+        $\Delta(\phi^{\text{diTrk}}, \phi^{\gamma_\text{H}})$   &$\pi\pm2.44$       &$\pi\pm2.44$        \\
+        $\Delta(\eta^{\text{diTrk}}, \eta^{\gamma_\text{H}})$   &$0\pm1.8$          &$0\pm1.8$           \\
+        Iso                                                     &$>0.95$            &$>0.95$             \\
         \hline
         \end{tabular}
     \caption{Selection criteria applied to each channel of the $\text{D}^{*0}$ meson decay used in the analysis.}
@@ -941,7 +941,7 @@ The same independence assumption for the two variables has been applied to backg
 \end{figure}
 
 \newpage
-The monotonous $m^{\text{H}}_{\gamma, M}$ background distribution is estimated by fitting the photon-meson mass spectrum in the signal fit region ($100 < m^{\text{H}}_{\gamma, M} < 160\ \GeV$) using analytic functions. Two sidebands, $100 < m^{\text{H}}_{\gamma, M} < 115\ \GeV$ and $135 < m^{\text{H}}_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The same functions are also used to model the full (ditrack) meson's mass. The set of functions consists of degree 3 and 4 Bernstein and Chebyshev polynomials, resulting in four different combinations.
+The monotonous $m^{\text{H}}_{\gamma, M}$ background distribution is estimated by fitting the photon-meson mass spectrum in the signal fit region ($100 < m^{\text{H}}_{\gamma, M} < 160\ \GeV$) using analytic functions. Two sidebands, $100 < m^{\text{H}}_{\gamma, M} < 115\ \GeV$ and $135 < m^{\text{H}}_{\gamma, M} < 160\ \GeV$, are used to constrain the background fit. Multiple functions are used to address the incomplete model knowledge. These will be part of the final fit to take into account the uncertainty in the background model choice and to estimate the bias from selecting a specific background parameterization. The same functions are also used to model the full (ditrack) meson's mass. The set of functions consists of degree 3 and 4 Bernstein and Chebyshev polynomials, resulting in four different combinations. \todo{Add the gaussian pdf in the D02body background accounting for real mesons}
 
 No prior knowledge of the parameters of the fit functions (in both shape and normalization) is assumed, i.e. they are allowed to vary freely in the data fit. Table \ref{tab:bkg_polynomials} reports the degrees of the used polynomials, as well as the $\chi^2$/dof for each decay mode and for both polynomial classes and variable modelled (integrated over the other variable). Polynomials that are of third (fourth) degree have four (five) degrees of freedom (dof).
 \begin{table}[!ht]
@@ -949,11 +949,11 @@ No prior knowledge of the parameters of the fit functions (in both shape and nor
     \begin{tabular}{|l|cc|cc|cc|cc|}
         \hline
         \cellcolor{lightgray} & \multicolumn{2}{c|}{\cellcolor{lightgray}Bernstein ($m^{\text{H}}_{\gamma, M}$)} & \multicolumn{2}{c|}{\cellcolor{lightgray}Chebyshev ($m^{\text{H}}_{\gamma, M}$)}   & \multicolumn{2}{c|}{\cellcolor{lightgray}Bernstein ($m_{M}$)} & \multicolumn{2}{c|}{\cellcolor{lightgray}Chebyshev ($m_{M}$)} \\
-        \multirow{2}{*}[15pt]{\cellcolor{lightgray}Decay mode} & \cellcolor{lightgray}Deg. & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}Deg. & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}Deg. & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}Deg. & \cellcolor{lightgray}$\chi^2$/dof \\ \hline
-        $\phi$                  &4&5.64   &4&4.86     &4&2.42   &4&2.40   \\
-        $\omega$                &4&2.14   &4&3.61     &4&3.93   &4&3.51   \\
-        $\text{D}^{*0}$ 2-body  &3&0.90   &3&0.81     &3&2.33   &3&1.43   \\
-        $\text{D}^{*0}$ 3-body  &3&0.95   &3&0.91     &3&1.41   &3&1.37   \\
+        \multirow{2}{*}[15pt]{\cellcolor{lightgray}Decay mode} & \cellcolor{lightgray}dof & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}dof & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}dof & \cellcolor{lightgray}$\chi^2$/dof & \cellcolor{lightgray}dof & \cellcolor{lightgray}$\chi^2$/dof \\ \hline
+        $\phi$                  &5&5.31   &5&1.84     &5&2.56   &5&2.54   \\
+        $\omega$                &5&6.21   &5&2.13     &5&4.11   &5&3.68   \\
+        $\text{D}^{*0}$ 2-body  &4&1.06   &4&0.95     &6&0.95   &6&0.92   \\
+        $\text{D}^{*0}$ 3-body  &4&1.19   &4&1.07     &4&1.41   &4&1.37   \\
         \hline
         \end{tabular}
     \caption{Degrees of the used polynomials and quality of the background fit in terms of $\chi^2$/dof for each decay mode and polynomial type used for each of the two variables modelled ($m^{\text{H}}_{\gamma, M}$ and $m_{M}$). When reporting the $\chi^2$/dof of a polynomial used to model a variable, the other has been integrated out.}
@@ -1135,10 +1135,10 @@ Table \ref{tab:results} reports the expected upper limits on the branching ratio
     \begin{tabular}{|l|C{3cm}|C{3cm}|c|}
         \hline
         \multicolumn{1}{|c|}{\cellcolor{lightgray}Decay channel} & \cellcolor{lightgray} Expected $\mathcal{B}$ & \cellcolor{lightgray} ATLAS $\mathcal{B}$ & \cellcolor{lightgray} SM $\mathcal{B}$ \\ \hline
-        $\text{H}\decaysto \phi\gamma$                  &$1.969 \times 10^{-2}$ &$4.2 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
-        $\text{H}\decaysto \omega\gamma$                &$2.867 \times 10^{-3}$ &$3.0 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
-        $\text{H}\decaysto \text{D}^{*0}\gamma$ 2-body  &$7.403 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
-        $\text{H}\decaysto \text{D}^{*0}\gamma$ 3-body  &$1.268 \times 10^{-2}$ &                         &  \\
+        $\text{H}\decaysto \phi\gamma$                  &$2.40 \times 10^{-2}$ &$4.2 \times 10^{-4}$     & $(2.31 \pm 0.11)\times 10^{-6}$  \\
+        $\text{H}\decaysto \omega\gamma$                &$3.27 \times 10^{-3}$ &$3.0 \times 10^{-4}$     & $(1.48 \pm 0.08)\times 10^{-6}$  \\
+        $\text{H}\decaysto \text{D}^{*0}\gamma$ 2-body  &$6.50 \times 10^{-3}$ &\multirow{2}{*}{-}       &\multirow{2}{*}{-}  \\
+        $\text{H}\decaysto \text{D}^{*0}\gamma$ 3-body  &$1.29 \times 10^{-2}$ &                         &  \\
         \hline
     \end{tabular}
     \caption{The expected upper limit on the branching fractions for the four studied decay channels is shown in the first column. The second column presents the corresponding expected upper limits measured by the ATLAS collaboration, when available \cite{ATLAS:2017gko, ATLAS:2023alf}. The third column displays the Standard Model predictions of the branching fractions, when available \cite{Konig:2015qat}.}
@@ -1148,15 +1148,15 @@ There are several points worth mentioning when comparing the obtained results to
 
 As mentioned previously, it is important to note that the results obtained are preliminary estimates, not actual measurements, which should be conducted after unblinding. This analysis serves as an initial approach, and many optimization techniques can and must be used in the future to enhance these results. Some of them are addressed in the following section.
 
-For the $\text{H}\decaysto \phi\gamma$ decay, for which an estimated result of $\mathcal{B}(\text{H}\decaysto \phi\gamma) < 1.969 \times 10^{-2}$ at 95\% CL was obtained, the further three-body decay $\phi\decaysto \pi^+\pi^-\pi^0$ was used. The presence of a neutral pion here is differential, as it makes the reconstruction of the $\phi$ meson more challenging than in the two-body decay $\phi\decaysto \text{K}^+\text{K}^-$, thus worsening the resolution of photon-meson invariant mass $m^{\text{H}}_{\gamma, \phi}$.
+For the $\text{H}\decaysto \phi\gamma$ decay, for which an estimated result of $\mathcal{B}(\text{H}\decaysto \phi\gamma) < 2.40 \times 10^{-2}$ at 95\% CL was obtained, the further three-body decay $\phi\decaysto \pi^+\pi^-\pi^0$ was used. The presence of a neutral pion here is differential, as it makes the reconstruction of the $\phi$ meson more challenging than in the two-body decay $\phi\decaysto \text{K}^+\text{K}^-$, thus worsening the resolution of photon-meson invariant mass $m^{\text{H}}_{\gamma, \phi}$.
 
 The upper limit on the $\text{H}\decaysto \phi\gamma$ decay by the ATLAS collaboration used the subsequent two-body decay $\phi\decaysto \text{K}^+\text{K}^-$ \cite{ATLAS:2017gko}, with a branching ratio of $49.1\pm0.5$\%, more than three times larger than the three-body decay $\phi\decaysto \pi^+\pi^-\pi^0$, which is $15.4\pm0.4$\% \cite{PDG}. Integrated luminosities are similar, with 35.6 fb$^{-1}$ for ATLAS and 39.54 fb$^{-1}$ in this analysis. Therefore, the differences in both results mainly lie in the meson decay mode used. Utilizing a meson decay with a higher branching fraction and the absence of neutral particles results in a better upper limit. This three-body decay mode is useful as it can be combined with existing results, like the ones in Ref. \cite{ATLAS:2017gko}, to further constrain the total branching fraction upper limits.
 
-For the $\text{H}\decaysto \omega\gamma$ decay, for which an estimated result of $\mathcal{B}(\text{H}\decaysto \phi\gamma) < 2.867 \times 10^{-3}$ at 95\% CL was obtained, the further three-body decay $\phi\decaysto \pi^+\pi^-\pi^0$ was studied. The upper limit on the $\text{H}\decaysto \omega\gamma$ decay by the ATLAS collaboration also relied on the same subsequent three-body decay, reporting expected and measured upper limits of $3.0 \times 10^{-4}$ and $1.5 \times 10^{-4}$, respectively \cite{ATLAS:2023alf}. However, the integrated luminosities available for both analyses differ significantly, with 89.5 fb$^{-1}$ for ATLAS and 39.54 fb$^{-1}$ in this analysis. The disparity in both results lies on the difference in available luminosities, and could be reduced optimizing the used techniques, as discussed in Section \ref{sec:future_improvements}.
+For the $\text{H}\decaysto \omega\gamma$ decay, for which an estimated result of $\mathcal{B}(\text{H}\decaysto \phi\gamma) < 3.27 \times 10^{-3}$ at 95\% CL was obtained, the further three-body decay $\phi\decaysto \pi^+\pi^-\pi^0$ was studied. The upper limit on the $\text{H}\decaysto \omega\gamma$ decay by the ATLAS collaboration also relied on the same subsequent three-body decay, reporting expected and measured upper limits of $3.0 \times 10^{-4}$ and $1.5 \times 10^{-4}$, respectively \cite{ATLAS:2023alf}. However, the integrated luminosities available for both analyses differ significantly, with 89.5 fb$^{-1}$ for ATLAS and 39.54 fb$^{-1}$ in this analysis. The disparity in both results lies on the difference in available luminosities, and could be reduced optimizing the used techniques, as discussed in Section \ref{sec:future_improvements}.
 
 For the $\text{H}\decaysto \text{D}^{*0}\gamma$ decays, two different subsequent $\text{D}^{*0}$ meson decays were explored. Although the analysis explicitly targets only $\text{H}\decaysto \text{D}^{*0}\gamma$, the charge conjugate is implicit, as the analysis is entirely symmetric under charge conjugation. Therefore, accounting for both $\text{D}^{*0}$ and $\overline{\text{D}^{*0}}$ implies reconstructing twice the number of signal and background events. Since the upper limit is approximately inversely proportional to the significance, including the $\overline{\text{D}^{*0}}$ decay introduces a factor of $\frac{1}{\sqrt{2}}$ to the final result. Note that this is only valid under SM assumptions and for the expected upper limits, as for the actual measurement no prior SM assumptions must be made.
 
-For the $\text{H}\decaysto \text{D}^{*0}\gamma$ decay with subsequent meson decays $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$ and $\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}$, an estimated result of $\mathcal{B}(\text{H}\decaysto \text{D}^{*0}\gamma) < 7.403 \times 10^{-3}$ at 95\% CL was obtained. For the other channel, the $\text{H}\decaysto \text{D}^{*0}\gamma$ decay with subsequent meson decays $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$ and \linebreak$\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}\pi^{0}$ an estimated result of $\mathcal{B}(\text{H}\decaysto \text{D}^{*0}\gamma) < 1.268 \times 10^{-2}$ at 95\% CL was obtained.
+For the $\text{H}\decaysto \text{D}^{*0}\gamma$ decay with subsequent meson decays $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$ and $\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}$, an estimated result of $\mathcal{B}(\text{H}\decaysto \text{D}^{*0}\gamma) < 6.50 \times 10^{-3}$ at 95\% CL was obtained. For the other channel, the $\text{H}\decaysto \text{D}^{*0}\gamma$ decay with subsequent meson decays $\text{D}^{*0}\decaysto \text{D}^{0}\pi^{0}/\gamma$ and \linebreak$\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}\pi^{0}$ an estimated result of $\mathcal{B}(\text{H}\decaysto \text{D}^{*0}\gamma) < 1.29 \times 10^{-2}$ at 95\% CL was obtained.
 
 It is worth emphasizing that, even though $\mathcal{B}(\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}\pi^{0}) = 14.4\pm0.5$\% is over three times greater than $\mathcal{B}(\text{D}^{0}\decaysto \text{K}^{-}\pi^{+}) = 3.947\pm0.030$\% \cite{PDG}, the upper limit obtained in the first case is higher. This is because in the two-body subsequent decay, although less frequent, it consists only of a ditrack charged system, which can be reconstructed with a better resolution. This, in turn, allows for more background event rejection, thus enhancing the final result.
 
@@ -1166,10 +1166,10 @@ Table \ref{tab:results_1d_2d_comparison} compares the expected upper limit on th
     \begin{tabular}{|l|C{3.5cm}|C{2.5cm}@{}c|}
         \hline
         \cellcolor{lightgray}Decay channel & \cellcolor{lightgray}$\mathcal{B}$ with 1D fit & \multicolumn{2}{c|}{\cellcolor{lightgray}$\mathcal{B}$ with 2D fit} \\ \hline
-        $\text{H}\decaysto \phi\gamma$                  &$2.281 \times 10^{-2}$&$1.969 \times 10^{-2}$ & (-14\%)  \\
-        $\text{H}\decaysto \omega\gamma$                &$3.234 \times 10^{-3}$&$2.867 \times 10^{-3}$ & (-11\%)  \\
-        $\text{H}\decaysto \text{D}^{*0}\gamma$ 2-body  &$1.008 \times 10^{-2}$&$7.403 \times 10^{-3}$ & (-27\%)  \\%BDTG_df7_dl3684_v0_v1_opt30002	14.2500 BDTG_df7_dl3684_v0_v1_opt30002_2D	10.4688
-        $\text{H}\decaysto \text{D}^{*0}\gamma$ 3-body  &$1.697 \times 10^{-2}$&$1.268 \times 10^{-2}$ & (-25\%)  \\%BDTG_df15_dl3684_v0_v1_opt30003	24.0000 BDTG_df15_dl3684_v0_v1_opt30003_2D	17.9375
+        $\text{H}\decaysto \phi\gamma$                  &$2.78 \times 10^{-2}$&$2.40 \times 10^{-2}$ & (-14\%)  \\
+        $\text{H}\decaysto \omega\gamma$                &$3.55 \times 10^{-3}$&$3.27 \times 10^{-3}$ & (-8\%)  \\
+        $\text{H}\decaysto \text{D}^{*0}\gamma$ 2-body  &$7.82 \times 10^{-3}$&$6.50 \times 10^{-3}$ & (-17\%)  \\%BDTG_df7_dl3684_v0_v1_opt30002	14.2500 BDTG_df7_dl3684_v0_v1_opt30002_2D	10.4688
+        $\text{H}\decaysto \text{D}^{*0}\gamma$ 3-body  &$1.53 \times 10^{-2}$&$1.29 \times 10^{-2}$ & (-16\%)  \\%BDTG_df15_dl3684_v0_v1_opt30003	24.0000 BDTG_df15_dl3684_v0_v1_opt30003_2D	17.9375
         \hline
         \end{tabular}
     \caption{The expected upper limit on the branching fractions for the four studied decay channels using the 1D fit is shown in the first column. The second column shows the final results using the 2D fit, along with the improvement compared to the 1D fit.}
