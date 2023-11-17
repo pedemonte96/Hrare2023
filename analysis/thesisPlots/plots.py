@@ -33,10 +33,10 @@ if __name__ == "__main__":
     k1Mass = 0.493677
     mass1, mass2 = 0, 0
 
-    modelNamePhi3 =     "BDTG_df13_dl3620_v0_v1_opt30000"
-    modelNameOmega =    "BDTG_df13_dl3620_v0_v1_opt30001"
-    modelNameD0Star2 =  "BDTG_df7_dl3684_v0_v1_opt30002"
-    modelNameD0Star3 =  "BDTG_df15_dl3684_v0_v1_opt30003"
+    modelNamePhi3 =     "BDTG_df13_dl3620_v0_v1_opt70035"
+    modelNameOmega =    "BDTG_df13_dl3620_v0_v1_opt72810"
+    modelNameD0Star2 =  "BDTG_df7_dl3684_v0_v1_opt75239"
+    modelNameD0Star3 =  "BDTG_df15_dl3684_v0_v1_opt76387"
 
     modelNames = {"Phi3": modelNamePhi3, "Omega": modelNameOmega, "D0Star_2body": modelNameD0Star2, "D0Star_3body": modelNameD0Star3}
 
@@ -222,35 +222,35 @@ if __name__ == "__main__":
     
     #ggH REGRESSION -----------------------------------------------------------------------------------------------------------------------
     s = '''
-    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleOmega0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega0);
-    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleOmega1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega1);
-    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleOmega2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega2);
     '''.format(modelName=modelNameOmega, channel="omega", numVarsTotal=getTotalNumVars(modelNameOmega))
     s += '''
-    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScalePhi0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi0);
-    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScalePhi1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi1);
-    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScalePhi2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi2);
     '''.format(modelName=modelNamePhi3, channel="phi", numVarsTotal=getTotalNumVars(modelNamePhi3))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0Star0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star0);
-    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0Star1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star1);
-    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0Star2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star2);
     '''.format(modelName=modelNameD0Star2, channel="d0star", numVarsTotal=getTotalNumVars(modelNameD0Star2))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0StarRho0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho0);
-    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0StarRho1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho1);
-    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0StarRho2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho2);
     '''.format(modelName=modelNameD0Star3, channel="d0starrho", numVarsTotal=getTotalNumVars(modelNameD0Star3))
     ROOT.gInterpreter.ProcessLine(s)
@@ -447,9 +447,9 @@ if __name__ == "__main__":
     plotHCandMass = False
     plotSlicesSignal = False
     plotSlicesBackground = False
-    plotModelsBSF = True
+    plotModelsBSF = False
     plotFitsSGN = True
-    plotFitsBKG = True
+    plotFitsBKG = False
 
     # -------------------------------------------------------------------------------------------------------------------------------------
     # START PLOTTING ----------------------------------------------------------------------------------------------------------------------
@@ -884,7 +884,7 @@ if __name__ == "__main__":
             posXLegend = 0.52
             optionsMH = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1], "data": False, "fit": True, "moveLegend": posXLegend, "legendFontSize": 0.030}
             name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
-            hSGNMH = (infileSGN.Get("hist")).createHistogram('mh', 600)
+            hSGNMH = (infileSGN.Get("hist")).createHistogram('mh', 120)#now 300
             name2 = "Crystal Ball fit"
             hFITMH = infileFITMH.Get("curve")
             histograms = []
@@ -897,7 +897,7 @@ if __name__ == "__main__":
             name1 = "ggH + qqH MC ({})".format(channels_latex_titles[i])
             #numBins
             nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.001))#200 for signal
-            nbinMeson = 100
+            nbinMeson = 50
             hSGNMM = (infileSGN.Get("hist")).createHistogram('mmeson', nbinMeson)
             name2 = "Crystal Ball fit"
             hFITMM = infileFITMM.Get("curve")
@@ -939,7 +939,7 @@ if __name__ == "__main__":
             optionsMM = {"labelXAxis": "m_{{{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["p", "f", "f"], "colors": [ROOT.kBlack, ROOT.kRed + 1, ROOT.kBlue], "data": True, "fit": True, "moveLegend": posXLegendL[c], "legendFontSize": 0.030}
             name1 = "Data"
             nbinMeson = int(math.ceil((massRanges[c][1] - massRanges[c][0])/0.005))#100 for bkg
-            nbinMeson = 100
+            nbinMeson = 50
             hBKGMM = (infileBKG.Get("hist")).createHistogram('mmeson', nbinMeson)
             name2 = "Bernstein Pol."
             name3 = "Chebyshev Pol."

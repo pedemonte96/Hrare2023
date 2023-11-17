@@ -29,10 +29,10 @@ s = '''
         return par[0] * val;
     }
 
-    TF1 *func = new TF1("crystalball", fitf, 100, 150, 7);  //name, C func, xrange, numParams
+    TF1 *func = new TF1("crystalball", fitf, 100, 160, 7);  //name, C func, xrange, numParams
     func->SetParameters(500, 125, 20, 10, 10, 10, 10);                      //Value each param
     func->SetParNames("N", "mu", "sigma", "alphaL", "alphaR", "nL", "nR");   //Name each param
-    func->SetParLimits(1, 100, 150); // set limit mu
+    func->SetParLimits(1, 100, 160); // set limit mu
     func->SetParLimits(2, 0.001, 100); // set limit sigma
     func->SetParLimits(3, 0.001, 100); // set limit alphaL
     func->SetParLimits(4, 0.001, 100); // set limit alphaR
@@ -64,8 +64,8 @@ def sigmoid(x, a=0.4, b=113):
     return 1/(1+np.exp(-a*(x-b)))
 
 
-def getLoss(mu, N=4000, integral=180000):
-    return (-np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N/1000 + np.sqrt(integral)/28.5)
+def getLoss(mu, N=4000, integral=180000, factNorm = 0.08, factInt = 0.13, const = -40):
+    return (-np.log(abs(mu-125)**2/(1+np.exp(0.3*(mu-100)))) + N*factNorm + np.sqrt(integral)*factInt) + const
 
 
 parser = argparse.ArgumentParser(description="Famous Submitter")
@@ -77,18 +77,23 @@ options = parser.parse_args()
 date = "NOV05"
 mesonCat = ""
 mesonNum, delta = 0, 0
+factNorm, factInt, const = 0.1, 0.1, -40
 if (options.channel == "omega"):
     mesonCat = "OmegaCat"
     mesonNum = 1038
+    factNorm, factInt, const = 0.028, 0.40, -63
 elif (options.channel == "phi"):
     mesonCat = "Phi3Cat"
     mesonNum = 1039
+    factNorm, factInt, const = 0.017, 0.27, -70
 elif (options.channel == "d0starrho"):
     mesonCat = "D0StarRhoCat"
     mesonNum = 1040
+    factNorm, factInt, const = 0.075, 0.8, -83
 elif (options.channel == "d0star"):
     mesonCat = "D0StarCat"
     mesonNum = 1041
+    factNorm, factInt, const = 0.0, 2.3, -77
 else:
     raise Exception("Wrong channel.")
 
@@ -130,7 +135,7 @@ if options.modelName == "RECO":
     dfSGN2 = (dfSGN2.Define("scale", "w*lumiIntegrated/3."))
     dfBKG = (dfBKG.Define("scale", "w*lumiIntegrated"))
 
-    nbins, xlow, xhigh = 200, 105, 145
+    nbins, xlow, xhigh = 60, 100, 160
     #h3 = dfSGN.Histo1D(("hist", "HCandMass RECO", nbins, xlow, xhigh), "HCandMass", "scale")
     h3 = dfSGN0.Histo1D(("hist", "HCandMass RECO", nbins, xlow, xhigh), "HCandMass", "scale").GetValue()
     h31 = dfSGN1.Histo1D(("hist", "HCandMass RECO", nbins, xlow, xhigh), "HCandMass", "scale").GetValue()
@@ -154,15 +159,15 @@ if options.modelName == "RECO":
 
 else:
     s = '''
-    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
+    TMVA::Experimental::RReader modelScale0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCategory}_0.weights.xml");
     computeModelScale0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale0);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
+    TMVA::Experimental::RReader modelScale1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCategory}_1.weights.xml");
     computeModelScale1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale1);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
     s += '''
-    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
+    TMVA::Experimental::RReader modelScale2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCategory}_2.weights.xml");
     computeModelScale2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScale2);
     '''.format(modelName=options.modelName, channel=options.channel, prodCategory=options.prodCat, numVarsTotal=getTotalNumVars(options.modelName))
 
@@ -189,7 +194,7 @@ else:
             .Define("goodMeson_pt_PRED", "(scaleFactor0[0]*goodMeson_pt[0] + scaleFactor1[0]*goodMeson_pt[0] + scaleFactor2[0]*goodMeson_pt[0])/3")
             .Define("HCandMass_varPRED", "compute_HiggsVars_var(goodMeson_pt_PRED, goodMeson_eta[0], goodMeson_phi[0], goodMeson_mass[0], goodPhotons_pt[0], goodPhotons_eta[0], goodPhotons_phi[0], 0)"))
 
-    nbins, xlow, xhigh = 200, 105, 145
+    nbins, xlow, xhigh = 60, 100, 160
     h3 = dfSGN0.Histo1D(("hist", "HCandMass RECO + PT PREDICTED", nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
     h31 = dfSGN1.Histo1D(("hist", "HCandMass RECO + PT PREDICTED", nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
     h32 = dfSGN2.Histo1D(("hist", "HCandMass RECO + PT PREDICTED", nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
@@ -211,7 +216,7 @@ canvas = ROOT.TCanvas("canvas", "canvas", 1600, 700)
 mu_best, norm_best, chi_best = 0, 0, float('inf')
 
 for i in range(3):
-    h6.Fit("crystalball", "QM", "", 100., 150.)
+    h6.Fit("crystalball", "QM", "", 100., 160.)
     mu, normalisation, chi = h6.GetFunction("crystalball").GetParameter(1), h6.GetFunction("crystalball").GetParameter(0), h6.GetFunction("crystalball").GetChisquare()
     if chi < chi_best:
         mu_best, norm_best, chi_best = mu, normalisation, chi
@@ -219,7 +224,7 @@ for i in range(3):
 ROOT.gInterpreter.ProcessLine('func->SetParameters(1000, 125, 2, 1, 1, 10, 10);')
 
 for i in range(3):
-    h6.Fit("crystalball", "QM", "", 100., 150.)
+    h6.Fit("crystalball", "QM", "", 100., 160.)
     mu, normalisation, chi = h6.GetFunction("crystalball").GetParameter(1), h6.GetFunction("crystalball").GetParameter(0), h6.GetFunction("crystalball").GetChisquare()
     if chi < chi_best:
         mu_best, norm_best, chi_best = mu, normalisation, chi
@@ -230,7 +235,7 @@ xMax, yMax = h6.GetBinCenter(maxBin), h6.GetBinContent(maxBin)
 ROOT.gInterpreter.ProcessLine('func->SetParameters({}, {}, 20, 10, 10, 10, 10);'.format(round(yMax, 2), round(xMax, 2)))
 
 for i in range(3):
-    h6.Fit("crystalball", "QM", "", 100., 150.)
+    h6.Fit("crystalball", "QM", "", 100., 160.)
     mu, normalisation, chi = h6.GetFunction("crystalball").GetParameter(1), h6.GetFunction("crystalball").GetParameter(0), h6.GetFunction("crystalball").GetChisquare()
     if chi < chi_best:
         mu_best, norm_best, chi_best = mu, normalisation, chi
@@ -238,7 +243,7 @@ for i in range(3):
 ROOT.gInterpreter.ProcessLine('func->SetParameters({}, {}, 2, 1, 1, 10, 10);'.format(round(yMax, 2), round(xMax, 2)))
 
 for i in range(3):
-    h6.Fit("crystalball", "QM", "", 100., 150.)
+    h6.Fit("crystalball", "QM", "", 100., 160.)
     mu, normalisation, chi = h6.GetFunction("crystalball").GetParameter(1), h6.GetFunction("crystalball").GetParameter(0), h6.GetFunction("crystalball").GetChisquare()
     if chi < chi_best:
         mu_best, norm_best, chi_best = mu, normalisation, chi
@@ -251,7 +256,7 @@ print("Maximize PRED: ", eff)
 print("Chi**2: ", chi_best)
 print("mu: ", mu_best)
 print("normalisation: ", norm_best)
-loss = getLoss(mu, normalisation, NBkg_pred)
+loss = getLoss(mu, normalisation, NBkg_pred, factNorm=factNorm, factInt=factInt, const=const)
 print("Loss: ", loss)
 
 save_dir = '/data/submit/pdmonte/TMVA_models/evalFiles/'

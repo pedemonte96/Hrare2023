@@ -9,25 +9,25 @@ xlowRange = 100.
 xhighRange = 160.
 
 # (init, low, high)
-fitInitVals = {"Phi3Cat": {     "bern_mh": [(0.0073, -1.0, 1.0), (0.013, -1.0, 1.0), (0.007, -1.0, 1.0), (0.002, -1.0, 1.0), (0.002, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(0.289, -1.0, 1.0), (0.435, -1.0, 1.0), (0.733, -1.0, 1.0), (0.302, -1.0, 1.0), (0.154, -1.0, 1.0), (0.00, -1.0, 1.0)],
+fitInitVals = {"Phi3Cat": { "bern_mh": [(0.2, -2.0, 2.0), (0.5, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0)],
+                                "cheb_mh": [(-0.641, -1.0, 1.0), (-0.188, -1.0, 1.0), (0.156, -1.0, 1.0), (0.006, -1.0, 1.0), (-0.045, -1.0, 1.0), (0.00, -1.0, 1.0)],
                                 "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
                                 "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
-                "OmegaCat": {   "bern_mh": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)],
+                "OmegaCat": {   "bern_mh": [(0.2, -2.0, 2.0), (0.5, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0), (0.00, -2.0, 2.0)],
+                                "cheb_mh": [(-0.03, -2.0, 2.0), (0.29, -2.0, 2.0), (0.005, -2.0, 2.0), (-0.03, -2.0, 2.0), (-0.00, -2.0, 2.0), (0.00, -2.0, 2.0)],
                                 "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
                                 "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
                 "D0StarCat": {  "bern_mh": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)],
+                                "cheb_mh": [(1.00, -1.0, 10.0), (0.24, -1.0, 1.0), (-0.20, -1.0, 1.0), (-0.18, -1.0, 1.0), (-0.43, -1.0, 1.0), (0.00, -1.0, 1.0)],
                                 "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
                                 "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
-                "D0StarRhoCat":{"bern_mh": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)],
+                "D0StarRhoCat":{"bern_mh": [(0.04, -1.0, 1.0), (0.14, -1.0, 1.0), (0.06, -1.0, 1.0), (0.04, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
+                                "cheb_mh": [(-0.1, -1.0, 10.0), (-0.3, -1.0, 1.0), (0.1, -1.0, 1.0), (0.02, -1.0, 1.0), (0.75, -1.0, 1.0), (0.00, -1.0, 1.0)],
                                 "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
                                 "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]}}
 
 sig = "ggH"
-workspaceName = 'WS_NOV03'
+workspaceName = 'WS_NOV16'
 
 
 def rndInits(init):
@@ -46,29 +46,10 @@ def rndInits(init):
                     nv = random.gauss(mean, sig)
                 init[key][pol][i] = (nv, lw, hg)
 
+    return init
+
 
 def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
-
-    fitInitVals = {"Phi3Cat": { "bern_mh": [(0.0073, -1.0, 1.0), (0.013, -1.0, 1.0), (0.007, -1.0, 1.0), (0.002, -1.0, 1.0), (0.002, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(-0.641, -1.0, 1.0), (-0.188, -1.0, 1.0), (0.156, -1.0, 1.0), (0.006, -1.0, 1.0), (-0.045, -1.0, 1.0), (0.00, -1.0, 1.0)],
-                                "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
-                "OmegaCat": {   "bern_mh": [(0.045, -1.0, 1.0), (0.08, -1.0, 1.0), (0.05, -1.0, 1.0), (0.03, -1.0, 1.0), (0.4, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(-0.2, -1.0, 1.0), (-0.2, -1.0, 1.0), (0.05, -1.0, 1.0), (0.03, -1.0, 1.0), (-0.06, -1.0, 1.0), (0.00, -1.0, 1.0)],
-                                "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
-                "D0StarCat": {  "bern_mh": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(1.00, -1.0, 10.0), (0.24, -1.0, 1.0), (-0.20, -1.0, 1.0), (-0.18, -1.0, 1.0), (-0.43, -1.0, 1.0), (0.00, -1.0, 1.0)],
-                                "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]},
-                "D0StarRhoCat":{"bern_mh": [(0.04, -1.0, 1.0), (0.14, -1.0, 1.0), (0.06, -1.0, 1.0), (0.04, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mh": [(-0.1, -1.0, 10.0), (-0.3, -1.0, 1.0), (0.1, -1.0, 1.0), (0.02, -1.0, 1.0), (0.75, -1.0, 1.0), (0.00, -1.0, 1.0)],
-                                "bern_mm": [(0.14, -1.0, 1.0), (0.05, -1.0, 1.0), (0.15, -1.0, 1.0), (0.07, -1.0, 1.0), (0.01, -1.0, 1.0), (0.01, -1.0, 1.0)],
-                                "cheb_mm": [(1.08, -1.0, 10.0), (0.40, -1.0, 1.0), (0.01, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0), (0.00, -1.0, 1.0)]}}
-
-    print(fitInitVals)
-    #rndInits(fitInitVals)
-    print(fitInitVals)
 
     if regModelName == "RECO":
         regModelName = None
@@ -97,11 +78,6 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag, 'data', ROOT.RooArgList(x), data_full)
 
     #BERN law -----------------------------------------------------------------------------
-    with open('D0StarRho_bern_MH.txt', 'a') as file:
-        file.write(str(fitInitVals["D0StarRhoCat"]["bern_mh"]))
-    with open('D0StarRho_cheb_MH.txt', 'a') as file:
-        file.write(str(fitInitVals["D0StarRhoCat"]["cheb_mh"]))
-
     bern_c0 = ROOT.RooRealVar('bern_c0_' + mesonCat + "_" + tag, 'bern_c0', fitInitVals[mesonCat]["bern_mh"][0][0], fitInitVals[mesonCat]["bern_mh"][0][1], fitInitVals[mesonCat]["bern_mh"][0][2])
     bern_c1 = ROOT.RooRealVar('bern_c1_' + mesonCat + "_" + tag, 'bern_c1', fitInitVals[mesonCat]["bern_mh"][1][0], fitInitVals[mesonCat]["bern_mh"][1][1], fitInitVals[mesonCat]["bern_mh"][1][2])
     bern_c2 = ROOT.RooRealVar('bern_c2_' + mesonCat + "_" + tag, 'bern_c2', fitInitVals[mesonCat]["bern_mh"][2][0], fitInitVals[mesonCat]["bern_mh"][2][1], fitInitVals[mesonCat]["bern_mh"][2][2])
@@ -170,40 +146,42 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
     #--------------------------------------------------------------------------------------
 
-    storedPdfs = ROOT.RooArgList("store_" + mesonCat + "_" + tag)
-
-    fraction_1 = ROOT.RooRealVar("fraction_1", "", 0.8, 0., 1.)
-    pdf_bern3_mod = ROOT.RooAddPdf('bern3_' + mesonCat + "_" + tag + "_mod", 'bern3_mod', ROOT.RooArgList(pdf_bern3, pdf_bern1_mod), ROOT.RooArgList(fraction_1))
-    pdf_bern2_mod = ROOT.RooAddPdf('bern2_' + mesonCat + "_" + tag + "_mod", 'bern2_mod', ROOT.RooArgList(pdf_bern2, pdf_bern1_mod), ROOT.RooArgList(fraction_1))
-
-    #For ggH:
-    model = pdf_bern3
-    model2 = pdf_chebychev3
+    if mesonCat in ["Phi3Cat", "OmegaCat"]:
+        model = pdf_bern4
+        model2 = pdf_chebychev4
+    else:
+        model = pdf_bern3
+        model2 = pdf_chebychev3
 
     fitresults = model.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
     fitresults2 = model2.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
-    storedPdfs.add(model)
-    storedPdfs.add(model2)
-
-    # Here we will plot the results
-    canvas = ROOT.TCanvas("canvas", "canvas", 1600, 1600)
-
-    canvas.cd()
-    pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
-    pad1.Draw()
-    pad1.cd()
     title = "mH_" + mesonCat + "_" + tag + "_" + str(year)
     if regModelName is not None:
         title += "_({})".format(regModelName)
     if extraTitle is not None:
         title += "_({})".format(extraTitle)
     plotFrameWithNormRange = x.frame(ROOT.RooFit.Title(title))
+    name1 = model.GetName() + "_Norm[mh]_Comp[" + model.GetName() + "]_Range[full]_NormRange[full]"
+    name2 = model2.GetName() + "_Norm[mh]_Comp[" + model2.GetName() + "]_Range[full]_NormRange[full]"
+    
+    storedPdfs = ROOT.RooArgList("store_" + mesonCat + "_" + tag)
+    storedPdfs.add(model)
+    storedPdfs.add(model2)
+
     data.plotOn(plotFrameWithNormRange)
     model.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kRed))
     model2.plotOn(plotFrameWithNormRange, ROOT.RooFit.Components(model2.GetName()), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineColor(ROOT.kBlue))
     model.paramOn(plotFrameWithNormRange, ROOT.RooFit.Layout(0.10, 0.40, 0.5))
-    name1 = model.GetName() + "_Norm[mh]_Comp[" + model.GetName() + "]_Range[full]_NormRange[full]"
-    name2 = model2.GetName() + "_Norm[mh]_Comp[" + model2.GetName() + "]_Range[full]_NormRange[full]"
+
+    chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
+    chi2_2 = plotFrameWithNormRange.chiSquare(name2, "h_" + data.GetName(), fitresults2.floatParsFinal().getSize())
+
+    # Here we will plot the results
+    canvas = ROOT.TCanvas("canvas", "canvas", 1600, 1600)
+    canvas.cd()
+    pad1 = ROOT.TPad("Fit pad", "Fit pad", 0, 0.40, 1.0, 1.0)
+    pad1.Draw()
+    pad1.cd()
 
     #hist1 = plotFrameWithNormRange.getCurve(name1)
     #hist2 = plotFrameWithNormRange.getCurve(name2)
@@ -217,12 +195,6 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     #f.WriteObject(data, "hist")
     #f.Close()
 
-    chi2_1 = plotFrameWithNormRange.chiSquare(name1, "h_" + data.GetName(), fitresults.floatParsFinal().getSize()) #name1 is name of the model, "h_" + ... is name of the hist
-    chi2_2 = plotFrameWithNormRange.chiSquare(name2, "h_" + data.GetName(), fitresults2.floatParsFinal().getSize())
-    with open('D0StarRho_bern_MH.txt', 'a') as file:
-        file.write("," + str(round(chi2_1, 3)) + "\n")
-    with open('D0StarRho_cheb_MH.txt', 'a') as file:
-        file.write("," + str(round(chi2_2, 3)) + "\n")
     print('----------------------------------------')
     print(model2.GetName(), "    chi2/ndof=",round(chi2_2,2), " ndof", fitresults2.floatParsFinal().getSize())
     print(model.GetName(), "    chi2/ndof=",round(chi2_1,2), " ndof", fitresults.floatParsFinal().getSize())
@@ -423,12 +395,12 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
         pdf_bern_mm = pdf_bern3_mm
         pdf_cheb_mh = pdf_chebychev3_mh
         pdf_cheb_mm = pdf_chebychev3_mm
-    if mesonCat in ["D0StarCat9"]:
-        gauss_mu = ROOT.RooRealVar('gauss_mu_' + mesonCat + "_" + tag, 'gauss_mu', 1.86, 1.81, 1.92)
-        gauss_sigma = ROOT.RooRealVar('gauss_sigma_' + mesonCat + "_" + tag, 'gauss_sigma', 0.03, 0., 0.50)
+    if mesonCat in ["D0StarCat"]:
+        gauss_mu = ROOT.RooRealVar('gauss_mu_' + mesonCat + "_" + tag, 'gauss_mu', 1.865, 1.83, 1.90)
+        gauss_sigma = ROOT.RooRealVar('gauss_sigma_' + mesonCat + "_" + tag, 'gauss_sigma', 0.02, 0.001, 0.10)
         pdf_gauss = ROOT.RooGaussian('gauss_' + mesonCat + "_" + tag, 'gauss', y , gauss_mu, gauss_sigma)
 
-        fraction_1 = ROOT.RooRealVar("fraction_1", "", 0.9, 0., 1.)
+        fraction_1 = ROOT.RooRealVar("fraction_1", "", 0.95, 0.8, 1.)
         pdf_bern_mm = ROOT.RooAddPdf('bern3_' + mesonCat + "_" + tag + "_mm_mod", 'bern3_mm_mod', ROOT.RooArgList(pdf_bern3_mm, pdf_gauss), ROOT.RooArgList(fraction_1))
         pdf_cheb_mm = ROOT.RooAddPdf('chebychev3_' + mesonCat + "_" + tag + "_mm_mod", 'chebychev3_mm_mod', ROOT.RooArgList(pdf_chebychev3_mm, pdf_gauss), ROOT.RooArgList(fraction_1))
 
@@ -685,8 +657,8 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    #for mesonCat in ["D0StarCat"]:
+    #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+    for mesonCat in ["D0StarCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()

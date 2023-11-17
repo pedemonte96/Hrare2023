@@ -7,9 +7,9 @@ slurm_script_template = '''#!/bin/bash
 #SBATCH --job-name={sample}
 #SBATCH --output={log_dir}{sample}.out
 #SBATCH --error={log_dir}{sample}.err
-#SBATCH --time=15:00:00
+#SBATCH --time=20:00:00
 #SBATCH --mem=2GB
-#SBATCH --partition=submit-alma9
+#SBATCH --partition=submit
 
 source ~/.bashrc
 conda activate myenv

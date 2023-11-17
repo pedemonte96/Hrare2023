@@ -492,9 +492,9 @@ def dfHiggsCand(df, isData):
                   #Correct pi0 mass when Nphotons=1
                   .Define("goodMeson_mass", "goodMeson_Nphotons[0] > 0 ? Vec_f {sum2Body(goodMeson_ditrk_pt[0], goodMeson_ditrk_eta[0], goodMeson_ditrk_phi[0], goodMeson_ditrk_mass[0], goodMeson_photon1_pt[0], goodMeson_photon1_eta[0], goodMeson_photon1_phi[0], 0.1349766).M()} : goodMeson_mass_raw")
                   #HardCoded selection rules to move to json in future iterations
-                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
-                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 0.60 && goodMeson_mass[0] < 0.90")
+                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.44")
+                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.8")
+                  .Filter("goodMeson_mass[0] > 0.60 && goodMeson_mass[0] < 0.84")
                   )
         if(isData == "false"):
             dfbase = (dfbase
@@ -592,9 +592,9 @@ def dfHiggsCand(df, isData):
                   #Correct pi0 mass when Nphotons=1
                   .Define("goodMeson_mass", "goodMeson_Nphotons[0] > 0 ? Vec_f {sum2Body(goodMeson_ditrk_pt[0], goodMeson_ditrk_eta[0], goodMeson_ditrk_phi[0], goodMeson_ditrk_mass[0], goodMeson_photon1_pt[0], goodMeson_photon1_eta[0], goodMeson_photon1_phi[0], 0.1349766).M()} : goodMeson_mass_raw")
                   #HardCoded selection rules to move to json in future iterations
-                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
-                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 0.80 && goodMeson_mass[0] < 1.15")
+                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.44")
+                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.8")
+                  .Filter("goodMeson_mass[0] > 0.80 && goodMeson_mass[0] < 1.08")
                   )
         if(isData == "false"):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "get3BodyPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother, -211, 211, 111, 333, 25).pt()")
@@ -692,9 +692,9 @@ def dfHiggsCand(df, isData):
                   #Correct pi0 mass when Nphotons=1
                   .Define("goodMeson_mass", "goodMeson_Nphotons[0] > 0 ? Vec_f {sum2Body(goodMeson_ditrk_pt[0], goodMeson_ditrk_eta[0], goodMeson_ditrk_phi[0], goodMeson_ditrk_mass[0], goodMeson_photon1_pt[0], goodMeson_photon1_eta[0], goodMeson_photon1_phi[0], 0.1349766).M()} : goodMeson_mass_raw")
                   #HardCoded selection rules to move to json in future iterations
-                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
-                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
-                  .Filter("goodMeson_mass[0] > 1.50 && goodMeson_mass[0] < 2.10")
+                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.44")
+                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.8")
+                  .Filter("goodMeson_mass[0] > 1.60 && goodMeson_mass[0] < 2.00")
                   )
         if(isData == "false"):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).pt()")
@@ -797,8 +797,8 @@ def dfHiggsCand(df, isData):
                   .Define("wrongMeson", "({}".format(GOODRHO)+")")
                   .Define("wrongMeson_pt", "Sum(wrongMeson) > 0 ? rho_kin_pt[wrongMeson]: ROOT::VecOps::RVec<float>(0.f)")
                   #HardCoded selection rules to move to json in future iterations
-                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.3")
-                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.9")
+                  .Filter("abs(delta_phi_goodMeson_ditrk_goodPhoton[0] - 3.1415) < 2.44")
+                  .Filter("abs(delta_eta_goodMeson_ditrk_goodPhoton[0]) < 1.8")
                   )
         if(isData == "false"):
             dfbase = (dfbase.Define("goodMeson_pt_GEN", "getD0StarPtEtaPhiM(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_genPartIdxMother).pt()")

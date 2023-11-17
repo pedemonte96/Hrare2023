@@ -12,10 +12,10 @@ mesonLatex = {"OmegaCat": "#omega", "D0StarCat": "D^{0*}", "Phi3Cat": "#phi", "D
 mesonChannel = {"OmegaCat": "omega", "D0StarCat": "d0star", "Phi3Cat": "phi", "D0StarRhoCat": "d0starrho"}
 
 #title, variable, xaxis label, range, peak
-doubleFitVar = {"OmegaCat": ["Full meson mass", "goodMeson_mass", "m_{#omega}", (0.6001, 0.8999), 0.7873],
-                "Phi3Cat": ["Full meson mass", "goodMeson_mass", "m_{#phi}", (0.8001, 1.1499), 1.023],
-                "D0StarCat": ["Ditrack mass", "goodMeson_ditrk_mass", "m_{D^{0}}", (1.8051, 1.9249), 1.865],
-                "D0StarRhoCat": ["Full meson mass", "goodMeson_mass", "m_{D^{*0}}", (1.5001, 2.0999), 1.865]}
+doubleFitVar = {"OmegaCat": ["Full meson mass", "goodMeson_mass", "m_{#omega}", (0.6001, 0.8399), 0.789],
+                "Phi3Cat": ["Full meson mass", "goodMeson_mass", "m_{#phi}", (0.8001, 1.0799), 1.025],
+                "D0StarCat": ["Ditrack mass", "goodMeson_ditrk_mass", "m_{D^{0}}", (1.8201, 1.9099), 1.865],
+                "D0StarRhoCat": ["Full meson mass", "goodMeson_mass", "m_{D^{*0}}", (1.6001, 1.9999), 1.865]}
 
 prodCat = "ggh"
 
@@ -80,11 +80,11 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 
@@ -201,11 +201,11 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
         #print(variableName)
 
         s = '''
-        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_0.weights.xml");
         {variableName}0 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader0);
-        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_1.weights.xml");
         {variableName}1 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader1);
-        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
+        TMVA::Experimental::RReader {variableName}Reader2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_{prodCat}_2.weights.xml");
         {variableName}2 = TMVA::Experimental::Compute<{numVarsTotal}, float>({variableName}Reader2);
         '''.format(modelName=regModelName, channel=mesonChannel[mesonCat], prodCat=prodCat, numVarsTotal=getTotalNumVars(regModelName), variableName=variableName)
 

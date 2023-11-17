@@ -5,7 +5,7 @@ NC='\033[0m' # No Color
 year="2018"
 cat="isGFtag"
 
-isVBF=1
+isVBF=0
 
 if [[ $# == 0 ]]; then
 	#Signal------------------------------------------------

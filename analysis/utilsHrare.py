@@ -394,10 +394,10 @@ def SwitchSample(argument,year):
         1040: (dirLocalNEW2+"ggh-hD0StarKmPiPPi0gamma-powheg"+"/NANOAOD_03_test5", 48580*0.144),
         1041: (dirLocalNEW2+"ggh-hD0Stargamma-powheg"+"/NANOAOD_03_test5", 48580*0.03947),
         # Split into 3 samples
-        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample2", 48580*0.892), 
-        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample2", 48580*0.154),
-        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample2", 48580*0.144),
-        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample2", 48580*0.03947),
+        #1038: ("/data/submit/pdmonte/signalSplit/ggh-homegagamma-powheg/sample0", 48580*0.892), 
+        #1039: ("/data/submit/pdmonte/signalSplit/ggh-hphipipipi0gamma-powheg/sample0", 48580*0.154),
+        #1040: ("/data/submit/pdmonte/signalSplit/ggh-hD0StarKmPiPPi0gamma-powheg/sample0", 48580*0.144),
+        #1041: ("/data/submit/pdmonte/signalSplit/ggh-hD0Stargamma-powheg/sample0", 48580*0.03947),
         # VBF for marti analysis
         1068: (dirLocalNEW2+"vbf-homegagamma-powheg"+"/NANOAOD_03_test5", 3781.7*0.892), 
         1069: (dirLocalNEW2+"vbf-hphipipipi0gamma-powheg"+"/NANOAOD_03_test5", 3781.7*0.154),
