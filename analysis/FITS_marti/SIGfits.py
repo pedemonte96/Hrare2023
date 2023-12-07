@@ -39,15 +39,46 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     data = ROOT.RooDataHist('datahist_' + mesonCat + '_' + tag + '_' + sig, 'data', ROOT.RooArgList(x), data_full)
 
     #Crystal ball definition --------------------------------------------------------------
-    cb_mu = ROOT.RooRealVar('cb_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mu', 124.6, 125-10., 125+10.)
-    cb_sigma = ROOT.RooRealVar('cb_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_sigma', 1.5, 0., 5.)
-    cb_alphaL = ROOT.RooRealVar('cb_alphaL_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaL', 0., 5.)
-    cb_alphaR = ROOT.RooRealVar('cb_alphaR_' + mesonCat + "_" + tag + '_' + sig, 'cb_alphaR', 0., 5.)
-    cb_nL = ROOT.RooRealVar('cb_nL_' + mesonCat + "_" + tag + '_' + sig, 'cb_nL', 0., 70.)
-    cb_nR = ROOT.RooRealVar('cb_nR_' + mesonCat + "_" + tag + '_' + sig, 'cb_nR', 0., 70.)
+    cb_mu = ROOT.RooRealVar('mu', 'mu', 125.0, 125-10., 125+10.)
+    cb_sigma = ROOT.RooRealVar('sigma', 'sigma', 1.8, 0., 5.)
+    cb_alphaL = ROOT.RooRealVar('alphaL', 'alphaL', 0.8, 0., 5.)
+    cb_alphaR = ROOT.RooRealVar('alphaR', 'alphaR', 1.0, 0., 5.)
+    cb_nL = ROOT.RooRealVar('nL', 'nL', 16., 0., 70.)
+    cb_nR = ROOT.RooRealVar('nR', 'nR', 7.3, 0., 70.)
 
     pdf_crystalball = ROOT.RooDoubleCBFast('crystal_ball_' + mesonCat + "_" + tag + '_' + sig, 'crystal_ball', x, cb_mu, cb_sigma, cb_alphaL, cb_nL, cb_alphaR, cb_nR)
-    model = pdf_crystalball
+
+
+    # -----------------------------------------------------------------------------TEST generic pdf
+    s = '''
+    double crystalBallGeneric(double x, double mu, double sigma, double alphaL, double nL, double alphaR, double nR) {
+        
+        double aL = pow((nL/abs(alphaL)), nL) * exp(-alphaL*alphaL/2);
+        double aR = pow((nR/abs(alphaR)), nR) * exp(-alphaR*alphaR/2);
+        double bL = nL/abs(alphaL) - abs(alphaL);
+        double bR = nR/abs(alphaR) - abs(alphaR);
+
+        double arg = (x-mu)/sigma;
+        double val = 0.0;
+
+        if (arg < -alphaL){
+                val = aL * pow((bL - arg), -nL);
+        } else if (arg <= alphaR){
+                val = exp(-0.5*arg*arg);
+        } else {
+                val = aR * pow((bR + arg), -nR);
+        }
+
+        return val;
+    }
+    '''
+    ROOT.gInterpreter.ProcessLine(s)
+
+    pdf_crystalball_gen = ROOT.RooGenericPdf('pdf_crystalball_gen', 'pdf_crystalball_gen', "((mh-mu)/sigma < -alphaL) * 1 + \
+                                                                                            ((mh-mu)/sigma >  alphaR) * 3 + \
+                                             ((mh-mu)/sigma >= - alphaL && (mh-mu)/sigma <= alphaR) * 10", ROOT.RooArgList(x, cb_mu, cb_sigma, cb_alphaL, cb_nL, cb_alphaR, cb_nR))
+
+    model = pdf_crystalball_gen
 
     fitresults = model.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
 
@@ -68,6 +99,8 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model.plotOn(plotFrameWithNormRange, ROOT.RooFit.LineColor(2), ROOT.RooFit.Range("full"), ROOT.RooFit.NormRange("full"), ROOT.RooFit.LineStyle(10))
     model.paramOn(plotFrameWithNormRange, ROOT.RooFit.Layout(0.65, 0.99, 0.75))
     name = model.GetName() + "_Norm[mh]_Range[full]_NormRange[full]"
+
+    print("HELLO")
 
     #hist1 = model.createHistogram("fitCurve", x, ROOT.RooFit.IntrinsicBinning())
     #hist1 = plotFrameWithNormRange.getCurve(name)
@@ -127,7 +160,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
         fileName += "_" + regModelName
     if extraTitle is not None:
         fileName += "_" + extraTitle.replace(" ", "_").replace(",", "")
-    canvas.SaveAs(fileName + "_fit.png")
+    canvas.SaveAs(fileName + "_fit_gen.png")
 
     # Create workspace
     w = ROOT.RooWorkspace("w", "workspace")
@@ -207,11 +240,11 @@ def fitSig2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     cb_mh_nR = ROOT.RooRealVar('cb_mh_nR_' + mesonCat + "_" + tag + '_' + sig, 'cb_mh_nR', 0., 70.)
     #Crystal ball definition (Meson mass) --------------------------------------------------------------
     cb_mm_mu = ROOT.RooRealVar('cb_mm_mu_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_mu', doubleFitVar[mesonCat][4], ylowRange, yhighRange)
-    cb_mm_sigma = ROOT.RooRealVar('cb_mm_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_sigma', 0.03, 0., 0.1)
+    cb_mm_sigma = ROOT.RooRealVar('cb_mm_sigma_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_sigma', 0.03, 0.001, 0.12)
     cb_mm_alphaL = ROOT.RooRealVar('cb_mm_alphaL_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_alphaL', 0., 3.)
     cb_mm_alphaR = ROOT.RooRealVar('cb_mm_alphaR_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_alphaR', 0., 3.)
-    cb_mm_nL = ROOT.RooRealVar('cb_mm_nL_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_nL', 0., 100.)
-    cb_mm_nR = ROOT.RooRealVar('cb_mm_nR_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_nR', 0., 100.)
+    cb_mm_nL = ROOT.RooRealVar('cb_mm_nL_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_nL', 0., 10.)
+    cb_mm_nR = ROOT.RooRealVar('cb_mm_nR_' + mesonCat + "_" + tag + '_' + sig, 'cb_mm_nR', 0., 10.)
 
     pdf_crystalball_mh = ROOT.RooDoubleCBFast('crystal_ball_' + mesonCat + "_" + tag + '_' + sig + "_mh", 'crystal_ball_mh', x, cb_mh_mu, cb_mh_sigma, cb_mh_alphaL, cb_mh_nL, cb_mh_alphaR, cb_mh_nR)
     pdf_crystalball_mm = ROOT.RooDoubleCBFast('crystal_ball_' + mesonCat + "_" + tag + '_' + sig + "_mm", 'crystal_ball_mm', y, cb_mm_mu, cb_mm_sigma, cb_mm_alphaL, cb_mm_nL, cb_mm_alphaR, cb_mm_nR)
@@ -454,14 +487,14 @@ if __name__ == "__main__":
     mesonCat = "Phi3Cat"
     #mesonCat = "OmegaCat"
     #mesonCat = "D0StarCat"
-    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    #for mesonCat in ["OmegaCat"]:
+    #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
+    for mesonCat in ["Phi3Cat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-                    fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitSig(cat, mesonCat, year, date, regModelName=regModelName)
+                    #fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
         #fitSig(cat, mesonCat, year, date)
 
     '''

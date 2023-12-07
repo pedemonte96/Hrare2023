@@ -397,10 +397,10 @@ def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
         pdf_cheb_mm = pdf_chebychev3_mm
     if mesonCat in ["D0StarCat"]:
         gauss_mu = ROOT.RooRealVar('gauss_mu_' + mesonCat + "_" + tag, 'gauss_mu', 1.865, 1.83, 1.90)
-        gauss_sigma = ROOT.RooRealVar('gauss_sigma_' + mesonCat + "_" + tag, 'gauss_sigma', 0.02, 0.001, 0.10)
+        gauss_sigma = ROOT.RooRealVar('gauss_sigma_' + mesonCat + "_" + tag, 'gauss_sigma', 0.03, 0.002, 0.10)
         pdf_gauss = ROOT.RooGaussian('gauss_' + mesonCat + "_" + tag, 'gauss', y , gauss_mu, gauss_sigma)
 
-        fraction_1 = ROOT.RooRealVar("fraction_1", "", 0.95, 0.8, 1.)
+        fraction_1 = ROOT.RooRealVar("fraction_1", "", 0.95, 0.6, 1.)
         pdf_bern_mm = ROOT.RooAddPdf('bern3_' + mesonCat + "_" + tag + "_mm_mod", 'bern3_mm_mod', ROOT.RooArgList(pdf_bern3_mm, pdf_gauss), ROOT.RooArgList(fraction_1))
         pdf_cheb_mm = ROOT.RooAddPdf('chebychev3_' + mesonCat + "_" + tag + "_mm_mod", 'chebychev3_mm_mod', ROOT.RooArgList(pdf_chebychev3_mm, pdf_gauss), ROOT.RooArgList(fraction_1))
 

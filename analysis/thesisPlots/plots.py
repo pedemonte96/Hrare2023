@@ -752,6 +752,8 @@ if __name__ == "__main__":
         # HCandVar with regression --------------------------------------------------------------------------------------------
         for i, c in enumerate(channels):
             fileName = "{}_HiggsMass.png".format(c)
+            variable = "HCandMass_varPRED"
+            #variable = "HCandMass"
             df_0, df_1, df_2 = dfsSGN_0[i], dfsSGN_1[i], dfsSGN_2[i]
             dfSGN_VBF = dfsSGN_VBF[i]
             dfBKG = dfsBKG[i]
@@ -760,16 +762,16 @@ if __name__ == "__main__":
             options = {"labelXAxis": "m^{{H}}_{{#gamma{}}} [GeV]".format(channels_latex[i]), "labelYAxis": "Events", "style": ["f", "f", "f", "p"], "colors": [ROOT.kOrange - 9, ROOT.kRed - 7, ROOT.kRed + 2, ROOT.kBlack], "logScale": True, "HCandMass": True, "data": True, "legendFontSize": 0.030}
             histograms = []
             name1 = "#gamma + jets"
-            h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h1 = dfBKG.Histo1D(("hist", name1, nbins, xlow, xhigh), variable, "scale").GetValue()
             name2 = "qqH MC ({})".format(channels_latex_titles[i])#VBF
-            h2 = dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h2 = dfSGN_VBF.Histo1D(("hist", name2, nbins, xlow, xhigh), variable, "scale").GetValue()
             name3 = "ggH MC ({})".format(channels_latex_titles[i])
-            h3 = df_0.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
-            h3.Add(df_1.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
-            h3.Add(df_2.Histo1D(("hist", name3, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue())
+            h3 = df_0.Histo1D(("hist", name3, nbins, xlow, xhigh), variable, "scale").GetValue()
+            h3.Add(df_1.Histo1D(("hist", name3, nbins, xlow, xhigh), variable, "scale").GetValue())
+            h3.Add(df_2.Histo1D(("hist", name3, nbins, xlow, xhigh), variable, "scale").GetValue())
             
             name4 = "Data"
-            h4 = dfDATA.Filter("HCandMass_varPRED < 115 || HCandMass_varPRED > 135").Histo1D(("hist", name4, nbins, xlow, xhigh), "HCandMass_varPRED", "scale").GetValue()
+            h4 = dfDATA.Filter("{var} < 115 || {var} > 135".format(var=variable)).Histo1D(("hist", name4, nbins, xlow, xhigh), variable, "scale").GetValue()
 
             #integralBKG = h1.Integral(h1.FindBin(xlow), h1.FindBin(xhigh))
             #integralSGN = h2.Integral(h2.FindBin(xlow), h2.FindBin(xhigh))
