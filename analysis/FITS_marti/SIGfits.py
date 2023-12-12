@@ -100,8 +100,6 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
     model.paramOn(plotFrameWithNormRange, ROOT.RooFit.Layout(0.65, 0.99, 0.75))
     name = model.GetName() + "_Norm[mh]_Range[full]_NormRange[full]"
 
-    print("HELLO")
-
     #hist1 = model.createHistogram("fitCurve", x, ROOT.RooFit.IntrinsicBinning())
     #hist1 = plotFrameWithNormRange.getCurve(name)
     #hist1.Print()
