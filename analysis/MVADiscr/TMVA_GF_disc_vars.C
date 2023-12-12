@@ -67,12 +67,14 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
 
 
     // Initialize the dataset
-    TFile* outfile = TFile::Open(Form("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/MVADiscr/rootVars/%s", Form("%s_%s_GF_%d.root", outFileName, channel, testSet)), "RECREATE");    
+    TFile* outfile = TFile::Open(Form("/data/submit/pdmonte/TMVA_disc/rootVars/%s", Form("%s_%s_GF_%d_%d.root", outFileName, channel, codeVars, testSet)), "RECREATE");    
+    //TFile* outfile = TFile::Open(Form("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/MVADiscr/rootVars/%s", Form("%s_%s_GF_%d.root", outFileName, channel, testSet)), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset (REVISIT)
     if (codeVars % 2) {dataloader->AddVariable("HCandPT/HCandMass", "HCandPT__div_HCandMass", "", 'F');}                    codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]/HCandPT", "meson_pt__div_HCandPT", "", 'F');}               codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]/HCandMass", "meson_pt__div_HCandMass", "", 'F');}               codeVars /= 2;
     ////if (codeVars % 2) {dataloader->AddVariable("goodMeson_ditrk_pt[0]/HCandPT", "meson_pt__div_HCandPT", "", 'F');} codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("goodPhotons_eta[0]", "photon_eta", "", 'F');}                               codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("goodPhotons_mvaID[0]", "photon_mvaID", "", 'F');}                           codeVars /= 2;
@@ -98,12 +100,15 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
 
 
     // Set weights. This is what creates the Signal/Background classes
-    dataloader->SetWeightExpression("w / sigmaHCandMass_Rel2");
+    dataloader->SetWeightExpression("w * lumiIntegrated / sigmaHCandMass_Rel2");
 
     // Spectator used for split
     // dataloader->AddSpectator("Entry$", "eventID");
     //dataloader->AddVariable("HCandMass", "HCandMass", "", 'F');
     //dataloader->AddVariable("goodMeson_mass[0]", "meson_mass", "", 'F');
+    dataloader->AddSpectator("w", "w");
+    dataloader->AddSpectator("lumiIntegrated", "lumiIntegrated");
+    dataloader->AddSpectator("HCandMass", "HCandMass");
 
     // Apply split
     ////////////////////// TODO: use cross validation /////////////////////////
@@ -111,7 +116,7 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
     const char* testTreeEventSplitStr = Form("(Entry$ %% 3) == %d", testSet);
     
     // Apply cuts
-    const char* higgsMass_full = "HCandMass > 110 && HCandMass < 160";
+    const char* higgsMass_full = "HCandMass > 100 && HCandMass < 160";
     // const char* higgsMass = "HCandMass > 115 && HCandMass < 135";
     const char* nanRemove = "!TMath::IsNaN(goodMeson_massErr) && !TMath::IsNaN(sigmaHCandMass_Rel2)";
     
@@ -141,6 +146,7 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
     dataloader->AddTree((TTree*)bkgfile2->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
     dataloader->AddTree((TTree*)bkgfile3->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
     dataloader->AddTree((TTree*)bkgfile4->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
+    dataloader->AddTree((TTree*)bkgfile5->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
 
     // Preparing trees
     cout << "\033[1;36m------------------------------------------ PREPARING TREES ------------------------------------------\033[0m" << endl;
