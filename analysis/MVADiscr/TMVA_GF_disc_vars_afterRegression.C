@@ -16,7 +16,7 @@
 
 using namespace TMVA;
 
-void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet=0, int codeVars = 4194303){
+void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* channel, int testSet=0, int codeVars = 4194303){
 
     time_t start_t;
     struct tm * timeinfo;
@@ -37,33 +37,36 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
     
     // Open files
     TString fileformat;
-    TFile* sgnfile;
-    TFile* bkgfile1;
-    TFile* bkgfile2;
-    TFile* bkgfile3;
-    TFile* bkgfile4;
-    TFile* bkgfile5;
+    TString fileformatBkg;
+    TFile* sgnfile0;
+    TFile* sgnfile1;
+    TFile* sgnfile2;
+    TFile* bkgfile;
+    int mesonNum;
 
     if(std::strcmp(channel, "omega") == 0 || std::strcmp(channel, "o") == 0){
-        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_OmegaCat_2018.root";
-        sgnfile = TFile::Open(Form(fileformat, 1038), "READ");
+        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_OmegaCat_2018_sample%d_after.root";
+        fileformatBkg = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc0_GFcat_OmegaCat_2018_after.root";
+        mesonNum = 1038;
     }else if(std::strcmp(channel, "phi") == 0 || std::strcmp(channel, "phi3") == 0 || std::strcmp(channel, "p") == 0){
-        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_Phi3Cat_2018.root";
-        sgnfile = TFile::Open(Form(fileformat, 1039), "READ");
+        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_Phi3Cat_2018_sample%d_after.root";
+        fileformatBkg = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc0_GFcat_Phi3Cat_2018_after.root";
+        mesonNum = 1039;
     }else if(std::strcmp(channel, "d0starrho") == 0 || std::strcmp(channel, "dr") == 0){
-        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_D0StarRhoCat_2018.root";
-        sgnfile = TFile::Open(Form(fileformat, 1040), "READ");
+        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_D0StarRhoCat_2018_sample%d_after.root";
+        fileformatBkg = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc0_GFcat_D0StarRhoCat_2018_after.root";
+        mesonNum = 1040;
     }else if(std::strcmp(channel, "d0star") == 0 || std::strcmp(channel, "d") == 0){
-        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_D0StarCat_2018.root";
-        sgnfile = TFile::Open(Form(fileformat, 1041), "READ");
+        fileformat = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc%d_GFcat_D0StarCat_2018_sample%d_after.root";
+        fileformatBkg = "/data/submit/pdmonte/outputs/NOV05/2018/outname_mc0_GFcat_D0StarCat_2018_after.root";
+        mesonNum = 1041;
     }else
         return -1;
 
-    bkgfile1 = TFile::Open(Form(fileformat, 10), "READ");
-    bkgfile2 = TFile::Open(Form(fileformat, 11), "READ");
-    bkgfile3 = TFile::Open(Form(fileformat, 12), "READ");
-    bkgfile4 = TFile::Open(Form(fileformat, 13), "READ");
-    bkgfile5 = TFile::Open(Form(fileformat, 14), "READ");
+    sgnfile0 = TFile::Open(Form(fileformat, mesonNum, 0), "READ");
+    sgnfile1 = TFile::Open(Form(fileformat, mesonNum, 1), "READ");
+    sgnfile2 = TFile::Open(Form(fileformat, mesonNum, 2), "READ");
+    bkgfile = TFile::Open(fileformatBkg, "READ");
 
 
     // Initialize the dataset
@@ -108,7 +111,9 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
     //dataloader->AddVariable("goodMeson_mass[0]", "meson_mass", "", 'F');
     dataloader->AddSpectator("w", "w");
     dataloader->AddSpectator("lumiIntegrated", "lumiIntegrated");
+    dataloader->AddSpectator("scale", "scale");
     dataloader->AddSpectator("HCandMass", "HCandMass");
+    dataloader->AddSpectator("HCandMass_varPRED", "HCandMass_varPRED");
 
     // Apply split
     ////////////////////// TODO: use cross validation /////////////////////////
@@ -132,21 +137,17 @@ void TMVA_GF_disc_vars(const char* outFileName, const char* channel, int testSet
     cout << "\033[1;36m -------------------------------------- ADD TREES -------------------------------------- \033[0m" << endl;
     cout << "\033[1;35mStart to add the data to the train set\033[0m" << endl;
     //Load train data with the cuts
-    dataloader->AddTree((TTree*)sgnfile->Get("events"), "Signal", signalWeight, cutSignalTrain, "train");
-    dataloader->AddTree((TTree*)bkgfile1->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
-    dataloader->AddTree((TTree*)bkgfile2->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
-    dataloader->AddTree((TTree*)bkgfile3->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
-    dataloader->AddTree((TTree*)bkgfile4->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
-    dataloader->AddTree((TTree*)bkgfile5->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
+    dataloader->AddTree((TTree*)sgnfile0->Get("events"), "Signal", signalWeight, cutSignalTrain, "train");
+    dataloader->AddTree((TTree*)sgnfile1->Get("events"), "Signal", signalWeight, cutSignalTrain, "train");
+    dataloader->AddTree((TTree*)sgnfile2->Get("events"), "Signal", signalWeight, cutSignalTrain, "train");
+    dataloader->AddTree((TTree*)bkgfile->Get("events"), "Background", backgroundWeight, cutBkgTrain, "train");
     
     //Load test data with the cuts
     cout << "\033[1;35mStart to add the data to the test set\033[0m" << endl;
-    dataloader->AddTree((TTree*)sgnfile->Get("events"), "Signal", signalWeight, cutSignalTest, "test");
-    dataloader->AddTree((TTree*)bkgfile1->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
-    dataloader->AddTree((TTree*)bkgfile2->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
-    dataloader->AddTree((TTree*)bkgfile3->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
-    dataloader->AddTree((TTree*)bkgfile4->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
-    dataloader->AddTree((TTree*)bkgfile5->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
+    dataloader->AddTree((TTree*)sgnfile0->Get("events"), "Signal", signalWeight, cutSignalTest, "test");
+    dataloader->AddTree((TTree*)sgnfile1->Get("events"), "Signal", signalWeight, cutSignalTest, "test");
+    dataloader->AddTree((TTree*)sgnfile2->Get("events"), "Signal", signalWeight, cutSignalTest, "test");
+    dataloader->AddTree((TTree*)bkgfile->Get("events"), "Background", backgroundWeight, cutBkgTest, "test");
 
     // Preparing trees
     cout << "\033[1;36m------------------------------------------ PREPARING TREES ------------------------------------------\033[0m" << endl;
