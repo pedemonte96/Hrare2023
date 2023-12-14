@@ -222,35 +222,35 @@ if __name__ == "__main__":
     
     #ggH REGRESSION -----------------------------------------------------------------------------------------------------------------------
     s = '''
-    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleOmega0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega0);
-    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleOmega1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega1);
-    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleOmega2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleOmega2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleOmega2);
     '''.format(modelName=modelNameOmega, channel="omega", numVarsTotal=getTotalNumVars(modelNameOmega))
     s += '''
-    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScalePhi0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi0);
-    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScalePhi1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi1);
-    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScalePhi2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScalePhi2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScalePhi2);
     '''.format(modelName=modelNamePhi3, channel="phi", numVarsTotal=getTotalNumVars(modelNamePhi3))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0Star0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star0);
-    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0Star1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star1);
-    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0Star2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0Star2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0Star2);
     '''.format(modelName=modelNameD0Star2, channel="d0star", numVarsTotal=getTotalNumVars(modelNameD0Star2))
     s += '''
-    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho0("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_0.weights.xml");
     computeModelScaleD0StarRho0 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho0);
-    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho1("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_1.weights.xml");
     computeModelScaleD0StarRho1 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho1);
-    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOptsFinalBis2/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
+    TMVA::Experimental::RReader modelScaleD0StarRho2("/data/submit/pdmonte/TMVA_models/weightsOptsFinal/TMVARegression_{modelName}_{channel}_ggh_2.weights.xml");
     computeModelScaleD0StarRho2 = TMVA::Experimental::Compute<{numVarsTotal}, float>(modelScaleD0StarRho2);
     '''.format(modelName=modelNameD0Star3, channel="d0starrho", numVarsTotal=getTotalNumVars(modelNameD0Star3))
     ROOT.gInterpreter.ProcessLine(s)
