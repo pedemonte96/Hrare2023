@@ -61,7 +61,7 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
 
     # -----------------------------------------------------------------------------TEST generic pdf
-    s = '''
+    """s = '''
     double crystalBallGeneric(double x, double mu, double sigma, double alphaL, double nL, double alphaR, double nR) {
         
         double aL = pow((nL/abs(alphaL)), nL) * exp(-alphaL*alphaL/2);
@@ -87,9 +87,9 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
     pdf_crystalball_gen = ROOT.RooGenericPdf('pdf_crystalball_gen', 'pdf_crystalball_gen', "((mh-mu)/sigma < -alphaL) * 1 + \
                                                                                             ((mh-mu)/sigma >  alphaR) * 3 + \
-                                             ((mh-mu)/sigma >= - alphaL && (mh-mu)/sigma <= alphaR) * 10", ROOT.RooArgList(x, cb_mu, cb_sigma, cb_alphaL, cb_nL, cb_alphaR, cb_nR))
+                                             ((mh-mu)/sigma >= - alphaL && (mh-mu)/sigma <= alphaR) * 10", ROOT.RooArgList(x, cb_mu, cb_sigma, cb_alphaL, cb_nL, cb_alphaR, cb_nR))"""
 
-    model = pdf_crystalball_gen
+    model = pdf_crystalball
 
     fitresults = model.fitTo(data, ROOT.RooFit.Minimizer("Minuit2"), ROOT.RooFit.Strategy(2), ROOT.RooFit.Range("full"), ROOT.RooFit.Save(ROOT.kTRUE))
 
