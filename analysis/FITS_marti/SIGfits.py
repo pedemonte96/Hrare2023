@@ -11,6 +11,17 @@ sig = "ggH"
 workspaceName = 'WS_NOV16'
 
 def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+    '''
+    Fits a Crystal Ball function to a histogram and saves the fit results and plots.
+
+    Parameters:
+    - tag (str): Tag for the histogram.
+    - mesonCat (str): Category for the meson.
+    - year (int): Year of the data.
+    - date (str): Date of the sample.
+    - extraTitle (str, optional): Additional title for the fit. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    '''
 
     if regModelName == "RECO":
         regModelName = None
@@ -202,6 +213,17 @@ def fitSig(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
 
 def fitSig2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+    '''
+    Fit a 2D histogram with a double Crystal Ball function using RooFit in ROOT and saves the fit results and plots.
+
+    Parameters:
+    - tag (str): Tag for the histogram.
+    - mesonCat (str): Category for the meson.
+    - year (int): Year of the data.
+    - date (str): Date of the sample.
+    - extraTitle (str, optional): Additional title for the fit. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    '''
 
     if regModelName == "RECO":
         regModelName = None
@@ -458,54 +480,10 @@ if __name__ == "__main__":
     year = 2018
     date = "NOV05"
 
-
-    #D0Star----------------------------------------------------------------------------------------
-    '''
-    extraTitle = "barrel meson"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel meson, barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "endcap meson, barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel meson, endcap photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "endcap meson, endcap photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    date = "JUN21"
-    extraTitle = "missing photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "missing pion"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-
-    '''
-    #Phi3------------------------------------------------------------------------------------------
-    df = False
-    mesonCat = "Phi3Cat"
-    #mesonCat = "OmegaCat"
-    #mesonCat = "D0StarCat"
-    #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    for mesonCat in ["Phi3Cat"]:
+    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
                     fitSig(cat, mesonCat, year, date, regModelName=regModelName)
-                    #fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)
-        #fitSig(cat, mesonCat, year, date)
-
-    '''
-    extraTitle = "barrel meson"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel meson, barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "endcap meson, barrel photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "barrel meson, endcap photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    extraTitle = "endcap meson, endcap photon"
-    fitSig(cat, mesonCat, year, date, extraTitle=extraTitle)
-    '''
+                    fitSig2D(cat, mesonCat, year, date, regModelName=regModelName)

@@ -30,26 +30,18 @@ sig = "ggH"
 workspaceName = 'WS_NOV16'
 
 
-def rndInits(init):
-    for key in init:
-        for pol in init[key]:
-            for i, e in enumerate(init[key][pol]):
-                mean = e[0]
-                sig = (e[2] - e[1])/5.
-                lw = e[1] + random.gauss(0, 0.3)
-                hg = e[2] + random.gauss(0, 0.3)
-                while lw > hg:
-                    lw = e[1] + random.gauss(0, 0.3)
-                    hg = e[2] + random.gauss(0, 0.3)
-                nv = random.gauss(mean, sig)
-                while nv > e[2] or nv < e[1]:
-                    nv = random.gauss(mean, sig)
-                init[key][pol][i] = (nv, lw, hg)
-
-    return init
-
-
 def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+    '''
+    Fits the background 1D histogram to different models and saves the fit results and plots.
+
+    Parameters:
+    - tag (str): Tag for the histogram.
+    - mesonCat (str): Category for the meson.
+    - year (int): Year of the data.
+    - date (str): Date of the sample.
+    - extraTitle (str, optional): Additional title for the fit. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    '''
 
     if regModelName == "RECO":
         regModelName = None
@@ -291,6 +283,17 @@ def fitBkg(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
 
 
 def fitBkg2D(tag, mesonCat, year, date, extraTitle=None, regModelName=None):
+    '''
+    Fits the background 2D histogram to different models and saves the fit results and plots.
+
+    Parameters:
+    - tag (str): Tag for the histogram.
+    - mesonCat (str): Category for the meson.
+    - year (int): Year of the data.
+    - date (str): Date of the sample.
+    - extraTitle (str, optional): Additional title for the fit. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    '''
 
     if regModelName == "RECO":
         regModelName = None
@@ -649,20 +652,10 @@ if __name__ == "__main__":
     year = 2018
     date = "NOV05"
 
-
-    #BACKGROUND D0Star-----------------------------------------------------------------------------
-
-    #BACKGROUND Phi3-------------------------------------------------------------------------------
-    df = False
-    mesonCat = "Phi3Cat"
-    #mesonCat = "OmegaCat"
-    #mesonCat = "D0StarCat"
-    #for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
-    for mesonCat in ["D0StarCat"]:
+    for mesonCat in ["Phi3Cat", "OmegaCat", "D0StarCat", "D0StarRhoCat"]:
         with open('models_{}.txt'.format(mesonCat[:-3]), 'r') as file:
             for line in file:
                 regModelName = line.strip()
                 if regModelName[0] != "#":
-                    #fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
+                    fitBkg(cat, mesonCat, year, date, regModelName=regModelName)
                     fitBkg2D(cat, mesonCat, year, date, regModelName=regModelName)
-    #fitBkg(cat, mesonCat, year, date)

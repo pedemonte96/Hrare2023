@@ -21,6 +21,15 @@ prodCat = "ggh"
 
 
 def getNumVarsFromCode(code):
+    '''
+    Calculates the number of variables from a binary code.
+
+    Args:
+    - code (int): Binary code representing the variables.
+
+    Returns:
+    - int: Number of variables in the code.
+    '''
     nVars = 0
     while(code > 0):
         nVars += int(code%2)
@@ -39,7 +48,27 @@ def getTotalNumVars(modelName):
 
 
 def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, filters=[], extraTitle=None, ditrack=False, regModelName=None):
-    """Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings."""
+    '''
+    Creates a histogram based on specified parameters using ROOT's RDataFrame. Optional filters and extra title strings.
+
+    Args:
+    - nbin (int): Number of bins for the histogram.
+    - xlow (float): Lower edge of the histogram.
+    - xhigh (float): Upper edge of the histogram.
+    - date (str): Date of the sample.
+    - nums (list): List of numbers representing the sample.
+    - cat (str): Category of the sample.
+    - mesonCat (str): Channel to study.
+    - mesonLatex (str): LaTeX representation of the meson.
+    - year (int): The year of the data sample.
+    - filters (list): List of filters to apply (default is an empty list).
+    - extraTitle (str): Additional title for the histogram (default is None).
+    - ditrack (bool): Flag indicating if ditrack is used (default is False).
+    - regModelName (str): Name of the pT regression model used (default is None).
+
+    Returns:
+    - ROOT.TH1D: The created histogram.
+    '''
 
     verbString = "[getHisto] Creating Histogram {} {} {}".format(mesonCat, cat, date)
     if regModelName is not None:
@@ -162,7 +191,25 @@ def getHisto(nbin, xlow, xhigh, date, nums, cat, mesonCat, mesonLatex, year, fil
 
 
 def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mesonLatex, year, extraTitle=None, regModelName=None):
-    """Creates a 2D histogram based on specified parameters using ROOT's RDataFrame."""
+    '''
+    Creates a 2D histogram based on specified parameters using ROOT's RDataFrame.
+
+    Parameters:
+    - nbinHiggs (int): Number of bins for the Higgs candidate mass.
+    - xlow, xhigh (float): Range of the Higgs candidate mass.
+    - nbinMeson (int): Number of bins for the meson mass.
+    - date (str): Date of the sample.
+    - nums (list): List of numbers representing the sample.
+    - cat (str): Category of the sample.
+    - mesonCat (str): Channel to study.
+    - mesonLatex (str): LaTeX representation of the meson.
+    - year (int): The year of the data sample.
+    - extraTitle (str, optional): Additional title for the histogram.
+    - regModelName (str, optional): Name of the regression model.
+
+    Returns:
+    - ROOT.TH2D: 2D histogram.
+    '''
 
     verbString = "[get2DHisto] Creating Histogram {} {} {}".format(mesonCat, cat, date)
     if regModelName is not None:
@@ -286,32 +333,60 @@ def get2DHisto(nbinHiggs, xlow, xhigh, nbinMeson, date, nums, cat, mesonCat, mes
 
 
 def getHistoFromFile(fileName):
-    """Reads a histogram object from a ROOT file specified by `fileName`."""
+    '''
+    Reads a histogram object from a ROOT file.
+
+    Parameters:
+    - fileName (str): The path to the ROOT file.
+
+    Returns:
+    - ROOT.TH1D or None: The histogram object read from the file, or None if not found.
+    '''
     # Read using python 2.7.14 and ROOT 6.14
     infile = ROOT.TFile.Open(fileName, "read")
     h = infile.Get("myhisto")
     #Hist is associated with file and becomes None when file is destroyed. This line is to disassociate them
     h.SetDirectory(0)
     return h
-    """
+    '''
     # This is for python 3.11 and ROOT 6.28
     with ROOT.TFile(fileName, "read") as infile:
         h = infile.Get("myhisto")
         #Hist is associated with file and becomes None when file is destroyed. This line is to disassociate them
         h.SetDirectory(0)
         return h
-    """
+    '''
 
 
 def saveHistoToFile(h, fileName):
-    """Saves a histogram object `h` to a ROOT file specified by `fileName`."""
+    '''
+    Saves a histogram object `h` to a ROOT file specified by `fileName`.
+
+    Parameters:
+    - h (ROOT.TH1D): The histogram object to be saved.
+    - fileName (str): The path to the ROOT file.
+    '''
     # Save using python 3.11 and ROOT 6.28
     with ROOT.TFile(fileName, "RECREATE") as outfile:
         outfile.WriteObject(h, "myhisto")
 
 
 def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelName=None, doubleFit=False):
-    """Generates the full file name for a histogram file based on the provided parameters."""
+    '''
+    Generates the full file name for a histogram file based on the provided parameters.
+
+    Parameters:
+    - mesonCat (str): Meson category.
+    - cat (str): Category.
+    - year (int): Year of the data.
+    - date (str): Date of the data.
+    - extraTitle (str, optional): Additional title for the file. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    - doubleFit (bool, optional): Indicates if it's a 2D fit. Defaults to False.
+
+    Returns:
+    - str: The full file name for the histogram file.
+    '''
     fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date
     if regModelName is not None:
         fileName += "_" + regModelName
@@ -323,7 +398,21 @@ def getFullNameOfHistFile(mesonCat, cat, year, date, extraTitle=None, regModelNa
 
 
 def getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=None, regModelName=None, doubleFit=False):
-    """Generates the full file name for a histogram file based on the provided parameters."""
+    '''
+    Generates the simple file name for a histogram file based on the provided parameters.
+
+    Parameters:
+    - mesonCat (str): Meson category.
+    - cat (str): Category.
+    - year (int): Year of the data.
+    - date (str): Date of the data.
+    - extraTitle (str, optional): Additional title for the file. Defaults to None.
+    - regModelName (str, optional): Name of the regression model. Defaults to None.
+    - doubleFit (bool, optional): Indicates if it's a 2D fit. Defaults to False.
+
+    Returns:
+    - str: The simple file name for the histogram file.
+    '''
     fileName = "HCandMassHist_" + mesonCat[:-3] + "_" + cat[:-3] + "_" + str(year) + "_" + date
     if regModelName is not None:
         fileName += "_" + regModelName
@@ -335,6 +424,16 @@ def getNameOfHistFileSimple(mesonCat, cat, year, date, extraTitle=None, regModel
 
 
 def plotHist(nameRootFile, nameOutDraw, is2D=False, xAxisRange=None, yAxisRange=None):
+    '''
+    Plots and saves a histogram from a ROOT file.
+
+    Parameters:
+    - nameRootFile (str): Name of the ROOT file containing the histogram.
+    - nameOutDraw (str): Name for the output plot.
+    - is2D (bool, optional): Indicates if the histogram is 2D. Defaults to False.
+    - xAxisRange (tuple, optional): Range for the X-axis. Defaults to None.
+    - yAxisRange (tuple, optional): Range for the Y-axis. Defaults to None.
+    '''
     print("[plotHist] START")
     cs = ROOT.TCanvas("canvas", "canvas", 800, 800)
     h = getHistoFromFile(nameRootFile)
