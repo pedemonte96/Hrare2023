@@ -75,30 +75,13 @@ void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* chan
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset (REVISIT)
-    if (codeVars % 2) {dataloader->AddVariable("HCandPT/HCandMass", "HCandPT__div_HCandMass", "", 'F');}                    codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]/HCandPT", "meson_pt__div_HCandPT", "", 'F');}               codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]/HCandMass", "meson_pt__div_HCandMass", "", 'F');}           codeVars /= 2;
-    ////if (codeVars % 2) {dataloader->AddVariable("goodMeson_ditrk_pt[0]/HCandPT", "meson_pt__div_HCandPT", "", 'F');} codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodPhotons_eta[0]", "photon_eta", "", 'F');}                               codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodPhotons_mvaID[0]", "photon_mvaID", "", 'F');}                           codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("DeepMETResolutionTune_pt", "DeepMETResolutionTune_pt", "GeV/c", 'F');}      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_iso[0]", "meson_iso", "", 'F');}                                  codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_trk2_phi[0]", "meson_trk2_phi", "", 'F');}                        codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("dEtaGammaMesonCand/HCandMass", "dEtaGammaMesonCand__div_HCandMass", "", 'F');} codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("nGoodJets", "nGoodJets", "", 'F');}                                         codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_DR", "meson_DR", "", 'F');}                                       codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_vtx_chi2dof", "goodMeson_vtx_chi2dof", "", 'F');}                 codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_vtx_prob", "goodMeson_vtx_prob", "", 'F');}                       codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_sipPV[0]", "meson_sipPV", "", 'F');}                              codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_bestVtx_idx[0]", "meson_bestVtx_idx", "", 'F');}                  codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_bestVtx_X[0]", "meson_bestVtx_X", "", 'F');}                      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_bestVtx_Y[0]", "meson_bestVtx_Y", "", 'F');}                      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_bestVtx_Z[0]", "meson_bestVtx_Z", "", 'F');}                      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_bestVtx_R[0]", "meson_bestVtx_R", "", 'F');}                      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("delta_eta_goodMeson_ditrk_goodPhoton_input_pred", "delta_eta_goodMeson_ditrk_goodPhoton_input_pred", "", 'F');} codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("delta_phi_goodMeson_ditrk_goodPhoton_input_pred", "delta_phi_goodMeson_ditrk_goodPhoton_input_pred", "", 'F');} codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("var0_input_pred", "var0", "", 'F');}                                        codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodPhotons_pt[0]", "goodPhotons_pt", "", 'F');}                            codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("goodMeson_iso[0]", "goodMeson_iso", "", 'F');}               codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("phi_isoNeuHad[0]", "phi_isoNeuHad", "", 'F');}                    codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("Tau_rawDeepTau2017v2p1VSjet[0]", "Tau_rawDeepTau2017v2p1VSjet", "", 'F');}           codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("var0_input_pred", "var0_input_pred", "", 'F');}                               codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("SV_pt[0]", "SV_pt", "", 'F');}                           codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("var3_input_pred", "var3_input_pred", "GeV/c", 'F');}      codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("Tau_rawIso[0]", "Tau_rawIso", "", 'F');}                                  codeVars /= 2;
     if (codeVars > 0) {cout << "codeVars greater than expected!" << endl; return -1;}
 
 

@@ -66,11 +66,11 @@ else
 			bash runVGM.sh $cat $mesonCat 13 $year
 			bash runVGM.sh $cat $mesonCat 14 $year
 		elif [[ ${2,,} == 1 ]]; then
-			#bash runVGM.sh $cat $mesonCat $numSignal $year
-			#bash runVGM.sh $cat $mesonCat 10 $year
+			bash runVGM.sh $cat $mesonCat $numSignal $year
+			bash runVGM.sh $cat $mesonCat 10 $year
 			bash runVGM.sh $cat $mesonCat 13 $year
 		elif [[ ${2,,} == 2 ]]; then
-			#bash runVGM.sh $cat $mesonCat 11 $year
+			bash runVGM.sh $cat $mesonCat 11 $year
 			bash runVGM.sh $cat $mesonCat 14 $year
 		elif [[ ${2,,} == 3 ]]; then
 			bash runVGM.sh $cat $mesonCat 12 $year
