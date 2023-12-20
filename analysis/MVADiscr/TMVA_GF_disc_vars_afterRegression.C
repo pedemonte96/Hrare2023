@@ -74,16 +74,18 @@ void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* chan
     //TFile* outfile = TFile::Open(Form("/home/submit/pdmonte/CMSSW_10_6_27/src/Hrare2023/analysis/MVADiscr/rootVars/%s", Form("%s_%s_GF_%d.root", outFileName, channel, testSet)), "RECREATE");    
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
-    // Add variables to dataset (REVISIT)
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_iso[0]", "goodMeson_iso", "", 'F');}               codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("phi_isoNeuHad[0]", "phi_isoNeuHad", "", 'F');}                    codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("Tau_rawDeepTau2017v2p1VSjet[0]", "Tau_rawDeepTau2017v2p1VSjet", "", 'F');}           codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("var0_input_pred", "var0_input_pred", "", 'F');}                               codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("SV_pt[0]", "SV_pt", "", 'F');}                           codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("var3_input_pred", "var3_input_pred", "GeV/c", 'F');}      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("Tau_rawIso[0]", "Tau_rawIso", "", 'F');}                                  codeVars /= 2;
+    // Add variables to dataset (REVISIT: try to remove and improve efficiency)
+    if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]", "goodMeson_pt", "", 'F');}            codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("var0_input_pred", "var0_input_pred", "", 'F');}         codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("goodMeson_iso[0]", "goodMeson_iso", "", 'F');}          codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("nTau[0]", "nTau", "", 'F');}                            codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("goodMeson_sipPV[0]", "goodMeson_sipPV", "", 'F');}      codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("Photon_z_calo[0]", "Photon_z_calo", "", 'F');}          codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("goodPhotons_sieie[0]", "goodPhotons_sieie", "", 'F');}  codeVars /= 2;
+    //if (codeVars % 2) {dataloader->AddVariable("classify[0]", "classify", "", 'F');}                    codeVars /= 2;
+    //if (codeVars % 2) {dataloader->AddVariable("var8_input_pred", "var8_input_pred", "", 'F');}         codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("var4_input_pred", "var4_input_pred", "", 'F');}         codeVars /= 2;
     if (codeVars > 0) {cout << "codeVars greater than expected!" << endl; return -1;}
-
 
     // Set weights. This is what creates the Signal/Background classes
     dataloader->SetWeightExpression("w * lumiIntegrated / sigmaHCandMass_Rel2");
@@ -166,7 +168,10 @@ void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* chan
     }
 
     if (useBDTG){
-        factory.BookMethod(dataloader,TMVA::Types::kBDT, "BDTG150", "!V:VarTransform=P,D:NTrees=150:BoostType=Grad:Shrinkage=0.07:MaxDepth=5:SeparationType=GiniIndex:nCuts=24:UseRandomisedTrees:UseNvars=24:UseBaggedBoost:BaggedSampleFraction=0.7:PruneMethod=NoPruning" );
+        factory.BookMethod(dataloader,TMVA::Types::kBDT, "BDTG_A", "!V:VarTransform=P,D,N:NTrees=200:BoostType=Grad:Shrinkage=0.06:MaxDepth=5:SeparationType=GiniIndex:nCuts=20:UseRandomisedTrees:UseNvars=16:UseBaggedBoost:BaggedSampleFraction=0.7:PruneMethod=NoPruning" );
+        //factory.BookMethod(dataloader,TMVA::Types::kBDT, "BDTG_B", "!V:VarTransform=P,D,N:NTrees=200:BoostType=Grad:Shrinkage=0.06:MaxDepth=5:SeparationType=GiniIndex:nCuts=20:UseRandomisedTrees:UseNvars=16:UseBaggedBoost:BaggedSampleFraction=0.7:PruneMethod=NoPruning" );
+        //factory.BookMethod(dataloader,TMVA::Types::kBDT, "BDTG_C", "!V:VarTransform=P,D,N:NTrees=200:BoostType=Grad:Shrinkage=0.06:MaxDepth=5:SeparationType=GiniIndex:nCuts=20:UseRandomisedTrees:UseNvars=16:UseBaggedBoost:BaggedSampleFraction=0.7:PruneMethod=NoPruning" );
+        //factory.BookMethod(dataloader,TMVA::Types::kBDT, "BDTG_D", "!V:VarTransform=P,D,N:NTrees=200:BoostType=Grad:Shrinkage=0.06:MaxDepth=5:SeparationType=GiniIndex:nCuts=20:UseRandomisedTrees:UseNvars=16:UseBaggedBoost:BaggedSampleFraction=0.7:PruneMethod=NoPruning" );
     }
  
     // Multi-Layer Perceptron (Neural Network)
