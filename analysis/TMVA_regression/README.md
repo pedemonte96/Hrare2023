@@ -66,7 +66,12 @@ A real example of the usage of this function would be the following:
 ```bash
 python slurm.py -i commands.txt
 ```
-This will excecute all the commands in the `commands.txt` file, one command per line. A real example of such a file would be:
+This will excecute all the commands in the `commands.txt` file, one command per line (or chained commands), with the format
+```
+<jobName>:::<command1>
+<jobName>:::<command1> && <command2>
+```
+A real example of such a file would be:
 ```bash
 o70035_v01_ggh:::root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt70035", "phi", "ggh", 0, {0, 1}, 13, 3620, "!V:VarTransform=G,N,P:NTrees=1000:BoostType=Grad:Shrinkage=0.07:MaxDepth=5:SeparationType=RegressionVariance:nCuts=43:UseRandomisedTrees=T:UseNvars=74:UseBaggedBoost=T:BaggedSampleFraction=0.959:PruneMethod=NoPruning:PruneStrength=56:PruningValFraction=0.084")' && root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt70035", "phi", "ggh", 1, {0, 1}, 13, 3620, "!V:VarTransform=G,N,P:NTrees=1000:BoostType=Grad:Shrinkage=0.07:MaxDepth=5:SeparationType=RegressionVariance:nCuts=43:UseRandomisedTrees=T:UseNvars=74:UseBaggedBoost=T:BaggedSampleFraction=0.959:PruneMethod=NoPruning:PruneStrength=56:PruningValFraction=0.084")' && root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt70035", "phi", "ggh", 2, {0, 1}, 13, 3620, "!V:VarTransform=G,N,P:NTrees=1000:BoostType=Grad:Shrinkage=0.07:MaxDepth=5:SeparationType=RegressionVariance:nCuts=43:UseRandomisedTrees=T:UseNvars=74:UseBaggedBoost=T:BaggedSampleFraction=0.959:PruneMethod=NoPruning:PruneStrength=56:PruningValFraction=0.084")' && python computeErrors.py -m BDTG_df13_dl3620_v0_v1_opt70035 -c phi -p ggh
 o72810_v01_ggh:::root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt72810", "omega", "ggh", 0, {0, 1}, 13, 3620, "!V:VarTransform=G,P,D:NTrees=1300:BoostType=Grad:Shrinkage=0.041:MaxDepth=5:SeparationType=RegressionVariance:nCuts=37:UseRandomisedTrees=T:UseNvars=26:UseBaggedBoost=T:BaggedSampleFraction=0.758:PruneMethod=NoPruning:PruneStrength=20:PruningValFraction=1.78")' && root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt72810", "omega", "ggh", 1, {0, 1}, 13, 3620, "!V:VarTransform=G,P,D:NTrees=1300:BoostType=Grad:Shrinkage=0.041:MaxDepth=5:SeparationType=RegressionVariance:nCuts=37:UseRandomisedTrees=T:UseNvars=26:UseBaggedBoost=T:BaggedSampleFraction=0.758:PruneMethod=NoPruning:PruneStrength=20:PruningValFraction=1.78")' && root -l -q -b 'TMVA_GF_regression.C("BDTG_df13_dl3620_v0_v1_opt72810", "omega", "ggh", 2, {0, 1}, 13, 3620, "!V:VarTransform=G,P,D:NTrees=1300:BoostType=Grad:Shrinkage=0.041:MaxDepth=5:SeparationType=RegressionVariance:nCuts=37:UseRandomisedTrees=T:UseNvars=26:UseBaggedBoost=T:BaggedSampleFraction=0.758:PruneMethod=NoPruning:PruneStrength=20:PruningValFraction=1.78")' && python computeErrors.py -m BDTG_df13_dl3620_v0_v1_opt72810 -c omega -p ggh
@@ -77,7 +82,7 @@ o76387_v01_ggh:::root -l -q -b 'TMVA_GF_regression.C("BDTG_df15_dl3684_v0_v1_opt
 Calling the `slurm.py` with this file will queue 4 jobs (one per line), where in each line the first three commands will train the model with the three different samples, and the last command will evaluate the model.
 
 To evaluate the RECO values of the pT with no model, one can include the following line in the `commands.txt` file:
-```bash
+```
 eval_BDTG_NONE:::python computeErrors.py -m BDTG_NONE
 ```
 
