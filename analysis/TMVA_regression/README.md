@@ -86,7 +86,17 @@ To evaluate the RECO values of the pT with no model, one can include the followi
 eval_BDTG_NONE:::python computeErrors.py -m BDTG_NONE
 ```
 
-## 4. Additional scripts and files
+## 4. Best models
+The best models found so far are the following:
+```
+phi: BDTG_df13_dl3620_v0_v1_opt70035
+omega: BDTG_df13_dl3620_v0_v1_opt72810
+d0star: BDTG_df7_dl3684_v0_v1_opt75239
+d0starrho: BDTG_df15_dl3684_v0_v1_opt76387
+```
+
+The hyperparameters of these models can be found in `optionModels.out`, a history of attempted models with their number and hyperparameters.
+
+## 5. Additional scripts and files
 - `joinRMSfiles.sh`: To join the different evaluation files into a single one, one can use the `joinRMSfiles.sh` bash script. This will create a file named `eval<channelName>.out` with all the values.
 - `autoPlot.sh`, `checkQueue.sh`, `queue.sh`, `timeJobsPlot.py`, `monitoringSlurm.sh`: Files to monitor the queued jobs in slurm, generating a plot of the completed jobs.
-- `optionModels.out`: History of attempted models, with their number and hyperparameters used.
