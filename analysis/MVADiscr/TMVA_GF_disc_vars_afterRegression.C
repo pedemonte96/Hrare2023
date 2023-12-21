@@ -75,13 +75,12 @@ void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* chan
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
 
     // Add variables to dataset (REVISIT: try to remove and improve efficiency)
-    if (codeVars % 2) {dataloader->AddVariable("goodMeson_pt[0]", "goodMeson_pt", "", 'F');}            codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("var0_input_pred", "var0_input_pred", "", 'F');}         codeVars /= 2;
+    if (codeVars % 2) {dataloader->AddVariable("var3_input_pred", "var3_input_pred", "", 'F');}         codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("goodMeson_iso[0]", "goodMeson_iso", "", 'F');}          codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("nTau[0]", "nTau", "", 'F');}                            codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("goodMeson_sipPV[0]", "goodMeson_sipPV", "", 'F');}      codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("Photon_z_calo[0]", "Photon_z_calo", "", 'F');}          codeVars /= 2;
-    if (codeVars % 2) {dataloader->AddVariable("goodPhotons_sieie[0]", "goodPhotons_sieie", "", 'F');}  codeVars /= 2;
+    ////if (codeVars % 2) {dataloader->AddVariable("Photon_z_calo[0]", "Photon_z_calo", "", 'F');}          codeVars /= 2;
+    //if (codeVars % 2) {dataloader->AddVariable("goodPhotons_sieie[0]", "goodPhotons_sieie", "", 'F');}  codeVars /= 2;
     //if (codeVars % 2) {dataloader->AddVariable("classify[0]", "classify", "", 'F');}                    codeVars /= 2;
     //if (codeVars % 2) {dataloader->AddVariable("var8_input_pred", "var8_input_pred", "", 'F');}         codeVars /= 2;
     if (codeVars % 2) {dataloader->AddVariable("var4_input_pred", "var4_input_pred", "", 'F');}         codeVars /= 2;
@@ -106,7 +105,7 @@ void TMVA_GF_disc_vars_afterRegression(const char* outFileName, const char* chan
     const char* testTreeEventSplitStr = Form("(Entry$ %% 3) == %d", testSet);
     
     // Apply cuts
-    const char* higgsMass_full = "HCandMass > 100 && HCandMass < 160";
+    const char* higgsMass_full = "HCandMass_varPRED > 100 && HCandMass_varPRED < 160";
     // const char* higgsMass = "HCandMass > 115 && HCandMass < 135";
     const char* nanRemove = "!TMath::IsNaN(goodMeson_massErr) && !TMath::IsNaN(sigmaHCandMass_Rel2)";
     
