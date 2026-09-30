@@ -1,6 +1,6 @@
 # Search for rare Higgs boson decays to a photon and a meson
 
-This repository contains the analysis code and [2023 ETH Zürich master's thesis](finished_thesis/main.pdf) by Martí Pedemonte Bernat, conducted at MIT, for a search for $H \to M\gamma$, where $M$ is a $\phi$, $\omega$, or $D^{*0}$ meson.
+This repository contains the analysis code and [2023 ETH Zürich master's thesis](finished_thesis/main.pdf) ([MIT-hosted copy](https://ppc.mit.edu/wp-content/uploads/2026/02/MPedemonte_MscThesisETH.pdf)) by Martí Pedemonte Bernat, conducted at MIT, for a search for $H \to M\gamma$, where $M$ is a $\phi$, $\omega$, or $D^{*0}$ meson.
 
 |                           | At a glance                                                                                                                                                                                                                                                                                                       |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
